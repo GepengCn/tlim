@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin>
+    <class>com.itonglian.IMPlugin</class>
+    <name>tlim</name>
+    <description>IM Plugin</description>
+    <author>Gepeng</author>
+    <version>1.1.1</version>
+    <date>02/08/2018</date>
+    <minServerVersion>4.1.6</minServerVersion>
+
+    <adminconsole>
+
+        <tab id="tlim" name="tlim" url="message-filter.jsp" description="Click to manage...">
+            <sidebar id="tlimbar" name="tlimbar">
+                <item id="tlimPlugin" name="IMplugin for tonglian"
+                      url="message-filter.jsp"
+                      description="momitor the message" />
+            </sidebar>
+        </tab>
+
+    </adminconsole>
+
+</plugin>

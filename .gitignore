@@ -1,0 +1,9 @@
+work
+*.class
+*.iml
+.idea
+*.jar
+out
+target/openfire/logs/*
+
+
