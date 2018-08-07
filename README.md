@@ -310,10 +310,14 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     a. client发送新增会话http请求给openfire服务器
     b. openfire处理后返回结果
 
-    3. 参数
+    3.请求地址
 
-    3.1. session_type:'1'
-    3,2. subscribers:[
+    http://coolweb.club:9090/plugin/tlim/addSession
+
+    4. 参数
+
+    4.1. session_type:'1'
+    4.2. subscribers:[
       {
           user_id:'clientA'
       },
@@ -325,7 +329,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
       }
     ]
 
-    4. 返回值:json对象
+    5. 返回值:json对象
     {
         result:'ok/fail',
         result_detail:'ok/error-001',
