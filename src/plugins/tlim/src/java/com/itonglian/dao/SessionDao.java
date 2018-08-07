@@ -20,6 +20,8 @@ public interface SessionDao {
 
     public void update(OfSession session);
 
+    public void updateNameById(String sessionId,String sessionName);
+
     public OfSession findEntityById(String sessionId);
 
 

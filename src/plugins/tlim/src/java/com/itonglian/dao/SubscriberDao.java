@@ -22,4 +22,6 @@ public interface SubscriberDao {
     public OfSubscriber findEntityById(String userId);
 
     public List<OfSubscriber> findSubscribers(String sessionId);
+
+    public void deleteBySession(String sessionId);
 }

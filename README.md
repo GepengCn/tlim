@@ -103,6 +103,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     error-004:session_user为空或不存在
     error-005:解析json失败
     error-006:body不是有效数组
+    error-007:session_id为空
 ## 六、接口列表
 
 ###### 发送文本消息
@@ -391,21 +392,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         result:'ok/fail',
         result_detail:'ok/error-001',
         session_id:'asa8ww8w-as99zxc9qe-s0adasd8',
-        session_name:'nameA,nameB,nameC',
-        session_type:'1',
-        session_user:'adwdasc-as9das9d8w-8asd8a',
-        session_modify_time:'159020291828',
-        subscribers:[
-          {
-              user_id:'clientA'
-          },
-          {
-              user_id:'clientB'
-          },
-          {
-              user_id:'clientD'
-          }
-        ]
+        session_modify_time:'1591299123873'
 
     }
 
@@ -432,7 +419,6 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         result:'ok/fail',
         result_detail:'ok/error-001',
         session_id:'asa8ww8w-as99zxc9qe-s0adasd8',
-        session_type:'1',
         session_delete_time:'159020291828'
     }
 

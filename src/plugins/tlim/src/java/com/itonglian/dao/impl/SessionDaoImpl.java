@@ -16,6 +16,10 @@ public class SessionDaoImpl implements SessionDao {
 
     private static final String INSERT = "INSERT INTO ofsession (session_id,session_type,session_name,session_create_time,session_modify_time,session_delete_time,session_valid,session_user) VALUES(?,?,?,?,?,?,?,?)";
 
+    private static final String UPDATE_NAME_BY_ID = "UPDATE TABLE ofsession SET session_name = ? WHERE session_id = ?";
+
+    private static final String DELETE = "DELETE FROM ofsession WHERE session_id = ?";
+
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     public static SessionDao getInstance(){
@@ -49,12 +53,40 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void delete(String sessionId) {
-
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setString(1,sessionId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
     @Override
     public void update(OfSession session) {
 
+    }
+
+    @Override
+    public void updateNameById(String sessionId, String sessionName) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_NAME_BY_ID);
+            preparedStatement.setString(1,sessionName);
+            preparedStatement.setString(2,sessionId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
     @Override

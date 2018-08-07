@@ -24,6 +24,10 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     private static final String QUERY_SUBSCRIBERS = "SELECT * FROM ofsubscribers WHERE session_id = ?";
 
+    private static final String DELETE = "DELETE FROM ofsubscriber WHERE user_id = ?";
+
+    private static final String DELETE_BY_SESSION = "DELETE FROM ofsubscriber WHERE session_id = ? ";
+
     public static SubscriberDao getInstance(){
         return subscriberDao;
     }
@@ -52,7 +56,18 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     @Override
     public void delete(String userId) {
-
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setString(1,userId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
     @Override
@@ -93,6 +108,22 @@ public class SubscriberDaoImpl implements SubscriberDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return null;
+    }
+
+    @Override
+    public void deleteBySession(String sessionId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_BY_SESSION);
+            preparedStatement.setString(1,sessionId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
 
