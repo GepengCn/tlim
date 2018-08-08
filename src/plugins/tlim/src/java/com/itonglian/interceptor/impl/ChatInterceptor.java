@@ -1,27 +1,11 @@
 package com.itonglian.interceptor.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
-import com.itonglian.dao.SessionDao;
-import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
-import com.itonglian.dao.impl.SessionDaoImpl;
-import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.entity.OfSession;
-import com.itonglian.entity.OfSubscriber;
-import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
-import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.StringUtils;
-import org.jivesoftware.openfire.PacketDeliverer;
-import org.jivesoftware.openfire.XMPPServer;
 import org.xmpp.packet.Message;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * <p> 概述：聊天类消息拦截器
@@ -34,181 +18,27 @@ public class ChatInterceptor implements Interceptor {
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
 
-    SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
-
-    SessionDao sessionDao = SessionDaoImpl.getInstance();
-
-    PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
-
-
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
 
+        OfMessage ofMessage = new OfMessage();
 
+        ofMessage.setMsgId(protocol.getMsgId());
 
-        String suffix = protocol.getMsgType().split("-")[1];
+        ofMessage.setMsgType(protocol.getMsgType());
 
-        switch (suffix){
-            case "000":
+        ofMessage.setMsgFrom(protocol.getFrom());
 
-                List<Text> textList = JSONObject.parseArray(protocol.getBody(),Text.class);
+        ofMessage.setMsgTo(protocol.getTo());
 
-                Iterator<Text> textIterator = textList.iterator();
+        ofMessage.setMsgTime(protocol.getMsgTime());
 
-                while(textIterator.hasNext()){
+        ofMessage.setBody(protocol.getBody());
 
-                    Text text = textIterator.next();
-
-                    ifTextIsSession(text,protocol,message);
-                }
-
-
-                break;
-            case "001":
-            case "002":
-            case "003":
-
-                List<File> fileList = JSONArray.parseArray(protocol.getBody(),File.class);
-
-                Iterator<File> fileIterator = fileList.iterator();
-
-                while(fileIterator.hasNext()){
-
-                    File file = fileIterator.next();
-
-                    ifFileIsSession(file,protocol,message);
-                }
-
-
-                break;
-            default:
-                break;
-        }
+        chatDao.add(ofMessage);
 
 
     }
 
-    private void ifTextIsSession(Text text,Protocol protocol,Message message) throws Exception {
-        String sessionId = text.getSessionId();
 
-        if(isValidSession(sessionId,message)){
-
-            batchRoute(sessionId,protocol,message);
-
-        }
-    }
-
-    private void ifFileIsSession(File file,Protocol protocol,Message message) throws Exception {
-        String sessionId = file.getSessionId();
-
-        if(isValidSession(sessionId,message)){
-
-            batchRoute(sessionId,protocol,message);
-
-        }
-    }
-
-    private boolean isValidSession(String sessionId,Message message) throws Exception {
-
-        //session_id不为空，代表是群消息
-        if(StringUtils.isNullOrEmpty(sessionId)){
-            return false;
-        }
-
-        OfSession ofSession = sessionDao.findEntityById(sessionId);
-
-        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSessionId())){
-
-            throw new ExceptionReply("error-006",message,packetDeliverer);
-        }
-
-        return true;
-    }
-
-    private void batchRoute(String sessionId,Protocol protocol,Message message) throws Exception {
-
-        List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(sessionId);
-
-        if(subscriberList == null){
-            return;
-        }
-
-        Iterator<OfSubscriber> iterator = subscriberList.iterator();
-
-        while(iterator.hasNext()){
-
-            OfSubscriber ofSubscriber = iterator.next();
-
-            String msgTo = ofSubscriber.getUserId();
-
-            OfMessage ofMessage = new OfMessage();
-
-            ofMessage.setMsgId(protocol.getMsgId());
-
-            ofMessage.setMsgType(protocol.getMsgType());
-
-            ofMessage.setMsgFrom(protocol.getFrom());
-
-            ofMessage.setMsgTo(msgTo);
-
-            ofMessage.setMsgTime(protocol.getMsgTime());
-
-            ofMessage.setBody(protocol.getBody());
-
-            chatDao.add(ofMessage);
-
-            if(protocol.getTo().equals(msgTo)){
-                continue;
-            }
-
-            message.setTo(MessageUtils.toJid(msgTo));
-
-            packetDeliverer.deliver(message);
-        }
-    }
-
-
-    private static class Text{
-        private String msgId;
-
-        private String sessionId;
-
-        public String getMsgId() {
-            return msgId;
-        }
-
-        public void setMsgId(String msgId) {
-            this.msgId = msgId;
-        }
-
-        public String getSessionId() {
-            return sessionId;
-        }
-
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-    }
-
-    private static class File{
-        private String fileId;
-
-        private String sessionId;
-
-        public String getFileId() {
-            return fileId;
-        }
-
-        public void setFileId(String fileId) {
-            this.fileId = fileId;
-        }
-
-        public String getSessionId() {
-            return sessionId;
-        }
-
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-    }
 }

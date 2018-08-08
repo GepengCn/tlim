@@ -56,9 +56,9 @@
   <database> 
     <defaultProvider> 
       <driver>com.mysql.jdbc.Driver</driver>  
-      <serverURL>jdbc:mysql://123.207.154.188:3306/ofdb?rewriteBatchedStatements=true</serverURL>  
-      <username encrypted="true">8ccd3259baff7074e4a94d835f1fd34b17c0bb72b2d82bff</username>  
-      <password encrypted="true">ab4c42fa5e5faf753930602cec3cfea346ad66d70c42ebf8</password>  
+      <serverURL>jdbc:mysql://123.207.154.188:3306/ofdb?rewriteBatchedStatements=true&amp;amp;useSSL=false</serverURL>  
+      <username encrypted="true">445d8a297376c241d3c3f2915797777af183b3d6ffb50e8f</username>  
+      <password encrypted="true">b9e7d1447944914eea8d3c4fe70efe7c2a2dc2d230876ce0</password>  
       <testSQL>select 1</testSQL>  
       <testBeforeUse>false</testBeforeUse>  
       <testAfterUse>false</testAfterUse>  
