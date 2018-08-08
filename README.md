@@ -41,6 +41,7 @@
         to:'b4842821-0f8a-48f9-9492-89c20c3889a5',
         msg_id:'fd6c568e-19ca-4e4e-9709-24dec0bb2b8d',
         msg_type:'MTT-001',
+        msg_time:'1599218283837',
         body:body
     }
 
@@ -57,7 +58,7 @@ encode | 编码格式 | 1 |   1.0.0   |   String  |   20   |
 encrypt | 加密方式 | 1 |   1.0.0   |   String  |   50   |
 version | 版本号 | 1 |   1.0.0   |   String  |   10   |
 msg_id | 消息id，唯一，uuid | 1 |   1.0.0   |   String  |   64   |
-ts | 时间戳 | 1 |   1.0.0   |   String  |   20   |
+msg_time | 时间戳 | 1 |   1.0.0   |   String  |   20   |
 from | userId | 1 |   1.0.0   |   String  |   64   |
 to | userId | 1 |   1.0.0   |   String  |   64   |
 [msg_type](#三消息类型) | MTT:message type talk <br>HTS:http type session<br>MTC:message type command<br>FO:file operate| 1 |   1.0.0   |    String  |   20   |

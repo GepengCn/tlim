@@ -43,7 +43,7 @@ public class ModifySession extends HttpServlet {
 
         PrintWriter printWriter = resp.getWriter();
 
-        String sessionId = req.getParameter("sesison_id");
+        String sessionId = req.getParameter("session_id");
 
         String sessionName = req.getParameter("session_name");
 
@@ -68,7 +68,7 @@ public class ModifySession extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req, resp);
+        this.doGet(req, resp);
     }
 
     private void doBack(BackJson backJson, PrintWriter printWriter){
@@ -100,6 +100,7 @@ public class ModifySession extends HttpServlet {
                     if(user == null){
                         break;
                     }
+                    subscriberDao.delete(handlerSubcriber.getUserId());
                     OfSubscriber ofSubscriber = new OfSubscriber();
                     ofSubscriber.setUserId(user.getUserId());
                     ofSubscriber.setUserName(user.getUserName());
@@ -179,7 +180,7 @@ public class ModifySession extends HttpServlet {
         }
     }
 
-    private class HandlerSubcriber{
+    private static class HandlerSubcriber{
 
         private String userId;
 

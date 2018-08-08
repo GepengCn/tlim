@@ -22,6 +22,8 @@ public class Protocol {
 
     private String body;
 
+    private String msgTime;
+
     public String getCompress() {
         return compress;
     }
@@ -72,6 +74,14 @@ public class Protocol {
 
     public String getTs() {
         return ts;
+    }
+
+    public String getMsgTime() {
+        return msgTime;
+    }
+
+    public void setMsgTime(String msgTime) {
+        this.msgTime = msgTime;
     }
 
     public void setTs(String ts) {

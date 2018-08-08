@@ -141,7 +141,7 @@ public class AddSession extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req, resp);
+        this.doGet(req, resp);
     }
 
 
