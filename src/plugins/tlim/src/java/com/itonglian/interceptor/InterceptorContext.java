@@ -1,9 +1,7 @@
 package com.itonglian.interceptor;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
-import com.itonglian.enums.PacketType;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.impl.ChatInterceptor;
 import com.itonglian.interceptor.impl.CommandInterceptor;
@@ -12,7 +10,6 @@ import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import com.itonglian.view.MessageStatistics;
 import org.jivesoftware.openfire.session.Session;
-import org.jivesoftware.util.Log;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
 import org.xmpp.packet.PacketExtension;
@@ -29,7 +26,7 @@ public class InterceptorContext {
 
     private Interceptor interceptor;
 
-    public void handler(Packet packet,Session session) throws ExceptionReply {
+    public void handler(Packet packet,Session session) throws Exception {
 
         if(!(packet instanceof Message)){
             return;

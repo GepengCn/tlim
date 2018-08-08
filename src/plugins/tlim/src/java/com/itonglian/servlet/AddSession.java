@@ -110,9 +110,11 @@ public class AddSession extends HttpServlet {
 
             String sessionName = StringUtils.join(sessionNameList,",");
 
+            String sessionCreateTime = MessageUtils.getTs();
+
             ofSession.setSessionName(StringUtils.join(sessionNameList,","));
             ofSession.setSessionType(intSessionType);
-            ofSession.setSessionCreateTime(MessageUtils.getTs());
+            ofSession.setSessionCreateTime(sessionCreateTime);
             ofSession.setSessionValid(0);
             ofSession.setSessionUser(requestUser);
 
@@ -125,7 +127,7 @@ public class AddSession extends HttpServlet {
                     sessionName,
                     intSessionType,
                     requestUser,
-                    MessageUtils.getTs(),
+                    sessionCreateTime,
                     userOnlyIds
             );
             doBack(backJson,printWriter);

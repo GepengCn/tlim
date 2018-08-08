@@ -16,7 +16,7 @@ public class OfMessage {
     /** 消息接收者;userId */
     private String msgTo;
     /** 时间戳 */
-    private String ts;
+    private String msgTime;
     /** 消息体 */
     private String body;
 
@@ -52,19 +52,19 @@ public class OfMessage {
         this.msgTo = msgTo;
     }
 
-    public String getTs() {
-        return ts;
-    }
-
-    public void setTs(String ts) {
-        this.ts = ts;
-    }
-
     public String getBody() {
         return body;
     }
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getMsgTime() {
+        return msgTime;
+    }
+
+    public void setMsgTime(String msgTime) {
+        this.msgTime = msgTime;
     }
 }

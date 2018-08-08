@@ -14,7 +14,7 @@ import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.UserCacheManager;
 import org.apache.commons.lang.StringUtils;
-import org.jivesoftware.openfire.MessageRouter;
+import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.xmpp.packet.Message;
 
@@ -34,20 +34,21 @@ public class SessionInterceptor implements Interceptor {
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
-    @Override
-    public void handler(Protocol protocol, Message message) throws ExceptionReply {
 
-        MessageRouter messageRouter = XMPPServer.getInstance().getMessageRouter();
+    PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
+
+    @Override
+    public void handler(Protocol protocol, Message message) throws Exception {
 
         JSONArray jsonArray = JSONArray.parseArray(protocol.getBody());
         if(jsonArray == null ||jsonArray.size()==0){
-            throw new ExceptionReply("error-006",message,messageRouter);
+            throw new ExceptionReply("error-006",message,packetDeliverer);
         }
 
         SessionAddtion sessionAddtion = jsonArray.getObject(0,SessionAddtion.class);
 
         if(sessionAddtion ==null){
-            throw new ExceptionReply("error-006",message,messageRouter);
+            throw new ExceptionReply("error-006",message,packetDeliverer);
         }
 
         // 保存订阅者

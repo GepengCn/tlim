@@ -2,7 +2,6 @@ package com.itonglian;
 
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
-import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.InterceptorContext;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.container.Plugin;
@@ -13,6 +12,9 @@ import org.jivesoftware.openfire.interceptor.PacketRejectedException;
 import org.jivesoftware.openfire.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmpp.component.ComponentException;
+import org.xmpp.component.ComponentManager;
+import org.xmpp.packet.JID;
 import org.xmpp.packet.Packet;
 
 import java.io.File;
@@ -24,15 +26,19 @@ import java.io.File;
  * <p> 创建时间：2018/8/1 15:16
  * <p> 类调用特殊情况：
  */
-public class IMPlugin implements Plugin,PacketInterceptor {
+public class IMPlugin implements Plugin,PacketInterceptor, org.xmpp.component.Component {
     InterceptorManager interceptorManager = InterceptorManager.getInstance();
 
     private static final Logger Log = LoggerFactory.getLogger(IMPlugin.class);
 
 
     UserDao userDao = UserDaoImpl.getInstance();
+
+    private PluginManager pluginManager;
+
     @Override
     public void initializePlugin(PluginManager manager, File pluginDirectory) {
+        this.pluginManager = manager;
         interceptorManager.addInterceptor(this);
         userDao.clear();
         userDao.syncUser();
@@ -46,17 +52,49 @@ public class IMPlugin implements Plugin,PacketInterceptor {
     @Override
     public void interceptPacket(Packet packet, Session session, boolean incoming, boolean processed) throws PacketRejectedException {
 
-        if((!incoming)||processed){
+        if(!incoming||processed){
             return;
         }
 
         InterceptorContext interceptorContext = new InterceptorContext();
 
         try {
+
             interceptorContext.handler(packet,session);
-        } catch (ExceptionReply exceptionReply) {
-            Log.error(ExceptionUtils.getFullStackTrace(exceptionReply));
+
+        } catch (Exception e) {
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }
+
+    }
+
+    @Override
+    public String getName() {
+        return pluginManager.getName(this);
+    }
+
+    @Override
+    public String getDescription() {
+        return pluginManager.getDescription(this);
+    }
+
+    @Override
+    public void processPacket(Packet packet) {
+
+    }
+
+    @Override
+    public void initialize(JID jid, ComponentManager componentManager) throws ComponentException {
+
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void shutdown() {
 
     }
 }

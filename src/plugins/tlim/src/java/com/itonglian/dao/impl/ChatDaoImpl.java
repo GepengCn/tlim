@@ -17,7 +17,7 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final ChatDao chatDao = new ChatDaoImpl();
 
-    private static final String INSERT = "INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,ts,body) VALUES(?,?,?,?,?,?)";
+    private static final String INSERT = "INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body) VALUES(?,?,?,?,?,?)";
 
     private static final String DELETE = "DELETE FROM ofmessage WHERE msg_id=?";
 
@@ -41,7 +41,7 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement.setString(i++,ofMessage.getMsgType());
             preparedStatement.setString(i++,ofMessage.getMsgFrom());
             preparedStatement.setString(i++,ofMessage.getMsgTo());
-            preparedStatement.setString(i++,ofMessage.getTs());
+            preparedStatement.setString(i++,ofMessage.getMsgTime());
             preparedStatement.setString(i++,ofMessage.getBody());
             preparedStatement.execute();
         }catch (Exception e){
@@ -91,7 +91,7 @@ public class ChatDaoImpl implements ChatDao {
                 ofMessage.setMsgType(resultSet.getString("msg_type"));
                 ofMessage.setMsgFrom(resultSet.getString("msg_from"));
                 ofMessage.setMsgType(resultSet.getString("msg_to"));
-                ofMessage.setTs(resultSet.getString("ts"));
+                ofMessage.setMsgTime(resultSet.getString("msg_time"));
                 ofMessage.setBody(resultSet.getString("body"));
                 return ofMessage;
             }

@@ -22,7 +22,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     private static final String INSERT = "INSERT INTO ofsubscriber (user_id,user_name,acct_login,pic,session_id,ts) VALUES(?,?,?,?,?,?)";
 
-    private static final String QUERY_SUBSCRIBERS = "SELECT * FROM ofsubscribers WHERE session_id = ?";
+    private static final String QUERY_SUBSCRIBERS = "SELECT * FROM ofsubscriber WHERE session_id = ?";
 
     private static final String DELETE = "DELETE FROM ofsubscriber WHERE user_id = ?";
 

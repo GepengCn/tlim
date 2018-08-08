@@ -1,7 +1,10 @@
 package com.itonglian.exception;
 
 import org.jivesoftware.openfire.MessageRouter;
+import org.jivesoftware.openfire.PacketDeliverer;
+import org.jivesoftware.openfire.PacketRouter;
 import org.jivesoftware.openfire.XMPPServer;
+import org.jivesoftware.openfire.auth.UnauthorizedException;
 import org.jivesoftware.openfire.session.Session;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
@@ -16,9 +19,9 @@ public class ExceptionReply extends Exception{
         session.process(message);
     }
 
-    public ExceptionReply(String error,Message message,MessageRouter messageRouter) {
+    public ExceptionReply(String error,Message message,PacketDeliverer packetDeliverer) throws UnauthorizedException {
         message.setTo(message.getFrom());
         message.setBody(error);
-        messageRouter.route(message);
+        packetDeliverer.deliver(message);
     }
 }

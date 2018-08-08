@@ -1,21 +1,25 @@
 package com.itonglian.interceptor.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
+import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import org.jivesoftware.openfire.MessageRouter;
+import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.xmpp.packet.Message;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,74 +36,102 @@ public class ChatInterceptor implements Interceptor {
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
+    SessionDao sessionDao = SessionDaoImpl.getInstance();
+
+    PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
+
+
     @Override
-    public void handler(Protocol protocol,Message message) {
+    public void handler(Protocol protocol, Message message) throws Exception {
 
-        OfMessage ofMessage = new OfMessage();
 
-        ofMessage.setMsgId(protocol.getMsgId());
-
-        ofMessage.setMsgType(protocol.getMsgType());
-
-        ofMessage.setMsgFrom(protocol.getFrom());
-
-        ofMessage.setMsgTo(protocol.getTo());
-
-        ofMessage.setTs(new Date().getTime()+"");
-
-        ofMessage.setBody(protocol.getBody());
-
-        chatDao.add(ofMessage);
 
         String suffix = protocol.getMsgType().split("-")[1];
 
         switch (suffix){
             case "000":
 
-                Text text = JSONObject.parseObject(protocol.getBody(),Text.class);
+                List<Text> textList = JSONObject.parseArray(protocol.getBody(),Text.class);
 
-                ifTextIsSession(text,protocol,message);
+                Iterator<Text> textIterator = textList.iterator();
+
+                while(textIterator.hasNext()){
+
+                    Text text = textIterator.next();
+
+                    ifTextIsSession(text,protocol,message);
+                }
+
 
                 break;
             case "001":
             case "002":
             case "003":
 
-                File file = JSONObject.parseObject(protocol.getBody(),File.class);
+                List<File> fileList = JSONArray.parseArray(protocol.getBody(),File.class);
 
-                ifFileIsSession(file,protocol,message);
+                Iterator<File> fileIterator = fileList.iterator();
+
+                while(fileIterator.hasNext()){
+
+                    File file = fileIterator.next();
+
+                    ifFileIsSession(file,protocol,message);
+                }
+
 
                 break;
             default:
                 break;
         }
 
+
     }
 
-    private void ifTextIsSession(Text text,Protocol protocol,Message message){
+    private void ifTextIsSession(Text text,Protocol protocol,Message message) throws Exception {
         String sessionId = text.getSessionId();
 
-        if(!StringUtils.isNullOrEmpty(sessionId)){
-            //session_id不为空，代表是群消息
+        if(isValidSession(sessionId,message)){
+
             batchRoute(sessionId,protocol,message);
 
         }
     }
 
-    private void ifFileIsSession(File file,Protocol protocol,Message message){
+    private void ifFileIsSession(File file,Protocol protocol,Message message) throws Exception {
         String sessionId = file.getSessionId();
 
-        if(!StringUtils.isNullOrEmpty(sessionId)){
-            //session_id不为空，代表是群消息
+        if(isValidSession(sessionId,message)){
+
             batchRoute(sessionId,protocol,message);
 
         }
     }
 
-    private void batchRoute(String sessionId,Protocol protocol,Message message){
-        MessageRouter messageRouter = XMPPServer.getInstance().getMessageRouter();
+    private boolean isValidSession(String sessionId,Message message) throws Exception {
+
+        //session_id不为空，代表是群消息
+        if(StringUtils.isNullOrEmpty(sessionId)){
+            return false;
+        }
+
+        OfSession ofSession = sessionDao.findEntityById(sessionId);
+
+        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSessionId())){
+
+            throw new ExceptionReply("error-006",message,packetDeliverer);
+        }
+
+        return true;
+    }
+
+    private void batchRoute(String sessionId,Protocol protocol,Message message) throws Exception {
 
         List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(sessionId);
+
+        if(subscriberList == null){
+            return;
+        }
 
         Iterator<OfSubscriber> iterator = subscriberList.iterator();
 
@@ -109,18 +141,34 @@ public class ChatInterceptor implements Interceptor {
 
             String msgTo = ofSubscriber.getUserId();
 
-            if(protocol.getFrom().equals(msgTo)){
+            OfMessage ofMessage = new OfMessage();
+
+            ofMessage.setMsgId(protocol.getMsgId());
+
+            ofMessage.setMsgType(protocol.getMsgType());
+
+            ofMessage.setMsgFrom(protocol.getFrom());
+
+            ofMessage.setMsgTo(msgTo);
+
+            ofMessage.setMsgTime(protocol.getMsgTime());
+
+            ofMessage.setBody(protocol.getBody());
+
+            chatDao.add(ofMessage);
+
+            if(protocol.getTo().equals(msgTo)){
                 continue;
             }
 
             message.setTo(MessageUtils.toJid(msgTo));
 
-            messageRouter.route(message);
+            packetDeliverer.deliver(message);
         }
     }
 
 
-    private class Text{
+    private static class Text{
         private String msgId;
 
         private String sessionId;
@@ -142,7 +190,7 @@ public class ChatInterceptor implements Interceptor {
         }
     }
 
-    private class File{
+    private static class File{
         private String fileId;
 
         private String sessionId;

@@ -1,6 +1,7 @@
 package com.itonglian.dao.impl;
 
 import com.itonglian.dao.SessionDao;
+import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class SessionDaoImpl implements SessionDao {
 
@@ -22,6 +24,8 @@ public class SessionDaoImpl implements SessionDao {
     private static final String DELETE = "DELETE FROM ofsession WHERE session_id = ?";
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
+
+    private static final String QUERY_BY_ID = "SELECT * FROM ofsession WHERE session_id = ?";
 
     public static SessionDao getInstance(){
         return sessionDao;
@@ -93,6 +97,31 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public OfSession findEntityById(String sessionId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(QUERY_BY_ID);
+            preparedStatement.setString(1,sessionId);
+            resultSet = preparedStatement.executeQuery();
+            OfSession ofSession = new OfSession();
+            if(resultSet.next()){
+                ofSession.setSessionId(resultSet.getString("session_id"));
+                ofSession.setSessionName(resultSet.getString("session_name"));
+                ofSession.setSessionType(resultSet.getInt("session_type"));
+                ofSession.setSessionUser(resultSet.getString("session_user"));
+                ofSession.setSessionValid(resultSet.getInt("session_valid"));
+                ofSession.setSessionCreateTime(resultSet.getString("session_create_time"));
+                ofSession.setSessionDeleteTime(resultSet.getString("session_delete_time"));
+                ofSession.setSessionModifyTime(resultSet.getString("session_modify_time"));
+                return ofSession;
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
         return null;
     }
 
