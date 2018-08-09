@@ -56,6 +56,10 @@ public class AddSession extends HttpServlet {
 
         int intSessionType =com.itonglian.utils.StringUtils.stringToInt(sessionType);
 
+        resp.setCharacterEncoding("utf-8");
+
+        resp.setContentType("application/json;charset=utf-8");
+
         PrintWriter printWriter = resp.getWriter();
 
         try {

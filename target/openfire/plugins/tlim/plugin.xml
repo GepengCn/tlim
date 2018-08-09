@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin>
-    <class>com.itonglian.IMPlugin</class>
-    <name>tlim</name>
-    <description>IM Plugin</description>
+    <class>com.itonglian.TonglianImPlugin</class>
+    <name>Instant Message Plugin for tonglian</name>
+    <description>即时通讯插件</description>
     <author>Gepeng</author>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <date>02/08/2018</date>
-    <minServerVersion>4.1.6</minServerVersion>
+    <minServerVersion>4.2.3</minServerVersion>
 
     <adminconsole>
 
-        <tab id="tlim" name="tlim" url="message-filter.jsp" description="Click to manage...">
+        <tab id="tlim" name="即时通讯" url="message-filter.jsp" description="Click to manage...">
             <sidebar id="tlimbar" name="tlimbar">
-                <item id="tlimPlugin" name="IMplugin for tonglian"
+                <item id="tlimPlugin" name="即时通讯插件"
                       url="message-filter.jsp"
-                      description="momitor the message" />
+                      description="同联定制" />
             </sidebar>
         </tab>
 

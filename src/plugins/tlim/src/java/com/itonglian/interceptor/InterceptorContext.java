@@ -74,7 +74,7 @@ public class InterceptorContext {
                 return;
         }
 
-        MessageStatistics.add(jsonStr);
+        MessageStatistics.add(message.toXML());
         interceptor.handler(protocol,message);
     }
 

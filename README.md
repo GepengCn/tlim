@@ -1,6 +1,6 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.2<br>
-> 更新于:2017年8月3日<br>
+> 版本:1.2.3<br>
+> 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
 
@@ -8,25 +8,30 @@
 > [一、消息结构](#一消息结构)<br>
 > [二、消息字段表](#二消息字段表)<br>
 > [三、消息类型](#三消息类型)<br>
-> [四、会话类型](#四会话类型)<br>
-> [五、错误码](#五错误码)<br>
-> [六、<span id="interface">接口列表](#六接口列表)</span>
+> [四、错误码](#四错误码)<br>
+> [五、<span id="interface">接口列表](#五接口列表)</span>
 >>    1. [发送文本消息](#发送文本消息)<br>
 >>    2. [发送图片消息](#发送图片消息)<br>
 >>    3. [发送文件消息](#发送文件消息)<br>
 >>    4. [发送语音消息](#发送语音消息)<br>
->>    5. [收到消息回执](#收到消息回执)<br>
->>    6. [已读消息回执](#已读消息回执)<br>
->>    7. [消息撤回](#消息撤回)<br>
->>    8. [新增会话](#新增会话)<br>
->>    9. [更新会话](#更新会话)<br>
->>    10. [删除会话](#删除会话)<br>
->>    11. [文件下载](#文件下载)<br>
->>    12. [文件上传](#文件上传)<br>
+>>    5. [群文本消息](#群文本消息)<br>
+>>    6. [群图片消息](#群图片消息)<br>
+>>    7. [群文件消息](#群文件消息)<br>
+>>    8. [群语音消息](#群语音消息)<br>
+>>    9. [已收回执](#已收回执)<br>
+>>    10. [已读回执](#已读回执)<br>
+>>    10. [群已读回执](#群已读回执)<br>
+>>    11. [消息撤回](#消息撤回)<br>
+>>    12. [群消息撤回](#群消息撤回)<br>
+>>    13. [新增会话](#新增会话)<br>
+>>    14. [更新会话](#更新会话)<br>
+>>    15. [删除会话](#删除会话)<br>
+>>    16. [文件下载](#文件下载)<br>
+>>    17. [文件上传](#文件上传)<br>
 >>
-> 七、[流程](#流程)<br>
-> 八、[Smack API相关](#八smack-api相关)<br>
-> 九、[本次改动](#本次改动)
+> 六、[流程](#流程)<br>
+> 七、[Smack API相关](#八smack-api相关)<br>
+> 八、[本次改动](#本次改动)
 
 
 
@@ -94,13 +99,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     HFO-001:上传文件
 
 
-## 四、会话类型
-
-    0 : 群聊天
-    1 : 通知
-    2 : 打卡
-
-## 五、错误码
+## 四、错误码
 
     error-000:body为空或无效
     error-001:msg_type为空或无效
@@ -110,7 +109,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     error-005:解析json失败
     error-006:body不是有效数组
     error-007:session_id为空
-## 六、接口列表
+## 五、接口列表
 
 ###### 发送文本消息
 
@@ -129,12 +128,9 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-            """session_id:'asd8dw-asdasd-211dadadaw-12dadadawd',"""
             text:'hello,world'
         }
     ]
-
-    """包含的是可选参数"""
 
 
 ---
@@ -157,12 +153,10 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-            """session_id:'asd8dw-asdasd-211dadadaw-12dadadawd',"""
             file_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
     ]
 
-      """包含的是可选参数"""
 
 ---
 ###### 发送文件消息
@@ -183,12 +177,10 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-          """session_id:'asd8dw-asdasd-211dadadaw-12dadadawd',"""
             file_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
     ]
 
-    """包含的是可选参数"""
 
 ---
 
@@ -210,17 +202,116 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-            """session_id:'asd8dw-asdasd-211dadadaw-12dadadawd',"""
             file_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
     ]
 
-    """包含的是可选参数"""
+
+
+---
+###### 群文本消息
+
+    1. 接口定义:
+
+    发送文本类型消息
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'2asd221ssa-ssd222aascxz-ssaa',
+            text:'hello,world'
+        }
+    ]
 
 
 ---
 
-###### 收到消息回执
+###### 群图片消息
+
+    1. 接口定义:
+
+    发送图片类型消息
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. 上传图片到应用服务器并获取到fileId
+    b. clientA发送fileId到openfire服务器
+    c. openfire服务器解析、校验、存储
+    d. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'2asd221ssa-ssd222aascxz-ssaa',
+            file_id:'2asd221ssa-ssd222aascxz-ssaa'
+        }
+    ]
+
+
+---
+###### 群文件消息
+
+    1. 接口定义:
+
+    发送文件类型消息
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. 上传文件到应用服务器并获取到fileId
+    b. clientA发送fileId到openfire服务器
+    c. openfire服务器解析、校验、存储
+    d. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'2asd221ssa-ssd222aascxz-ssaa',
+            file_id:'2asd221ssa-ssd222aascxz-ssaa'
+        }
+    ]
+
+
+---
+
+###### 群语音消息
+
+    1. 接口定义:
+
+    发送语音类型消息
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. 上传语音到应用服务器并获取到fileId
+    b. clientA发送fileId到openfire服务器
+    c. openfire服务器解析、校验、存储
+    d. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'2asd221ssa-ssd222aascxz-ssaa',
+            file_id:'2asd221ssa-ssd222aascxz-ssaa'
+        }
+    ]
+
+
+
+---
+###### 已收回执
 
     1. 接口定义:
 
@@ -228,31 +319,22 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
     2. 接口流程:
 
-    1.使用Smack中API实现消息回执
+    clientB->openfire->clientA
 
-    2.API demo
-    a.监听回执消息
+    a. client发送回执给openfire服务器
+    b. openfire解析、校验、转发
 
-    DeliveryReceiptManager deliveryReceiptManager =DeliveryReceiptManager.getInstanceFor(connection);
-
-    deliveryReceiptManager.setAutoReceiptMode(DeliveryReceiptManager.AutoReceiptMode.always);
-
-    deliveryReceiptManager.addReceiptReceivedListener(new ReceiptReceivedListener() {
-        @Override
-        public void onReceiptReceived(Jid jid, Jid jid1, String s, Stanza stanza) {
-
+    3. body
+    [
+        {
+            msg_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
-    });
-
-    b.发送消息之前，添加回执
-
-    DeliveryReceiptRequest.addTo(message);
-
+    ]
 
 
 
 ---
-###### 已读消息回执
+###### 已读回执
 
     1. 接口定义:
 
@@ -260,8 +342,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
     2. 接口流程:
 
-    1.单聊:clientB->openfire->clientA
-    2.群聊:clientB->openfire->clientA,clientC
+    clientB->openfire->clientA
 
     a. client发送回执给openfire服务器
     b. openfire解析、校验、转发或广播
@@ -269,12 +350,33 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-            """session_id:'as7da7sd7as-wdasd-w2wda22d-adsd1',"""
             msg_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
     ]
 
-    """包含的是可选参数"""
+
+---
+###### 群已读回执
+
+    1. 接口定义:
+
+    client读取消息后发送回执
+
+    2. 接口流程:
+
+    clientB->openfire->clientA,clientC
+
+    a. client发送回执给openfire服务器
+    b. openfire解析、校验、转发或广播
+
+    3. body
+    [
+        {
+            session_id:'as7da7sd7as-wdasd-w2wda22d-adsd1',
+            msg_id:'2asd221ssa-ssd222aascxz-ssaa'
+        }
+    ]
+
 
 ---
 ###### 消息撤回
@@ -285,7 +387,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
     2. 接口流程:
 
-    clientB->openfire->clientA,[clientC,clientD]
+    clientB->openfire->clientA
 
 
     a. client发送撤回指令给openfire服务器
@@ -294,16 +396,38 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     3. body
     [
         {
-            """session_id:'2d77s7sd-as88d8d8-d88da8sd',"""
             msg_id:'2asd221ssa-ssd222aascxz-ssaa'
         }
     ]
 
-    """包含的是可选参数"""
 
 
 ---
+###### 群消息撤回
 
+    1. 接口定义:
+
+    client撤回已发送消息(默认2min内)
+
+    2. 接口流程:
+
+    clientB->openfire->clientA,clientC,clientD
+
+
+    a. client发送撤回指令给openfire服务器
+    b. openfire解析、校验、发送撤回指令给其它订阅client
+
+    3. body
+    [
+        {
+            session_id:'2d77s7sd-as88d8d8-d88da8sd',
+            msg_id:'2asd221ssa-ssd222aascxz-ssaa'
+        }
+    ]
+
+
+
+---
 ###### 新增会话
 
     1. 接口定义:
@@ -376,32 +500,35 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     a. client发送http请求给openfire服务器
     b. openfire处理后返回结果
 
-    3. 参数
-    3.1 session_id:'2k2jjhhdad-asasdasda-w213123'
-    3.2 session_name:'我的群组A',
-    3.3 subscribers:[
-        {
-            user_id:'clientD',
-            type:'add'
-        },
-         {
-            user_id:'clientC',
-            type:'del'
-        },
+    3.请求地址
+    http://coolweb.club:9090/plugin/tlim/modifySession
 
+    4. 参数
+
+    4.1. session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+    4.2 session_name:'hello,world',
+    4.2. subscribers:[
+      {
+          user_id:'68731eb70ff04ab1b4bfdff065dc0ac9',
+          type:'del'
+      },
+      {
+          user_id:'68128ea81e6346c78b7ac8c149404c3a',
+          type:'del'
+      },
+      {
+          user_id:'5be16456aab44c7e8dcacc51c44de705',
+          type:'add'
+      }
     ]
 
-    注:add/del 意思是新增/删除
-    4. 返回值
-
+    5. 返回值:json对象
     {
-        result:'ok/fail',
-        result_detail:'ok/error-001',
-        session_id:'asa8ww8w-as99zxc9qe-s0adasd8',
-        session_modify_time:'1591299123873'
-
+        "result": "ok",
+        "result_detail": "",
+        "session_id": "efac3b0f-880c-4764-a0c4-beb1718a2cea",
+        "session_modify_time": "1533804920060"
     }
-
 
 ---
 ###### 删除会话
@@ -417,17 +544,21 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     a. client发送http请求给openfire服务器
     b. openfire处理后返回结果
 
-    3. 参数
-    3.1 session_id:'asdadwad-21asd12123-asdasdadwdw121'
+    3.请求地址
+    http://coolweb.club:9090/plugin/tlim/deleteSession
 
-    4.返回值
+    4. 参数
+
+    4.1. session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+
+
+    5. 返回值:json对象
     {
-        result:'ok/fail',
-        result_detail:'ok/error-001',
-        session_id:'asa8ww8w-as99zxc9qe-s0adasd8',
-        session_delete_time:'159020291828'
+        "result": "ok",
+        "result_detail": "",
+        "session_delete_time": "1533805005540",
+        "session_id": "f5709fc2-4ffe-4aa6-b106-51f170d6c109"
     }
-
 
 ---
 
@@ -470,10 +601,10 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
 ---
 
-## 七、流程
+## 六、流程
 ![Alt text][flowPic]
 
-## 八、Smack API相关
+## 七、Smack API相关
 
 1. 域名(domain):```im.itonglian.com```
 2. 用户名(Jid):```userId@im.itonglian.com```
@@ -534,7 +665,15 @@ message.addExtension(new Extension());
 
 
 
-## 九、改动
+## 八、改动
+> 2018年8月9日
+1. 文本、图片、语音、文件类消息拆分成单与群聊两种
+2. 新增修改会话与删除会话接口
+3. 移除会话类型，调整文档结构
+4. 若干bug修复
+5. 修正http中文乱码
+
+
 > 2018年8月6日
 1. 重写新增、修改、删除会话，由消息请求改为http请求
 2. 修改与删除若干消息类型

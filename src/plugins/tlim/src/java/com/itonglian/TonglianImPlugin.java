@@ -26,10 +26,10 @@ import java.io.File;
  * <p> 创建时间：2018/8/1 15:16
  * <p> 类调用特殊情况：
  */
-public class IMPlugin implements Plugin,PacketInterceptor, org.xmpp.component.Component {
+public class TonglianImPlugin implements Plugin,PacketInterceptor, org.xmpp.component.Component {
     InterceptorManager interceptorManager = InterceptorManager.getInstance();
 
-    private static final Logger Log = LoggerFactory.getLogger(IMPlugin.class);
+    private static final Logger Log = LoggerFactory.getLogger(TonglianImPlugin.class);
 
 
     UserDao userDao = UserDaoImpl.getInstance();

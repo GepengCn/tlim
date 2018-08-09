@@ -36,6 +36,10 @@ public class DeleteSession extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        resp.setCharacterEncoding("utf-8");
+
+        resp.setContentType("application/json;charset=utf-8");
+
         PrintWriter printWriter = resp.getWriter();
 
         String sessionId = req.getParameter("session_id");
