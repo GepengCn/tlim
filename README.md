@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.3<br>
+> 版本:1.2.4<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -31,8 +31,8 @@
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
-> 八、[本次改动](#八改动)
-
+> 八、[本次改动](#八改动)<br>
+> 九、[openfire部署][depoyopenfire]
 
 
 ## 一、消息结构
@@ -728,3 +728,5 @@ message.addExtension(new Extension());
 
 
 [flowPic]:https://github.com/GepengCn/tonglian-openfire/blob/master/images/im01.png?raw=true
+
+[depoyopenfire]:https://github.com/GepengCn/tonglian-openfire/blob/master/DEPLOY.md
