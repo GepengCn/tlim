@@ -8,7 +8,6 @@ import com.itonglian.interceptor.impl.CommandInterceptor;
 import com.itonglian.interceptor.impl.SessionInterceptor;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import com.itonglian.view.MessageStatistics;
 import org.jivesoftware.openfire.session.Session;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
@@ -74,7 +73,6 @@ public class InterceptorContext {
                 return;
         }
 
-        MessageStatistics.add(message.toXML());
         interceptor.handler(protocol,message);
     }
 
