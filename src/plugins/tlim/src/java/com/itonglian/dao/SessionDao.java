@@ -24,5 +24,7 @@ public interface SessionDao {
 
     public OfSession findEntityById(String sessionId);
 
+    public List<OfSession> findSessionsByUser(String userId);
+
 
 }

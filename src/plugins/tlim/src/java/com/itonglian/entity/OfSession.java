@@ -24,6 +24,7 @@ public class OfSession {
     /** 会话创建者 */
     private String sessionUser;
 
+
     public String getSessionId() {
         return sessionId;
     }
@@ -87,4 +88,6 @@ public class OfSession {
     public void setSessionUser(String sessionUser) {
         this.sessionUser = sessionUser;
     }
+
+
 }

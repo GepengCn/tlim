@@ -90,6 +90,8 @@ public class AddSession extends HttpServlet {
             List<UserOnlyId> userOnlyIds = new ArrayList<UserOnlyId>();
 
             int i=0;
+            List<String> subsPicUrls = new ArrayList<String>();
+
             while(iterator.hasNext()){
                 OfSubscriber ofSubscriber = iterator.next();
                 User user = UserCacheManager.findUserByKey(ofSubscriber.getUserId());
@@ -104,6 +106,11 @@ public class AddSession extends HttpServlet {
                 subscriberDao.add(ofSubscriber);
                 sessionNameList.add(user.getUserName());
                 userOnlyIds.add(new UserOnlyId(user.getUserId()));
+                String picUrl = user.getPicUrl();
+                if(com.itonglian.utils.StringUtils.isNullOrEmpty(picUrl)){
+                    picUrl = "avatare.png";
+                }
+                subsPicUrls.add(picUrl);
             }
 
             // 保存会话
@@ -121,7 +128,6 @@ public class AddSession extends HttpServlet {
             ofSession.setSessionCreateTime(sessionCreateTime);
             ofSession.setSessionValid(0);
             ofSession.setSessionUser(requestUser);
-
             sessionDao.add(ofSession);
 
             BackJson backJson = new BackJson(

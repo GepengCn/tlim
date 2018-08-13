@@ -33,4 +33,14 @@
         <url-pattern>/deleteSession</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findSessions</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSessions</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSessions</servlet-name>
+        <url-pattern>/findSessions</url-pattern>
+    </servlet-mapping>
+
 </web-app>

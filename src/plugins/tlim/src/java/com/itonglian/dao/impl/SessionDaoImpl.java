@@ -1,7 +1,6 @@
 package com.itonglian.dao.impl;
 
 import com.itonglian.dao.SessionDao;
-import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -12,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionDaoImpl implements SessionDao {
 
@@ -26,6 +27,8 @@ public class SessionDaoImpl implements SessionDao {
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofsession WHERE session_id = ?";
+
+    private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ?";
 
     public static SessionDao getInstance(){
         return sessionDao;
@@ -117,6 +120,38 @@ public class SessionDaoImpl implements SessionDao {
                 ofSession.setSessionModifyTime(resultSet.getString("session_modify_time"));
                 return ofSession;
             }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return null;
+    }
+
+    @Override
+    public List<OfSession> findSessionsByUser(String userId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OfSession> ofSessions = new ArrayList<OfSession>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_SESSIONS_BY_USER);
+            preparedStatement.setString(1,userId);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                OfSession ofSession = new OfSession();
+                ofSession.setSessionId(resultSet.getString("session_id"));
+                ofSession.setSessionName(resultSet.getString("session_name"));
+                ofSession.setSessionType(resultSet.getInt("session_type"));
+                ofSession.setSessionUser(resultSet.getString("session_user"));
+                ofSession.setSessionValid(resultSet.getInt("session_valid"));
+                ofSession.setSessionCreateTime(resultSet.getString("session_create_time"));
+                ofSession.setSessionDeleteTime(resultSet.getString("session_delete_time"));
+                ofSession.setSessionModifyTime(resultSet.getString("session_modify_time"));
+                ofSessions.add(ofSession);
+            }
+            return ofSessions;
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
