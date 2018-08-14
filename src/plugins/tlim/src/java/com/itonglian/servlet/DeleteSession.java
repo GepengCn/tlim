@@ -40,6 +40,8 @@ public class DeleteSession extends HttpServlet {
 
         resp.setContentType("application/json;charset=utf-8");
 
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+
         PrintWriter printWriter = resp.getWriter();
 
         String sessionId = req.getParameter("session_id");

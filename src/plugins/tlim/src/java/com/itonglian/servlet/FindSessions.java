@@ -39,6 +39,8 @@ public class FindSessions extends HttpServlet {
 
         resp.setContentType("application/json;charset=utf-8");
 
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+
         PrintWriter printWriter = resp.getWriter();
 
         if(StringUtils.isNullOrEmpty(userId)){
