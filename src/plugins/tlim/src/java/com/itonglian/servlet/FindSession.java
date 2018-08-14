@@ -51,7 +51,7 @@ public class FindSession extends HttpServlet {
             return;
         }
 
-        doBack(new BackJson("ok","",sessionId,ofSession.getSessionName(),ofSession.getSessionType(),ofSession.getSessionUser()),printWriter);
+        doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user()),printWriter);
 
     }
 

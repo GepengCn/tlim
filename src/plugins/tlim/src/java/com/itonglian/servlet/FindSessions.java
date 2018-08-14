@@ -69,10 +69,10 @@ public class FindSessions extends HttpServlet {
 
         while(iterator.hasNext()){
             OfSession ofSession = iterator.next();
-            Session session = new Session(ofSession.getSessionId(),
-                    ofSession.getSessionName(),
-                    ofSession.getSessionType(),
-                    ofSession.getSessionUser());
+            Session session = new Session(ofSession.getSession_id(),
+                    ofSession.getSession_name(),
+                    ofSession.getSession_type(),
+                    ofSession.getSession_user());
             dest.add(session);
         }
         return dest;

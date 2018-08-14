@@ -37,11 +37,11 @@ public class ChatDaoImpl implements ChatDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(INSERT);
             int i=1;
-            preparedStatement.setString(i++,ofMessage.getMsgId());
-            preparedStatement.setString(i++,ofMessage.getMsgType());
-            preparedStatement.setString(i++,ofMessage.getMsgFrom());
-            preparedStatement.setString(i++,ofMessage.getMsgTo());
-            preparedStatement.setString(i++,ofMessage.getMsgTime());
+            preparedStatement.setString(i++,ofMessage.getMsg_id());
+            preparedStatement.setString(i++,ofMessage.getMsg_type());
+            preparedStatement.setString(i++,ofMessage.getMsg_from());
+            preparedStatement.setString(i++,ofMessage.getMsg_to());
+            preparedStatement.setString(i++,ofMessage.getMsg_time());
             preparedStatement.setString(i++,ofMessage.getBody());
             preparedStatement.execute();
         }catch (Exception e){
@@ -87,11 +87,11 @@ public class ChatDaoImpl implements ChatDao {
             resultSet = preparedStatement.executeQuery();
             OfMessage ofMessage = new OfMessage();
             if(resultSet.next()){
-                ofMessage.setMsgId(resultSet.getString("msg_id"));
-                ofMessage.setMsgType(resultSet.getString("msg_type"));
-                ofMessage.setMsgFrom(resultSet.getString("msg_from"));
-                ofMessage.setMsgType(resultSet.getString("msg_to"));
-                ofMessage.setMsgTime(resultSet.getString("msg_time"));
+                ofMessage.setMsg_id(resultSet.getString("msg_id"));
+                ofMessage.setMsg_type(resultSet.getString("msg_type"));
+                ofMessage.setMsg_from(resultSet.getString("msg_from"));
+                ofMessage.setMsg_type(resultSet.getString("msg_to"));
+                ofMessage.setMsg_time(resultSet.getString("msg_time"));
                 ofMessage.setBody(resultSet.getString("body"));
                 return ofMessage;
             }

@@ -10,19 +10,17 @@ public class Protocol {
 
     private String version;
 
-    private String msgId;
+    private String msg_id;
 
-    private String msgType;
+    private String msg_type;
 
-    private String ts;
+    private String msg_from;
 
-    private String msgFrom;
-
-    private String msgTo;
+    private String msg_to;
 
     private String body;
 
-    private String msgTime;
+    private String msg_time;
 
     public String getCompress() {
         return compress;
@@ -56,52 +54,44 @@ public class Protocol {
         this.version = version;
     }
 
-    public String getMsgId() {
-        return msgId;
+    public String getMsg_id() {
+        return msg_id;
     }
 
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
+    public void setMsg_id(String msg_id) {
+        this.msg_id = msg_id;
     }
 
-    public String getMsgType() {
-        return msgType;
+    public String getMsg_type() {
+        return msg_type;
     }
 
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
+    public void setMsg_type(String msg_type) {
+        this.msg_type = msg_type;
     }
 
-    public String getTs() {
-        return ts;
+    public String getMsg_from() {
+        return msg_from;
     }
 
-    public String getMsgTime() {
-        return msgTime;
+    public void setMsg_from(String msg_from) {
+        this.msg_from = msg_from;
     }
 
-    public void setMsgTime(String msgTime) {
-        this.msgTime = msgTime;
+    public String getMsg_to() {
+        return msg_to;
     }
 
-    public void setTs(String ts) {
-        this.ts = ts;
+    public void setMsg_to(String msg_to) {
+        this.msg_to = msg_to;
     }
 
-    public String getMsgFrom() {
-        return msgFrom;
+    public String getMsg_time() {
+        return msg_time;
     }
 
-    public void setMsgFrom(String msgFrom) {
-        this.msgFrom = msgFrom;
-    }
-
-    public String getMsgTo() {
-        return msgTo;
-    }
-
-    public void setMsgTo(String msgTo) {
-        this.msgTo = msgTo;
+    public void setMsg_time(String msg_time) {
+        this.msg_time = msg_time;
     }
 
     public String getBody() {

@@ -43,13 +43,13 @@ public class UserDaoImpl implements UserDao {
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 User user = new User();
-                user.setUserId(resultSet.getString("user_id"));
-                user.setUserName(resultSet.getString("user_name"));
-                user.setAcctLogin(resultSet.getString("acct_login"));
-                user.setUserEmail(resultSet.getString("user_email"));
-                user.setPicUrl(resultSet.getString("pic_url"));
-                if(!userManager.isRegisteredUser(user.getUserId())){
-                    userManager.createUser(user.getUserId(),"123",user.getUserName(),user.getUserEmail());
+                user.setUser_id(resultSet.getString("user_id"));
+                user.setUser_name(resultSet.getString("user_name"));
+                user.setAcct_login(resultSet.getString("acct_login"));
+                user.setUser_email(resultSet.getString("user_email"));
+                user.setPic_url(resultSet.getString("pic_url"));
+                if(!userManager.isRegisteredUser(user.getUser_id())){
+                    userManager.createUser(user.getUser_id(),"123",user.getUser_name(),user.getUser_email());
                 }
                 UserCacheManager.add(user);
             }

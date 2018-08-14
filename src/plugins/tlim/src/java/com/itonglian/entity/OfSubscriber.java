@@ -8,40 +8,40 @@ package com.itonglian.entity;
  */
 public class OfSubscriber {
     /**  用户id;主键;uuid*/
-    private String userId;
+    private String user_id;
     /**  用户姓名*/
-    private String userName;
+    private String user_name;
     /**  登录名*/
-    private String acctLogin;
+    private String acct_login;
     /**  头像url*/
     private String pic;
     /**  会话id*/
-    private String sessionId;
+    private String session_id;
     /**  时间戳*/
     private String ts;
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getAcctLogin() {
-        return acctLogin;
+    public String getAcct_login() {
+        return acct_login;
     }
 
-    public void setAcctLogin(String acctLogin) {
-        this.acctLogin = acctLogin;
+    public void setAcct_login(String acct_login) {
+        this.acct_login = acct_login;
     }
 
     public String getPic() {
@@ -52,12 +52,12 @@ public class OfSubscriber {
         this.pic = pic;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSession_id() {
+        return session_id;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 
     public String getTs() {

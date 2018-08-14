@@ -108,12 +108,12 @@ public class ModifySession extends HttpServlet {
                     }
                     subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
                     OfSubscriber ofSubscriber = new OfSubscriber();
-                    ofSubscriber.setUserId(user.getUserId());
-                    ofSubscriber.setUserName(user.getUserName());
-                    ofSubscriber.setAcctLogin(user.getAcctLogin());
-                    ofSubscriber.setPic(user.getPicUrl());
+                    ofSubscriber.setUser_id(user.getUser_id());
+                    ofSubscriber.setUser_name(user.getUser_name());
+                    ofSubscriber.setAcct_login(user.getAcct_login());
+                    ofSubscriber.setPic(user.getPic_url());
                     ofSubscriber.setTs(MessageUtils.getTs());
-                    ofSubscriber.setSessionId(sessionId);
+                    ofSubscriber.setSession_id(sessionId);
                     subscriberDao.add(ofSubscriber);
                     break;
                 case "del":

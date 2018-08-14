@@ -8,48 +8,56 @@ package com.itonglian.entity;
  */
 public class OfMessage {
     /** 消息id;唯一;uuid */
-    private String msgId;
+    private String msg_id;
     /** 消息类型,eg.MTT-000 */
-    private String msgType;
+    private String msg_type;
     /** 消息发送者;userId */
-    private String msgFrom;
+    private String msg_from;
     /** 消息接收者;userId */
-    private String msgTo;
+    private String msg_to;
     /** 时间戳 */
-    private String msgTime;
+    private String msg_time;
     /** 消息体 */
     private String body;
 
-    public String getMsgId() {
-        return msgId;
+    public String getMsg_id() {
+        return msg_id;
     }
 
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
+    public void setMsg_id(String msg_id) {
+        this.msg_id = msg_id;
     }
 
-    public String getMsgType() {
-        return msgType;
+    public String getMsg_type() {
+        return msg_type;
     }
 
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
+    public void setMsg_type(String msg_type) {
+        this.msg_type = msg_type;
     }
 
-    public String getMsgFrom() {
-        return msgFrom;
+    public String getMsg_from() {
+        return msg_from;
     }
 
-    public void setMsgFrom(String msgFrom) {
-        this.msgFrom = msgFrom;
+    public void setMsg_from(String msg_from) {
+        this.msg_from = msg_from;
     }
 
-    public String getMsgTo() {
-        return msgTo;
+    public String getMsg_to() {
+        return msg_to;
     }
 
-    public void setMsgTo(String msgTo) {
-        this.msgTo = msgTo;
+    public void setMsg_to(String msg_to) {
+        this.msg_to = msg_to;
+    }
+
+    public String getMsg_time() {
+        return msg_time;
+    }
+
+    public void setMsg_time(String msg_time) {
+        this.msg_time = msg_time;
     }
 
     public String getBody() {
@@ -58,13 +66,5 @@ public class OfMessage {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public String getMsgTime() {
-        return msgTime;
-    }
-
-    public void setMsgTime(String msgTime) {
-        this.msgTime = msgTime;
     }
 }

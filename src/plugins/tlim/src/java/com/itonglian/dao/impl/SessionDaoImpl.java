@@ -43,14 +43,14 @@ public class SessionDaoImpl implements SessionDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(INSERT);
             int i=1;
-            preparedStatement.setString(i++,session.getSessionId());
-            preparedStatement.setInt(i++,session.getSessionType());
-            preparedStatement.setString(i++,session.getSessionName());
-            preparedStatement.setString(i++,session.getSessionCreateTime());
-            preparedStatement.setString(i++,session.getSessionModifyTime());
-            preparedStatement.setString(i++,session.getSessionDeleteTime());
-            preparedStatement.setInt(i++,session.getSessionValid());
-            preparedStatement.setString(i++,session.getSessionUser());
+            preparedStatement.setString(i++,session.getSession_id());
+            preparedStatement.setInt(i++,session.getSession_type());
+            preparedStatement.setString(i++,session.getSession_name());
+            preparedStatement.setString(i++,session.getSession_create_time());
+            preparedStatement.setString(i++,session.getSession_modify_time());
+            preparedStatement.setString(i++,session.getSession_delete_time());
+            preparedStatement.setInt(i++,session.getSession_valid());
+            preparedStatement.setString(i++,session.getSession_user());
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -110,14 +110,14 @@ public class SessionDaoImpl implements SessionDao {
             resultSet = preparedStatement.executeQuery();
             OfSession ofSession = new OfSession();
             if(resultSet.next()){
-                ofSession.setSessionId(resultSet.getString("session_id"));
-                ofSession.setSessionName(resultSet.getString("session_name"));
-                ofSession.setSessionType(resultSet.getInt("session_type"));
-                ofSession.setSessionUser(resultSet.getString("session_user"));
-                ofSession.setSessionValid(resultSet.getInt("session_valid"));
-                ofSession.setSessionCreateTime(resultSet.getString("session_create_time"));
-                ofSession.setSessionDeleteTime(resultSet.getString("session_delete_time"));
-                ofSession.setSessionModifyTime(resultSet.getString("session_modify_time"));
+                ofSession.setSession_id(resultSet.getString("session_id"));
+                ofSession.setSession_name(resultSet.getString("session_name"));
+                ofSession.setSession_type(resultSet.getInt("session_type"));
+                ofSession.setSession_user(resultSet.getString("session_user"));
+                ofSession.setSession_valid(resultSet.getInt("session_valid"));
+                ofSession.setSession_create_time(resultSet.getString("session_create_time"));
+                ofSession.setSession_delete_time(resultSet.getString("session_delete_time"));
+                ofSession.setSession_modify_time(resultSet.getString("session_modify_time"));
                 return ofSession;
             }
         }catch (Exception e){
@@ -141,14 +141,14 @@ public class SessionDaoImpl implements SessionDao {
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 OfSession ofSession = new OfSession();
-                ofSession.setSessionId(resultSet.getString("session_id"));
-                ofSession.setSessionName(resultSet.getString("session_name"));
-                ofSession.setSessionType(resultSet.getInt("session_type"));
-                ofSession.setSessionUser(resultSet.getString("session_user"));
-                ofSession.setSessionValid(resultSet.getInt("session_valid"));
-                ofSession.setSessionCreateTime(resultSet.getString("session_create_time"));
-                ofSession.setSessionDeleteTime(resultSet.getString("session_delete_time"));
-                ofSession.setSessionModifyTime(resultSet.getString("session_modify_time"));
+                ofSession.setSession_id(resultSet.getString("session_id"));
+                ofSession.setSession_name(resultSet.getString("session_name"));
+                ofSession.setSession_type(resultSet.getInt("session_type"));
+                ofSession.setSession_user(resultSet.getString("session_user"));
+                ofSession.setSession_valid(resultSet.getInt("session_valid"));
+                ofSession.setSession_create_time(resultSet.getString("session_create_time"));
+                ofSession.setSession_delete_time(resultSet.getString("session_delete_time"));
+                ofSession.setSession_modify_time(resultSet.getString("session_modify_time"));
                 ofSessions.add(ofSession);
             }
             return ofSessions;

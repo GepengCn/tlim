@@ -2,53 +2,53 @@ package com.itonglian.entity;
 
 public class User {
 
-    private String userId;
+    private String user_id;
 
-    private String userName;
+    private String user_name;
 
-    private String acctLogin;
+    private String acct_login;
 
-    private String userEmail;
+    private String user_email;
 
-    private String picUrl;
+    private String pic_url;
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getAcctLogin() {
-        return acctLogin;
+    public String getAcct_login() {
+        return acct_login;
     }
 
-    public void setAcctLogin(String acctLogin) {
-        this.acctLogin = acctLogin;
+    public void setAcct_login(String acct_login) {
+        this.acct_login = acct_login;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public String getPicUrl() {
-        return picUrl;
+    public String getPic_url() {
+        return pic_url;
     }
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public void setPic_url(String pic_url) {
+        this.pic_url = pic_url;
     }
 }

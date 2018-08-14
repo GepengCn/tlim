@@ -23,15 +23,15 @@ public class ChatInterceptor implements Interceptor {
 
         OfMessage ofMessage = new OfMessage();
 
-        ofMessage.setMsgId(protocol.getMsgId());
+        ofMessage.setMsg_id(protocol.getMsg_id());
 
-        ofMessage.setMsgType(protocol.getMsgType());
+        ofMessage.setMsg_type(protocol.getMsg_type());
 
-        ofMessage.setMsgFrom(protocol.getMsgFrom());
+        ofMessage.setMsg_from(protocol.getMsg_from());
 
-        ofMessage.setMsgTo(protocol.getMsgTo());
+        ofMessage.setMsg_to(protocol.getMsg_to());
 
-        ofMessage.setMsgTime(protocol.getMsgTime());
+        ofMessage.setMsg_time(protocol.getMsg_time());
 
         ofMessage.setBody(protocol.getBody());
 

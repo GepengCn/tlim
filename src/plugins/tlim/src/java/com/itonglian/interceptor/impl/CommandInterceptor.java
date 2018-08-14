@@ -42,7 +42,7 @@ public class CommandInterceptor implements Interceptor {
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
 
-        String suffix = protocol.getMsgType().split("-")[1];
+        String suffix = protocol.getMsg_type().split("-")[1];
 
         String isSession = suffix.substring(0,1);
 
@@ -54,7 +54,7 @@ public class CommandInterceptor implements Interceptor {
 
                 Command command = textIterator.next();
 
-                String sessionId = command.getSessionId();
+                String sessionId = command.getSession_id();
 
                 if(isValidSession(sessionId,message)){
 
@@ -79,7 +79,7 @@ public class CommandInterceptor implements Interceptor {
 
         OfSession ofSession = sessionDao.findEntityById(sessionId);
 
-        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSessionId())){
+        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSession_id())){
 
             throw new ExceptionReply("error-006",message,packetDeliverer);
         }
@@ -101,13 +101,13 @@ public class CommandInterceptor implements Interceptor {
 
             OfSubscriber ofSubscriber = iterator.next();
 
-            String msgTo = ofSubscriber.getUserId();
+            String msgTo = ofSubscriber.getUser_id();
 
             if(StringUtils.isNullOrEmpty(msgTo)){
                 continue;
             }
 
-            if(protocol.getMsgTo().equals(msgTo)|| protocol.getMsgFrom().equals(msgTo)){
+            if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
             }
 
@@ -118,24 +118,24 @@ public class CommandInterceptor implements Interceptor {
     }
     private static class Command{
 
-        private String msgId;
+        private String msg_id;
 
-        private String sessionId;
+        private String session_id;
 
-        public String getMsgId() {
-            return msgId;
+        public String getMsg_id() {
+            return msg_id;
         }
 
-        public void setMsgId(String msgId) {
-            this.msgId = msgId;
+        public void setMsg_id(String msg_id) {
+            this.msg_id = msg_id;
         }
 
-        public String getSessionId() {
-            return sessionId;
+        public String getSession_id() {
+            return session_id;
         }
 
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
+        public void setSession_id(String session_id) {
+            this.session_id = session_id;
         }
     }
 }

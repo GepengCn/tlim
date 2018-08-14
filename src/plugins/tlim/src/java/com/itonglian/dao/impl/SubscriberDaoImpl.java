@@ -40,11 +40,11 @@ public class SubscriberDaoImpl implements SubscriberDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(INSERT);
             int i=1;
-            preparedStatement.setString(i++,subscriber.getUserId());
-            preparedStatement.setString(i++,subscriber.getUserName());
-            preparedStatement.setString(i++,subscriber.getAcctLogin());
+            preparedStatement.setString(i++,subscriber.getUser_id());
+            preparedStatement.setString(i++,subscriber.getUser_name());
+            preparedStatement.setString(i++,subscriber.getAcct_login());
             preparedStatement.setString(i++,subscriber.getPic());
-            preparedStatement.setString(i++,subscriber.getSessionId());
+            preparedStatement.setString(i++,subscriber.getSession_id());
             preparedStatement.setString(i++,subscriber.getTs());
             preparedStatement.execute();
         }catch (Exception e){
@@ -94,11 +94,11 @@ public class SubscriberDaoImpl implements SubscriberDao {
             List<OfSubscriber> list = new ArrayList<OfSubscriber>();
             while(resultSet.next()){
                 OfSubscriber ofSubscriber = new OfSubscriber();
-                ofSubscriber.setUserId(resultSet.getString("user_id"));
-                ofSubscriber.setUserName(resultSet.getString("user_name"));
-                ofSubscriber.setAcctLogin(resultSet.getString("acct_login"));
+                ofSubscriber.setUser_id(resultSet.getString("user_id"));
+                ofSubscriber.setUser_name(resultSet.getString("user_name"));
+                ofSubscriber.setAcct_login(resultSet.getString("acct_login"));
                 ofSubscriber.setPic(resultSet.getString("pic"));
-                ofSubscriber.setSessionId(resultSet.getString("session_id"));
+                ofSubscriber.setSession_id(resultSet.getString("session_id"));
                 ofSubscriber.setTs(resultSet.getString("ts"));
                 list.add(ofSubscriber);
             }

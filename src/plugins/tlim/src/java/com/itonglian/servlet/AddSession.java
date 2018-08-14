@@ -92,19 +92,19 @@ public class AddSession extends HttpServlet {
 
             while(iterator.hasNext()){
                 OfSubscriber ofSubscriber = iterator.next();
-                User user = UserCacheManager.findUserByKey(ofSubscriber.getUserId());
+                User user = UserCacheManager.findUserByKey(ofSubscriber.getUser_id());
                 if(user==null){
                     continue;
                 }
-                ofSubscriber.setSessionId(sessionId);
-                ofSubscriber.setUserName(user.getUserName());
-                ofSubscriber.setPic(user.getPicUrl());
-                ofSubscriber.setAcctLogin(user.getAcctLogin());
+                ofSubscriber.setSession_id(sessionId);
+                ofSubscriber.setUser_name(user.getUser_name());
+                ofSubscriber.setPic(user.getPic_url());
+                ofSubscriber.setAcct_login(user.getAcct_login());
                 ofSubscriber.setTs(MessageUtils.getTs());
                 subscriberDao.add(ofSubscriber);
-                sessionNameList.add(user.getUserName());
-                userOnlyIds.add(new UserOnlyId(user.getUserId()));
-                String picUrl = user.getPicUrl();
+                sessionNameList.add(user.getUser_name());
+                userOnlyIds.add(new UserOnlyId(user.getUser_id()));
+                String picUrl = user.getPic_url();
                 if(com.itonglian.utils.StringUtils.isNullOrEmpty(picUrl)){
                     picUrl = "avatare.png";
                 }
@@ -115,17 +115,17 @@ public class AddSession extends HttpServlet {
 
             OfSession ofSession = new OfSession();
 
-            ofSession.setSessionId(sessionId);
+            ofSession.setSession_id(sessionId);
 
             String sessionName = StringUtils.join(sessionNameList,",");
 
             String sessionCreateTime = MessageUtils.getTs();
 
-            ofSession.setSessionName(StringUtils.join(sessionNameList,","));
-            ofSession.setSessionType(intSessionType);
-            ofSession.setSessionCreateTime(sessionCreateTime);
-            ofSession.setSessionValid(0);
-            ofSession.setSessionUser(requestUser);
+            ofSession.setSession_name(StringUtils.join(sessionNameList,","));
+            ofSession.setSession_type(intSessionType);
+            ofSession.setSession_create_time(sessionCreateTime);
+            ofSession.setSession_valid(0);
+            ofSession.setSession_user(requestUser);
             sessionDao.add(ofSession);
 
             BackJson backJson = new BackJson(

@@ -45,7 +45,7 @@ public class SessionInterceptor implements Interceptor {
     public void handler(Protocol protocol, Message message) throws Exception {
 
 
-        String suffix = protocol.getMsgType().split("-")[1];
+        String suffix = protocol.getMsg_type().split("-")[1];
 
         switch (suffix){
             //处理文本消息类型
@@ -121,7 +121,7 @@ public class SessionInterceptor implements Interceptor {
 
         OfSession ofSession = sessionDao.findEntityById(sessionId);
 
-        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSessionId())){
+        if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSession_id())){
 
             throw new ExceptionReply("error-009",message,packetDeliverer);
         }
@@ -143,7 +143,7 @@ public class SessionInterceptor implements Interceptor {
 
             OfSubscriber ofSubscriber = iterator.next();
 
-            String msgTo = ofSubscriber.getUserId();
+            String msgTo = ofSubscriber.getUser_id();
 
             if(StringUtils.isNullOrEmpty(msgTo)){
                 continue;
@@ -151,21 +151,21 @@ public class SessionInterceptor implements Interceptor {
 
             OfMessage ofMessage = new OfMessage();
 
-            ofMessage.setMsgId(protocol.getMsgId());
+            ofMessage.setMsg_id(protocol.getMsg_id());
 
-            ofMessage.setMsgType(protocol.getMsgType());
+            ofMessage.setMsg_type(protocol.getMsg_type());
 
-            ofMessage.setMsgFrom(protocol.getMsgFrom());
+            ofMessage.setMsg_from(protocol.getMsg_from());
 
-            ofMessage.setMsgTo(msgTo);
+            ofMessage.setMsg_to(msgTo);
 
-            ofMessage.setMsgTime(protocol.getMsgTime());
+            ofMessage.setMsg_time(protocol.getMsg_time());
 
             ofMessage.setBody(protocol.getBody());
 
             chatDao.add(ofMessage);
 
-            if(protocol.getMsgTo().equals(msgTo)|| protocol.getMsgFrom().equals(msgTo)){
+            if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
             }
 

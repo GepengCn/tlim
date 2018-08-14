@@ -8,86 +8,84 @@ package com.itonglian.entity;
  */
 public class OfSession {
     /** 会话id;唯一;主键;uuid */
-    private String sessionId;
+    private String session_id;
     /** 会话类型 */
-    private int sessionType;
+    private int session_type;
     /** 会话名 */
-    private String sessionName;
+    private String session_name;
     /** 会话创建时间 */
-    private String sessionCreateTime;
+    private String session_create_time;
     /** 会话修改时间 */
-    private String sessionModifyTime;
+    private String session_modify_time;
     /** 会话删除时间 */
-    private String sessionDeleteTime;
+    private String session_delete_time;
     /** 会话是否有效[0/1:有效/无效] */
-    private int sessionValid;
+    private int session_valid;
     /** 会话创建者 */
-    private String sessionUser;
+    private String session_user;
 
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSession_id() {
+        return session_id;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 
-    public int getSessionType() {
-        return sessionType;
+    public int getSession_type() {
+        return session_type;
     }
 
-    public void setSessionType(int sessionType) {
-        this.sessionType = sessionType;
+    public void setSession_type(int session_type) {
+        this.session_type = session_type;
     }
 
-    public String getSessionName() {
-        return sessionName;
+    public String getSession_name() {
+        return session_name;
     }
 
-    public void setSessionName(String sessionName) {
-        this.sessionName = sessionName;
+    public void setSession_name(String session_name) {
+        this.session_name = session_name;
     }
 
-    public String getSessionCreateTime() {
-        return sessionCreateTime;
+    public String getSession_create_time() {
+        return session_create_time;
     }
 
-    public void setSessionCreateTime(String sessionCreateTime) {
-        this.sessionCreateTime = sessionCreateTime;
+    public void setSession_create_time(String session_create_time) {
+        this.session_create_time = session_create_time;
     }
 
-    public String getSessionModifyTime() {
-        return sessionModifyTime;
+    public String getSession_modify_time() {
+        return session_modify_time;
     }
 
-    public void setSessionModifyTime(String sessionModifyTime) {
-        this.sessionModifyTime = sessionModifyTime;
+    public void setSession_modify_time(String session_modify_time) {
+        this.session_modify_time = session_modify_time;
     }
 
-    public String getSessionDeleteTime() {
-        return sessionDeleteTime;
+    public String getSession_delete_time() {
+        return session_delete_time;
     }
 
-    public void setSessionDeleteTime(String sessionDeleteTime) {
-        this.sessionDeleteTime = sessionDeleteTime;
+    public void setSession_delete_time(String session_delete_time) {
+        this.session_delete_time = session_delete_time;
     }
 
-    public int getSessionValid() {
-        return sessionValid;
+    public int getSession_valid() {
+        return session_valid;
     }
 
-    public void setSessionValid(int sessionValid) {
-        this.sessionValid = sessionValid;
+    public void setSession_valid(int session_valid) {
+        this.session_valid = session_valid;
     }
 
-    public String getSessionUser() {
-        return sessionUser;
+    public String getSession_user() {
+        return session_user;
     }
 
-    public void setSessionUser(String sessionUser) {
-        this.sessionUser = sessionUser;
+    public void setSession_user(String session_user) {
+        this.session_user = session_user;
     }
-
-
 }

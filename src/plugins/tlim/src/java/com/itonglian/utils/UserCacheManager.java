@@ -18,7 +18,7 @@ public class UserCacheManager {
     }
 
     public static void add(User user){
-        String key = user.getUserId();
+        String key = user.getUser_id();
         remove(key);
         users.put(key,user);
     }

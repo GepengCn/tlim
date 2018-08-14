@@ -51,7 +51,7 @@ public class InterceptorContext {
             throw new ExceptionReply("error-005",packet,session);
         }
 
-        String msgType = protocol.getMsgType();
+        String msgType = protocol.getMsg_type();
 
         if(!MessageUtils.isValidMsgType(msgType)){
             throw new ExceptionReply("error-001",packet,session);
