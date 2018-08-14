@@ -15,7 +15,7 @@ public interface SubscriberDao {
 
     public void add(OfSubscriber subscriber);
 
-    public void delete(String userId);
+    public void delete(String userId,String sessionId);
 
     public void update(OfSubscriber subscriber);
 

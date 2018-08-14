@@ -88,6 +88,10 @@ public class ModifySession extends HttpServlet {
 
         List<HandlerSubcriber> subcriberList = JSONArray.parseArray(subscribers,HandlerSubcriber.class);
 
+        if(subcriberList==null){
+            return;
+        }
+
         Iterator<HandlerSubcriber> iterator = subcriberList.iterator();
 
         while(iterator.hasNext()){
@@ -106,7 +110,7 @@ public class ModifySession extends HttpServlet {
                     if(user == null){
                         break;
                     }
-                    subscriberDao.delete(handlerSubcriber.getUserId());
+                    subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
                     OfSubscriber ofSubscriber = new OfSubscriber();
                     ofSubscriber.setUserId(user.getUserId());
                     ofSubscriber.setUserName(user.getUserName());
@@ -117,7 +121,7 @@ public class ModifySession extends HttpServlet {
                     subscriberDao.add(ofSubscriber);
                     break;
                 case "del":
-                    subscriberDao.delete(handlerSubcriber.getUserId());
+                    subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
                     break;
                 default:
                     break;

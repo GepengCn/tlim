@@ -24,7 +24,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     private static final String QUERY_SUBSCRIBERS = "SELECT * FROM ofsubscriber WHERE session_id = ?";
 
-    private static final String DELETE = "DELETE FROM ofsubscriber WHERE user_id = ?";
+    private static final String DELETE = "DELETE FROM ofsubscriber WHERE user_id = ? AND session_id = ?";
 
     private static final String DELETE_BY_SESSION = "DELETE FROM ofsubscriber WHERE session_id = ? ";
 
@@ -55,13 +55,14 @@ public class SubscriberDaoImpl implements SubscriberDao {
     }
 
     @Override
-    public void delete(String userId) {
+    public void delete(String userId,String sessionId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(DELETE);
             preparedStatement.setString(1,userId);
+            preparedStatement.setString(2,sessionId);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
