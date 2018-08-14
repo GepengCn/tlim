@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class FindSessions extends HttpServlet {
@@ -51,14 +53,33 @@ public class FindSessions extends HttpServlet {
 
         List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId);
 
-
-        doBack(new BackJson("ok","",ofSessions),printWriter);
+        doBack(new BackJson("ok","",translate(ofSessions)),printWriter);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doGet(req, resp);
+    }
+
+    private List<Session> translate(List<OfSession> src){
+        if(src ==null || src.size()==0){
+            return null;
+        }
+
+        Iterator<OfSession> iterator = src.iterator();
+        List<Session> dest = new ArrayList<Session>();
+
+        while(iterator.hasNext()){
+            OfSession ofSession = iterator.next();
+            Session session = new Session(ofSession.getSessionId(),
+                    ofSession.getSessionName(),
+                    ofSession.getSessionType(),
+                    ofSession.getSessionUser());
+            dest.add(session);
+        }
+        return dest;
+
     }
 
     private void doBack(BackJson backJson, PrintWriter printWriter){
@@ -73,10 +94,10 @@ public class FindSessions extends HttpServlet {
 
         private String result_detail;
 
-        private List<OfSession> sessions;
+        private List<Session> sessions;
 
 
-        public BackJson(String result, String result_detail, List<OfSession> sessions) {
+        public BackJson(String result, String result_detail, List<Session> sessions) {
             this.result = result;
             this.result_detail = result_detail;
             this.sessions = sessions;
@@ -98,12 +119,62 @@ public class FindSessions extends HttpServlet {
             this.result_detail = result_detail;
         }
 
-        public List<OfSession> getSessions() {
+        public List<Session> getSessions() {
             return sessions;
         }
 
-        public void setSessions(List<OfSession> sessions) {
+        public void setSessions(List<Session> sessions) {
             this.sessions = sessions;
+        }
+    }
+
+
+    private class Session{
+        private String session_id;
+
+        private String session_name;
+
+        private int session_type;
+
+        private String session_user;
+
+        public Session(String session_id, String session_name, int session_type, String session_user) {
+            this.session_id = session_id;
+            this.session_name = session_name;
+            this.session_type = session_type;
+            this.session_user = session_user;
+        }
+
+        public String getSession_id() {
+            return session_id;
+        }
+
+        public void setSession_id(String session_id) {
+            this.session_id = session_id;
+        }
+
+        public String getSession_name() {
+            return session_name;
+        }
+
+        public void setSession_name(String session_name) {
+            this.session_name = session_name;
+        }
+
+        public int getSession_type() {
+            return session_type;
+        }
+
+        public void setSession_type(int session_type) {
+            this.session_type = session_type;
+        }
+
+        public String getSession_user() {
+            return session_user;
+        }
+
+        public void setSession_user(String session_user) {
+            this.session_user = session_user;
         }
     }
 

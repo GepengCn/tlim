@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.9<br>
+> 版本:1.2.10<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -634,36 +634,28 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "result_detail": "",
         "sessions": [
             {
-                "sessionCreateTime": "1534153609830",
-                "sessionId": "3e2b7b5c-8948-438e-883e-377976afeb08",
-                "sessionName": "杜剑春,吴国正,葛鹏",
-                "sessionType": 0,
-                "sessionUser": "673b15e889df4e4aaa33b46d1b433189",
-                "sessionValid": 0
+                "session_id": "3e2b7b5c-8948-438e-883e-377976afeb08",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
             },
             {
-                "sessionCreateTime": "1534153460316",
-                "sessionId": "4e7cee72-72a0-48d1-a2c3-c071342c1467",
-                "sessionName": "杜剑春,吴国正,葛鹏",
-                "sessionType": 0,
-                "sessionUser": "673b15e889df4e4aaa33b46d1b433189",
-                "sessionValid": 0
+                "session_id": "4e7cee72-72a0-48d1-a2c3-c071342c1467",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
             },
             {
-                "sessionCreateTime": "1534153616943",
-                "sessionId": "861560a6-f726-446c-8337-3759525e0fb7",
-                "sessionName": "杜剑春,吴国正,葛鹏",
-                "sessionType": 0,
-                "sessionUser": "673b15e889df4e4aaa33b46d1b433189",
-                "sessionValid": 0
+                "session_id": "861560a6-f726-446c-8337-3759525e0fb7",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
             },
             {
-                "sessionCreateTime": "1534153616149",
-                "sessionId": "eab711cf-6f23-4247-83fe-51bdf8cf7295",
-                "sessionName": "杜剑春,吴国正,葛鹏",
-                "sessionType": 0,
-                "sessionUser": "673b15e889df4e4aaa33b46d1b433189",
-                "sessionValid": 0
+                "session_id": "eab711cf-6f23-4247-83fe-51bdf8cf7295",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
             }
         ]
     }
@@ -737,7 +729,8 @@ message.addExtension(new Extension());
 > 2018年8月14日
 1. 修改消息体字段msg为msg_from,to为msg_to
 2. 修复修改会话时无法删除的bug
-3. 版本:1.2.9
+3. 修正查询所有会话接口返回值字段名
+4. 版本:1.2.10
 
 > 2018年8月13日
 1. 新增已收回执、已读回执、消息撤回功能
