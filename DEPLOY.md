@@ -164,6 +164,15 @@ chmod 777 openfire
 ./bin/openfire.sh &
 ```
 
+##### 停止openfire
+
+```
+1. 查询openfire占用进程
+netstat -tnlp
+2. 杀死进程
+kill -s 9 16550
+
+```
 
 
 
