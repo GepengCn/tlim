@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.entity.OfSession;
+import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
 import org.slf4j.Logger;
@@ -37,11 +38,7 @@ public class FindSessions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("user_id");
 
-        resp.setCharacterEncoding("utf-8");
-
-        resp.setContentType("application/json;charset=utf-8");
-
-        resp.setHeader("Access-Control-Allow-Origin", "*");
+        MessageUtils.setResponse(resp);
 
         PrintWriter printWriter = resp.getWriter();
 

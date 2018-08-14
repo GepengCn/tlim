@@ -1,5 +1,7 @@
 package com.itonglian.utils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 public class MessageUtils {
@@ -27,5 +29,14 @@ public class MessageUtils {
 
     public static String getTs(){
         return new Date().getTime()+"";
+    }
+
+
+    public static void setResponse(HttpServletResponse resp){
+        resp.setCharacterEncoding("utf-8");
+
+        resp.setContentType("application/json;charset=utf-8");
+
+        resp.setHeader("Access-Control-Allow-Origin", "*");
     }
 }

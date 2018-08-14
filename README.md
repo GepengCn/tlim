@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.10<br>
+> 版本:1.2.11<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -29,6 +29,7 @@
 >>    17. [文件下载](#文件下载)<br>
 >>    18. [文件上传](#文件上传)<br>
 >>    19. [查询所有会话](#查询所有会话)<br>
+>>    20. [查询会话](#查询会话)<br>
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -95,6 +96,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     HTS-001:更新会话
     HTS-002:删除会话
     HTS-003:查询所有会话
+    HTS-004:查询会话
     MTC-000:已收回执
     MTC-001:单已读回执
     MTC-002:单消息撤回
@@ -658,6 +660,37 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
                 "session_user": "673b15e889df4e4aaa33b46d1b433189",
             }
         ]
+    }
+
+---
+###### 查询会话
+   1. 接口定义:
+
+    查询会话,http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugin/tlim/findSession
+
+    4. 参数
+
+    4.1. session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": "",
+        "session_id": "3e2b7b5c-8948-438e-883e-377976afeb08",
+        "session_name": "杜剑春,吴国正,葛鹏",
+        "session_type": 0,
+        "session_user": "673b15e889df4e4aaa33b46d1b433189",
     }
 
 ---

@@ -43,4 +43,14 @@
         <url-pattern>/findSessions</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSession</servlet-name>
+        <url-pattern>/findSession</url-pattern>
+    </servlet-mapping>
+
 </web-app>

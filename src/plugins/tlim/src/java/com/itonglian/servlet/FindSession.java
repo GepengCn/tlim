@@ -2,9 +2,8 @@ package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.SessionDao;
-import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.SessionDaoImpl;
-import com.itonglian.dao.impl.SubscriberDaoImpl;
+import com.itonglian.entity.OfSession;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
@@ -19,20 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class DeleteSession extends HttpServlet {
+public class FindSession extends HttpServlet {
 
+    private static final Logger Log = LoggerFactory.getLogger(FindSession.class);
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
-
-    SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
-
-    private static final Logger Log = LoggerFactory.getLogger(ModifySession.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        AuthCheckFilter.addExclude("tlim/deleteSession");
+        AuthCheckFilter.addExclude("tlim/findSession");
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -47,13 +44,20 @@ public class DeleteSession extends HttpServlet {
             return;
         }
 
-        sessionDao.delete(sessionId);
+        OfSession ofSession = sessionDao.findEntityById(sessionId);
 
-        subscriberDao.deleteBySession(sessionId);
+        if(ofSession == null){
+            doBack(new BackJson("error-009","不存在的会话",sessionId),printWriter);
+            return;
+        }
 
-        doBack(new BackJson("ok","",sessionId,MessageUtils.getTs()),printWriter);
+        doBack(new BackJson("ok","",sessionId,ofSession.getSessionName(),ofSession.getSessionType(),ofSession.getSessionUser()),printWriter);
 
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
     }
 
     private void doBack(BackJson backJson, PrintWriter printWriter){
@@ -70,7 +74,11 @@ public class DeleteSession extends HttpServlet {
 
         private String session_id;
 
-        private String session_delete_time;
+        private String session_name;
+
+        private int session_type;
+
+        private String session_user;
 
         public BackJson(String result, String result_detail, String session_id) {
             this.result = result;
@@ -78,11 +86,45 @@ public class DeleteSession extends HttpServlet {
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, String session_delete_time) {
+        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
-            this.session_delete_time = session_delete_time;
+            this.session_name = session_name;
+            this.session_type = session_type;
+            this.session_user = session_user;
+        }
+
+        public String getSession_id() {
+            return session_id;
+        }
+
+        public void setSession_id(String session_id) {
+            this.session_id = session_id;
+        }
+
+        public String getSession_name() {
+            return session_name;
+        }
+
+        public void setSession_name(String session_name) {
+            this.session_name = session_name;
+        }
+
+        public int getSession_type() {
+            return session_type;
+        }
+
+        public void setSession_type(int session_type) {
+            this.session_type = session_type;
+        }
+
+        public String getSession_user() {
+            return session_user;
+        }
+
+        public void setSession_user(String session_user) {
+            this.session_user = session_user;
         }
 
         public String getResult() {
@@ -101,26 +143,9 @@ public class DeleteSession extends HttpServlet {
             this.result_detail = result_detail;
         }
 
-        public String getSession_id() {
-            return session_id;
-        }
 
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
-
-        public String getSession_delete_time() {
-            return session_delete_time;
-        }
-
-        public void setSession_delete_time(String session_delete_time) {
-            this.session_delete_time = session_delete_time;
-        }
     }
 
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
+
 }
