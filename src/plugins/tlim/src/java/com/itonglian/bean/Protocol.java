@@ -16,9 +16,9 @@ public class Protocol {
 
     private String ts;
 
-    private String from;
+    private String msgFrom;
 
-    private String to;
+    private String msgTo;
 
     private String body;
 
@@ -88,20 +88,20 @@ public class Protocol {
         this.ts = ts;
     }
 
-    public String getFrom() {
-        return from;
+    public String getMsgFrom() {
+        return msgFrom;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setMsgFrom(String msgFrom) {
+        this.msgFrom = msgFrom;
     }
 
-    public String getTo() {
-        return to;
+    public String getMsgTo() {
+        return msgTo;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setMsgTo(String msgTo) {
+        this.msgTo = msgTo;
     }
 
     public String getBody() {

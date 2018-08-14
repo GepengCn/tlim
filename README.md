@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.7<br>
+> 版本:1.2.9<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -28,7 +28,7 @@
 >>    16. [删除会话](#删除会话)<br>
 >>    17. [文件下载](#文件下载)<br>
 >>    18. [文件上传](#文件上传)<br>
->>    19. [查询所有会话](#查询所有会话)<br>    
+>>    19. [查询所有会话](#查询所有会话)<br>
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -43,8 +43,8 @@
         encode:"1",
         encrypt:"0",
         version:"2.0.0",
-        from:'31e4302a-22f1-430e-a7e2-eebcf960dad6',
-        to:'b4842821-0f8a-48f9-9492-89c20c3889a5',
+        msg_from:'31e4302a-22f1-430e-a7e2-eebcf960dad6',
+        msg_to:'b4842821-0f8a-48f9-9492-89c20c3889a5',
         msg_id:'fd6c568e-19ca-4e4e-9709-24dec0bb2b8d',
         msg_type:'MTT-001',
         msg_time:'1599218283837',
@@ -65,8 +65,8 @@ encrypt | 加密方式 | 1 |   1.0.0   |   String  |   50   |
 version | 版本号 | 1 |   1.0.0   |   String  |   10   |
 msg_id | 消息id，唯一，uuid | 1 |   1.0.0   |   String  |   64   |
 msg_time | 时间戳 | 1 |   1.0.0   |   String  |   20   |
-from | userId | 1 |   1.0.0   |   String  |   64   |
-to | userId | 1 |   1.0.0   |   String  |   64   |
+msg_from | userId | 1 |   1.2.9   |   String  |   64   |
+msg_to | userId | 1 |   1.2.9   |   String  |   64   |
 [msg_type](#三消息类型) | MTT:message type talk <br>HTS:http type session<br>MTC:message type command<br>FO:file operate| 1 |   1.0.0   |    String  |   20   |
 body | 消息内容体,自己实现;数组| 1 |   1.0.0   |   JSONArray  |   infinite   |
 session_id  |   会话id  |   2 |   1.0.0   |   String  |   64   |
@@ -115,6 +115,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     error-006:body不是有效数组
     error-007:session_id为空
     error-008:user_id为空
+    error-009:不存在的会话
 ## 五、接口列表
 
 ###### 发送文本消息
@@ -733,6 +734,11 @@ message.addExtension(new Extension());
 
 
 ## 八、改动
+> 2018年8月14日
+1. 修改消息体字段msg为msg_from,to为msg_to
+2. 修复修改会话时无法删除的bug
+3. 版本:1.2.9
+
 > 2018年8月13日
 1. 新增已收回执、已读回执、消息撤回功能
 2. 更新消息类型

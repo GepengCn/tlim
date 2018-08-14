@@ -107,7 +107,7 @@ public class CommandInterceptor implements Interceptor {
                 continue;
             }
 
-            if(protocol.getTo().equals(msgTo)|| protocol.getFrom().equals(msgTo)){
+            if(protocol.getMsgTo().equals(msgTo)|| protocol.getMsgFrom().equals(msgTo)){
                 continue;
             }
 

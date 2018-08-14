@@ -123,7 +123,7 @@ public class SessionInterceptor implements Interceptor {
 
         if(ofSession == null || StringUtils.isNullOrEmpty(ofSession.getSessionId())){
 
-            throw new ExceptionReply("error-006",message,packetDeliverer);
+            throw new ExceptionReply("error-009",message,packetDeliverer);
         }
 
         return true;
@@ -155,7 +155,7 @@ public class SessionInterceptor implements Interceptor {
 
             ofMessage.setMsgType(protocol.getMsgType());
 
-            ofMessage.setMsgFrom(protocol.getFrom());
+            ofMessage.setMsgFrom(protocol.getMsgFrom());
 
             ofMessage.setMsgTo(msgTo);
 
@@ -165,7 +165,7 @@ public class SessionInterceptor implements Interceptor {
 
             chatDao.add(ofMessage);
 
-            if(protocol.getTo().equals(msgTo)|| protocol.getFrom().equals(msgTo)){
+            if(protocol.getMsgTo().equals(msgTo)|| protocol.getMsgFrom().equals(msgTo)){
                 continue;
             }
 

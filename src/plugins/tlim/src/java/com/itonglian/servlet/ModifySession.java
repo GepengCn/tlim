@@ -114,7 +114,7 @@ public class ModifySession extends HttpServlet {
                     ofSubscriber.setSessionId(sessionId);
                     subscriberDao.add(ofSubscriber);
                     break;
-                case "delete":
+                case "del":
                     subscriberDao.delete(handlerSubcriber.getUserId());
                     break;
                 default:
