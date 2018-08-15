@@ -27,7 +27,7 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public List<OfMessage> findHistory(String session_id,String user_id, int start, int end) {
+    public List<OfMessage> findHistory(String session_id,String user_id, int start, int length) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -39,7 +39,7 @@ public class MessageDaoImpl implements MessageDao {
             preparedStatement.setString(i++,session_id);
             preparedStatement.setString(i++,user_id);
             preparedStatement.setInt(i++,start);
-            preparedStatement.setInt(i++,end);
+            preparedStatement.setInt(i++,length);
             resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()){

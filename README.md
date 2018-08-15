@@ -756,9 +756,9 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     4.1 session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
     4.2 user_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea',
     4.3 start:'0'
-    4.4 end:'10'
+    4.4 length:'10'
 
-    注:end如果为max则等于Integer.MAX_VALUE
+    注:length如果为max则等于Integer.MAX_VALUE
 
 
     5. 返回值:json对象

@@ -40,12 +40,8 @@ public class FindSessionHistory extends HttpServlet {
 
         int start = StringUtils.stringToInt(req.getParameter("start"));
 
-        int end =StringUtils.StringToMaxInt(req.getParameter("end"));
+        int length =StringUtils.StringToMaxInt(req.getParameter("length"));
 
-        if(start>end){
-            doBack(new BackJson("error-010","开始值大于结尾值",session_id),printWriter);
-            return;
-        }
 
         if(StringUtils.isNullOrEmpty(user_id)){
             doBack(new BackJson("error-008","user_id为空",session_id),printWriter);
@@ -55,7 +51,7 @@ public class FindSessionHistory extends HttpServlet {
 
 
 
-        List<OfMessage> messageList = messageDao.findHistory(session_id,user_id,start,end);
+        List<OfMessage> messageList = messageDao.findHistory(session_id,user_id,start,length);
 
 
         doBack(new BackJson("ok","",session_id,messageList),printWriter);
