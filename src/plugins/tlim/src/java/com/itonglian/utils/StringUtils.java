@@ -15,4 +15,14 @@ public class StringUtils {
         }
         return Integer.parseInt(value);
     }
+
+    public static int StringToMaxInt(String value){
+        if(isNullOrEmpty(value)){
+            return 0;
+        }
+        if("max".equalsIgnoreCase(value)){
+            return Integer.MAX_VALUE;
+        }
+        return Integer.parseInt(value);
+    }
 }

@@ -23,6 +23,8 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofmessage WHERE msg_id = ?";
 
+    private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?)";
+
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     public static ChatDao getInstance(){
@@ -35,7 +37,7 @@ public class ChatDaoImpl implements ChatDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT);
+            preparedStatement = connection.prepareStatement(INSERT_WITH_SESS);
             int i=1;
             preparedStatement.setString(i++,ofMessage.getMsg_id());
             preparedStatement.setString(i++,ofMessage.getMsg_type());
@@ -43,6 +45,7 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement.setString(i++,ofMessage.getMsg_to());
             preparedStatement.setString(i++,ofMessage.getMsg_time());
             preparedStatement.setString(i++,ofMessage.getBody());
+            preparedStatement.setString(i++,ofMessage.getSession_id());
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

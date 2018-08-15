@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.13<br>
+> 版本:1.2.14<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -31,6 +31,7 @@
 >>    19. [查询所有会话](#查询所有会话)<br>
 >>    20. [查询会话](#查询会话)<br>
 >>    21. [查询会话中所有订阅者](#查询会话中所有订阅者)<br>
+>>    22. [查询会话历史消息](#查询会话历史消息)<br>
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -735,6 +736,59 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     }
 
 ---
+###### 查询会话历史消息
+   1. 接口定义:
+
+    查询会话历史消息,http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugin/tlim/findSessionHistory
+
+    4. 参数
+
+    4.1 session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+    4.2 user_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea',
+    4.3 start:'0'
+    4.4 end:'10'
+
+    注:end如果为max则等于Integer.MAX_VALUE
+
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": "",
+        "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f",
+        "message_list": [
+        {
+            "body": "[{text:'hello,everyone',session_id:'824a02a1-9ee4-4487-b56f-de5b4a29317f'}]",
+            "msg_from": "00f4aa18361c44d3b4c5dd444b76fe7e",
+            "msg_id": "dcb349ac-e866-443d-8c5f-ba047267cc27",
+            "msg_time": "1534315606151",
+            "msg_to": "11ae67223bb5430d8c969fd525a2be96",
+            "msg_type": "MTS-000",
+            "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f"
+        },
+        {
+            "body": "[{text:'hello,everyone',session_id:'824a02a1-9ee4-4487-b56f-de5b4a29317f'}]",
+            "msg_from": "00f4aa18361c44d3b4c5dd444b76fe7e",
+            "msg_id": "84a07e61-b0b7-411c-af29-d17592d4331e",
+            "msg_time": "1534315575769",
+            "msg_to": "11ae67223bb5430d8c969fd525a2be96",
+            "msg_type": "MTS-000",
+            "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f"
+        }],
+    }
+
+---
+
 ## 六、流程
 ![Alt text][flowPic]
 
@@ -802,7 +856,9 @@ message.addExtension(new Extension());
 ## 八、改动
 > 2018年8月15日
 1. 新增从会话中查询所有订阅者接口
-2. 版本:1.2.13
+2. 新增获取会话历史消息记录接口
+3. 新增获取单聊历史消息记录接口
+4. 版本:1.2.14
 
 > 2018年8月14日
 1. 修改消息体字段msg为msg_from,to为msg_to

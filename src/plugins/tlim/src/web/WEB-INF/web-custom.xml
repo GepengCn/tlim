@@ -63,4 +63,24 @@
         <url-pattern>/findSubscribers</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findChatHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindChatHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findChatHistory</servlet-name>
+        <url-pattern>/findChatHistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSessionHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSessionHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSessionHistory</servlet-name>
+        <url-pattern>/findSessionHistory</url-pattern>
+    </servlet-mapping>
+
 </web-app>

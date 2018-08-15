@@ -163,6 +163,8 @@ public class SessionInterceptor implements Interceptor {
 
             ofMessage.setBody(protocol.getBody());
 
+            ofMessage.setSession_id(sessionId);
+
             chatDao.add(ofMessage);
 
             if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){

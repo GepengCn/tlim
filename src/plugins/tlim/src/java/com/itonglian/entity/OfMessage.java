@@ -20,6 +20,8 @@ public class OfMessage {
     /** 消息体 */
     private String body;
 
+    private String session_id;
+
     public String getMsg_id() {
         return msg_id;
     }
@@ -66,5 +68,13 @@ public class OfMessage {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 }
