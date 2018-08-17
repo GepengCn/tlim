@@ -455,7 +455,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
     3.请求地址
 
-    http://coolweb.club:9595/plugin/tlim/addSession
+    http://coolweb.club:9595/plugins/tlim/addSession
 
     4. 参数
 
@@ -514,7 +514,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/modifySession
+    http://coolweb.club:9595/plugins/tlim/modifySession
 
     4. 参数
 
@@ -558,7 +558,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/deleteSession
+    http://coolweb.club:9595/plugins/tlim/deleteSession
 
     4. 参数
 
@@ -627,7 +627,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/findSessions
+    http://coolweb.club:9595/plugins/tlim/findSessions
 
     4. 参数
 
@@ -680,7 +680,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/findSession
+    http://coolweb.club:9595/plugins/tlim/findSession
 
     4. 参数
 
@@ -711,7 +711,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/findSubscribers
+    http://coolweb.club:9595/plugins/tlim/findSubscribers
 
     4. 参数
 
@@ -750,7 +750,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugin/tlim/findSessionHistory
+    http://coolweb.club:9595/plugins/tlim/findSessionHistory
 
     4. 参数
 
