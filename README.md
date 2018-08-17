@@ -460,15 +460,16 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     4. 参数
 
     4.1. session_type:'1'
+    4.2  request_user:'adwdasc-as9das9d8w-8asd8a',
     4.2. subscribers:[
       {
-          user_id:'clientA'
+          user_id:'adwdasc-as9das9d8w-8asd8a'
       },
       {
-          user_id:'clientB'
+          user_id:'adwdasc-as9das9d8w-8asd8b'
       },
       {
-          user_id:'clientC'
+          user_id:'adwdasc-as9das9d8w-8asd8c'
       }
     ]
 
@@ -483,13 +484,13 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         session_create_time:'159020291828',
         subscribers:[
           {
-              user_id:'clientA'
+              user_id:'adwdasc-as9das9d8w-8asd8a'
           },
           {
-              user_id:'clientB'
+              user_id:'adwdasc-as9das9d8w-8asd8b'
           },
           {
-              user_id:'clientC'
+              user_id:'adwdasc-as9das9d8w-8asd8c'
           }
         ]
 
