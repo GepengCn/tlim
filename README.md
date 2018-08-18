@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.14<br>
+> 版本:1.2.15<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -32,6 +32,7 @@
 >>    20. [查询会话](#查询会话)<br>
 >>    21. [查询会话中所有订阅者](#查询会话中所有订阅者)<br>
 >>    22. [查询会话历史消息](#查询会话历史消息)<br>
+>>    23. [更新会话图标](#更新会话图标)<br>
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -790,7 +791,37 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     }
 
 ---
+###### 更新会话图标
+   1. 接口定义:
 
+    更新会话图标,http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/updateSessionPic
+
+    4. 参数
+
+    4.1 session_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+    4.2 session_pic:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": "",
+        "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f",
+        "session_pic":"http://ip:port/cap-aco/uploader/loadImg?pic=jjhd21.png"
+    }
+        
+    
+---
 ## 六、流程
 ![Alt text][flowPic]
 
