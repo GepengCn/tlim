@@ -30,6 +30,8 @@ public class SessionDaoImpl implements SessionDao {
 
     private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ?";
 
+    private static final String UPDATE_PIC = "UPDATE ofsession SET session_pic=? WHERE session_id=?";
+
     public static SessionDao getInstance(){
         return sessionDao;
     }
@@ -118,6 +120,7 @@ public class SessionDaoImpl implements SessionDao {
                 ofSession.setSession_create_time(resultSet.getString("session_create_time"));
                 ofSession.setSession_delete_time(resultSet.getString("session_delete_time"));
                 ofSession.setSession_modify_time(resultSet.getString("session_modify_time"));
+                ofSession.setSession_pic(resultSet.getString("session_pic"));
                 return ofSession;
             }
         }catch (Exception e){
@@ -149,6 +152,7 @@ public class SessionDaoImpl implements SessionDao {
                 ofSession.setSession_create_time(resultSet.getString("session_create_time"));
                 ofSession.setSession_delete_time(resultSet.getString("session_delete_time"));
                 ofSession.setSession_modify_time(resultSet.getString("session_modify_time"));
+                ofSession.setSession_pic(resultSet.getString("session_pic"));
                 ofSessions.add(ofSession);
             }
             return ofSessions;
@@ -158,6 +162,23 @@ public class SessionDaoImpl implements SessionDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return null;
+    }
+
+    @Override
+    public void updatePic(String sessionId, String sessionPic) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_PIC);
+            preparedStatement.setString(1,sessionPic);
+            preparedStatement.setString(2,sessionId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
 

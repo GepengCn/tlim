@@ -83,4 +83,14 @@
         <url-pattern>/findSessionHistory</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>updateSessionPic</servlet-name>
+        <servlet-class>com.itonglian.servlet.UpdateSessionPic</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateSessionPic</servlet-name>
+        <url-pattern>/updateSessionPic</url-pattern>
+    </servlet-mapping>
+
 </web-app>

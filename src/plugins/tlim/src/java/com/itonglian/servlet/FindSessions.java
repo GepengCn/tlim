@@ -72,7 +72,8 @@ public class FindSessions extends HttpServlet {
             Session session = new Session(ofSession.getSession_id(),
                     ofSession.getSession_name(),
                     ofSession.getSession_type(),
-                    ofSession.getSession_user());
+                    ofSession.getSession_user(),
+                    ofSession.getSession_pic());
             dest.add(session);
         }
         return dest;
@@ -135,11 +136,14 @@ public class FindSessions extends HttpServlet {
 
         private String session_user;
 
-        public Session(String session_id, String session_name, int session_type, String session_user) {
+        private String session_pic;
+
+        public Session(String session_id, String session_name, int session_type, String session_user,String session_pic) {
             this.session_id = session_id;
             this.session_name = session_name;
             this.session_type = session_type;
             this.session_user = session_user;
+            this.session_pic = session_pic;
         }
 
         public String getSession_id() {
@@ -172,6 +176,14 @@ public class FindSessions extends HttpServlet {
 
         public void setSession_user(String session_user) {
             this.session_user = session_user;
+        }
+
+        public String getSession_pic() {
+            return session_pic;
+        }
+
+        public void setSession_pic(String session_pic) {
+            this.session_pic = session_pic;
         }
     }
 

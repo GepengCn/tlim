@@ -23,6 +23,8 @@ public class OfSession {
     private int session_valid;
     /** 会话创建者 */
     private String session_user;
+    /** 会话图标 */
+    private String session_pic;
 
 
     public String getSession_id() {
@@ -87,5 +89,13 @@ public class OfSession {
 
     public void setSession_user(String session_user) {
         this.session_user = session_user;
+    }
+
+    public String getSession_pic() {
+        return session_pic;
+    }
+
+    public void setSession_pic(String session_pic) {
+        this.session_pic = session_pic;
     }
 }

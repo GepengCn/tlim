@@ -26,5 +26,7 @@ public interface SessionDao {
 
     public List<OfSession> findSessionsByUser(String userId);
 
+    public void updatePic(String sessionId,String sessionPic);
+
 
 }
