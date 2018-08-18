@@ -18,6 +18,9 @@ import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
 import java.util.Iterator;
@@ -36,14 +39,15 @@ public class SessionInterceptor implements Interceptor {
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
+    ChatDao chatDao = ChatDaoImpl.getInstance();
+
     PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
-    ChatDao chatDao = ChatDaoImpl.getInstance();
+    private static final Logger Log = LoggerFactory.getLogger(SessionInterceptor.class);
 
 
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
-
 
         String suffix = protocol.getMsg_type().split("-")[1];
 
@@ -170,10 +174,9 @@ public class SessionInterceptor implements Interceptor {
             if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
             }
-
-            message.setTo(MessageUtils.toJid(msgTo));
-
-            packetDeliverer.deliver(message);
+            Message newMessage = message.createCopy();
+            newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
+            packetDeliverer.deliver(newMessage);
         }
     }
 

@@ -25,7 +25,7 @@ public class InterceptorContext {
 
     private Interceptor interceptor;
 
-    public void handler(Packet packet,Session session) throws Exception {
+    public void handler(Packet packet, Session session) throws Exception {
 
         if(!(packet instanceof Message)){
             return;
@@ -35,7 +35,7 @@ public class InterceptorContext {
             return;
         }
 
-        Message message = (Message)packet.createCopy();
+        Message message = (Message)packet;
 
         String jsonStr = message.getBody();
 

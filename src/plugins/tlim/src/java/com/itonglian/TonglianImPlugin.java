@@ -12,9 +12,6 @@ import org.jivesoftware.openfire.interceptor.PacketRejectedException;
 import org.jivesoftware.openfire.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmpp.component.ComponentException;
-import org.xmpp.component.ComponentManager;
-import org.xmpp.packet.JID;
 import org.xmpp.packet.Packet;
 
 import java.io.File;
@@ -26,7 +23,7 @@ import java.io.File;
  * <p> 创建时间：2018/8/1 15:16
  * <p> 类调用特殊情况：
  */
-public class TonglianImPlugin implements Plugin,PacketInterceptor, org.xmpp.component.Component {
+public class TonglianImPlugin implements Plugin,PacketInterceptor{
     InterceptorManager interceptorManager = InterceptorManager.getInstance();
 
     private static final Logger Log = LoggerFactory.getLogger(TonglianImPlugin.class);
@@ -35,6 +32,8 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor, org.xmpp.comp
     UserDao userDao = UserDaoImpl.getInstance();
 
     private PluginManager pluginManager;
+
+
 
     @Override
     public void initializePlugin(PluginManager manager, File pluginDirectory) {
@@ -68,33 +67,4 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor, org.xmpp.comp
 
     }
 
-    @Override
-    public String getName() {
-        return pluginManager.getName(this);
-    }
-
-    @Override
-    public String getDescription() {
-        return pluginManager.getDescription(this);
-    }
-
-    @Override
-    public void processPacket(Packet packet) {
-
-    }
-
-    @Override
-    public void initialize(JID jid, ComponentManager componentManager) throws ComponentException {
-
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void shutdown() {
-
-    }
 }

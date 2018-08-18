@@ -141,7 +141,7 @@ public class AddSession extends HttpServlet {
             doBack(backJson,printWriter);
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
-            doBack(new BackJson("error-002",e.getMessage(),intSessionType),printWriter);
+            doBack(new BackJson("error-010",e.getMessage(),intSessionType),printWriter);
         }
 
 

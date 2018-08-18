@@ -121,6 +121,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     error-007:session_id为空
     error-008:user_id为空
     error-009:不存在的会话
+    error-010:addSession出错
 ## 五、接口列表
 
 ###### 发送文本消息

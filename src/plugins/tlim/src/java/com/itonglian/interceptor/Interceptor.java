@@ -1,8 +1,6 @@
 package com.itonglian.interceptor;
 
 import com.itonglian.bean.Protocol;
-import com.itonglian.exception.ExceptionReply;
-import org.jivesoftware.openfire.session.Session;
 import org.xmpp.packet.Message;
 
 /**
