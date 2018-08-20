@@ -4,6 +4,7 @@ import com.itonglian.dao.ChatDao;
 import com.itonglian.entity.OfMessage;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
+import org.jivesoftware.database.SequenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofmessage WHERE msg_id = ?";
 
-    private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?)";
+    private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?,?)";
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
@@ -39,6 +40,7 @@ public class ChatDaoImpl implements ChatDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(INSERT_WITH_SESS);
             int i=1;
+            preparedStatement.setLong(i++,SequenceManager.nextID(OfMessage.ID_Contants.MSG_KEY));
             preparedStatement.setString(i++,ofMessage.getMsg_id());
             preparedStatement.setString(i++,ofMessage.getMsg_type());
             preparedStatement.setString(i++,ofMessage.getMsg_from());
@@ -90,6 +92,7 @@ public class ChatDaoImpl implements ChatDao {
             resultSet = preparedStatement.executeQuery();
             OfMessage ofMessage = new OfMessage();
             if(resultSet.next()){
+                ofMessage.setId_(resultSet.getLong("id_"));
                 ofMessage.setMsg_id(resultSet.getString("msg_id"));
                 ofMessage.setMsg_type(resultSet.getString("msg_type"));
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));

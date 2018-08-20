@@ -80,10 +80,10 @@ public class InterceptorContext {
         if(packet.getFrom() ==null || packet.getTo() ==null){
             return false;
         }
-        PacketExtension packetExtension = packet.getExtension("tlim","im.itonglian.com");
+        /*PacketExtension packetExtension = packet.getExtension("tlim","im.itonglian.com");
         if(packetExtension==null){
             return false;
-        }
+        }*/
         return true;
     }
 

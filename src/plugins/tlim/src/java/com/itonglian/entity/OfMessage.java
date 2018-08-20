@@ -1,4 +1,7 @@
 package com.itonglian.entity;
+
+import org.jivesoftware.util.JiveConstants;
+
 /**
  * <p> 概述：消息实体
  * <p> 功能：消息实体
@@ -7,6 +10,8 @@ package com.itonglian.entity;
  * <p> 类调用特殊情况：
  */
 public class OfMessage {
+
+    private long id_;
     /** 消息id;唯一;uuid */
     private String msg_id;
     /** 消息类型,eg.MTT-000 */
@@ -21,6 +26,18 @@ public class OfMessage {
     private String body;
 
     private String session_id;
+
+    public class ID_Contants extends JiveConstants{
+        public static final int MSG_KEY =52;
+    }
+
+    public long getId_() {
+        return id_;
+    }
+
+    public void setId_(long id_) {
+        this.id_ = id_;
+    }
 
     public String getMsg_id() {
         return msg_id;
