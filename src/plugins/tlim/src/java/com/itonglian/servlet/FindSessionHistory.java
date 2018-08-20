@@ -48,13 +48,11 @@ public class FindSessionHistory extends HttpServlet {
             return;
         }
 
-
-
-
         List<OfMessage> messageList = messageDao.findHistory(session_id,user_id,start,length);
 
+        int total = messageDao.findMessageTotal(session_id,user_id);
 
-        doBack(new BackJson("ok","",session_id,messageList),printWriter);
+        doBack(new BackJson("ok","",session_id,messageList,total),printWriter);
 
 
     }
@@ -80,17 +78,20 @@ public class FindSessionHistory extends HttpServlet {
 
         private List<OfMessage> message_list;
 
+        private int total;
+
         public BackJson(String result, String result_detail, String session_id) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, List<OfMessage> message_list) {
+        public BackJson(String result, String result_detail, String session_id, List<OfMessage> message_list,int total) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
             this.message_list = message_list;
+            this.total = total;
         }
 
         public String getSession_id() {
@@ -123,6 +124,14 @@ public class FindSessionHistory extends HttpServlet {
 
         public void setMessage_list(List<OfMessage> message_list) {
             this.message_list = message_list;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
         }
     }
 }

@@ -21,6 +21,8 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_to = ? ORDER BY msg_time desc limit ?,?";
 
+    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_to = ?";
+
 
     public static MessageDao getInstance(){
         return messageDao;
@@ -60,5 +62,28 @@ public class MessageDaoImpl implements MessageDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return null;
+    }
+
+    @Override
+    public int findMessageTotal(String session_id, String user_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_MESSAGE_TOTAL);
+            int i=1;
+            preparedStatement.setString(i++,session_id);
+            preparedStatement.setString(i++,user_id);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("total");
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return 0;
     }
 }

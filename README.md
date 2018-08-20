@@ -769,6 +769,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "result": "ok",
         "result_detail": "",
         "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f",
+        "total":25,
         "message_list": [
         {
             "body": "[{text:'hello,everyone',session_id:'824a02a1-9ee4-4487-b56f-de5b4a29317f'}]",

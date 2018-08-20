@@ -7,4 +7,7 @@ import java.util.List;
 public interface MessageDao {
 
     public List<OfMessage> findHistory(String session_id,String user_id, int start, int length);
+
+
+    public int findMessageTotal(String session_id,String user_id);
 }
