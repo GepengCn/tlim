@@ -170,7 +170,7 @@ public class ChatDaoImpl implements ChatDao {
                 ofMessage.setMsg_id(resultSet.getString("msg_id"));
                 ofMessage.setMsg_type(resultSet.getString("msg_type"));
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
-                ofMessage.setMsg_type(resultSet.getString("msg_to"));
+                ofMessage.setMsg_to(resultSet.getString("msg_to"));
                 ofMessage.setMsg_time(resultSet.getString("msg_time"));
                 ofMessage.setBody(resultSet.getString("body"));
                 ofMessage.setSession_id(resultSet.getString("session_id"));

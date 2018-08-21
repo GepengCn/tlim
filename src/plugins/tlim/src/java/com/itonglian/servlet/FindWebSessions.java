@@ -3,8 +3,10 @@ package com.itonglian.servlet;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.SessionDao;
+import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
+import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.entity.User;
@@ -12,6 +14,8 @@ import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import com.itonglian.utils.UserCacheManager;
 import org.jivesoftware.admin.AuthCheckFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,8 +32,12 @@ public class FindWebSessions extends HttpServlet {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
 
+    private static final Logger Log = LoggerFactory.getLogger(FindWebSessions.class);
+
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
+
+    UserDao userDao = UserDaoImpl.getInstance();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
