@@ -164,6 +164,7 @@ public class SessionDaoImpl implements SessionDao {
         return null;
     }
 
+
     @Override
     public void updatePic(String sessionId, String sessionPic) {
         Connection connection = null;

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,10 @@ public class ChatDaoImpl implements ChatDao {
     private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?,?)";
 
     private static final String IS_EXIST = "SELECT count(*) AS total FROM ofmessage WHERE msg_id=? AND msg_to=?";
+
+    private static final String TIK_TALK = "SELECT * FROM ofmessage WHERE id_ IN (SELECT max(id_) from (SELECT id_, msg_id, msg_type, msg_to AS send, msg_from AS recv, msg_time, body FROM ofmessage WHERE msg_from = ? AND msg_type like ? UNION SELECT id_, msg_id, msg_type, msg_from AS send, msg_to   AS recv, msg_time, body FROM ofmessage WHERE msg_to = ? AND msg_type like ?) t GROUP BY send)";
+
+
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
@@ -141,4 +146,42 @@ public class ChatDaoImpl implements ChatDao {
         }
         return 0;
     }
+
+
+
+    @Override
+    public List<OfMessage> tikTalk(String userId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OfMessage> messageList = new ArrayList<OfMessage>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(TIK_TALK);
+            preparedStatement.setString(1,userId);
+            preparedStatement.setString(2,"%MTT%");
+            preparedStatement.setString(3,userId);
+            preparedStatement.setString(4,"%MTT%");
+
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                OfMessage ofMessage = new OfMessage();
+                ofMessage.setId_(resultSet.getLong("id_"));
+                ofMessage.setMsg_id(resultSet.getString("msg_id"));
+                ofMessage.setMsg_type(resultSet.getString("msg_type"));
+                ofMessage.setMsg_from(resultSet.getString("msg_from"));
+                ofMessage.setMsg_type(resultSet.getString("msg_to"));
+                ofMessage.setMsg_time(resultSet.getString("msg_time"));
+                ofMessage.setBody(resultSet.getString("body"));
+                ofMessage.setSession_id(resultSet.getString("session_id"));
+                messageList.add(ofMessage);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return messageList;
+    }
+
 }

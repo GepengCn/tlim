@@ -18,4 +18,8 @@ public interface ChatDao {
     public List<OfMessage> findList(Map<String,Object> conditions);
 
     public int isExist(String msgId,String msgTo);
+
+    public List<OfMessage> tikTalk(String userId);
+
+
 }

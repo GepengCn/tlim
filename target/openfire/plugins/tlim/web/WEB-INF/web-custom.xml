@@ -93,4 +93,14 @@
         <url-pattern>/updateSessionPic</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findWebSessions</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindWebSessions</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findWebSessions</servlet-name>
+        <url-pattern>/findWebSessions</url-pattern>
+    </servlet-mapping>
+
 </web-app>

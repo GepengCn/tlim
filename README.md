@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.16<br>
+> 版本:1.2.17<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -33,11 +33,14 @@
 >>    21. [查询会话中所有订阅者](#查询会话中所有订阅者)<br>
 >>    22. [查询会话历史消息](#查询会话历史消息)<br>
 >>    23. [更新会话图标](#更新会话图标)<br>
+>>    24. [WEB端查询所有会话](#WEB查询所有会话)
+>>
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
-> 八、[本次改动](#八改动)<br>
-> 九、[openfire部署][depoyopenfire]
+> 八、[会话类型](#会话类型)<br>
+> 九、[本次改动](#八改动)<br>
+> 十、[openfire部署][depoyopenfire]
 
 
 ## 一、消息结构
@@ -861,8 +864,55 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "session_id": "824a02a1-9ee4-4487-b56f-de5b4a29317f",
         "session_pic":"http://ip:port/cap-aco/uploader/loadImg?pic=jjhd21.png"
     }
-        
-    
+
+
+---
+###### WEB端查询所有会话
+   1. 接口定义:
+
+    由于WEB端不能缓存的限制,所以使用此接口查询会话,包含单聊模式;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findWebSessions
+
+    4. 参数
+
+    4.1 user_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+
+
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": "",
+        "sessions": [
+            {
+                "session_id": "3e2b7b5c-8948-438e-883e-377976afeb08",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_modify_time": "1534841308159",
+                "session_pic": "D:/mediaFile/Img///imageTemp//1534815553662//FINAL1534815555239.png",
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
+            },
+            {
+                "session_id": "4e7cee72-72a0-48d1-a2c3-c071342c1467",
+                "session_name": "杜剑春,吴国正,葛鹏",
+                "session_type": 0,
+                "session_modify_time": "1534841308159",
+                "session_pic": "D:/mediaFile/Img///imageTemp//1534815553662//FINAL1534815555239.png",
+                "session_user": "673b15e889df4e4aaa33b46d1b433189",
+            }
+        ]
+    }
+
+
 ---
 ## 六、流程
 ![Alt text][flowPic]
@@ -925,10 +975,18 @@ b. 扩展消息
 message.addExtension(new Extension());
 
 ```
+## 十、会话类型
+
+```
+0:群聊
+1:审批
+2:退回
+99:单聊
+
+```
 
 
-
-## 八、改动
+## 九、改动
 > 2018年8月15日
 1. 新增从会话中查询所有订阅者接口
 2. 新增获取会话历史消息记录接口
