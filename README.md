@@ -690,7 +690,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
 
     5. 返回值:json对象
-   {
+    {
        "result": "ok",
        "result_detail": "",
        "session_create_time": "1534750713170",
@@ -728,7 +728,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
                "user_name": "安翰英"
            }
        ]
-   }
+    }
 
 ---
 ###### 查询会话中所有订阅者
