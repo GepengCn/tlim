@@ -26,6 +26,8 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?,?)";
 
+    private static final String IS_EXIST = "SELECT count(*) AS total FROM ofmessage WHERE msg_id=? AND msg_to=?";
+
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     public static ChatDao getInstance(){
@@ -34,6 +36,9 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public void add(OfMessage ofMessage) {
+        if(this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to())>0){
+            return;
+        }
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -112,5 +117,28 @@ public class ChatDaoImpl implements ChatDao {
     @Override
     public List<OfMessage> findList(Map<String, Object> conditions) {
         return null;
+    }
+
+    @Override
+    public int isExist(String msgId, String msgTo) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(IS_EXIST);
+            int i=1;
+            preparedStatement.setString(i++,msgId);
+            preparedStatement.setString(i++,msgTo);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("total");
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return 0;
     }
 }

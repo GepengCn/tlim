@@ -16,4 +16,6 @@ public interface ChatDao {
     public OfMessage findEntityById(String msgId);
 
     public List<OfMessage> findList(Map<String,Object> conditions);
+
+    public int isExist(String msgId,String msgTo);
 }
