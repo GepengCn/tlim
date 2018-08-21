@@ -690,33 +690,45 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
 
     5. 返回值:json对象
-    {
-        "result": "ok",
-        "result_detail": "",
-        "session_id": "3e2b7b5c-8948-438e-883e-377976afeb08",
-        "session_name": "杜剑春,吴国正,葛鹏",
-        "session_type": 0,
-        "session_user": "673b15e889df4e4aaa33b46d1b433189",
-        "session_create_time":"",
-        "subscribers":[
-            {
-                user_id:'',
-                user_name:'',
-                acct_login:'',
-                pic:'',
-                session_id:'',
-                ts:''
-            },
-            {
-                user_id:'',
-                user_name:'',
-                acct_login:'',
-                pic:'',
-                session_id:'',
-                ts:''
-            },
-        ]
-    }
+   {
+       "result": "ok",
+       "result_detail": "",
+       "session_create_time": "1534750713170",
+       "session_id": "5173d7d4-32de-40c1-8849-8b2bab48d3b2",
+       "session_name": "陈晓旭,包婉婷,刘跃阳,安翰英",
+       "session_type": 1,
+       "session_user": "717a4913b0a9409191518967330419e5",
+       "subscribers": [
+           {
+               "acct_login": "cxx",
+               "session_id": "5173d7d4-32de-40c1-8849-8b2bab48d3b2",
+               "ts": "1534750713144",
+               "user_id": "1d0e5d20ef0c4eb38cf95f643eecfc27",
+               "user_name": "陈晓旭"
+           },
+           {
+               "acct_login": "lyy",
+               "session_id": "5173d7d4-32de-40c1-8849-8b2bab48d3b2",
+               "ts": "1534750713158",
+               "user_id": "717a4913b0a9409191518967330419e5",
+               "user_name": "刘跃阳"
+           },
+           {
+               "acct_login": "bwt",
+               "session_id": "5173d7d4-32de-40c1-8849-8b2bab48d3b2",
+               "ts": "1534750713151",
+               "user_id": "93be1343711940ea986be1486f1541af",
+               "user_name": "包婉婷"
+           },
+           {
+               "acct_login": "ahy",
+               "session_id": "5173d7d4-32de-40c1-8849-8b2bab48d3b2",
+               "ts": "1534750713164",
+               "user_id": "f04de6dddf5a4f1db4b0ad57e2deaf82",
+               "user_name": "安翰英"
+           }
+       ]
+   }
 
 ---
 ###### 查询会话中所有订阅者
