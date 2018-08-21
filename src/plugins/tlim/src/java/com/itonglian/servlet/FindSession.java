@@ -2,8 +2,11 @@ package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.SessionDao;
+import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.SessionDaoImpl;
+import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSession;
+import com.itonglian.entity.OfSubscriber;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
@@ -17,12 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class FindSession extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(FindSession.class);
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
+
+    SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -51,7 +58,10 @@ public class FindSession extends HttpServlet {
             return;
         }
 
-        doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user()),printWriter);
+        List<OfSubscriber> subscribers = subscriberDao.findSubscribers(sessionId);
+
+        doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user(),ofSession.getSession_create_time(),subscribers),printWriter);
+
 
     }
 
@@ -80,19 +90,25 @@ public class FindSession extends HttpServlet {
 
         private String session_user;
 
+        private String session_create_time;
+
+        private List<OfSubscriber> subscribers;
+
         public BackJson(String result, String result_detail, String session_id) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user) {
+        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user, String session_create_time, List<OfSubscriber> subscribers) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
             this.session_name = session_name;
             this.session_type = session_type;
             this.session_user = session_user;
+            this.session_create_time = session_create_time;
+            this.subscribers = subscribers;
         }
 
         public String getSession_id() {
@@ -143,7 +159,21 @@ public class FindSession extends HttpServlet {
             this.result_detail = result_detail;
         }
 
+        public String getSession_create_time() {
+            return session_create_time;
+        }
 
+        public void setSession_create_time(String session_create_time) {
+            this.session_create_time = session_create_time;
+        }
+
+        public List<OfSubscriber> getSubscribers() {
+            return subscribers;
+        }
+
+        public void setSubscribers(List<OfSubscriber> subscribers) {
+            this.subscribers = subscribers;
+        }
     }
 
 

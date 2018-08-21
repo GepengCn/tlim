@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.15<br>
+> 版本:1.2.16<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -672,7 +672,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 ###### 查询会话
    1. 接口定义:
 
-    查询会话,http请求
+    查询会话详情及订阅者列表,http请求
 
     2. 接口流程:
 
@@ -697,6 +697,25 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "session_name": "杜剑春,吴国正,葛鹏",
         "session_type": 0,
         "session_user": "673b15e889df4e4aaa33b46d1b433189",
+        "session_create_time":"",
+        "subscribers":[
+            {
+                user_id:'',
+                user_name:'',
+                acct_login:'',
+                pic:'',
+                session_id:'',
+                ts:''
+            },
+            {
+                user_id:'',
+                user_name:'',
+                acct_login:'',
+                pic:'',
+                session_id:'',
+                ts:''
+            },
+        ]
     }
 
 ---
@@ -729,12 +748,22 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "session_type": 0,
         "session_user": "673b15e889df4e4aaa33b46d1b433189",
         "subscribers":[
-            user_id:'',
-            user_name:'',
-            acct_login:'',
-            pic:'',
-            session_id:'',
-            ts:''
+            {
+                user_id:'',
+                user_name:'',
+                acct_login:'',
+                pic:'',
+                session_id:'',
+                ts:''
+            },
+            {
+                user_id:'',
+                user_name:'',
+                acct_login:'',
+                pic:'',
+                session_id:'',
+                ts:''
+            },
         ]
     }
 
