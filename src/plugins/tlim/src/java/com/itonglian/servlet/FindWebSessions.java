@@ -53,7 +53,7 @@ public class FindWebSessions extends HttpServlet {
 
         ofSessions.addAll(parseChat(userId));
 
-        doBack(new BackJson("ok","",translate(ofSessions)),printWriter);
+        doBack(new BackJson("ok","",ofSessions),printWriter);
 
     }
 
@@ -62,30 +62,6 @@ public class FindWebSessions extends HttpServlet {
         this.doGet(req, resp);
     }
 
-    private List<Session> translate(List<OfSession> src){
-        if(src ==null || src.size()==0){
-            return null;
-        }
-
-        Iterator<OfSession> iterator = src.iterator();
-        List<Session> dest = new ArrayList<Session>();
-
-        while(iterator.hasNext()){
-            OfSession ofSession = iterator.next();
-            Session session = new Session(
-                    ofSession.getSession_id(),
-                    ofSession.getSession_name(),
-                    ofSession.getSession_type(),
-                    ofSession.getSession_user(),
-                    ofSession.getSession_pic(),
-                    ofSession.getSession_modify_time()
-                    );
-            dest.add(session);
-        }
-
-        return dest;
-
-    }
 
     private List<OfSession> parseChat(String userId){
         List<OfSession> sessions = new ArrayList<OfSession>();
@@ -134,10 +110,10 @@ public class FindWebSessions extends HttpServlet {
 
         private String result_detail;
 
-        private List<Session> sessions;
+        private List<OfSession> sessions;
 
 
-        public BackJson(String result, String result_detail, List<Session> sessions) {
+        public BackJson(String result, String result_detail, List<OfSession> sessions) {
             this.result = result;
             this.result_detail = result_detail;
             this.sessions = sessions;
@@ -159,90 +135,13 @@ public class FindWebSessions extends HttpServlet {
             this.result_detail = result_detail;
         }
 
-        public List<Session> getSessions() {
+        public List<OfSession> getSessions() {
             return sessions;
         }
 
-        public void setSessions(List<Session> sessions) {
+        public void setSessions(List<OfSession> sessions) {
             this.sessions = sessions;
         }
     }
 
-
-    private class Session{
-        private String session_id;
-
-        private String session_name;
-
-        private int session_type;
-
-        private String session_user;
-
-        private String session_pic;
-
-        private String session_modify_time;
-
-        public Session(String session_id,
-                       String session_name,
-                       int session_type,
-                       String session_user,
-                       String session_pic,
-                       String session_modify_time) {
-            this.session_id = session_id;
-            this.session_name = session_name;
-            this.session_type = session_type;
-            this.session_user = session_user;
-            this.session_pic = session_pic;
-            this.session_modify_time = session_modify_time;
-        }
-
-        public String getSession_id() {
-            return session_id;
-        }
-
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
-
-        public String getSession_name() {
-            return session_name;
-        }
-
-        public void setSession_name(String session_name) {
-            this.session_name = session_name;
-        }
-
-        public int getSession_type() {
-            return session_type;
-        }
-
-        public void setSession_type(int session_type) {
-            this.session_type = session_type;
-        }
-
-        public String getSession_user() {
-            return session_user;
-        }
-
-        public void setSession_user(String session_user) {
-            this.session_user = session_user;
-        }
-
-        public String getSession_pic() {
-            return session_pic;
-        }
-
-        public void setSession_pic(String session_pic) {
-            this.session_pic = session_pic;
-        }
-
-
-        public String getSession_modify_time() {
-            return session_modify_time;
-        }
-
-        public void setSession_modify_time(String session_modify_time) {
-            this.session_modify_time = session_modify_time;
-        }
-    }
 }
