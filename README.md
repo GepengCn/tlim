@@ -1,5 +1,5 @@
 ﻿# 即时通讯设计文档
-> 版本:1.2.17<br>
+> 版本:1.2.18<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -34,7 +34,7 @@
 >>    22. [查询会话历史消息](#查询会话历史消息)<br>
 >>    23. [更新会话图标](#更新会话图标)<br>
 >>    24. [WEB端查询所有会话](#WEB查询所有会话)
->>
+>>    25. [查询单聊历史消息](#查询单聊历史消息)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -912,6 +912,70 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         ]
     }
 
+
+---
+
+###### 查询单聊历史消息
+   1. 接口定义:
+
+    查询单聊历史消息;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findChatHistory
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+    4.1 user_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+    4.3 start:0
+    4.4 length:10
+
+
+
+    5. 返回值:json对象
+    {
+    "message_list": [
+        {
+            "body": "[{\"text\":\"hello,0\"}]",
+            "id_": 854,
+            "msg_from": "00f4aa18361c44d3b4c5dd444b76fe7e",
+            "msg_id": "f970faad-9190-4b39-9f7b-b897db2a2595",
+            "msg_time": "1534846194036",
+            "msg_to": "673b15e889df4e4aaa33b46d1b433189",
+            "msg_type": "MTT-000"
+        },
+        {
+            "body": "[{\"text\":\"hello,8\"}]",
+            "id_": 837,
+            "msg_from": "00f4aa18361c44d3b4c5dd444b76fe7e",
+            "msg_id": "f43a7188-c806-420c-b6ac-f562f1e6038a",
+            "msg_time": "1534841308159",
+            "msg_to": "673b15e889df4e4aaa33b46d1b433189",
+            "msg_type": "MTT-000"
+        },
+        {
+            "body": "[{\"text\":\"hello,7\"}]",
+            "id_": 836,
+            "msg_from": "00f4aa18361c44d3b4c5dd444b76fe7e",
+            "msg_id": "6348bef5-545f-4cfd-9d30-75e73221171e",
+            "msg_time": "1534841306654",
+            "msg_to": "673b15e889df4e4aaa33b46d1b433189",
+            "msg_type": "MTT-000"
+        }
+
+    ],
+        "result": "ok",
+        "result_detail": "",
+        "session_id": "673b15e889df4e4aaa33b46d1b433189",
+        "total": 3
+    }
 
 ---
 ## 六、流程
