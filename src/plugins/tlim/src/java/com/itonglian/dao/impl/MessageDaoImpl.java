@@ -2,6 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.MessageDao;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class MessageDaoImpl implements MessageDao {
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
                 ofMessage.setMsg_to(resultSet.getString("msg_to"));
                 ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(resultSet.getString("body"));
+                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
                 ofMessage.setSession_id(resultSet.getString("session_id"));
                 messageList.add(ofMessage);
             }
@@ -119,7 +120,7 @@ public class MessageDaoImpl implements MessageDao {
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
                 ofMessage.setMsg_to(resultSet.getString("msg_to"));
                 ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(resultSet.getString("body"));
+                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
                 ofMessage.setSession_id(resultSet.getString("session_id"));
                 messageList.add(ofMessage);
             }

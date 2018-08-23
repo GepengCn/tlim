@@ -2,6 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.ChatDao;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -56,7 +57,7 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement.setString(i++,ofMessage.getMsg_from());
             preparedStatement.setString(i++,ofMessage.getMsg_to());
             preparedStatement.setString(i++,ofMessage.getMsg_time());
-            preparedStatement.setString(i++,ofMessage.getBody());
+            preparedStatement.setString(i++,MessageUtils.encode(ofMessage.getBody()));
             preparedStatement.setString(i++,ofMessage.getSession_id());
             preparedStatement.execute();
         }catch (Exception e){
@@ -108,7 +109,7 @@ public class ChatDaoImpl implements ChatDao {
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
                 ofMessage.setMsg_type(resultSet.getString("msg_to"));
                 ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(resultSet.getString("body"));
+                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
                 return ofMessage;
             }
         }catch (Exception e){
@@ -172,7 +173,7 @@ public class ChatDaoImpl implements ChatDao {
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
                 ofMessage.setMsg_to(resultSet.getString("msg_to"));
                 ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(resultSet.getString("body"));
+                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
                 ofMessage.setSession_id(resultSet.getString("session_id"));
                 messageList.add(ofMessage);
             }

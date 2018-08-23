@@ -2,6 +2,9 @@ package com.itonglian.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 
 public class MessageUtils {
@@ -38,5 +41,23 @@ public class MessageUtils {
         resp.setContentType("application/json;charset=utf-8");
 
         resp.setHeader("Access-Control-Allow-Origin", "*");
+    }
+
+    public static String encode(String value){
+        try {
+            return URLEncoder.encode(value,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+    public static String decode(String value){
+        try {
+            return URLDecoder.decode(value,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 }
