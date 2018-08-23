@@ -93,6 +93,8 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     MTT-001:图片消息
     MTT-002:文件消息
     MTT-003:语音消息
+    MTB-000:待办
+    MTB-001:转发
     MTS-000:群聊文本
     MTS-001:群聊图片
     MTS-002:群聊文件

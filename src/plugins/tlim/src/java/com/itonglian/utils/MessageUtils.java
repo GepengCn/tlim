@@ -16,7 +16,7 @@ public class MessageUtils {
             return false;
         }
 
-        if(msgType.contains("MTT")||msgType.contains("MTC")||msgType.contains("MTS")){
+        if(msgType.contains("MTT")||msgType.contains("MTC")||msgType.contains("MTS")||msgType.contains("MTB")){
             return true;
         }
         return false;
