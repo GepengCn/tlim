@@ -171,11 +171,15 @@ public class SessionInterceptor implements Interceptor {
 
             chatDao.add(ofMessage);
 
+            sessionDao.modify(sessionId);
+
             if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
             }
             Message newMessage = message.createCopy();
+
             newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
+
             packetDeliverer.deliver(newMessage);
         }
     }

@@ -32,6 +32,8 @@ public class SessionDaoImpl implements SessionDao {
 
     private static final String UPDATE_PIC = "UPDATE ofsession SET session_pic=? WHERE session_id=?";
 
+    private static final String MODIFY = "UPDATE ofsession SET session_modify_time = ? WHERE session_id = ?";
+
     public static SessionDao getInstance(){
         return sessionDao;
     }
@@ -173,6 +175,23 @@ public class SessionDaoImpl implements SessionDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(UPDATE_PIC);
             preparedStatement.setString(1,sessionPic);
+            preparedStatement.setString(2,sessionId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void modify(String sessionId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(MODIFY);
+            preparedStatement.setString(1,MessageUtils.getTs());
             preparedStatement.setString(2,sessionId);
             preparedStatement.execute();
         }catch (Exception e){

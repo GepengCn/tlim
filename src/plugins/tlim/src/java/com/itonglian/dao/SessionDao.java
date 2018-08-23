@@ -27,5 +27,7 @@ public interface SessionDao {
 
     public void updatePic(String sessionId,String sessionPic);
 
+    public void modify(String sessionId);
+
 
 }
