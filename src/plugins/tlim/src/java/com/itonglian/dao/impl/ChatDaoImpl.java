@@ -1,7 +1,9 @@
 package com.itonglian.dao.impl;
 
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
@@ -19,6 +21,8 @@ import java.util.Map;
 public class ChatDaoImpl implements ChatDao {
 
     private static final ChatDao chatDao = new ChatDaoImpl();
+
+    private static final StatusDao statusDao = StatusDaoImpl.getInstance();
 
     private static final String INSERT = "INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body) VALUES(?,?,?,?,?,?)";
 
@@ -45,6 +49,13 @@ public class ChatDaoImpl implements ChatDao {
         if(this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to())>0){
             return;
         }
+        OfStatus ofStatus = new OfStatus();
+        ofStatus.setMsg_id(ofMessage.getMsg_id());
+        ofStatus.setMsg_to(ofMessage.getMsg_to());
+        ofStatus.setMsg_type(ofMessage.getMsg_type());
+        ofStatus.setSession_id(ofMessage.getSession_id());
+        ofStatus.setStatus(0);
+        statusDao.add(ofStatus);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {

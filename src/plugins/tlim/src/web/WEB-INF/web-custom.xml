@@ -115,4 +115,14 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>findUnread</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindUnread</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findUnread</servlet-name>
+        <url-pattern>/findUnread</url-pattern>
+    </servlet-mapping>
+
 </web-app>
