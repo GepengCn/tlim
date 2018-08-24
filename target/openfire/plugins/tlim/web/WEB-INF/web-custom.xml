@@ -125,4 +125,15 @@
         <url-pattern>/findUnread</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>updateMsgStatus</servlet-name>
+        <servlet-class>com.itonglian.servlet.UpdateMsgStatus</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateMsgStatus</servlet-name>
+        <url-pattern>/updateMsgStatus</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

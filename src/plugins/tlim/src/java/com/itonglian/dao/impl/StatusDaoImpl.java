@@ -27,7 +27,7 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String INSERT = "INSERT INTO ofstatus (id_,msg_id,msg_to,msg_type,status,session_id) values(?,?,?,?,?,?)";
 
-    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE msg_id=? AND msg_type=? AND msg_to=? AND session_id=?";
+    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE session_id=? AND status=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
 
@@ -54,7 +54,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public void update(String msg_id, String msg_type, String msg_to,String session_id) {
+    public void update(String session_id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -62,10 +62,8 @@ public class StatusDaoImpl implements StatusDao {
             preparedStatement = connection.prepareStatement(UPDATE);
             int i=1;
             preparedStatement.setInt(i++,1);
-            preparedStatement.setString(i++,msg_id);
-            preparedStatement.setString(i++,msg_type);
-            preparedStatement.setString(i++,msg_to);
             preparedStatement.setString(i++,session_id);
+            preparedStatement.setInt(i++,0);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
