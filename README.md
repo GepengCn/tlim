@@ -1,5 +1,5 @@
 # 即时通讯设计文档
-> 版本:1.2.18<br>
+> 版本:1.2.19<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -35,6 +35,7 @@
 >>    23. [更新会话图标](#更新会话图标)<br>
 >>    24. [WEB端查询所有会话](#WEB查询所有会话)
 >>    25. [查询单聊历史消息](#查询单聊历史消息)
+>>    26. [查询会话订阅者在线情况](#查询会话订阅者在线情况)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -978,6 +979,47 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         "total": 3
     }
 
+---
+###### 查询会话订阅者在线情况
+   1. 接口定义:
+
+    查询会话订阅者在线情况;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findPresence
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+
+
+
+    5. 返回值:json对象
+     [
+        {
+            "status": "offline",
+            "user_id": "00f4aa18361c44d3b4c5dd444b76fe7e"
+        },
+        {
+            "status": "offline",
+            "user_id": "03900bb681ee47dfaf100743d2fb38e6"
+        },
+        {
+            "status": "offline",
+            "user_id": "673b15e889df4e4aaa33b46d1b433189"
+        },
+        {
+            "status": "offline",
+            "user_id": "cbbe3baf49d44bb0bb794f2dd4cc5ec2"
+        }
+        ]
 ---
 ## 六、流程
 ![Alt text][flowPic]
