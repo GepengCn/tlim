@@ -35,6 +35,8 @@ public class ChatInterceptor implements Interceptor {
 
         ofMessage.setBody(protocol.getBody());
 
+        ofMessage.setSession_id(protocol.getMsg_to());
+
         chatDao.add(ofMessage);
 
 
