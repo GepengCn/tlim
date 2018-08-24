@@ -9,7 +9,9 @@ public interface StatusDao {
 
     public void add(OfStatus ofStatus);
 
-    public void update(String session_id);
+    public void update(String session_id,String msg_to);
+
+    public void delete(String session_id,String msg_to);
 
     public List<SessionUnread> findUnread(String msg_to);
 

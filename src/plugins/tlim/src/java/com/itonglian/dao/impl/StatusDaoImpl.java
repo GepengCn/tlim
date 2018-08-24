@@ -27,7 +27,9 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String INSERT = "INSERT INTO ofstatus (id_,msg_id,msg_to,msg_type,status,session_id) values(?,?,?,?,?,?)";
 
-    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE session_id=? AND status=?";
+    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE session_id=? AND status=? AND msg_to=?";
+
+    private static final String DELETE = "DELETE from ofstatus WHERE session_id=? AND msg_to=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
 
@@ -54,7 +56,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public void update(String session_id) {
+    public void update(String session_id,String msg_to) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -64,6 +66,25 @@ public class StatusDaoImpl implements StatusDao {
             preparedStatement.setInt(i++,1);
             preparedStatement.setString(i++,session_id);
             preparedStatement.setInt(i++,0);
+            preparedStatement.setString(i++,msg_to);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void delete(String session_id,String msg_to) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE);
+            int i=1;
+            preparedStatement.setString(i++,session_id);
+            preparedStatement.setString(i++,msg_to);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

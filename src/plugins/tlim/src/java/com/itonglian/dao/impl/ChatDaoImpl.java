@@ -49,13 +49,15 @@ public class ChatDaoImpl implements ChatDao {
         if(this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to())>0){
             return;
         }
-        OfStatus ofStatus = new OfStatus();
-        ofStatus.setMsg_id(ofMessage.getMsg_id());
-        ofStatus.setMsg_to(ofMessage.getMsg_to());
-        ofStatus.setMsg_type(ofMessage.getMsg_type());
-        ofStatus.setSession_id(ofMessage.getSession_id());
-        ofStatus.setStatus(0);
-        statusDao.add(ofStatus);
+        if(!ofMessage.getMsg_from().equals(ofMessage.getMsg_to())){
+            OfStatus ofStatus = new OfStatus();
+            ofStatus.setMsg_id(ofMessage.getMsg_id());
+            ofStatus.setMsg_to(ofMessage.getMsg_to());
+            ofStatus.setMsg_type(ofMessage.getMsg_type());
+            ofStatus.setSession_id(ofMessage.getSession_id());
+            ofStatus.setStatus(0);
+            statusDao.add(ofStatus);
+        }
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {

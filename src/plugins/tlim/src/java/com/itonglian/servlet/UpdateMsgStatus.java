@@ -34,7 +34,9 @@ public class UpdateMsgStatus extends HttpServlet {
 
         String session_id = req.getParameter("session_id");
 
-        statusDao.update(session_id);
+        String msg_to = req.getParameter("msg_to");
+
+        statusDao.delete(session_id,msg_to);
 
         doBack(new BackJson("ok",""),printWriter);
 
