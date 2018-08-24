@@ -104,4 +104,15 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>findPresence</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindPresence</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findPresence</servlet-name>
+        <url-pattern>/findPresence</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
