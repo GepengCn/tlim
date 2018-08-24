@@ -1,5 +1,5 @@
 # 即时通讯设计文档
-> 版本:1.2.19<br>
+> 版本:1.2.20<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -36,6 +36,7 @@
 >>    24. [WEB端查询所有会话](#WEB查询所有会话)
 >>    25. [查询单聊历史消息](#查询单聊历史消息)
 >>    26. [查询会话订阅者在线情况](#查询会话订阅者在线情况)
+>>    27. [更新会话已读状态](#更新会话已读状态)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1021,6 +1022,33 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         }
         ]
 ---
+###### 更新会话已读状态
+   1. 接口定义:
+
+    更新当前会话内消息为已读;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/updateMsgStatus
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+    4.2 msg_to:'asxa3b15easadd2211a33b46d1b433189'
+
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": ""
+     }
+---
 ## 六、流程
 ![Alt text][flowPic]
 
@@ -1094,6 +1122,11 @@ message.addExtension(new Extension());
 
 
 ## 九、改动
+> 2018年8月24日
+1. 新增若干接口
+2. 版本1.2.20
+
+
 > 2018年8月15日
 1. 新增从会话中查询所有订阅者接口
 2. 新增获取会话历史消息记录接口
