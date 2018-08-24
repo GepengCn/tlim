@@ -17,7 +17,7 @@ public class OfStatus {
     private String session_id;
 
     public class ID_Contants extends JiveConstants {
-        public static final int STATUS_KEY =52;
+        public static final int STATUS_KEY =53;
     }
 
     public long getId_() {

@@ -23,7 +23,7 @@ public class FindUnread extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        AuthCheckFilter.addExclude("tlim/FindUnread");
+        AuthCheckFilter.addExclude("tlim/findUnread");
     }
 
     @Override
