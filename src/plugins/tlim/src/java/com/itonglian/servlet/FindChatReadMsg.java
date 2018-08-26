@@ -36,10 +36,13 @@ public class FindChatReadMsg extends HttpServlet {
 
         String session_id = req.getParameter("session_id");
 
-        String msg_id = req.getParameter("msg_id");
+        String msg_to = req.getParameter("msg_to");
 
+        List<SessionRead> sessionReads = statusDao.findChatMsgRead(session_id,msg_to);
 
-        doBack(new BackJson("ok","",statusDao.findChatMsgRead(session_id,msg_id)),printWriter);
+        sessionReads.addAll(statusDao.findChatMsgRead(msg_to,session_id));
+
+        doBack(new BackJson("ok","",sessionReads),printWriter);
 
 
     }
