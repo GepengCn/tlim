@@ -1,6 +1,7 @@
 package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itonglian.bean.SessionRead;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.utils.MessageUtils;
@@ -13,8 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
-public class UpdateMsgStatus extends HttpServlet {
+public class FindChatReadMsg extends HttpServlet {
 
     StatusDao statusDao = StatusDaoImpl.getInstance();
 
@@ -22,7 +24,7 @@ public class UpdateMsgStatus extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        AuthCheckFilter.addExclude("tlim/updateMsgStatus");
+        AuthCheckFilter.addExclude("tlim/findChatReadMsg");
 
     }
 
@@ -34,13 +36,11 @@ public class UpdateMsgStatus extends HttpServlet {
 
         String session_id = req.getParameter("session_id");
 
-        String msg_to = req.getParameter("msg_to");
+        String msg_id = req.getParameter("msg_id");
 
-        //statusDao.delete(session_id,msg_to);
 
-        statusDao.update(session_id,msg_to);
+        doBack(new BackJson("ok","",statusDao.findChatMsgRead(session_id,msg_id)),printWriter);
 
-        doBack(new BackJson("ok",""),printWriter);
 
     }
 
@@ -60,10 +60,12 @@ public class UpdateMsgStatus extends HttpServlet {
 
         private String result_detail;
 
+        List<SessionRead> sessionReads;
 
-        public BackJson(String result, String result_detail) {
+        public BackJson(String result, String result_detail, List<SessionRead> sessionReads) {
             this.result = result;
             this.result_detail = result_detail;
+            this.sessionReads = sessionReads;
         }
 
         public String getResult() {
@@ -82,5 +84,12 @@ public class UpdateMsgStatus extends HttpServlet {
             this.result_detail = result_detail;
         }
 
+        public List<SessionRead> getSessionReads() {
+            return sessionReads;
+        }
+
+        public void setSessionReads(List<SessionRead> sessionReads) {
+            this.sessionReads = sessionReads;
+        }
     }
 }

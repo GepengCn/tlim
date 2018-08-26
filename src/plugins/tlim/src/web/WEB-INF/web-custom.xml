@@ -135,5 +135,25 @@
         <url-pattern>/updateMsgStatus</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findReadMsg</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindReadMsg</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findReadMsg</servlet-name>
+        <url-pattern>/findReadMsg</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findChatReadMsg</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindChatReadMsg</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findChatReadMsg</servlet-name>
+        <url-pattern>/findChatReadMsg</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

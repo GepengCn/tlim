@@ -1,5 +1,6 @@
 package com.itonglian.dao.impl;
 
+import com.itonglian.bean.SessionRead;
 import com.itonglian.bean.SessionUnread;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfStatus;
@@ -32,6 +33,11 @@ public class StatusDaoImpl implements StatusDao {
     private static final String DELETE = "DELETE from ofstatus WHERE session_id=? AND msg_to=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
+
+    private static final String FIND_MSG_READ = "SELECT msg_id,count(1) readNum from ofstatus  WHERE  status = ? AND session_id = ? GROUP BY msg_id ";
+
+    private static final String FIND_CHAT_MSG_READ = "SELECT msg_id,count(1) readNum from ofstatus  WHERE  status = ? AND session_id = ? AND msg_to = ? GROUP BY msg_id ";
+
 
     @Override
     public void add(OfStatus ofStatus) {
@@ -118,4 +124,59 @@ public class StatusDaoImpl implements StatusDao {
         }
         return sessionUnreads;
     }
+
+    @Override
+    public List<SessionRead> findMsgRead(String session_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<SessionRead> sessionReads = new ArrayList<SessionRead>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_MSG_READ);
+            preparedStatement.setInt(1,1);
+            preparedStatement.setString(2,session_id);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                SessionRead sessionRead = new SessionRead();
+                sessionRead.setMsg_id(resultSet.getString("msg_id"));
+                sessionRead.setReadNum(resultSet.getInt("readNum"));
+                sessionReads.add(sessionRead);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return sessionReads;
+    }
+
+    @Override
+    public List<SessionRead> findChatMsgRead(String session_id, String msg_to) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<SessionRead> sessionReads = new ArrayList<SessionRead>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_CHAT_MSG_READ);
+            preparedStatement.setInt(1,1);
+            preparedStatement.setString(2,session_id);
+            preparedStatement.setString(3,msg_to);
+
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                SessionRead sessionRead = new SessionRead();
+                sessionRead.setMsg_id(resultSet.getString("msg_id"));
+                sessionRead.setReadNum(resultSet.getInt("readNum"));
+                sessionReads.add(sessionRead);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return sessionReads;
+    }
+
 }
