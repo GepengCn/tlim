@@ -20,6 +20,6 @@ public interface StatusDao {
 
     public List<SessionRead> findChatMsgRead(String session_id,String msg_to);
 
-
+    public List<OfStatus> findMsgStatusList(String msg_id);
 
 }

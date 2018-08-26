@@ -155,5 +155,15 @@
         <url-pattern>/findChatReadMsg</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>findMsgStatusList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindMsgStatusList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findMsgStatusList</servlet-name>
+        <url-pattern>/findMsgStatusList</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

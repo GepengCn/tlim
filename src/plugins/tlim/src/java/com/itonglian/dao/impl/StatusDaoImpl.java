@@ -38,6 +38,8 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String FIND_CHAT_MSG_READ = "SELECT msg_id,count(1) readNum from ofstatus  WHERE  status = ? AND session_id = ? AND msg_to = ? GROUP BY msg_id ";
 
+    private static final String FIND_MSG_STATUS_LIST = "SELECT * FROM ofstatus WHERE msg_id = ?";
+
 
     @Override
     public void add(OfStatus ofStatus) {
@@ -177,6 +179,34 @@ public class StatusDaoImpl implements StatusDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return sessionReads;
+    }
+
+    @Override
+    public List<OfStatus> findMsgStatusList(String msg_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OfStatus> ofStatuses = new ArrayList<OfStatus>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_MSG_STATUS_LIST);
+            preparedStatement.setString(1,msg_id);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                OfStatus ofStatus = new OfStatus();
+                ofStatus.setMsg_id(resultSet.getString("msg_id"));
+                ofStatus.setMsg_type(resultSet.getString("msg_type"));
+                ofStatus.setMsg_to(resultSet.getString("msg_to"));
+                ofStatus.setSession_id(resultSet.getString("session_id"));
+                ofStatus.setStatus(resultSet.getInt("status"));
+                ofStatuses.add(ofStatus);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return ofStatuses;
     }
 
 }
