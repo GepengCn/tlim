@@ -8,6 +8,7 @@ import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
+import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
@@ -16,6 +17,7 @@ import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
+import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
 import java.util.Iterator;
@@ -107,13 +109,35 @@ public class CommandInterceptor implements Interceptor {
                 continue;
             }
 
+            OfMessage ofMessage = new OfMessage();
+
+            ofMessage.setMsg_id(protocol.getMsg_id());
+
+            ofMessage.setMsg_type(protocol.getMsg_type());
+
+            ofMessage.setMsg_from(protocol.getMsg_from());
+
+            ofMessage.setMsg_to(msgTo);
+
+            ofMessage.setMsg_time(protocol.getMsg_time());
+
+            ofMessage.setBody(protocol.getBody());
+
+            ofMessage.setSession_id(sessionId);
+
+            chatDao.add(ofMessage);
+
+            sessionDao.modify(sessionId);
+
             if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
             }
 
-            message.setTo(MessageUtils.toJid(msgTo));
+            Message newMessage = message.createCopy();
 
-            packetDeliverer.deliver(message);
+            newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
+
+            packetDeliverer.deliver(newMessage);
         }
     }
     private static class Command{
