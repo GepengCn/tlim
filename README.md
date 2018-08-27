@@ -1,5 +1,5 @@
 # 即时通讯设计文档
-> 版本:1.2.20<br>
+> 版本:1.2.21<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -34,9 +34,12 @@
 >>    22. [查询会话历史消息](#查询会话历史消息)<br>
 >>    23. [更新会话图标](#更新会话图标)<br>
 >>    24. [WEB端查询所有会话](#WEB查询所有会话)
->>    25. [查询单聊历史消息](#查询单聊历史消息)
->>    26. [查询会话订阅者在线情况](#查询会话订阅者在线情况)
->>    27. [更新会话已读状态](#更新会话已读状态)
+>>    25. [WEB查询单聊历史消息](#WEB查询单聊历史消息)
+>>    26. [WEB查询会话订阅者在线情况](#WEB查询会话订阅者在线情况)
+>>    27. [WEB更新会话已读状态](#WEB更新会话已读状态)
+>>    28. [WEB查询会话中某条消息已读人数](#WEB查询会话中单条消息已读人数)
+>>    29. [WEB查询单聊中某条消息已读人数](#WEB查询单聊中某条消息已读人数)
+>>    30. [WEB查询某条消息已读情况](#WEB查询某条消息已读情况)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -918,7 +921,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
 ---
 
-###### 查询单聊历史消息
+###### WEB查询单聊历史消息
    1. 接口定义:
 
     查询单聊历史消息;http请求
@@ -981,7 +984,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     }
 
 ---
-###### 查询会话订阅者在线情况
+###### WEB查询会话订阅者在线情况
    1. 接口定义:
 
     查询会话订阅者在线情况;http请求
@@ -1022,7 +1025,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         }
         ]
 ---
-###### 更新会话已读状态
+###### WEB更新会话已读状态
    1. 接口定义:
 
     更新当前会话内消息为已读;http请求
@@ -1047,6 +1050,104 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
      {
          "result": "ok",
          "result_detail": ""
+     }
+---
+###### WEB查询会话中某条消息已读人数
+   1. 接口定义:
+
+    WEB查询会话中某条消息已读人数;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findReadMsg
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+          "sessionReads": [
+            {
+                "msg_id": "02286574-2875-4ab7-a5df-f92eb6a9b0d5",
+                "readNum": 2
+            }
+          ]
+     }
+---
+###### WEB查询单聊中某条消息已读人数
+   1. 接口定义:
+
+    WEB查询单聊中某条消息已读人数;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findChatReadMsg
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+    4.2 msg_to:'673b15e889df4e4aaa33b46d1b433189'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+          "sessionReads": [
+            {
+                "msg_id": "02286574-2875-4ab7-a5df-f92eb6a9b0d5",
+                "readNum": 2
+            }
+          ]
+     }
+---
+###### WEB查询某条消息已读情况
+   1. 接口定义:
+
+    WEB查询某条消息已读情况;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findMsgStatusList
+
+    4. 参数
+
+    4.1 msg_id:'673b15e889df4e4aaa33b46d1b433189'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+          "ofStatusList": [
+            {
+                "id_": 0,
+                "msg_id": "c032ef6d-95df-44f7-a3e0-bdc0535122f9",
+                "msg_to": "00f4aa18361c44d3b4c5dd444b76fe7e",
+                "msg_type": "MTS-000",
+                "session_id": "54470ede-3e78-4a8a-9362-8edbf678e083",
+                "status": 1
+            }
+           ]
      }
 ---
 ## 六、流程
