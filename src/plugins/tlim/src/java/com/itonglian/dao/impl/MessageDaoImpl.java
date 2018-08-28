@@ -28,6 +28,8 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ?) t ";
 
+    private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
+
     public static MessageDao getInstance(){
         return messageDao;
     }
@@ -158,5 +160,23 @@ public class MessageDaoImpl implements MessageDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return 0;
+    }
+
+    @Override
+    public void deleteByUser(String session_id, String msg_from) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_BY_USER);
+            int i=1;
+            preparedStatement.setString(i++,session_id);
+            preparedStatement.setString(i++,msg_from);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 }

@@ -14,4 +14,6 @@ public interface MessageDao {
     public List<OfMessage> findChatHistory(String msg_from,String msg_to,int start, int length);
 
     public int findChatMessageTotal(String msg_from,String msg_to);
+
+    public void deleteByUser(String session_id,String msg_from);
 }

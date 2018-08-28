@@ -2,9 +2,13 @@ package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
+import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.SubscriberDao;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
+import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.entity.User;
@@ -30,6 +34,10 @@ public class ModifySession extends HttpServlet {
     SessionDao sessionDao = SessionDaoImpl.getInstance();
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
+
+    MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    StatusDao statusDao = StatusDaoImpl.getInstance();
 
     private static final Logger Log = LoggerFactory.getLogger(ModifySession.class);
 
@@ -118,6 +126,8 @@ public class ModifySession extends HttpServlet {
                     break;
                 case "del":
                     subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
+                    messageDao.deleteByUser(sessionId,handlerSubcriber.getUserId());
+                    statusDao.delete(sessionId,handlerSubcriber.getUserId());
                     break;
                 default:
                     break;

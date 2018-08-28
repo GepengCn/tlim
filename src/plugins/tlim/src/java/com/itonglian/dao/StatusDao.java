@@ -22,4 +22,5 @@ public interface StatusDao {
 
     public List<OfStatus> findMsgStatusList(String msg_id);
 
+
 }
