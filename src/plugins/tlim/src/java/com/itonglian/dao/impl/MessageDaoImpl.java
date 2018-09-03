@@ -26,7 +26,7 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ?) t ";
+    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? ) t ";
 
     private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
 

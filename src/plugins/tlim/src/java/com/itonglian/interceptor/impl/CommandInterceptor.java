@@ -66,6 +66,25 @@ public class CommandInterceptor implements Interceptor {
 
             }
 
+        }else{
+            OfMessage ofMessage = new OfMessage();
+
+            ofMessage.setMsg_id(protocol.getMsg_id());
+
+            ofMessage.setMsg_type(protocol.getMsg_type());
+
+            ofMessage.setMsg_from(protocol.getMsg_from());
+
+            ofMessage.setMsg_to(protocol.getMsg_to());
+
+            ofMessage.setMsg_time(protocol.getMsg_time());
+
+            ofMessage.setBody(protocol.getBody());
+
+            ofMessage.setSession_id(protocol.getMsg_to());
+
+            chatDao.add(ofMessage);
+
         }
 
 
