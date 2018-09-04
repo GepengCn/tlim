@@ -49,7 +49,9 @@ public class ChatDaoImpl implements ChatDao {
         if(this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to())>0){
             return;
         }
-        if(!ofMessage.getMsg_from().equals(ofMessage.getMsg_to())){
+        String msg_type = ofMessage.getMsg_type();
+        String isCommand = msg_type.split("-")[1].substring(0,1);
+        if(!ofMessage.getMsg_from().equals(ofMessage.getMsg_to())&&"0".equals(isCommand)){
             OfStatus ofStatus = new OfStatus();
             ofStatus.setMsg_id(ofMessage.getMsg_id());
             ofStatus.setMsg_to(ofMessage.getMsg_to());

@@ -1,7 +1,6 @@
 package com.itonglian.interceptor.impl;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.SessionDao;
@@ -49,71 +48,31 @@ public class SessionInterceptor implements Interceptor {
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
 
-        String suffix = protocol.getMsg_type().split("-")[1];
+        List<Other> otherList = JSONArray.parseArray(protocol.getBody(),Other.class);
 
-        switch (suffix){
-            //处理文本消息类型
-            case "000":
+        Iterator<Other> otherIterator = otherList.iterator();
 
-                List<Text> textList = JSONObject.parseArray(protocol.getBody(),Text.class);
+        while(otherIterator.hasNext()){
 
-                Iterator<Text> textIterator = textList.iterator();
+            Other other = otherIterator.next();
 
-                while(textIterator.hasNext()){
-
-                    Text text = textIterator.next();
-
-                    ifTextIsSession(text,protocol,message);
-                }
-
-
-                break;
-            //图片、语音及文件类型
-            case "001":
-            case "002":
-            case "003":
-
-                List<File> fileList = JSONArray.parseArray(protocol.getBody(),File.class);
-
-                Iterator<File> fileIterator = fileList.iterator();
-
-                while(fileIterator.hasNext()){
-
-                    File file = fileIterator.next();
-
-                    ifFileIsSession(file,protocol,message);
-                }
-
-
-                break;
-            default:
-                break;
+            ifOtherIsSession(other,protocol,message);
         }
 
     }
 
 
-    private void ifTextIsSession(Text text,Protocol protocol,Message message) throws Exception {
-
-        String sessionId = text.getSessionId();
+    private void ifOtherIsSession(Other other,Protocol protocol,Message message) throws Exception{
+        String sessionId = other.getSessionId();
 
         if(isValidSession(sessionId,message)){
 
             batchRoute(sessionId,protocol,message);
 
         }
+
     }
 
-    private void ifFileIsSession(File file,Protocol protocol,Message message) throws Exception {
-
-        String sessionId = file.getSessionId();
-
-        if(isValidSession(sessionId,message)){
-
-            batchRoute(sessionId,protocol,message);
-
-        }
-    }
 
     private boolean isValidSession(String sessionId,Message message) throws Exception {
 
@@ -185,42 +144,8 @@ public class SessionInterceptor implements Interceptor {
     }
 
 
-    private static class Text{
-
-        private String msgId;
-
+    private static class Other{
         private String sessionId;
-
-        public String getMsgId() {
-            return msgId;
-        }
-
-        public void setMsgId(String msgId) {
-            this.msgId = msgId;
-        }
-
-        public String getSessionId() {
-            return sessionId;
-        }
-
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-    }
-
-    private static class File{
-
-        private String fileId;
-
-        private String sessionId;
-
-        public String getFileId() {
-            return fileId;
-        }
-
-        public void setFileId(String fileId) {
-            this.fileId = fileId;
-        }
 
         public String getSessionId() {
             return sessionId;
