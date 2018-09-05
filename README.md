@@ -1198,7 +1198,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     b. openfire处理后返回结果
 
     3.请求地址
-    http://coolweb.club:9595/plugins/tlim/findMsgStatusList
+    http://coolweb.club:9595/plugins/tlim/findPubactList
 
     4. 参数
 
