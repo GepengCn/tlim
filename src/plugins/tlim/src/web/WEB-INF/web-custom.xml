@@ -166,4 +166,25 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>addPubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddPubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addPubact</servlet-name>
+        <url-pattern>/addPubact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findPubactList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindPubactList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findPubactList</servlet-name>
+        <url-pattern>/findPubactList</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

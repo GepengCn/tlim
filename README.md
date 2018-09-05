@@ -1,5 +1,5 @@
 # 即时通讯设计文档
-> 版本:1.2.21<br>
+> 版本:1.2.22<br>
 > 更新于:2017年8月9日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
@@ -40,6 +40,8 @@
 >>    28. [WEB查询会话中某条消息已读人数](#web查询会话中某条消息已读人数)
 >>    29. [WEB查询单聊中某条消息已读人数](#web查询单聊中某条消息已读人数)
 >>    30. [WEB查询某条消息已读情况](#web查询某条消息已读情况)
+>>    31. [WEB新增群公告](#web新增群公告)
+>>    32. [WEB查询会话内所有群公告](#web查询会话内所有群公告)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1155,6 +1157,69 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
            ]
      }
 ---
+###### WEB新增群公告
+   1. 接口定义:
+
+    WEB新增群公告;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/addPubact
+
+    4. 参数
+
+    4.1 title:'标题'
+    4.2 content:'内容'
+    4.3 user_id:'673b15e889df4e4aaa33b46d1b433189'
+    4.4 session_id:'673b15e889df4e4aaa33b46d1b433189'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+     }
+---
+###### WEB查询会话内所有群公告
+   1. 接口定义:
+
+    WEB查询会话内所有群公告;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/findMsgStatusList
+
+    4. 参数
+
+    4.1 session_id:'673b15e889df4e4aaa33b46d1b433189'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+          "pubactList": [
+              {
+                  "content": "内容。。。。",
+                  "id_": 9353,
+                  "session_id": "673b15e889df4e4aaa33b46d1b433189",
+                  "title": "主题",
+                  "ts": "1536128472063",
+                  "user_id": "d88wa-22m112j3-dasdawdd-w2123"
+              }
+          ],
+     }
+---
 ## 六、流程
 ![Alt text][flowPic]
 
@@ -1228,6 +1293,10 @@ message.addExtension(new Extension());
 
 
 ## 九、改动
+> 2018年9月5日
+1. 新增群公告接口
+2. 版本1.2.22
+
 > 2018年8月24日
 1. 新增若干接口
 2. 版本1.2.20
