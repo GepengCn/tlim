@@ -116,6 +116,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     MTS-104:退出会话
     MTS-105:创建会话
     MTS-106:邀请加入会话
+    MTC-000:已收回执
     HTS-000:新增会话
     HTS-001:更新会话
     HTS-002:删除会话
@@ -1281,7 +1282,7 @@ b. 扩展消息
 message.addExtension(new Extension());
 
 ```
-## 十、会话类型
+## 九、会话类型
 
 ```
 0:群聊
@@ -1292,7 +1293,7 @@ message.addExtension(new Extension());
 ```
 
 
-## 九、改动
+## 十、改动
 > 2018年9月5日
 1. 新增群公告接口
 2. 版本1.2.22
