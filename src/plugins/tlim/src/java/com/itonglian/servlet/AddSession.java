@@ -12,7 +12,6 @@ import com.itonglian.entity.OfSubscriber;
 import com.itonglian.entity.User;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.UserCacheManager;
-import com.sun.deploy.net.HttpUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.admin.AuthCheckFilter;

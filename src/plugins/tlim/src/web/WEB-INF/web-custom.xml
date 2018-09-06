@@ -186,5 +186,25 @@
         <url-pattern>/findPubactList</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>modifyPubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.ModifyPubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>modifyPubact</servlet-name>
+        <url-pattern>/modifyPubact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deletePubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.DeletePubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deletePubact</servlet-name>
+        <url-pattern>/deletePubact</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -4,6 +4,7 @@ import com.itonglian.dao.PubactDao;
 import com.itonglian.entity.OfPubact;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -25,6 +26,9 @@ public class PubactDaoImpl implements PubactDao {
 
     private static final String FIND_BY_SESSION = "SELECT * FROM ofpubact WHERE session_id = ?";
 
+    private static final String UPDATE = "UPDATE ofpubact SET title = ?,content = ? WHERE id_ = ?";
+
+    private static final String DELETE = "DELETE FROM ofpubact WHERE id_ = ? ";
 
     public static PubactDao getInstance(){
         return pubactDao;
@@ -84,5 +88,41 @@ public class PubactDaoImpl implements PubactDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return ofPubactList;
+    }
+
+    @Override
+    public void update(String id_, String title, String content) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE);
+            int i=1;
+            preparedStatement.setString(i++,title);
+            preparedStatement.setString(i++,content);
+            preparedStatement.setLong(i++,StringUtils.stringToLong(id_));
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void delete(String id_) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE);
+            int i=1;
+            preparedStatement.setLong(i++,StringUtils.stringToLong(id_));
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 }

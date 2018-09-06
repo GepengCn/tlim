@@ -16,6 +16,13 @@ public class StringUtils {
         return Integer.parseInt(value);
     }
 
+    public static long stringToLong(String value){
+        if(isNullOrEmpty(value)){
+            return 0;
+        }
+        return Long.parseLong(value);
+    }
+
     public static int StringToMaxInt(String value){
         if(isNullOrEmpty(value)){
             return 0;

@@ -42,6 +42,8 @@
 >>    30. [WEB查询某条消息已读情况](#web查询某条消息已读情况)
 >>    31. [WEB新增群公告](#web新增群公告)
 >>    32. [WEB查询会话内所有群公告](#web查询会话内所有群公告)
+>>    33. [WEB修改群公告](#web修改群公告)
+>>    34. [WEB删除群公告](#web删除群公告)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1219,6 +1221,58 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
                   "user_id": "d88wa-22m112j3-dasdawdd-w2123"
               }
           ],
+     }
+---
+###### WEB修改群公告
+   1. 接口定义:
+
+    WEB修改群公告;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/modifyPubact
+
+    4. 参数
+
+    4.1 id_:'9421'
+    4.2 title:'标题'
+    4.3 content:'内容'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
+     }
+---
+###### WEB删除群公告
+   1. 接口定义:
+
+    WEB删除群公告;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientA
+
+    a. client发送http请求给openfire服务器
+    b. openfire处理后返回结果
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/deletePubact
+
+    4. 参数
+
+    4.1 id_:'标题'
+
+    5. 返回值:json对象
+     {
+         "result": "ok",
+         "result_detail": "",
      }
 ---
 ## 六、流程
