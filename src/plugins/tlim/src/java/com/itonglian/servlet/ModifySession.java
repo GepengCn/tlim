@@ -66,7 +66,9 @@ public class ModifySession extends HttpServlet {
 
 
         //更新session
-        sessionDao.updateNameById(sessionId,sessionName);
+        if(!StringUtils.isNullOrEmpty(sessionName)){
+            sessionDao.updateNameById(sessionId,sessionName);
+        }
 
         //更新订阅者
         handlerSubscribers(subscribers,sessionId);
