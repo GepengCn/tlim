@@ -19,11 +19,11 @@ public interface SessionDao {
 
     public void update(OfSession session);
 
-    public void updateNameById(String sessionId,String sessionName);
+    public void updateNameById(String sessionId,String sessionName,String modifyTime);
 
     public OfSession findEntityById(String sessionId);
 
-    public List<OfSession> findSessionsByUser(String userId);
+    public List<OfSession> findSessionsByUser(String userId,int valid);
 
     public void updatePic(String sessionId,String sessionPic);
 

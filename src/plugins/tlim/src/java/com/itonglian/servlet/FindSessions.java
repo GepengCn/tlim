@@ -48,7 +48,7 @@ public class FindSessions extends HttpServlet {
         }
 
 
-        List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId);
+        List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId,0);
 
         doBack(new BackJson("ok","",translate(ofSessions)),printWriter);
 

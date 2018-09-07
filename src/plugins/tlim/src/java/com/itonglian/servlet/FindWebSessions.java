@@ -49,6 +49,8 @@ public class FindWebSessions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("user_id");
 
+        int valid = StringUtils.stringToInt(req.getParameter("valid"));
+
         MessageUtils.setResponse(resp);
 
         PrintWriter printWriter = resp.getWriter();
@@ -57,7 +59,7 @@ public class FindWebSessions extends HttpServlet {
             return;
         }
 
-        List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId);
+        List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId,valid);
 
         ofSessions.addAll(parseChat(userId));
 

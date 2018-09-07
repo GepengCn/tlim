@@ -901,8 +901,9 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     4. 参数
 
     4.1 user_id:'efac3b0f-880c-4764-a0c4-beb1718a2cea'
+    4.2 valid:0
 
-
+    注:valid 为int型,取值范围(0,1);0:打开 1:关闭
 
     5. 返回值:json对象
     {
@@ -1351,7 +1352,8 @@ message.addExtension(new Extension());
 
 > 2018年9月7日
 1. 修改会话时参数会话名"session_name"为空时，默认为不修改
-2. 版本1.2.23
+2. WEB端查询所有会话新增字段valid，以便区分打开或关闭的会话
+3. 版本1.2.23
 
 > 2018年9月5日
 1. 新增群公告接口

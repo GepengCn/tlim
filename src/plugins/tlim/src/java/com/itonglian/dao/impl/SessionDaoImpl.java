@@ -28,7 +28,7 @@ public class SessionDaoImpl implements SessionDao {
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofsession WHERE session_id = ?";
 
-    private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ?";
+    private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ? AND A.session_valid = ?";
 
     private static final String UPDATE_PIC = "UPDATE ofsession SET session_pic=? WHERE session_id=?";
 
@@ -85,14 +85,14 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public void updateNameById(String sessionId, String sessionName) {
+    public void updateNameById(String sessionId, String sessionName,String modifyTime) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(UPDATE_NAME_BY_ID);
             preparedStatement.setString(1,sessionName);
-            preparedStatement.setString(2,MessageUtils.getTs());
+            preparedStatement.setString(2,modifyTime);
             preparedStatement.setString(3,sessionId);
             preparedStatement.execute();
         }catch (Exception e){
@@ -134,7 +134,7 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public List<OfSession> findSessionsByUser(String userId) {
+    public List<OfSession> findSessionsByUser(String userId,int valid) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -143,6 +143,7 @@ public class SessionDaoImpl implements SessionDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(FIND_SESSIONS_BY_USER);
             preparedStatement.setString(1,userId);
+            preparedStatement.setInt(2,valid);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 OfSession ofSession = new OfSession();

@@ -64,16 +64,17 @@ public class ModifySession extends HttpServlet {
             return;
         }
 
-
+        String modifyTime = "";
         //更新session
         if(!StringUtils.isNullOrEmpty(sessionName)){
-            sessionDao.updateNameById(sessionId,sessionName);
+            modifyTime = MessageUtils.getTs();
+            sessionDao.updateNameById(sessionId,sessionName,modifyTime);
         }
 
         //更新订阅者
         handlerSubscribers(subscribers,sessionId);
 
-        doBack(new BackJson("ok","",sessionId,MessageUtils.getTs()),printWriter);
+        doBack(new BackJson("ok","",sessionId,modifyTime),printWriter);
 
     }
 
