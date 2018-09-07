@@ -60,9 +60,9 @@ public class FindWebSessions extends HttpServlet {
         }
 
         List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId,valid);
-
-        ofSessions.addAll(parseChat(userId));
-
+        if(valid==0){
+            ofSessions.addAll(parseChat(userId));
+        }
         doBack(new BackJson("ok","",ofSessions),printWriter);
 
     }
