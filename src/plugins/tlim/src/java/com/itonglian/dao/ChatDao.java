@@ -26,5 +26,7 @@ public interface ChatDao {
 
     public void add(OfChat ofChat);
 
+    public void modify(String chat_user,String chat_other);
+
 
 }

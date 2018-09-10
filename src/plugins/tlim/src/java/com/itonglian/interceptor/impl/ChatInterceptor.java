@@ -47,11 +47,14 @@ public class ChatInterceptor implements Interceptor {
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
             addChat(protocol.getMsg_from(),protocol.getMsg_to());
+        }else{
+            chatDao.modify(protocol.getMsg_from(),protocol.getMsg_to());
         }
         if(!chatDao.isExistChat(protocol.getMsg_to(),protocol.getMsg_from())){
             addChat(protocol.getMsg_to(),protocol.getMsg_from());
+        }else{
+            chatDao.modify(protocol.getMsg_to(),protocol.getMsg_from());
         }
-
 
     }
 

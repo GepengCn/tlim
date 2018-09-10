@@ -41,6 +41,8 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String IS_EXIST_CHAT = "SELECT * FROM ofchat WHERE chat_user = ? AND chat_other = ?";
 
+    private static final String MODIFY = "UPDATE ofchat SET chat_modify_time = ? WHERE chat_user = ? AND chat_other = ?";
+
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     public static ChatDao getInstance(){
@@ -241,6 +243,25 @@ public class ChatDaoImpl implements ChatDao {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
 
+    }
+
+    @Override
+    public void modify(String chat_user,String chat_other) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(MODIFY);
+            preparedStatement.setString(1,MessageUtils.getTs());
+            preparedStatement.setString(2,chat_user);
+            preparedStatement.setString(3,chat_other);
+
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
 }
