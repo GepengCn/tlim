@@ -29,5 +29,7 @@ public interface SessionDao {
 
     public void modify(String sessionId);
 
+    public void switchSession(String sessionId,int valid);
+
 
 }

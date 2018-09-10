@@ -206,5 +206,15 @@
         <url-pattern>/deletePubact</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>switchSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.SwitchSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>switchSession</servlet-name>
+        <url-pattern>/switchSession</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
