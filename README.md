@@ -44,6 +44,12 @@
 >>    32. [WEB查询会话内所有群公告](#web查询会话内所有群公告)
 >>    33. [WEB修改群公告](#web修改群公告)
 >>    34. [WEB删除群公告](#web删除群公告)
+>>    35. [系统消息:创建会话](系统消息:创建会话)
+>>    36. [系统消息:修改会话名称](系统消息:修改会话名称)
+>>    37. [系统消息:邀请订阅者](系统消息:邀请订阅者)
+>>    38. [系统消息:移除订阅者](系统消息:移除订阅者)
+>>    39. [系统消息:退出会话](系统消息:退出会话)
+>>    40. [系统消息:消息撤回](系统消息:消息撤回)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1276,6 +1282,195 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
          "result_detail": "",
      }
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+！！！！！！！！！！！！！！！！！
+
+###### 系统消息:创建会话
+    1. 接口定义:
+
+    系统消息:创建会话;MTS-105
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            session_user:'673b15e889df4e4aaa33b46d1b433189',
+            subscribers:[
+                {
+                    user_id:'f1939b73a9fa4b78aa904d0933b26d3f',
+                    user_name:'A',
+                },
+                {
+                    user_id:'03900bb681ee47dfaf100743d2fb38e6',
+                    user_name:'B',
+                }
+            ]
+        }
+    ]
+
+---
+###### 系统消息:修改会话名称
+    1. 接口定义:
+
+    系统消息:修改会话名称;MTS-102
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            session_name:'hello,abc'
+        }
+    ]
+
+---
+###### 系统消息:邀请订阅者
+    1. 接口定义:
+
+    系统消息:邀请订阅者;MTS-106
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            subscribers:[
+                {
+                    user_id:'f1939b73a9fa4b78aa904d0933b26d3f',
+                    user_name:'A',
+                },
+                {
+                    user_id:'03900bb681ee47dfaf100743d2fb38e6',
+                    user_name:'B',
+                }
+            ]
+        }
+    ]
+
+---
+###### 系统消息:移除订阅者
+    1. 接口定义:
+
+    系统消息:移除订阅者;MTS-103
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            subscribers:[
+                {
+                    user_id:'f1939b73a9fa4b78aa904d0933b26d3f',
+                    user_name:'A',
+                },
+                {
+                    user_id:'03900bb681ee47dfaf100743d2fb38e6',
+                    user_name:'B',
+                }
+            ]
+        }
+    ]
+
+---
+###### 系统消息:退出会话
+    1. 接口定义:
+
+    系统消息:退出会话;MTS-104
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            user_id:'f1939b73a9fa4b78aa904d0933b26d3f',
+            user_name:'A'
+        }
+    ]
+
+---
+
+###### 系统消息:消息撤回
+    1. 接口定义:
+
+    系统消息:消息撤回;MTS-101
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+            msg_id:'b8cf1de5-a12f-4480-82a7-0f084440f8a0'
+        }
+    ]
+
+---
+
 ## 六、流程
 ![Alt text][flowPic]
 
