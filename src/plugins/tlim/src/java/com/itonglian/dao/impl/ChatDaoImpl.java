@@ -206,7 +206,7 @@ public class ChatDaoImpl implements ChatDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(IS_EXIST_CHAT);
             preparedStatement.setString(1,msg_from);
-            preparedStatement.setString(2,msg_from);
+            preparedStatement.setString(2,msg_to);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return true;
