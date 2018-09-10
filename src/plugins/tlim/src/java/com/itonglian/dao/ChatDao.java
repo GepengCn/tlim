@@ -1,5 +1,6 @@
 package com.itonglian.dao;
 
+import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 
 import java.util.List;
@@ -19,7 +20,11 @@ public interface ChatDao {
 
     public int isExist(String msgId,String msgTo);
 
-    public List<OfMessage> tikTalk(String userId);
+    public List<OfChat> chatList(String userId);
+
+    public boolean isExistChat(String msg_from,String msg_to);
+
+    public void add(OfChat ofChat);
 
 
 }

@@ -2,6 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.StatusDao;
+import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
@@ -32,11 +33,13 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?,?)";
 
+    private static final String INSERT_CHAT = "INSERT INTO ofchat(chat_id,chat_name,chat_user,chat_other,chat_create_time,chat_modify_time,chat_pic) VALUES(?,?,?,?,?,?,?)";
+
     private static final String IS_EXIST = "SELECT count(*) AS total FROM ofmessage WHERE msg_id=? AND msg_to=?";
 
-    private static final String TIK_TALK = "SELECT * FROM ofmessage WHERE id_ IN (SELECT max(id_) from (SELECT id_, msg_id, msg_type, msg_to AS send, msg_from AS recv, msg_time, body FROM ofmessage WHERE msg_from = ? AND msg_type like ? UNION SELECT id_, msg_id, msg_type, msg_from AS send, msg_to   AS recv, msg_time, body FROM ofmessage WHERE msg_to = ? AND msg_type like ?) t GROUP BY send)";
+    private static final String CHAT_LIST = "SELECT * FROM ofchat WHERE chat_other = ?";
 
-
+    private static final String IS_EXIST_CHAT = "SELECT * FROM ofchat WHERE chat_user = ? AND chat_other = ?";
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
@@ -166,38 +169,78 @@ public class ChatDaoImpl implements ChatDao {
 
 
     @Override
-    public List<OfMessage> tikTalk(String userId) {
+    public List<OfChat> chatList(String userId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<OfMessage> messageList = new ArrayList<OfMessage>();
+        List<OfChat> ofChats = new ArrayList<OfChat>();
         try {
             connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(TIK_TALK);
+            preparedStatement = connection.prepareStatement(CHAT_LIST);
             preparedStatement.setString(1,userId);
-            preparedStatement.setString(2,"%MTT%");
-            preparedStatement.setString(3,userId);
-            preparedStatement.setString(4,"%MTT%");
-
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                OfMessage ofMessage = new OfMessage();
-                ofMessage.setId_(resultSet.getLong("id_"));
-                ofMessage.setMsg_id(resultSet.getString("msg_id"));
-                ofMessage.setMsg_type(resultSet.getString("msg_type"));
-                ofMessage.setMsg_from(resultSet.getString("msg_from"));
-                ofMessage.setMsg_to(resultSet.getString("msg_to"));
-                ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
-                ofMessage.setSession_id(resultSet.getString("session_id"));
-                messageList.add(ofMessage);
+                OfChat ofChat = new OfChat();
+                ofChat.setChat_id(resultSet.getString("chat_id"));
+                ofChat.setChat_name(resultSet.getString("chat_name"));
+                ofChat.setChat_user(resultSet.getString("chat_user"));
+                ofChat.setChat_other(resultSet.getString("chat_other"));
+                ofChat.setChat_create_time(resultSet.getString("chat_create_time"));
+                ofChat.setChat_modify_time(resultSet.getString("chat_modify_time"));
+                ofChats.add(ofChat);
             }
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
-        return messageList;
+        return ofChats;
+    }
+
+    @Override
+    public boolean isExistChat(String msg_from,String msg_to) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(IS_EXIST_CHAT);
+            preparedStatement.setString(1,msg_from);
+            preparedStatement.setString(2,msg_from);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return true;
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return false;
+    }
+
+    @Override
+    public void add(OfChat ofChat) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_CHAT);
+            int i=1;
+            preparedStatement.setString(i++,ofChat.getChat_id());
+            preparedStatement.setString(i++,ofChat.getChat_name());
+            preparedStatement.setString(i++,ofChat.getChat_user());
+            preparedStatement.setString(i++,ofChat.getChat_other());
+            preparedStatement.setString(i++,ofChat.getChat_create_time());
+            preparedStatement.setString(i++,ofChat.getChat_modify_time());
+            preparedStatement.setString(i++,ofChat.getChat_pic());
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+
     }
 
 }

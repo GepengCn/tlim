@@ -7,12 +7,10 @@ import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.UserDaoImpl;
-import com.itonglian.entity.OfMessage;
+import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfSession;
-import com.itonglian.entity.User;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import com.itonglian.utils.UserCacheManager;
 import org.jivesoftware.admin.AuthCheckFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,50 +59,34 @@ public class FindWebSessions extends HttpServlet {
 
         List<OfSession> ofSessions = sessionDao.findSessionsByUser(userId,valid);
         if(valid==0){
-            ofSessions.addAll(parseChat(userId));
+            ofSessions.addAll(parse(chatDao.chatList(userId)));
         }
         doBack(new BackJson("ok","",ofSessions),printWriter);
 
     }
 
+    public List<OfSession> parse(List<OfChat> ofChats){
+        Iterator<OfChat> iterator = ofChats.iterator();
+        List<OfSession> ofSessions = new ArrayList<OfSession>();
+        while(iterator.hasNext()){
+            OfChat ofChat = iterator.next();
+            OfSession ofSession = new OfSession();
+            ofSession.setSession_id(ofChat.getChat_user());
+            ofSession.setSession_name(ofChat.getChat_name());
+            ofSession.setSession_valid(0);
+            ofSession.setSession_type(99);
+            ofSession.setSession_user(ofChat.getChat_other());
+            ofSession.setSession_create_time(ofChat.getChat_create_time());
+            ofSession.setSession_modify_time(ofChat.getChat_modify_time());
+            ofSession.setSession_pic(ofChat.getChat_pic());
+            ofSessions.add(ofSession);
+        }
+        return ofSessions;
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doGet(req, resp);
-    }
-
-
-    private List<OfSession> parseChat(String userId){
-        List<OfSession> sessions = new ArrayList<OfSession>();
-
-        List<OfMessage> messages = chatDao.tikTalk(userId);
-
-        Iterator<OfMessage> iterator = messages.iterator();
-
-        while(iterator.hasNext()){
-            OfMessage ofMessage = iterator.next();
-            OfSession ofSession = new OfSession();
-            String msg_from = ofMessage.getMsg_from();
-            String msg_to = ofMessage.getMsg_to();
-            String session_id ="";
-            if(msg_from.equals(userId)){
-                //msg_to 是session_id
-                session_id = msg_to;
-
-            }else{
-                //msg_from 是session_id
-                session_id = msg_from;
-            }
-            ofSession.setSession_id(session_id);
-            User user = UserCacheManager.findUserByKey(session_id);
-            ofSession.setSession_name(user.getUser_name());
-            ofSession.setSession_valid(0);
-            ofSession.setSession_user(userId);
-            ofSession.setSession_type(99);
-            ofSession.setSession_pic(user.getPic_url());
-            ofSession.setSession_modify_time(ofMessage.getMsg_time());
-            sessions.add(ofSession);
-        }
-        return sessions;
     }
 
 

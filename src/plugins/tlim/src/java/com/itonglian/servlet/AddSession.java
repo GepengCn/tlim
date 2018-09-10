@@ -88,7 +88,6 @@ public class AddSession extends HttpServlet {
             List<UserOnlyId> userOnlyIds = new ArrayList<UserOnlyId>();
 
             int i=0;
-            List<String> subsPicUrls = new ArrayList<String>();
 
             while(iterator.hasNext()){
                 OfSubscriber ofSubscriber = iterator.next();
@@ -108,7 +107,6 @@ public class AddSession extends HttpServlet {
                 if(com.itonglian.utils.StringUtils.isNullOrEmpty(picUrl)){
                     picUrl = "avatare.png";
                 }
-                subsPicUrls.add(picUrl);
             }
 
             // 保存会话

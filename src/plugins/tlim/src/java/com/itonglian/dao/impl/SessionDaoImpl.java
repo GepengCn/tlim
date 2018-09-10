@@ -28,7 +28,7 @@ public class SessionDaoImpl implements SessionDao {
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofsession WHERE session_id = ?";
 
-    private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ? AND A.session_valid = ?";
+    private static final String FIND_SESSIONS_BY_USER = "SELECT A.* FROM ofsession A,ofsubscriber B WHERE A.session_id = B.session_id AND B.user_id = ? AND A.session_valid = ? AND A.session_type <> ?";
 
     private static final String UPDATE_PIC = "UPDATE ofsession SET session_pic=? WHERE session_id=?";
 
@@ -144,6 +144,7 @@ public class SessionDaoImpl implements SessionDao {
             preparedStatement = connection.prepareStatement(FIND_SESSIONS_BY_USER);
             preparedStatement.setString(1,userId);
             preparedStatement.setInt(2,valid);
+            preparedStatement.setInt(3,99);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 OfSession ofSession = new OfSession();
