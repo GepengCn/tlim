@@ -14,6 +14,7 @@ import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.RevokeUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
@@ -140,6 +141,18 @@ public class SessionInterceptor implements Interceptor {
             newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
 
             packetDeliverer.deliver(newMessage);
+
+            String msg_type = protocol.getMsg_type();
+
+            if("MTS-101".equals(msg_type)){
+                List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
+                Iterator<Revoke> iterator1 = revokeList.iterator();
+                while(iterator1.hasNext()){
+                    Revoke revoke = iterator1.next();
+                    RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
+                }
+
+            }
         }
     }
 
@@ -153,6 +166,17 @@ public class SessionInterceptor implements Interceptor {
 
         public void setSessionId(String sessionId) {
             this.sessionId = sessionId;
+        }
+    }
+    private static class Revoke{
+        private String msg_id;
+
+        public String getMsg_id() {
+            return msg_id;
+        }
+
+        public void setMsg_id(String msg_id) {
+            this.msg_id = msg_id;
         }
     }
 
