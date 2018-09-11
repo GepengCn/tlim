@@ -1,5 +1,6 @@
 package com.itonglian.interceptor.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
@@ -8,9 +9,12 @@ import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
 import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.RevokeUtils;
 import com.itonglian.utils.UserCacheManager;
 import org.xmpp.packet.Message;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -56,6 +60,18 @@ public class ChatInterceptor implements Interceptor {
             chatDao.modify(protocol.getMsg_to(),protocol.getMsg_from());
         }
 
+        String msg_type = protocol.getMsg_type();
+
+        if("MTT-101".equals(msg_type)){
+            List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
+            Iterator<Revoke> iterator = revokeList.iterator();
+            while(iterator.hasNext()){
+                Revoke revoke = iterator.next();
+                RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
+            }
+
+        }
+
     }
 
     private void addChat(String msg_from,String msg_to){
@@ -69,5 +85,17 @@ public class ChatInterceptor implements Interceptor {
         ofChat1.setChat_pic(fromUser.getPic_url());
         ofChat1.setChat_create_time(MessageUtils.getTs());
         chatDao.add(ofChat1);
+    }
+
+    private class Revoke{
+        private String msg_id;
+
+        public String getMsg_id() {
+            return msg_id;
+        }
+
+        public void setMsg_id(String msg_id) {
+            this.msg_id = msg_id;
+        }
     }
 }

@@ -29,6 +29,9 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String DELETE = "DELETE FROM ofmessage WHERE msg_id=?";
 
+    private static final String DELETE_OFFLINE = "DELETE FROM ofOffline WHERE messageID = ?";
+
+
     private static final String QUERY_BY_ID = "SELECT * FROM ofmessage WHERE msg_id = ?";
 
     private static final String INSERT_WITH_SESS = "INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(?,?,?,?,?,?,?,?)";
@@ -256,6 +259,23 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement.setString(2,chat_user);
             preparedStatement.setString(3,chat_other);
 
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void deleteOffline(String messageId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_OFFLINE);
+            int i=1;
+            preparedStatement.setString(i++,messageId);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

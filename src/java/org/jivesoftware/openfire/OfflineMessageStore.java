@@ -66,7 +66,7 @@ public class OfflineMessageStore extends BasicModule implements UserEventListene
         "INSERT INTO ofOffline (username, messageID, creationDate, messageSize, stanza) " +
         "VALUES (?, ?, ?, ?, ?)";
     private static final String LOAD_OFFLINE =
-        "SELECT stanza, creationDate FROM ofOffline WHERE username=? ORDER BY creationDate ASC";
+        "SELECT stanza, creationDate,messageID FROM ofOffline WHERE username=? ORDER BY creationDate ASC";
     private static final String LOAD_OFFLINE_MESSAGE =
         "SELECT stanza FROM ofOffline WHERE username=? AND creationDate=?";
     private static final String SELECT_SIZE_OFFLINE =
@@ -193,10 +193,11 @@ public class OfflineMessageStore extends BasicModule implements UserEventListene
             while (rs.next()) {
                 String msgXML = rs.getString(1);
                 Date creationDate = new Date(Long.parseLong(rs.getString(2).trim()));
+                String messageID = rs.getString("messageID");
                 OfflineMessage message;
                 try {
                     message = new OfflineMessage(creationDate,
-                            xmlReader.read(new StringReader(msgXML)).getRootElement());
+                            xmlReader.read(new StringReader(msgXML)).getRootElement(),messageID);
                 } catch (DocumentException e) {
                     // Try again after removing invalid XML chars (e.g. &#12;)
                     Matcher matcher = pattern.matcher(msgXML);
@@ -205,7 +206,7 @@ public class OfflineMessageStore extends BasicModule implements UserEventListene
                     }
                     try {
                         message = new OfflineMessage(creationDate,
-                            xmlReader.read(new StringReader(msgXML)).getRootElement());
+                            xmlReader.read(new StringReader(msgXML)).getRootElement(),messageID);
                     } catch (DocumentException de) {
                         Log.error("Failed to route packet (offline message): " + msgXML, de);
                         continue; // skip and process remaining offline messages

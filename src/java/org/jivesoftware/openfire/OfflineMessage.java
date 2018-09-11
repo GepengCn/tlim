@@ -31,6 +31,13 @@ public class OfflineMessage extends Message {
 
     private Date creationDate;
 
+    private String messageId;
+
+    public OfflineMessage(Date creationDate, Element element,String messageId) {
+        super(element, true);
+        this.creationDate = creationDate;
+        this.messageId = messageId;
+    }
     public OfflineMessage(Date creationDate, Element element) {
         super(element, true);
         this.creationDate = creationDate;
@@ -43,5 +50,9 @@ public class OfflineMessage extends Message {
      */
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public String getMessageId() {
+        return messageId;
     }
 }

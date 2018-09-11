@@ -56,14 +56,14 @@
   <database> 
     <defaultProvider> 
       <driver>com.mysql.jdbc.Driver</driver>  
-      <serverURL>jdbc:mysql://123.207.154.188:3306/ofdb?rewriteBatchedStatements=true&amp;amp;useSSL=false</serverURL>  
-      <username encrypted="true">445d8a297376c241d3c3f2915797777af183b3d6ffb50e8f</username>  
-      <password encrypted="true">b9e7d1447944914eea8d3c4fe70efe7c2a2dc2d230876ce0</password>  
+      <serverURL>jdbc:mysql://coolweb.club:3306/ofdb?rewriteBatchedStatements=true</serverURL>  
+      <username encrypted="true">9f4acef6ede94696aacdfdd247fbd60759775519f0c380eb</username>  
+      <password encrypted="true">4e35888815cba2a87a05936c934f480c6c5c035ca78341b39bce4762f48e0c2d331effe885dbfca1</password>  
       <testSQL>select 1</testSQL>  
       <testBeforeUse>false</testBeforeUse>  
       <testAfterUse>false</testAfterUse>  
       <minConnections>5</minConnections>  
-      <maxConnections>50</maxConnections>  
+      <maxConnections>500</maxConnections>  
       <connectionTimeout>1.0</connectionTimeout> 
     </defaultProvider> 
   </database>  

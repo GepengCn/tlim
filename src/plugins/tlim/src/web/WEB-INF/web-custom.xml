@@ -216,5 +216,15 @@
         <url-pattern>/switchSession</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>revokeMessage</servlet-name>
+        <servlet-class>com.itonglian.servlet.RevokeMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>revokeMessage</servlet-name>
+        <url-pattern>/revokeMessage</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

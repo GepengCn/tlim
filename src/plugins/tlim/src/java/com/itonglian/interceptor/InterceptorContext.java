@@ -4,14 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.impl.ChatInterceptor;
-import com.itonglian.interceptor.impl.CommandInterceptor;
 import com.itonglian.interceptor.impl.SessionInterceptor;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.session.Session;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
-import org.xmpp.packet.PacketExtension;
 
 /**
  * <p> 概述：拦截器处理中心
@@ -34,7 +32,6 @@ public class InterceptorContext {
         if(!isValidPacket(packet)){
             return;
         }
-
         Message message = (Message)packet;
 
         String jsonStr = message.getBody();

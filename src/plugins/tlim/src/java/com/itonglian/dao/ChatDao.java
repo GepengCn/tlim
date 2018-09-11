@@ -28,5 +28,7 @@ public interface ChatDao {
 
     public void modify(String chat_user,String chat_other);
 
+    public void deleteOffline(String messageId);
+
 
 }
