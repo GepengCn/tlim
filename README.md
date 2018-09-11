@@ -50,6 +50,8 @@
 >>    38. [系统消息:移除订阅者](#系统消息移除订阅者)
 >>    39. [系统消息:退出会话](#系统消息退出会话)
 >>    40. [系统消息:消息撤回](#系统消息消息撤回)
+>>    41. [解散群组](#解散群组)
+>>    42. [系统消息:解散群组](#系统消息解散群组)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -124,13 +126,8 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     MTS-104:退出会话
     MTS-105:创建会话
     MTS-106:邀请加入会话
+    MTS-107:解散群组
     MTC-000:已收回执
-    HTS-000:新增会话
-    HTS-001:更新会话
-    HTS-002:删除会话
-    HTS-003:查询所有会话
-    HTS-004:查询会话
-    HTS-005:查询会话中所有订阅者
     HFO-000:下载文件
     HFO-001:上传文件
 
@@ -1447,7 +1444,53 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     ]
 
 ---
+###### 解散群组
+    1. 接口定义:
 
+    解散群组;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/dissolved
+
+    4. 参数
+
+    4.1 session_id:'0804f124-7551-4148-ae32-c56ad409b290'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+    }
+
+---
+###### 系统消息:消息撤回
+    1. 接口定义:
+
+    系统消息:消息撤回;MTS-107
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+        }
+    ]
+
+---
 ## 六、流程
 ![Alt text][flowPic]
 
