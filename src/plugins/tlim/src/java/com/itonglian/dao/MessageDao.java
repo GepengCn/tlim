@@ -16,4 +16,6 @@ public interface MessageDao {
     public int findChatMessageTotal(String msg_from,String msg_to);
 
     public void deleteByUser(String session_id,String msg_from);
+
+    public void deleteBySession(String session_id);
 }

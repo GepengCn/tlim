@@ -226,5 +226,15 @@
         <url-pattern>/revokeMessage</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>dissolved</servlet-name>
+        <servlet-class>com.itonglian.servlet.Dissolved</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dissolved</servlet-name>
+        <url-pattern>/dissolved</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
