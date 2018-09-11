@@ -13,6 +13,7 @@ import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
+import com.itonglian.utils.DissolvedUtils;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.RevokeUtils;
 import com.itonglian.utils.StringUtils;
@@ -152,6 +153,9 @@ public class SessionInterceptor implements Interceptor {
                     RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
                 }
 
+            }
+            if("MTS-107".equals(msg_type)){
+                DissolvedUtils.handler(sessionId);
             }
         }
     }
