@@ -87,7 +87,7 @@ public class ChatInterceptor implements Interceptor {
         chatDao.add(ofChat1);
     }
 
-    private class Revoke{
+    private static class Revoke{
         private String msg_id;
 
         public String getMsg_id() {
