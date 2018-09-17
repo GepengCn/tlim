@@ -60,7 +60,7 @@ public class FindSession extends HttpServlet {
 
         List<OfSubscriber> subscribers = subscriberDao.findSubscribers(sessionId);
 
-        doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user(),ofSession.getSession_create_time(),subscribers),printWriter);
+        doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user(),ofSession.getSession_create_time(),ofSession.getSession_valid(),subscribers),printWriter);
 
 
     }
@@ -92,6 +92,8 @@ public class FindSession extends HttpServlet {
 
         private String session_create_time;
 
+        private int session_valid;
+
         private List<OfSubscriber> subscribers;
 
         public BackJson(String result, String result_detail, String session_id) {
@@ -100,7 +102,7 @@ public class FindSession extends HttpServlet {
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user, String session_create_time, List<OfSubscriber> subscribers) {
+        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user, String session_create_time,int session_valid, List<OfSubscriber> subscribers) {
             this.result = result;
             this.result_detail = result_detail;
             this.session_id = session_id;
@@ -109,6 +111,7 @@ public class FindSession extends HttpServlet {
             this.session_user = session_user;
             this.session_create_time = session_create_time;
             this.subscribers = subscribers;
+            this.session_valid = session_valid;
         }
 
         public String getSession_id() {
@@ -173,6 +176,14 @@ public class FindSession extends HttpServlet {
 
         public void setSubscribers(List<OfSubscriber> subscribers) {
             this.subscribers = subscribers;
+        }
+
+        public int getSession_valid() {
+            return session_valid;
+        }
+
+        public void setSession_valid(int session_valid) {
+            this.session_valid = session_valid;
         }
     }
 
