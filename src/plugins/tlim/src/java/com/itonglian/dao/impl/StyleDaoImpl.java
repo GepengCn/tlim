@@ -10,13 +10,23 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StyleDaoImpl implements StyleDao {
 
     private static final String INSERT = "INSERT INTO ofstyle (style_id,style_name,style_value,user_id) VALUES(?,?,?,?)";
 
+    private static final String QUERY_BY_ID = "SELECT * FROM ofstyle WHERE user_id = ?";
+
     private static final Logger Log = LoggerFactory.getLogger(StyleDaoImpl.class);
 
+    private static final StyleDao styleDao = new StyleDaoImpl();
+
+    public static StyleDao getInstance(){
+        return styleDao;
+    }
 
     @Override
     public void add(OfStyle ofStyle) {
@@ -36,5 +46,33 @@ public class StyleDaoImpl implements StyleDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
+    }
+
+    @Override
+    public  List<OfStyle> query(String user_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OfStyle> ofStyleList = new ArrayList<>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(QUERY_BY_ID);
+            preparedStatement.setString(1,user_id);
+            resultSet = preparedStatement.executeQuery();
+            OfStyle ofStyle = new OfStyle();
+            while(resultSet.next()){
+                ofStyle.setStyle_id(resultSet.getLong("style_id"));
+                ofStyle.setStyle_name(resultSet.getString("style_name"));
+                ofStyle.setStyle_value(resultSet.getInt("style_value"));
+                ofStyle.setUser_id(resultSet.getString("user_id"));
+                ofStyleList.add(ofStyle);
+            }
+
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return ofStyleList;
     }
 }

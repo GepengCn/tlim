@@ -236,5 +236,25 @@
         <url-pattern>/dissolved</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addStyle</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddStyle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addStyle</servlet-name>
+        <url-pattern>/addStyle</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findStyleList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindStyleList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findStyleList</servlet-name>
+        <url-pattern>/findStyleList</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -12,6 +12,15 @@ public class OfStyle {
 
     private String user_id;
 
+    public OfStyle(){
+    }
+
+    public OfStyle(String style_name, int style_value, String user_id) {
+        this.style_name = style_name;
+        this.style_value = style_value;
+        this.user_id = user_id;
+    }
+
     public class ID_Contants extends JiveConstants {
         public static final int STYLE_KEY =58;
     }
