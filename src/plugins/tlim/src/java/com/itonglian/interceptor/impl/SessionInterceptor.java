@@ -1,6 +1,7 @@
 package com.itonglian.interceptor.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.itonglian.bean.AsyncRunSaveDb;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.SessionDao;
@@ -8,14 +9,11 @@ import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
-import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
-import com.itonglian.utils.DissolvedUtils;
 import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.RevokeUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
@@ -26,6 +24,8 @@ import org.xmpp.packet.Message;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <p> 概述：会话类消息拦截器
@@ -36,15 +36,17 @@ import java.util.List;
  */
 public class SessionInterceptor implements Interceptor {
 
-    SessionDao sessionDao = SessionDaoImpl.getInstance();
+    static SessionDao sessionDao = SessionDaoImpl.getInstance();
 
-    SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
+    static SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
-    ChatDao chatDao = ChatDaoImpl.getInstance();
+    static ChatDao chatDao = ChatDaoImpl.getInstance();
 
     PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
     private static final Logger Log = LoggerFactory.getLogger(SessionInterceptor.class);
+
+    ExecutorService executorService = Executors.newCachedThreadPool();;
 
 
     @Override
@@ -110,29 +112,7 @@ public class SessionInterceptor implements Interceptor {
 
             String msgTo = ofSubscriber.getUser_id();
 
-            if(StringUtils.isNullOrEmpty(msgTo)){
-                continue;
-            }
-
-            OfMessage ofMessage = new OfMessage();
-
-            ofMessage.setMsg_id(protocol.getMsg_id());
-
-            ofMessage.setMsg_type(protocol.getMsg_type());
-
-            ofMessage.setMsg_from(protocol.getMsg_from());
-
-            ofMessage.setMsg_to(msgTo);
-
-            ofMessage.setMsg_time(protocol.getMsg_time());
-
-            ofMessage.setBody(protocol.getBody());
-
-            ofMessage.setSession_id(sessionId);
-
-            chatDao.add(ofMessage);
-
-            sessionDao.modify(sessionId);
+            executorService.execute(new AsyncRunSaveDb(protocol,sessionId,msgTo));
 
             if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
@@ -143,20 +123,7 @@ public class SessionInterceptor implements Interceptor {
 
             packetDeliverer.deliver(newMessage);
 
-            String msg_type = protocol.getMsg_type();
 
-            if("MTS-101".equals(msg_type)){
-                List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
-                Iterator<Revoke> iterator1 = revokeList.iterator();
-                while(iterator1.hasNext()){
-                    Revoke revoke = iterator1.next();
-                    RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
-                }
-
-            }
-            if("MTS-107".equals(msg_type)){
-                DissolvedUtils.handler(sessionId);
-            }
         }
     }
 
@@ -172,17 +139,7 @@ public class SessionInterceptor implements Interceptor {
             this.sessionId = sessionId;
         }
     }
-    private static class Revoke{
-        private String msg_id;
 
-        public String getMsg_id() {
-            return msg_id;
-        }
-
-        public void setMsg_id(String msg_id) {
-            this.msg_id = msg_id;
-        }
-    }
 
 
 }
