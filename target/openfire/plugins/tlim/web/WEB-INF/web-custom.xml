@@ -257,4 +257,15 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>msgReadOrNot</servlet-name>
+        <servlet-class>com.itonglian.servlet.MsgReadOrNot</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>msgReadOrNot</servlet-name>
+        <url-pattern>/msgReadOrNot</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

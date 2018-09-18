@@ -22,5 +22,9 @@ public interface StatusDao {
 
     public List<OfStatus> findMsgStatusList(String msg_id);
 
+    public int readOrNot(String msg_id,String msg_to);
+
+
+
 
 }

@@ -124,3 +124,4 @@ DEFAULT CHARACTER SET = utf8;
 INSERT INTO ofVersion(name,version) values('tlim',1);
 
 INSERT INTO ofProperty(name,propValue,encrypted) values('route.all-resources','true',0);
+

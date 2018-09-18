@@ -40,6 +40,8 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String FIND_MSG_STATUS_LIST = "SELECT * FROM ofstatus WHERE msg_id = ?";
 
+    private static final String READ_OR_NOT = "SELECT * FROM ofstatus WHERE msg_id = ? AND msg_to = ?";
+
 
     @Override
     public void add(OfStatus ofStatus) {
@@ -207,6 +209,34 @@ public class StatusDaoImpl implements StatusDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return ofStatuses;
+    }
+
+    @Override
+    public int readOrNot(String msg_id,String msg_to) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(READ_OR_NOT);
+            preparedStatement.setString(1,msg_id);
+            preparedStatement.setString(2,msg_to);
+            resultSet = preparedStatement.executeQuery();
+            OfStatus ofStatus = new OfStatus();
+            if(resultSet.next()){
+                ofStatus.setMsg_id(resultSet.getString("msg_id"));
+                ofStatus.setMsg_type(resultSet.getString("msg_type"));
+                ofStatus.setMsg_to(resultSet.getString("msg_to"));
+                ofStatus.setSession_id(resultSet.getString("session_id"));
+                ofStatus.setStatus(resultSet.getInt("status"));
+                return ofStatus.getStatus();
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return -1;
     }
 
 }

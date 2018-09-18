@@ -5,15 +5,15 @@
     <name>Instant Message Plugin for tonglian</name>
     <description>即时通讯插件</description>
     <author>Gepeng</author>
-    <version>1.2.0</version>
-    <date>02/08/2018</date>
+    <version>1.2.2</version>
+    <date>18/09/2018</date>
     <minServerVersion>4.2.3</minServerVersion>
     <databaseKey>tlim</databaseKey>
     <databaseVersion>1</databaseVersion>
 
-    <!--<adminconsole>
+    <adminconsole>
 
-        <tab id="tlim" name="即时通讯" url="message-filter.jsp" description="Click to manage...">
+        <tab id="tlim" name="即时通讯" url="message-filter.jsp" description="点击管理...">
             <sidebar id="tlimbar" name="tlimbar">
                 <item id="tlimPlugin" name="即时通讯插件"
                       url="message-filter.jsp"
@@ -21,6 +21,6 @@
             </sidebar>
         </tab>
 
-    </adminconsole>-->
+    </adminconsole>
 
 </plugin>
