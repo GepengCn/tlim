@@ -11,6 +11,8 @@ import org.jivesoftware.admin.AuthCheckFilter;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.auth.UnauthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
@@ -32,6 +34,8 @@ public class UpdateMsgStatus extends HttpServlet {
 
     private PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
+    private static final Logger Log = LoggerFactory.getLogger(UpdateMsgStatus.class);
+
 
 
     @Override
@@ -51,11 +55,12 @@ public class UpdateMsgStatus extends HttpServlet {
 
         String msg_to = req.getParameter("msg_to");
 
-        statusDao.update(session_id,msg_to);
+
 
         List<OfStatus> ofStatusList = statusDao.query(session_id,msg_to);
 
         Iterator<OfStatus> iterator = ofStatusList.iterator();
+
         while(iterator.hasNext()){
             OfStatus ofStatus = iterator.next();
 
@@ -100,6 +105,7 @@ public class UpdateMsgStatus extends HttpServlet {
 
         }
 
+        statusDao.update(session_id,msg_to);
         doBack(new BackJson("ok",""),printWriter);
 
     }

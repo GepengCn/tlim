@@ -97,9 +97,9 @@ public class StatusDaoImpl implements StatusDao {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(QUERY);
             int i=1;
-            preparedStatement.setInt(i++,1);
             preparedStatement.setString(i++,session_id);
             preparedStatement.setInt(i++,0);
+            preparedStatement.setString(i++,msg_to);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 OfStatus ofStatus = new OfStatus();
