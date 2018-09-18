@@ -8,8 +8,10 @@
     <version>1.2.0</version>
     <date>02/08/2018</date>
     <minServerVersion>4.2.3</minServerVersion>
+    <databaseKey>tlim</databaseKey>
+    <databaseVersion>1</databaseVersion>
 
-    <adminconsole>
+    <!--<adminconsole>
 
         <tab id="tlim" name="即时通讯" url="message-filter.jsp" description="Click to manage...">
             <sidebar id="tlimbar" name="tlimbar">
@@ -19,6 +21,6 @@
             </sidebar>
         </tab>
 
-    </adminconsole>
+    </adminconsole>-->
 
 </plugin>
