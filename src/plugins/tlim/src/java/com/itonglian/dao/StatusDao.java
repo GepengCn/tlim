@@ -12,6 +12,8 @@ public interface StatusDao {
 
     public void update(String session_id,String msg_to);
 
+    public List<OfStatus> query(String session_id,String msg_to);
+
     public void delete(String session_id,String msg_to);
 
     public List<SessionUnread> findUnread(String msg_to);

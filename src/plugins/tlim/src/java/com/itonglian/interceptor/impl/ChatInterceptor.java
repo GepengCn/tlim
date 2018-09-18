@@ -48,7 +48,9 @@ public class ChatInterceptor implements Interceptor {
 
         ofMessage.setSession_id(protocol.getMsg_from());
 
-        chatDao.add(ofMessage);
+        if(!"MTT-100".equals(protocol.getMsg_type())){
+            chatDao.add(ofMessage);
+        }
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
             if(validate(protocol.getMsg_from(),protocol.getMsg_to())){

@@ -1,10 +1,18 @@
 package com.itonglian.servlet;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.itonglian.bean.Protocol;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.StatusDaoImpl;
+import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
+import org.jivesoftware.openfire.PacketDeliverer;
+import org.jivesoftware.openfire.XMPPServer;
+import org.jivesoftware.openfire.auth.UnauthorizedException;
+import org.xmpp.packet.JID;
+import org.xmpp.packet.Message;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,10 +21,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 public class UpdateMsgStatus extends HttpServlet {
 
     StatusDao statusDao = StatusDaoImpl.getInstance();
+
+    private PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
+
 
 
     @Override
@@ -36,9 +51,54 @@ public class UpdateMsgStatus extends HttpServlet {
 
         String msg_to = req.getParameter("msg_to");
 
-        //statusDao.delete(session_id,msg_to);
-
         statusDao.update(session_id,msg_to);
+
+        List<OfStatus> ofStatusList = statusDao.query(session_id,msg_to);
+
+        Iterator<OfStatus> iterator = ofStatusList.iterator();
+        while(iterator.hasNext()){
+            OfStatus ofStatus = iterator.next();
+
+            if(ofStatus.getMsg_type().contains("MTT")){
+                Protocol protocol = new Protocol();
+
+                String msgId = UUID.randomUUID().toString();
+                protocol.setCompress("0");
+                protocol.setEncode("1");
+                protocol.setEncrypt("0");
+                protocol.setVersion("2.0.0");
+                protocol.setMsg_id(msgId);
+                protocol.setMsg_time(MessageUtils.getTs());
+                protocol.setMsg_type("MTT-100");
+                List<Body> bodies = new ArrayList<>();
+                bodies.add(new Body(msgId));
+                protocol.setBody(JSONArray.toJSONString(bodies));
+
+
+                String msgTo = session_id;
+
+                Message newMessage = new Message();
+
+                newMessage.setType(Message.Type.chat);
+
+                newMessage.setFrom(new JID(MessageUtils.toJid(msgTo)));
+
+                newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
+
+                protocol.setMsg_from(msgTo);
+
+                protocol.setMsg_to(msgTo);
+
+                newMessage.setBody(JSONObject.toJSONString(protocol));
+
+                try {
+                    packetDeliverer.deliver(newMessage);
+                } catch (UnauthorizedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
 
         doBack(new BackJson("ok",""),printWriter);
 
@@ -83,4 +143,22 @@ public class UpdateMsgStatus extends HttpServlet {
         }
 
     }
+
+    private static class Body{
+
+        private String msg_id;
+
+        public Body(String msg_id) {
+            this.msg_id = msg_id;
+        }
+
+        public String getMsg_id() {
+            return msg_id;
+        }
+
+        public void setMsg_id(String msg_id) {
+            this.msg_id = msg_id;
+        }
+    }
+
 }

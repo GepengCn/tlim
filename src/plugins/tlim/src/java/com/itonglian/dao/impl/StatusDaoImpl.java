@@ -30,6 +30,8 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE session_id=? AND status=? AND msg_to=?";
 
+    private static final String QUERY = "SELECT * FROM ofstatus WHERE session_id=? AND status=? AND msg_to=?";
+
     private static final String DELETE = "DELETE from ofstatus WHERE session_id=? AND msg_to=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
@@ -83,6 +85,37 @@ public class StatusDaoImpl implements StatusDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
+    }
+
+    @Override
+    public List<OfStatus> query(String session_id, String msg_to) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OfStatus> ofStatuses = new ArrayList<OfStatus>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(QUERY);
+            int i=1;
+            preparedStatement.setInt(i++,1);
+            preparedStatement.setString(i++,session_id);
+            preparedStatement.setInt(i++,0);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                OfStatus ofStatus = new OfStatus();
+                ofStatus.setMsg_id(resultSet.getString("msg_id"));
+                ofStatus.setMsg_type(resultSet.getString("msg_type"));
+                ofStatus.setMsg_to(resultSet.getString("msg_to"));
+                ofStatus.setSession_id(resultSet.getString("session_id"));
+                ofStatus.setStatus(resultSet.getInt("status"));
+                ofStatuses.add(ofStatus);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return ofStatuses;
     }
 
     @Override
