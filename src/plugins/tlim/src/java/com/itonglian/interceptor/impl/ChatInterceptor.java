@@ -10,6 +10,7 @@ import com.itonglian.entity.User;
 import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.RevokeUtils;
+import com.itonglian.utils.StringUtils;
 import com.itonglian.utils.UserCacheManager;
 import org.xmpp.packet.Message;
 
@@ -50,12 +51,16 @@ public class ChatInterceptor implements Interceptor {
         chatDao.add(ofMessage);
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
-            addChat(protocol.getMsg_from(),protocol.getMsg_to());
+            if(validate(protocol.getMsg_from(),protocol.getMsg_to())){
+                addChat(protocol.getMsg_from(),protocol.getMsg_to());
+            }
         }else{
             chatDao.modify(protocol.getMsg_from(),protocol.getMsg_to());
         }
         if(!chatDao.isExistChat(protocol.getMsg_to(),protocol.getMsg_from())){
-            addChat(protocol.getMsg_to(),protocol.getMsg_from());
+            if(validate(protocol.getMsg_to(),protocol.getMsg_from())){
+                addChat(protocol.getMsg_to(),protocol.getMsg_from());
+            }
         }else{
             chatDao.modify(protocol.getMsg_to(),protocol.getMsg_from());
         }
@@ -97,5 +102,12 @@ public class ChatInterceptor implements Interceptor {
         public void setMsg_id(String msg_id) {
             this.msg_id = msg_id;
         }
+    }
+
+    private boolean validate(String msg_from,String msg_to){
+        if(StringUtils.isNullOrEmpty(msg_from)||StringUtils.isNullOrEmpty(msg_to)||msg_from.equals(msg_to)){
+            return false;
+        }
+        return true;
     }
 }

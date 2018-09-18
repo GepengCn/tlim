@@ -6,6 +6,7 @@ import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -204,6 +205,7 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public boolean isExistChat(String msg_from,String msg_to) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
