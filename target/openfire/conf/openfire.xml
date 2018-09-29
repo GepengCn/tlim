@@ -56,9 +56,9 @@
   <database> 
     <defaultProvider> 
       <driver>com.mysql.jdbc.Driver</driver>  
-      <serverURL>jdbc:mysql://coolweb.club:3306/ofdb?rewriteBatchedStatements=true</serverURL>  
-      <username encrypted="true">9c7c767225b8be0d7b0b8c01540da77b30f583d633c9fd06</username>  
-      <password encrypted="true">09ba729788dae0bf314aa204486f56800ca764e3869027b183a1a3e05f9d7531bbb9461d84eea548</password>  
+      <serverURL>jdbc:mysql://123.207.154.188:3306/ofdb?rewriteBatchedStatements=true</serverURL>  
+      <username encrypted="true">6d981d3adfaf191129f09e58f8331e07723d6081da0c53ad</username>  
+      <password encrypted="true">8aa97d3969fcae79aa83359c2d7bd53993a8963b8e66165bbc4060607b3e438754fbd1a619a2822b</password>  
       <testSQL>select 1</testSQL>  
       <testBeforeUse>false</testBeforeUse>  
       <testAfterUse>false</testAfterUse>  

@@ -268,4 +268,24 @@
     </servlet-mapping>
 
 
+
+    <servlet>
+        <servlet-name>approval</servlet-name>
+        <servlet-class>com.itonglian.servlet.Approval</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>approval</servlet-name>
+        <url-pattern>/approval</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>approvalBack</servlet-name>
+        <servlet-class>com.itonglian.servlet.ApprovalBack</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>approvalBack</servlet-name>
+        <url-pattern>/approvalBack</url-pattern>
+    </servlet-mapping>
 </web-app>

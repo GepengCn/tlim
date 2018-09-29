@@ -56,10 +56,6 @@ public class InterceptorContext {
 
         String preMsgType = msgType.split("-")[0];
 
-        String sufMsgType = msgType.split("-")[1];
-
-        String fst = sufMsgType.substring(0,1);
-
         switch (preMsgType){
             case "MTT":
                 interceptor = new ChatInterceptor();

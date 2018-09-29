@@ -1,6 +1,6 @@
 # 即时通讯设计文档
-> 版本:1.2.23<br>
-> 更新于:2017年8月9日<br>
+> 版本:1.2.24<br>
+> 更新于:2017年9月29日<br>
 > openfire版本:4.2.3<br>
 > 应用服务器版本:2.0.1<br>
 
@@ -52,6 +52,8 @@
 >>    40. [系统消息:消息撤回](#系统消息消息撤回)
 >>    41. [解散群组](#解散群组)
 >>    42. [系统消息:解散群组](#系统消息解散群组)
+>>    43. [审批](#审批)
+>>    44. [退回](#退回)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1487,6 +1489,64 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     [
         {
             session_id:'78b3a607-8797-4d95-bc15-7dfb62a01f75',
+        }
+    ]
+
+---
+##### 审批
+    1. 接口定义
+    审批;移动端忽略接口请求,此为服务器端调用
+    2. 请求地址:
+    http://coolweb.club:9595/plugins/tlim/approval
+    3. 请求参数
+    3.1 params:[
+        {
+            bizId:'',
+            docTitle:'',
+            solId:'',
+            spType:'1052M001',
+            wzType:'',
+            taskId:''
+        }
+    ]
+    3.2 msg_to:''
+    4. body
+    [
+        {
+            bizId:'',
+            docTitle:'',
+            solId:'',
+            spType:'1052M001',
+            wzType:'',
+            taskId:''
+        }
+    ]
+
+---
+
+##### 退回
+    1. 接口定义
+    退回,http请求
+    2. 请求地址:
+    http://coolweb.club:9595/plugins/tlim/approvalBack
+    3. 参数
+    3.1:params:{
+        taskId:'',
+        actId:'',
+        comment:'',
+        fieldName:'',
+        userId:'',
+        bizId:''
+    }
+    4. body
+    [
+        {
+            bizId:'',
+            docTitle:'',
+            solId:'',
+            spType:'1052M001',
+            wzType:'',
+            taskId:''
         }
     ]
 
