@@ -117,9 +117,13 @@ public class AddSession extends HttpServlet {
 
             String sessionName = StringUtils.join(sessionNameList,",");
 
+            if(sessionName.length()>=200){
+                sessionName = sessionName.substring(0,200);
+            }
+
             String sessionCreateTime = MessageUtils.getTs();
 
-            ofSession.setSession_name(StringUtils.join(sessionNameList,","));
+            ofSession.setSession_name(sessionName);
             ofSession.setSession_type(intSessionType);
             ofSession.setSession_create_time(sessionCreateTime);
             ofSession.setSession_valid(0);
