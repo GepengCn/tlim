@@ -1496,10 +1496,18 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 ##### 审批
     1. 接口定义
     审批;移动端忽略接口请求,此为服务器端调用
-    2. 请求地址:
+    2. 接口流程
+    a. 服务端审批
+    b. 消息推送引擎推送
+    c. 调用openfire将消息推送到移动端
+    d. 移动端处理审批消息
+    
+    注：移动端只参与消息处理，不处理接口调动
+    
+    3. 请求地址:
     http://coolweb.club:9595/plugins/tlim/approval
-    3. 请求参数
-    3.1 params:[
+    4. 请求参数
+    4.1 params:[
         {
             bizId:'',
             docTitle:'',
@@ -1509,8 +1517,8 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
             taskId:''
         }
     ]
-    3.2 msg_to:''
-    4. body
+    4.2 msg_to:''
+    5. body
     [
         {
             bizId:'',
@@ -1527,10 +1535,17 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 ##### 退回
     1. 接口定义
     退回,http请求
-    2. 请求地址:
+    2. 接口流程
+    a. 调用退回接口http://ip:port/cap-aco/approveController/processBack
+    b. 服务端接口处理请求，并调用消息推送引擎
+    c. 消息推送引擎调用openfire推送退回消息给移动端
+    d. 移动端处理退回消息
+    
+    注: 移动端只参与退回接口调用与消息处理
+    3. 请求地址:
     http://coolweb.club:9595/plugins/tlim/approvalBack
-    3. 参数
-    3.1:params:{
+    4. 参数
+    4.1:params:{
         taskId:'',
         actId:'',
         comment:'',
@@ -1538,7 +1553,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         userId:'',
         bizId:''
     }
-    4. body
+    5. body
     [
         {
             bizId:'',
