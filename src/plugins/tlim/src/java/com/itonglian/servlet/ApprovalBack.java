@@ -29,7 +29,7 @@ public class ApprovalBack extends HttpServlet {
 
         String params = req.getParameter("params");
 
-        String msg_to = req.getParameter("msg_to");
+        String msg_to = req.getParameter("msgTo");
 
         String msg_type = "MTB-001";
 
