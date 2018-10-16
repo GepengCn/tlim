@@ -1,12 +1,20 @@
 package com.itonglian.dao.impl;
 
+import cn.jiguang.common.ClientConfig;
+import cn.jiguang.common.resp.APIConnectionException;
+import cn.jiguang.common.resp.APIRequestException;
+import cn.jpush.api.JPushClient;
+import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Platform;
+import cn.jpush.api.push.model.PushPayload;
+import cn.jpush.api.push.model.audience.Audience;
+import cn.jpush.api.push.model.notification.Notification;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -69,6 +77,26 @@ public class ChatDaoImpl implements ChatDao {
             ofStatus.setStatus(0);
             statusDao.add(ofStatus);
         }
+        JPushClient jpushClient = new JPushClient("6250fa6554927f281ee4229e", "b27a9c938a0e1b64640bac62", null, ClientConfig.getInstance());
+
+        // For push, all you need do is to build PushPayload object.
+        PushPayload payload = buildPushObject_all_all_alert(ofMessage.getMsg_from());
+
+        try {
+            PushResult result = jpushClient.sendPush(payload);
+            Log.info("Got result - " + result);
+
+        } catch (APIConnectionException e) {
+            // Connection error, should retry later
+            Log.error("Connection error, should retry later", e);
+
+        } catch (APIRequestException e) {
+            // Should review the error, and fix the request
+            Log.error("Should review the error, and fix the request", e);
+            Log.info("HTTP Status: " + e.getStatus());
+            Log.info("Error Code: " + e.getErrorCode());
+            Log.info("Error Message: " + e.getErrorMessage());
+        }
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -92,7 +120,13 @@ public class ChatDaoImpl implements ChatDao {
 
 
     }
-
+    public static PushPayload buildPushObject_all_all_alert(String msgTo) {
+        return PushPayload.newBuilder()
+                .setPlatform(Platform.all())
+                .setAudience(Audience.alias(msgTo))
+                .setNotification(Notification.alert("Hello,"+msgTo))
+                .build();
+    }
     @Override
     public void delete(String msgId) {
         Connection connection = null;
