@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <servlet>
+        <servlet-name>addSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addSession</servlet-name>
+        <url-pattern>/addSession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>modifySession</servlet-name>
+        <servlet-class>com.itonglian.servlet.ModifySession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>modifySession</servlet-name>
+        <url-pattern>/modifySession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.DeleteSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteSession</servlet-name>
+        <url-pattern>/deleteSession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSessions</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSessions</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSessions</servlet-name>
+        <url-pattern>/findSessions</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSession</servlet-name>
+        <url-pattern>/findSession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSubscribers</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSubscribers</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSubscribers</servlet-name>
+        <url-pattern>/findSubscribers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findChatHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindChatHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findChatHistory</servlet-name>
+        <url-pattern>/findChatHistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSessionHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSessionHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSessionHistory</servlet-name>
+        <url-pattern>/findSessionHistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateSessionPic</servlet-name>
+        <servlet-class>com.itonglian.servlet.UpdateSessionPic</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateSessionPic</servlet-name>
+        <url-pattern>/updateSessionPic</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findWebSessions</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindWebSessions</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findWebSessions</servlet-name>
+        <url-pattern>/findWebSessions</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>findPresence</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindPresence</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findPresence</servlet-name>
+        <url-pattern>/findPresence</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>findUnread</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindUnread</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findUnread</servlet-name>
+        <url-pattern>/findUnread</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateMsgStatus</servlet-name>
+        <servlet-class>com.itonglian.servlet.UpdateMsgStatus</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateMsgStatus</servlet-name>
+        <url-pattern>/updateMsgStatus</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findReadMsg</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindReadMsg</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findReadMsg</servlet-name>
+        <url-pattern>/findReadMsg</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findChatReadMsg</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindChatReadMsg</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findChatReadMsg</servlet-name>
+        <url-pattern>/findChatReadMsg</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findMsgStatusList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindMsgStatusList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findMsgStatusList</servlet-name>
+        <url-pattern>/findMsgStatusList</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>addPubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddPubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addPubact</servlet-name>
+        <url-pattern>/addPubact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findPubactList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindPubactList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findPubactList</servlet-name>
+        <url-pattern>/findPubactList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>modifyPubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.ModifyPubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>modifyPubact</servlet-name>
+        <url-pattern>/modifyPubact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deletePubact</servlet-name>
+        <servlet-class>com.itonglian.servlet.DeletePubact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deletePubact</servlet-name>
+        <url-pattern>/deletePubact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>switchSession</servlet-name>
+        <servlet-class>com.itonglian.servlet.SwitchSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>switchSession</servlet-name>
+        <url-pattern>/switchSession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>revokeMessage</servlet-name>
+        <servlet-class>com.itonglian.servlet.RevokeMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>revokeMessage</servlet-name>
+        <url-pattern>/revokeMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>dissolved</servlet-name>
+        <servlet-class>com.itonglian.servlet.Dissolved</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dissolved</servlet-name>
+        <url-pattern>/dissolved</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addStyle</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddStyle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addStyle</servlet-name>
+        <url-pattern>/addStyle</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findStyleList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindStyleList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findStyleList</servlet-name>
+        <url-pattern>/findStyleList</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>msgReadOrNot</servlet-name>
+        <servlet-class>com.itonglian.servlet.MsgReadOrNot</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>msgReadOrNot</servlet-name>
+        <url-pattern>/msgReadOrNot</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>approval</servlet-name>
+        <servlet-class>com.itonglian.servlet.Approval</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>approval</servlet-name>
+        <url-pattern>/approval</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>approvalBack</servlet-name>
+        <servlet-class>com.itonglian.servlet.ApprovalBack</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>approvalBack</servlet-name>
+        <url-pattern>/approvalBack</url-pattern>
+    </servlet-mapping>
+</web-app>

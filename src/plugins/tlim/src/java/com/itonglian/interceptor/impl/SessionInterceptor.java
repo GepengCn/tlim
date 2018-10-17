@@ -46,7 +46,7 @@ public class SessionInterceptor implements Interceptor {
 
     private static final Logger Log = LoggerFactory.getLogger(SessionInterceptor.class);
 
-    ExecutorService executorService = Executors.newCachedThreadPool();;
+    ExecutorService executorService = Executors.newCachedThreadPool();
 
 
     @Override

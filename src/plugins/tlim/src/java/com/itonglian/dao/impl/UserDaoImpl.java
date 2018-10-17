@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
 
     private static final UserDao userDao = new UserDaoImpl();
 
-    private static final String QUERY_USER_LIST = "SELECT a.user_id,a.user_name,a.acct_login,b.user_email,b.pic_url FROM isc_user a,isc_user_info b  WHERE a.user_id = b.user_id AND a.dr=? AND b.dr=? ";
+    private static final String QUERY_USER_LIST = "SELECT a.user_id,a.user_name,a.acct_login,b.user_email,b.pic_url,a.app_push_code FROM isc_user a,isc_user_info b  WHERE a.user_id = b.user_id AND a.dr=? AND b.dr=? ";
 
     private static final String CLEAR = "delete from ofUser WHERE username <> ?";
 
@@ -48,6 +48,7 @@ public class UserDaoImpl implements UserDao {
                 user.setAcct_login(resultSet.getString("acct_login"));
                 user.setUser_email(resultSet.getString("user_email"));
                 user.setPic_url(resultSet.getString("pic_url"));
+                user.setApp_push_code(resultSet.getString("app_push_code"));
                 if(!userManager.isRegisteredUser(user.getUser_id())){
                     userManager.createUser(user.getUser_id(),"123",user.getUser_name(),user.getUser_email());
                 }

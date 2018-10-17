@@ -12,6 +12,8 @@ public class User {
 
     private String pic_url;
 
+    private String app_push_code;
+
     public String getUser_id() {
         return user_id;
     }
@@ -50,5 +52,13 @@ public class User {
 
     public void setPic_url(String pic_url) {
         this.pic_url = pic_url;
+    }
+
+    public String getApp_push_code() {
+        return app_push_code;
+    }
+
+    public void setApp_push_code(String app_push_code) {
+        this.app_push_code = app_push_code;
     }
 }
