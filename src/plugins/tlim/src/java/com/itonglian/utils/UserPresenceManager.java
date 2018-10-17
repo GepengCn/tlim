@@ -18,7 +18,9 @@ public class UserPresenceManager {
         String status = "offline";
         User user = server.getUserManager().getUser(targetJID.getNode());
         Presence presence =presenceManager.getPresence(user);
-        if (presence==null||presence.getShow() == null) {
+        if (presence==null) {
+            return status;
+        }else if (presence.getShow() == null) {
             return"available";
         }else{
             return status;

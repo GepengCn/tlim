@@ -94,7 +94,7 @@ public class ChatDaoImpl implements ChatDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
-        executorService.execute(new JPushHandler(ofMessage.getMsg_to()));
+        executorService.execute(new JPushHandler(ofMessage.getMsg_to(),ofMessage.getBody()));
 
     }
 
