@@ -6,5 +6,7 @@ public interface UserDao {
 
     public void clear();
 
+    public String findAppPushCodeByUserId(String userId);
+
 
 }

@@ -10,7 +10,8 @@ import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
-import com.itonglian.entity.User;
+import com.itonglian.dao.UserDao;
+import com.itonglian.dao.impl.UserDaoImpl;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.user.UserNotFoundException;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ import org.slf4j.LoggerFactory;
 public class JPushHandler implements Runnable{
 
     private static final Logger Log = LoggerFactory.getLogger(JPushHandler.class);
+
+    private static UserDao userDao = UserDaoImpl.getInstance();
 
     private String user_id;
 
@@ -68,14 +71,13 @@ public class JPushHandler implements Runnable{
 
     }
     public static PushPayload buildPushObject_all_all_alert(String msgTo,String content) throws Exception {
-        User user = UserCacheManager.findUserByKey(msgTo);
-        String appPushCode = user.getApp_push_code();
+        String appPushCode = userDao.findAppPushCodeByUserId(msgTo);
         if(StringUtils.isNullOrEmpty(appPushCode)){
             throw new Exception("appPushCode为空，不推送");
         }
         return PushPayload.newBuilder()
-                .setPlatform(Platform.ios())
-                .setAudience(Audience.registrationId(user.getApp_push_code()))
+                .setPlatform(Platform.android_ios())
+                .setAudience(Audience.registrationId(appPushCode))
                 .setNotification(Notification.newBuilder()
                         .addPlatformNotification(IosNotification.newBuilder()
                                 .setAlert(content)

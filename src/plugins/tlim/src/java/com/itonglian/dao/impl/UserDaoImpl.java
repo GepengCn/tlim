@@ -23,6 +23,8 @@ public class UserDaoImpl implements UserDao {
 
     private static final String CLEAR = "delete from ofUser WHERE username <> ?";
 
+    private static final String FIND_BY_ID = "SELECT app_push_code FROM isc_user WHERE user_id = ? AND dr = ?";
+
     private static final Logger Log = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public static UserDao getInstance(){
@@ -78,6 +80,28 @@ public class UserDaoImpl implements UserDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
+    }
+
+    @Override
+    public String findAppPushCodeByUserId(String userId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String appPushCode = "";
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_BY_ID);
+            preparedStatement.setString(1,userId);
+            preparedStatement.setString(2,"N");
+            if(resultSet.next()){
+                appPushCode=resultSet.getString("app_push_code");
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return appPushCode;
     }
 
 
