@@ -93,6 +93,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setString(1,userId);
             preparedStatement.setString(2,"N");
+            resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 appPushCode=resultSet.getString("app_push_code");
             }
