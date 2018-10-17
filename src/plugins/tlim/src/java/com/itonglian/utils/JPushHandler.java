@@ -11,6 +11,7 @@ import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.itonglian.entity.User;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.user.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,9 +61,9 @@ public class JPushHandler implements Runnable{
 
 
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
     }
