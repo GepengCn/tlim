@@ -34,7 +34,6 @@ public class JPushHandler implements Runnable{
             String presence = UserPresenceManager.getPresence(user_id);
 
             Log.error("Got Presence - " + presence);
-            System.out.println("Got Presence - " + presence);
             if(!"offline".equals(presence)){
                 return;
             }
@@ -46,23 +45,17 @@ public class JPushHandler implements Runnable{
             try {
                 PushResult result = jpushClient.sendPush(payload);
                 Log.error("Got result - " + result);
-                System.out.println("Got result - " + result);
 
             } catch (APIConnectionException e) {
                 // Connection error, should retry later
                 Log.error("Connection error, should retry later", e);
-                System.out.println("Connection error, should retry later");
 
             } catch (APIRequestException e) {
                 // Should review the error, and fix the request
                 Log.error("Should review the error, and fix the request", e);
-                System.out.println("Should review the error, and fix the request");
                 Log.error("HTTP Status: " + e.getStatus());
-                System.out.println("HTTP Status: " + e.getStatus());
                 Log.error("Error Code: " + e.getErrorCode());
-                System.out.println("Error Code: " + e.getErrorCode());
                 Log.error("Error Message: " + e.getErrorMessage());
-                System.out.println("Error Message: " + e.getErrorMessage());
             }
 
 
