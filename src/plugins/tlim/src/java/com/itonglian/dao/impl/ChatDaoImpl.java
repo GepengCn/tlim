@@ -59,7 +59,8 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public void add(OfMessage ofMessage) {
-        if(this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to())>0){
+        int isExist = this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to());
+        if(isExist>0||isExist==-1){
             return;
         }
         String msg_type = ofMessage.getMsg_type();
@@ -159,6 +160,7 @@ public class ChatDaoImpl implements ChatDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        int result = -1;
         try {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(IS_EXIST);
@@ -167,14 +169,14 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement.setString(i++,msgTo);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                return resultSet.getInt("total");
+                result = resultSet.getInt("total");
             }
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
-        return 0;
+        return result;
     }
 
 
