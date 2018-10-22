@@ -20,13 +20,13 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final MessageDao messageDao = new MessageDaoImpl();
 
-    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_to = ? ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100' ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_to = ?";
+    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100'";
 
-    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? ) t ";
+    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? AND msg_type !='MTT-100' ) t ";
 
     private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
 
