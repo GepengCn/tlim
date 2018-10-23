@@ -34,6 +34,8 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String DELETE_OFFLINE = "DELETE FROM ofOffline WHERE messageID = ?";
 
+    private static final String DELETE_OFFLINE_BY_SESSION = "DELETE FROM ofOffline WHERE stanza like ? ";
+
 
     private static final String QUERY_BY_ID = "SELECT * FROM ofmessage WHERE msg_id = ?";
 
@@ -285,6 +287,23 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement = connection.prepareStatement(DELETE_OFFLINE);
             int i=1;
             preparedStatement.setString(i++,messageId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void deleteOfflineBySession(String sessionId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_OFFLINE_BY_SESSION);
+            int i=1;
+            preparedStatement.setString(i++,"%"+sessionId+"%");
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

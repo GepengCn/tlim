@@ -18,4 +18,5 @@ public interface MessageDao {
     public void deleteByUser(String session_id,String msg_from);
 
     public void deleteBySession(String session_id);
+
 }

@@ -60,7 +60,10 @@ public class DissolvedUtils {
 
         subscriberDao.deleteBySession(session_id);
 
+        chatDao.deleteOfflineBySession(session_id);
+
         messageDao.deleteBySession(session_id);
+
     }
 
     private static void batchRoute(String sessionId, Protocol protocol) throws Exception {
