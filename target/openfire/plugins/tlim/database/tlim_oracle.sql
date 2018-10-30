@@ -38,7 +38,7 @@ create table "ofmessage"
    "msg_from"           VARCHAR2(64),
    "msg_to"             VARCHAR2(64),
    "msg_time"           VARCHAR2(20),
-   "body"               VARCHAR2(4096),
+   "body"               VARCHAR2(3920),
    "session_id"         VARCHAR2(64),
    constraint PK_OFMESSAGE primary key ("id_")
 );
@@ -50,7 +50,7 @@ create table "ofpubact"
 (
    "id_"                INTEGER              not null,
    "title"              VARCHAR2(256),
-   "content"            VARCHAR2(4096),
+   "content"            VARCHAR2(3920),
    "user_id"            VARCHAR2(64),
    "ts"                 VARCHAR2(64),
    "session_id"         VARCHAR2(64),
