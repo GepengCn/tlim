@@ -148,3 +148,9 @@ create table ofsubscriber (
    constraint PK_OFSUBSCRIBER primary key nonclustered (user_id, session_id)
 )
 go
+
+INSERT INTO ofVersion(name,version) values('tlim',1);
+
+INSERT INTO ofProperty(name,propValue,encrypted) values('route.all-resources','true',0);
+
+go
