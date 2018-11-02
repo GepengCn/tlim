@@ -12,6 +12,9 @@ import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.RevokeUtils;
 import com.itonglian.utils.StringUtils;
 import com.itonglian.utils.UserCacheManager;
+import org.jivesoftware.openfire.PacketDeliverer;
+import org.jivesoftware.openfire.XMPPServer;
+import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
 import java.util.Iterator;
@@ -28,6 +31,9 @@ import java.util.UUID;
 public class ChatInterceptor implements Interceptor {
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
+
+    PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
+
 
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
@@ -78,6 +84,8 @@ public class ChatInterceptor implements Interceptor {
             }
 
         }
+        message.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
+        packetDeliverer.deliver(message);
 
     }
 
