@@ -114,9 +114,9 @@ public class SessionInterceptor implements Interceptor {
 
             executorService.execute(new AsyncRunSaveDb(protocol,sessionId,msgTo));
 
-            if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
+            /*if(protocol.getMsg_to().equals(msgTo)|| protocol.getMsg_from().equals(msgTo)){
                 continue;
-            }
+            }*/
             Message newMessage = message.createCopy();
 
             newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
