@@ -288,4 +288,15 @@
         <servlet-name>approvalBack</servlet-name>
         <url-pattern>/approvalBack</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>clearChatHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.ClearChatHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>clearChatHistory</servlet-name>
+        <url-pattern>/clearChatHistory</url-pattern>
+    </servlet-mapping>
 </web-app>

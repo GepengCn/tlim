@@ -32,5 +32,7 @@ public interface ChatDao {
 
     public void deleteOfflineBySession(String sessionId);
 
+    public void clearChatHistory(String user_id,String other_id);
+
 
 }

@@ -54,6 +54,8 @@
 >>    42. [系统消息:解散群组](#系统消息解散群组)
 >>    43. [审批](#审批)
 >>    44. [退回](#退回)
+>>    45. [系统消息:单聊清空历史消息](#系统消息单聊清空历史消息)
+>>    46. [单聊清空历史消息](#单聊清空历史消息)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -115,6 +117,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     MTT-100:单已读回执
     MTT-101:单消息撤回
     MTT-102:创建单人会话
+    MTT-103:单聊清空历史消息
     MTB-000:审批
     MTB-001:朋友圈转发
     MTS-000:群聊文本
@@ -1564,6 +1567,54 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
             taskId:''
         }
     ]
+
+---
+###### 系统消息:单聊清空历史消息
+    1. 接口定义:
+
+    系统消息:单聊清空历史消息;MTT-103
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3. body
+    [
+        {
+            info:'A发起清除历史消息申请，是否同意?同意后您与A的历史消息将被彻底删除'
+        }
+    ]
+
+---
+###### 单聊清空历史消息
+    1. 接口定义:
+
+    单聊清空历史消息;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/clearChatHistory
+
+    4. 参数
+
+    4.1 user_id:'0804f124-7551-4148-ae32-c56ad409b290'
+    4.1 other_id:'0804f124-7551-4148-ae32-c56ad409b290'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+    }
 
 ---
 ## 六、流程

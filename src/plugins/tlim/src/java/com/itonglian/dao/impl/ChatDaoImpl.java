@@ -51,6 +51,9 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String MODIFY = "UPDATE ofchat SET chat_modify_time = ? WHERE chat_user = ? AND chat_other = ?";
 
+    private static final String CLEAR_CHAT_HISTORY = "DELETE FROM ofchat  WHERE chat_user = ? AND chat_other = ?";
+
+
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
     ExecutorService executorService = Executors.newFixedThreadPool(200);
@@ -306,6 +309,24 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement = connection.prepareStatement(DELETE_OFFLINE_BY_SESSION);
             int i=1;
             preparedStatement.setString(i++,"%"+sessionId+"%");
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void clearChatHistory(String user_id, String other_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(CLEAR_CHAT_HISTORY);
+            int i=1;
+            preparedStatement.setString(i++,user_id);
+            preparedStatement.setString(i++,other_id);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
