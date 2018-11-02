@@ -51,7 +51,7 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String MODIFY = "UPDATE ofchat SET chat_modify_time = ? WHERE chat_user = ? AND chat_other = ?";
 
-    private static final String CLEAR_CHAT_HISTORY = "DELETE FROM ofchat  WHERE chat_user = ? AND chat_other = ?";
+    private static final String CLEAR_CHAT_HISTORY = "DELETE FROM ofmessage  WHERE msg_from = ? AND msg_to = ?";
 
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
