@@ -1,6 +1,9 @@
 package com.itonglian.utils;
 
-import javax.servlet.http.HttpServletRequest;
+import com.alibaba.fastjson.JSON;
+import com.itonglian.entity.OfMessage;
+import com.itonglian.entity.User;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -59,5 +62,58 @@ public class MessageUtils {
             e.printStackTrace();
         }
         return value;
+    }
+
+
+    public static String messageContext(OfMessage ofMessage){
+        String content;
+        User user = UserCacheManager.findUserByKey(ofMessage.getMsg_from());
+        switch (ofMessage.getMsg_type()){
+            case "MTT-000":
+            case "MTS-000":
+                content = JSON.parseObject(ofMessage.getBody(),Body.class).getText();
+                break;
+            case "MTT-001":
+            case "MTS-001":
+                content = "收到一条图片消息";
+                break;
+            case "MTT-002":
+            case "MTS-002":
+                content = "收到一条文件消息";
+                break;
+            case "MTT-003":
+            case "MTS-003":
+                content = "收到一条语音消息";
+                break;
+            case "MTT-101":
+            case "MTS-101":
+                content = user.getUser_name()+"撤回一条消息";
+                break;
+            case "MTS-102":
+                content = user.getUser_name()+"修改了群名称";
+                break;
+            case "MTB-000":
+                content = "收到一条审批消息";
+                break;
+            case "MTB-001":
+                content = "收到一条朋友圈转发消息";
+                break;
+            default:
+                content = "收到一条新消息";
+                break;
+        }
+        return content;
+    }
+
+    private static class Body{
+        private String text;
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   This file stores security-related properties needed by Openfire.
   You may edit this file to manage encrypted properties and 
@@ -12,12 +13,11 @@
   are not visible via the Openfire console, but they may be edited or 
   deleted as needed.
 -->
-<security>
-
-  <encrypt>
-    <!-- This can be set to "AES" or "Blowfish" (default) at setup time -->
-    <algorithm>Blowfish</algorithm>
-    <key>
+<security> 
+  <encrypt> 
+    <!-- This can be set to "AES" or "Blowfish" (default) at setup time -->  
+    <algorithm>Blowfish</algorithm>  
+    <key> 
       <!-- 
         If this is a new server setup, you may set a custom encryption key
         by setting a value for the <new /> encryption key element only.
@@ -39,23 +39,22 @@
 
         <old></old>
         <new></new>
-       -->
-       <current />
-    </key>
-    <property>
+       -->  
+      <current></current> 
+    </key>  
+    <property> 
       <!-- 
         This list includes the names of properties that have been marked for
         encryption. Any XML properties (from openfire.xml) that are listed here 
         will be encrypted automatically upon first use. Other properties 
         (already in the database) can be added to this list at runtime via the 
         "System Properties" page in the Openfire console.
-      -->
-      <name>database.defaultProvider.username</name>
-      <name>database.defaultProvider.password</name>
-    </property>
-  </encrypt>
-  
-<!-- 
+      -->  
+      <name>database.defaultProvider.username</name>  
+      <name>database.defaultProvider.password</name> 
+    </property> 
+  </encrypt>  
+  <!-- 
   Any other property defined in this file will be treated as an encrypted
   property. The value (in clear text) will be encrypted and migrated into 
   the Openfire database during the next startup. The property name will 
@@ -63,6 +62,5 @@
   will be removed from this file.
   
   <foo><bar>Secr3t$tr1ng!</bar></foo>
--->
-
+--> 
 </security>
