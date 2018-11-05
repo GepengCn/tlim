@@ -84,8 +84,10 @@ public class ChatInterceptor implements Interceptor {
             }
 
         }
-        message.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
-        packetDeliverer.deliver(message);
+        //packetDeliverer.deliver(message);
+        Message copy = message.createCopy();
+        copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
+        packetDeliverer.deliver(copy);
 
     }
 
