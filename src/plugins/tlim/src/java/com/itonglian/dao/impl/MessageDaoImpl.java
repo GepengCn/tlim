@@ -24,9 +24,9 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100'";
 
-    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type NOT IN ('MTT-100','MTT-103','MTT-104')  UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? AND msg_type NOT IN ('MTT-100','MTT-103','MTT-104') ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? AND msg_type !='MTT-100' ) t ";
+    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type NOT IN ('MTT-100','MTT-103','MTT-104') UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? AND msg_type NOT IN ('MTT-100','MTT-103','MTT-104') ) t ";
 
     private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
 
