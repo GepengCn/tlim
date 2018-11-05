@@ -46,6 +46,10 @@ public class JPushHandler implements Runnable{
             // For push, all you need do is to build PushPayload object.
             PushPayload payload = buildPushObject_all_all_alert(user_id,content);
 
+            if(payload == null){
+                return;
+            }
+
             try {
                 PushResult result = jpushClient.sendPush(payload);
                 Log.error("Got result - " + result);
@@ -73,7 +77,8 @@ public class JPushHandler implements Runnable{
     public static PushPayload buildPushObject_all_all_alert(String msgTo,String content) throws Exception {
         String appPushCode = userDao.findAppPushCodeByUserId(msgTo);
         if(StringUtils.isNullOrEmpty(appPushCode)){
-            throw new Exception("appPushCode为空，不推送");
+            Log.error("appPushCode为空，不推送");
+            return null;
         }
         return PushPayload.newBuilder()
                 .setPlatform(Platform.android_ios())
