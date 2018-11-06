@@ -26,6 +26,8 @@ public interface StatusDao {
 
     public int readOrNot(String msg_id,String msg_to);
 
+    public void updateByMsgId(String msg_id,String msg_to,int status);
+
 
 
 

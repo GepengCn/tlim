@@ -3,7 +3,9 @@ package com.itonglian.interceptor.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
@@ -34,6 +36,9 @@ public class ChatInterceptor implements Interceptor {
 
     PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
+    StatusDao statusDao = StatusDaoImpl.getInstance();
+
+
 
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
@@ -56,6 +61,12 @@ public class ChatInterceptor implements Interceptor {
 
         if(!"MTT-100".equals(protocol.getMsg_type())){
             chatDao.add(ofMessage);
+        }else{
+            List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
+            if(revokeList!=null&&revokeList.size()>0){
+                Revoke revoke = revokeList.get(0);
+                statusDao.updateByMsgId(revoke.getMsg_id(),protocol.getMsg_from(),1);
+            }
         }
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){

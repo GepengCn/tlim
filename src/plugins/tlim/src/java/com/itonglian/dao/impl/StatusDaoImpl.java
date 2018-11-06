@@ -44,6 +44,7 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String READ_OR_NOT = "SELECT * FROM ofstatus WHERE msg_id = ? AND msg_to = ?";
 
+    private static final String UPDATE_BY_MSG_ID = "UPDATE ofstatus SET status=? WHERE msg_id=? AND msg_to=?";
 
     @Override
     public void add(OfStatus ofStatus) {
@@ -270,6 +271,25 @@ public class StatusDaoImpl implements StatusDao {
             DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
         }
         return -1;
+    }
+
+    @Override
+    public void updateByMsgId(String msg_id, String msg_to,int status) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_BY_MSG_ID);
+            int i=1;
+            preparedStatement.setInt(i++,status);
+            preparedStatement.setString(i++,msg_id);
+            preparedStatement.setString(i++,msg_to);
+            preparedStatement.execute();
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
     }
 
 }
