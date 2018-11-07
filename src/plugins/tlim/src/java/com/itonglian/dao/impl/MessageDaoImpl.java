@@ -43,6 +43,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public List<OfMessage> findHistory(String session_id,String user_id, int start, int length) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

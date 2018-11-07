@@ -3,10 +3,12 @@ package com.itonglian.servlet;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
+import com.itonglian.dao.impl.MessageDaoOracleImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
+import org.jivesoftware.database.DbConnectionManager;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,6 +22,8 @@ import java.util.List;
 public class FindSessionHistory extends HttpServlet {
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    MessageDao messageDaoOracle = MessageDaoOracleImpl.getInstance();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -48,7 +52,14 @@ public class FindSessionHistory extends HttpServlet {
             return;
         }
 
-        List<OfMessage> messageList = messageDao.findHistory(session_id,user_id,start,length);
+        DbConnectionManager.DatabaseType databaseType = DbConnectionManager.getDatabaseType();
+        List<OfMessage> messageList;
+        if(databaseType==DbConnectionManager.DatabaseType.oracle){
+            messageList = messageDaoOracle.findHistory(session_id,user_id,start,length);
+        }else{
+            messageList = messageDao.findHistory(session_id,user_id,start,length);
+        }
+
 
         int total = messageDao.findMessageTotal(session_id,user_id);
 

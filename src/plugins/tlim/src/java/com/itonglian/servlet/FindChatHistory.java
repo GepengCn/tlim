@@ -3,10 +3,12 @@ package com.itonglian.servlet;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
+import com.itonglian.dao.impl.MessageDaoOracleImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
+import org.jivesoftware.database.DbConnectionManager;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,6 +22,9 @@ import java.util.List;
 public class FindChatHistory extends HttpServlet {
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    MessageDao messageDaoOracle = MessageDaoOracleImpl.getInstance();
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -46,8 +51,15 @@ public class FindChatHistory extends HttpServlet {
             doBack(new BackJson("error-008","user_id为空",session_id),printWriter);
             return;
         }
+        DbConnectionManager.DatabaseType databaseType = DbConnectionManager.getDatabaseType();
 
-        List<OfMessage> messageList = messageDao.findChatHistory(session_id,user_id,start,length);
+        List<OfMessage> messageList;
+
+        if(databaseType==DbConnectionManager.DatabaseType.oracle){
+            messageList = messageDaoOracle.findChatHistory(session_id,user_id,start,length);
+        }else{
+            messageList = messageDao.findChatHistory(session_id,user_id,start,length);
+        }
 
         int total = messageDao.findChatMessageTotal(session_id,user_id);
 
