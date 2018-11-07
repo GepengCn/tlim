@@ -7,6 +7,7 @@ import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.utils.MessageUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
@@ -56,7 +57,6 @@ public class UpdateMsgStatus extends HttpServlet {
         String msg_to = req.getParameter("msg_to");
 
 
-
         List<OfStatus> ofStatusList = statusDao.query(session_id,msg_to);
 
         Iterator<OfStatus> iterator = ofStatusList.iterator();
@@ -64,44 +64,48 @@ public class UpdateMsgStatus extends HttpServlet {
         while(iterator.hasNext()){
             OfStatus ofStatus = iterator.next();
 
-            if(ofStatus.getMsg_type().contains("MTT")){
-                Protocol protocol = new Protocol();
+            Protocol protocol = new Protocol();
 
-                String msgId = UUID.randomUUID().toString();
-                protocol.setCompress("0");
-                protocol.setEncode("1");
-                protocol.setEncrypt("0");
-                protocol.setVersion("2.0.0");
-                protocol.setMsg_id(msgId);
-                protocol.setMsg_time(MessageUtils.getTs());
-                protocol.setMsg_type("MTT-100");
-                List<Body> bodies = new ArrayList<>();
+            String msgId = UUID.randomUUID().toString();
+            protocol.setCompress("0");
+            protocol.setEncode("1");
+            protocol.setEncrypt("0");
+            protocol.setVersion("2.0.0");
+            protocol.setMsg_id(msgId);
+            protocol.setMsg_time(MessageUtils.getTs());
+            String msg_type = ofStatus.getMsg_type().contains("MTS")?"MTS-100":"MTT-100";
+            protocol.setMsg_type(msg_type);
+
+            List<Body> bodies = new ArrayList<>();
+            if(ofStatus.getMsg_type().contains("MTS")){
+                bodies.add(new Body(ofStatus.getMsg_id(),ofStatus.getSession_id()));
+            }else{
                 bodies.add(new Body(ofStatus.getMsg_id()));
-                protocol.setBody(JSONArray.toJSONString(bodies));
 
-
-                String msgTo = session_id;
-
-                Message newMessage = new Message();
-
-                newMessage.setType(Message.Type.chat);
-
-                newMessage.setFrom(new JID(MessageUtils.toJid(msgTo)));
-
-                newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
-
-                protocol.setMsg_from(msgTo);
-
-                protocol.setMsg_to(msgTo);
-
-                newMessage.setBody(JSONObject.toJSONString(protocol));
-
-                try {
-                    packetDeliverer.deliver(newMessage);
-                } catch (UnauthorizedException e) {
-                    e.printStackTrace();
-                }
             }
+            protocol.setBody(JSONArray.toJSONString(bodies));
+
+
+            Message newMessage = new Message();
+
+            newMessage.setType(Message.Type.chat);
+
+            newMessage.setFrom(new JID(MessageUtils.toJid(msg_to)));
+
+            newMessage.setTo(new JID(MessageUtils.toJid(session_id)));
+
+            protocol.setMsg_from(msg_to);
+
+            protocol.setMsg_to(session_id);
+
+            newMessage.setBody(JSONObject.toJSONString(protocol));
+
+            try {
+                packetDeliverer.deliver(newMessage);
+            } catch (UnauthorizedException e) {
+                log(ExceptionUtils.getFullStackTrace(e));
+            }
+
 
         }
 
@@ -154,8 +158,15 @@ public class UpdateMsgStatus extends HttpServlet {
 
         private String msg_id;
 
+        private String session_id;
+
         public Body(String msg_id) {
             this.msg_id = msg_id;
+        }
+
+        public Body(String msg_id, String session_id) {
+            this.msg_id = msg_id;
+            this.session_id = session_id;
         }
 
         public String getMsg_id() {
@@ -164,6 +175,14 @@ public class UpdateMsgStatus extends HttpServlet {
 
         public void setMsg_id(String msg_id) {
             this.msg_id = msg_id;
+        }
+
+        public String getSession_id() {
+            return session_id;
+        }
+
+        public void setSession_id(String session_id) {
+            this.session_id = session_id;
         }
     }
 
