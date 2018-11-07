@@ -57,6 +57,7 @@
 >>    45. [系统消息:单聊清空历史消息](#系统消息单聊清空历史消息)
 >>    46. [单聊清空历史消息](#单聊清空历史消息)
 >>    47. [系统消息:清空历史消息回执](#系统消息清空历史消息回执)
+>>    48. [同步消息](#同步消息)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1641,6 +1642,44 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
         }
     ]
     注:0代表同意，1代表不同意
+---
+
+###### 同步消息
+    1. 接口定义:
+
+    同步消息;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/syncMessage
+
+    4. 参数
+
+    4.1 msg_to:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    4.1 msg_id:'cbf90f1bcc9f412eb2c8a0c0dc138ed8'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+         "messageList":[
+              {
+                 "body": "[{\"session_id\":\"85028e68-be82-412e-b147-155840ebed88\",\"text\":\"123\"}]",
+                 "msg_from": "e3e9dfddf4e84c02850c434e69942ada",
+                 "msg_id": "d8cbcfbd-33fb-4614-b715-ac4f37c24282",
+                 "msg_time": "1541488419370",
+                 "msg_to": "cbf90f1bcc9f412eb2c8a0c0dc138ed8",
+                 "msg_type": "MTS-000"
+              }
+         ]
+    }
+
 ---
 ## 六、流程
 ![Alt text][flowPic]

@@ -1,5 +1,6 @@
 package com.itonglian.dao;
 
+import com.itonglian.entity.Message;
 import com.itonglian.entity.OfMessage;
 
 import java.util.List;
@@ -18,5 +19,9 @@ public interface MessageDao {
     public void deleteByUser(String session_id,String msg_from);
 
     public void deleteBySession(String session_id);
+
+    public String findMessageTime(String msg_id);
+
+    public List<Message> findMessageAfter(String msg_to, String msg_time);
 
 }

@@ -1,6 +1,7 @@
 package com.itonglian.dao.impl;
 
 import com.itonglian.dao.MessageDao;
+import com.itonglian.entity.Message;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -31,6 +32,10 @@ public class MessageDaoImpl implements MessageDao {
     private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
 
     private static final String DELETE_BY_SESSION = "DELETE FROM ofmessage WHERE session_id = ?";
+
+    private static final String FIND_MESSAGE_TIME = "SELECT msg_time FROM ofmessage WHERE msg_id = ?";
+
+    private static final String FIND_MESSAGE_AFTER = "SELECT * FROM ofmessage WHERE msg_to = ? AND msg_time >=?";
 
     public static MessageDao getInstance(){
         return messageDao;
@@ -197,5 +202,61 @@ public class MessageDaoImpl implements MessageDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
+    }
+
+    @Override
+    public String findMessageTime(String msg_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_MESSAGE_TIME);
+            int i=1;
+            preparedStatement.setString(i++,msg_id);
+            resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                return resultSet.getString("msg_time");
+            }
+            return null;
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Message> findMessageAfter(String msg_to, String msg_time) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Message> messageList = new ArrayList<Message>();
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_MESSAGE_AFTER);
+            int i=1;
+            preparedStatement.setString(i++,msg_to);
+            preparedStatement.setString(i++,msg_time);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                Message message = new Message();
+                message.setMsg_id(resultSet.getString("msg_id"));
+                message.setMsg_type(resultSet.getString("msg_type"));
+                message.setMsg_from(resultSet.getString("msg_from"));
+                message.setMsg_to(resultSet.getString("msg_to"));
+                message.setMsg_time(resultSet.getString("msg_time"));
+                message.setBody(MessageUtils.decode(resultSet.getString("body")));
+                messageList.add(message);
+            }
+            return messageList;
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return null;
     }
 }

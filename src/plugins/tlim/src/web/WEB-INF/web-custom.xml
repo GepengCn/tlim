@@ -299,4 +299,15 @@
         <servlet-name>clearChatHistory</servlet-name>
         <url-pattern>/clearChatHistory</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>syncMessage</servlet-name>
+        <servlet-class>com.itonglian.servlet.SyncMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>syncMessage</servlet-name>
+        <url-pattern>/syncMessage</url-pattern>
+    </servlet-mapping>
 </web-app>
