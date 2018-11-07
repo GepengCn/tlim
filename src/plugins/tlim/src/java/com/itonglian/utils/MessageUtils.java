@@ -71,7 +71,7 @@ public class MessageUtils {
         switch (ofMessage.getMsg_type()){
             case "MTT-000":
             case "MTS-000":
-                content = JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-001":
             case "MTS-001":
