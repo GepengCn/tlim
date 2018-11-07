@@ -76,7 +76,7 @@ public class UpdateMsgStatus extends HttpServlet {
                 protocol.setMsg_time(MessageUtils.getTs());
                 protocol.setMsg_type("MTT-100");
                 List<Body> bodies = new ArrayList<>();
-                bodies.add(new Body(msgId));
+                bodies.add(new Body(ofStatus.getMsg_id()));
                 protocol.setBody(JSONArray.toJSONString(bodies));
 
 
