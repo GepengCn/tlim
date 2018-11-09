@@ -95,10 +95,11 @@ public class ChatInterceptor implements Interceptor {
             }
 
         }
-        Message copy = message.createCopy();
-        copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
-        packetDeliverer.deliver(copy);
-
+        if(!msg_type.contains("100")){
+            Message copy = message.createCopy();
+            copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
+            packetDeliverer.deliver(copy);
+        }
     }
 
     private void addChat(String msg_from,String msg_to){

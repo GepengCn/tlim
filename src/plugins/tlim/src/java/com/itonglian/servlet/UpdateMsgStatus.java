@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.StatusDao;
+import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.StatusDaoImpl;
+import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfStatus;
+import com.itonglian.entity.OfSubscriber;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
@@ -37,6 +40,7 @@ public class UpdateMsgStatus extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(UpdateMsgStatus.class);
 
+    static SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
 
     @Override
@@ -62,49 +66,95 @@ public class UpdateMsgStatus extends HttpServlet {
         Iterator<OfStatus> iterator = ofStatusList.iterator();
 
         while(iterator.hasNext()){
+
+
             OfStatus ofStatus = iterator.next();
 
-            Protocol protocol = new Protocol();
-
-            String msgId = UUID.randomUUID().toString();
-            protocol.setCompress("0");
-            protocol.setEncode("1");
-            protocol.setEncrypt("0");
-            protocol.setVersion("2.0.0");
-            protocol.setMsg_id(msgId);
-            protocol.setMsg_time(MessageUtils.getTs());
-            String msg_type = ofStatus.getMsg_type().contains("MTS")?"MTS-100":"MTT-100";
-            protocol.setMsg_type(msg_type);
-
-            List<Body> bodies = new ArrayList<>();
-            if(ofStatus.getMsg_type().contains("MTS")){
-                bodies.add(new Body(ofStatus.getMsg_id(),ofStatus.getSession_id()));
-            }else{
+            if(ofStatus.getMsg_type().contains("MTT")){
+                Protocol protocol = new Protocol();
+                String msgId = UUID.randomUUID().toString();
+                protocol.setCompress("0");
+                protocol.setEncode("1");
+                protocol.setEncrypt("0");
+                protocol.setVersion("2.0.0");
+                protocol.setMsg_id(msgId);
+                protocol.setMsg_time(MessageUtils.getTs());
+                String msg_type = "MTT-100";
+                protocol.setMsg_type(msg_type);
+                List<Body> bodies = new ArrayList<>();
                 bodies.add(new Body(ofStatus.getMsg_id()));
+                protocol.setBody(JSONArray.toJSONString(bodies));
+
+
+                Message newMessage = new Message();
+
+                newMessage.setType(Message.Type.chat);
+
+                newMessage.setFrom(new JID(MessageUtils.toJid(msg_to)));
+
+                newMessage.setTo(new JID(MessageUtils.toJid(session_id)));
+
+                protocol.setMsg_from(msg_to);
+
+                protocol.setMsg_to(session_id);
+
+                newMessage.setBody(JSONObject.toJSONString(protocol));
+
+                try {
+                    packetDeliverer.deliver(newMessage);
+                } catch (UnauthorizedException e) {
+                    Log.error(ExceptionUtils.getFullStackTrace(e));
+                }
+            }else if(ofStatus.getMsg_type().contains("MTS")){
+                Protocol protocol = new Protocol();
+
+                String msgId = UUID.randomUUID().toString();
+                protocol.setCompress("0");
+                protocol.setEncode("1");
+                protocol.setEncrypt("0");
+                protocol.setVersion("2.0.0");
+                protocol.setMsg_id(msgId);
+                protocol.setMsg_time(MessageUtils.getTs());
+                String msg_type = "MTS-100";
+                protocol.setMsg_type(msg_type);
+
+                List<Body> bodies = new ArrayList<>();
+                bodies.add(new Body(ofStatus.getMsg_id(),ofStatus.getSession_id()));
+
+                protocol.setBody(JSONArray.toJSONString(bodies));
+
+                List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(session_id);
+
+                Iterator<OfSubscriber> subscriberIterator = subscriberList.iterator();
+
+                while(subscriberIterator.hasNext()){
+                    OfSubscriber ofSubscriber = subscriberIterator.next();
+                    Message newMessage = new Message();
+
+                    newMessage.setType(Message.Type.chat);
+
+                    newMessage.setFrom(new JID(MessageUtils.toJid(msg_to)));
+
+                    newMessage.setTo(new JID(MessageUtils.toJid(ofSubscriber.getUser_id())));
+
+                    protocol.setMsg_from(msg_to);
+
+                    protocol.setMsg_to(ofSubscriber.getUser_id());
+
+                    newMessage.setBody(JSONObject.toJSONString(protocol));
+
+                    try {
+                        packetDeliverer.deliver(newMessage);
+                    } catch (UnauthorizedException e) {
+                        Log.error(ExceptionUtils.getFullStackTrace(e));
+                    }
+                }
+
 
             }
-            protocol.setBody(JSONArray.toJSONString(bodies));
 
 
-            Message newMessage = new Message();
 
-            newMessage.setType(Message.Type.chat);
-
-            newMessage.setFrom(new JID(MessageUtils.toJid(msg_to)));
-
-            newMessage.setTo(new JID(MessageUtils.toJid(session_id)));
-
-            protocol.setMsg_from(msg_to);
-
-            protocol.setMsg_to(session_id);
-
-            newMessage.setBody(JSONObject.toJSONString(protocol));
-
-            try {
-                packetDeliverer.deliver(newMessage);
-            } catch (UnauthorizedException e) {
-                log(ExceptionUtils.getFullStackTrace(e));
-            }
 
 
         }
