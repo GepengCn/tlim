@@ -8,6 +8,7 @@ import cn.jpush.api.push.PushResult;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
+import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.itonglian.dao.UserDao;
@@ -68,6 +69,7 @@ public class JPushHandler implements Runnable{
 
 
         } catch (UserNotFoundException e) {
+            Log.error("user_id="+user_id);
             Log.error(ExceptionUtils.getFullStackTrace(e));
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -88,6 +90,7 @@ public class JPushHandler implements Runnable{
                                 .setAlert(content)
                                 .autoBadge()
                                 .build())
+                        .addPlatformNotification(AndroidNotification.newBuilder().setAlert(content).build())
                         .build())
                 // .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
