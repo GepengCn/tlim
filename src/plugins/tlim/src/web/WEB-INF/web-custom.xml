@@ -310,4 +310,14 @@
         <servlet-name>syncMessage</servlet-name>
         <url-pattern>/syncMessage</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>hasUnread</servlet-name>
+        <servlet-class>com.itonglian.servlet.HasUnread</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>hasUnread</servlet-name>
+        <url-pattern>/hasUnread</url-pattern>
+    </servlet-mapping>
 </web-app>

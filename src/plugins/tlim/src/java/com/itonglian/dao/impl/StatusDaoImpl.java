@@ -32,19 +32,21 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String QUERY = "SELECT * FROM ofstatus WHERE session_id=? AND status=? AND msg_to=?";
 
-    private static final String DELETE = "DELETE from ofstatus WHERE session_id=? AND msg_to=?";
+    private static final String DELETE = "DELETE FROM ofstatus WHERE session_id=? AND msg_to=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
 
-    private static final String FIND_MSG_READ = "SELECT msg_id,count(1) readNum from ofstatus  WHERE  status = ? AND session_id = ? GROUP BY msg_id ";
+    private static final String FIND_MSG_READ = "SELECT msg_id,count(1) readNum FROM ofstatus  WHERE  status = ? AND session_id = ? GROUP BY msg_id ";
 
-    private static final String FIND_CHAT_MSG_READ = "SELECT msg_id,count(1) readNum from ofstatus  WHERE  status = ? AND session_id = ? AND msg_to = ? GROUP BY msg_id ";
+    private static final String FIND_CHAT_MSG_READ = "SELECT msg_id,count(1) readNum FROM ofstatus  WHERE  status = ? AND session_id = ? AND msg_to = ? GROUP BY msg_id ";
 
     private static final String FIND_MSG_STATUS_LIST = "SELECT * FROM ofstatus WHERE msg_id = ?";
 
     private static final String READ_OR_NOT = "SELECT * FROM ofstatus WHERE msg_id = ? AND msg_to = ?";
 
     private static final String UPDATE_BY_MSG_ID = "UPDATE ofstatus SET status=? WHERE msg_id=? AND msg_to=?";
+
+    private static final String HAS_UNREAD = "SELECT count(1) AS unReadNum FROM ofstatus WHERE msg_to = ? AND msg_type NOT IN ('MTS-100','MTT-100') AND status = 0";
 
     @Override
     public void add(OfStatus ofStatus) {
@@ -290,6 +292,31 @@ public class StatusDaoImpl implements StatusDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
+    }
+
+    @Override
+    public boolean hasUnread(String user_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean hasUnread = false;
+        try {
+            connection = DbConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(HAS_UNREAD);
+            preparedStatement.setString(1,user_id);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+               int count = resultSet.getInt("unReadNum");
+               if(count>0){
+                   hasUnread=true;
+               }
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+        }
+        return hasUnread;
     }
 
 }

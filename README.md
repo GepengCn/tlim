@@ -58,6 +58,7 @@
 >>    46. [单聊清空历史消息](#单聊清空历史消息)
 >>    47. [系统消息:清空历史消息回执](#系统消息清空历史消息回执)
 >>    48. [同步消息](#同步消息)
+>>    49. [当前用户是否有未读消息](#当前用户是否有未读消息)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1678,6 +1679,34 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
                  "msg_type": "MTS-000"
               }
          ]
+    }
+
+---
+
+###### 当前用户是否有未读消息
+    1. 接口定义:
+
+    同步消息;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/hasUnread
+
+    4. 参数
+
+    4.1 user_id:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+         "data":true/false
     }
 
 ---

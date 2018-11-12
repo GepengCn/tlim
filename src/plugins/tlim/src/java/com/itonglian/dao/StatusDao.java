@@ -28,6 +28,8 @@ public interface StatusDao {
 
     public void updateByMsgId(String msg_id,String msg_to,int status);
 
+    public boolean hasUnread(String user_id);
+
 
 
 
