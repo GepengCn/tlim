@@ -32,4 +32,17 @@ public class StringUtils {
         }
         return Integer.parseInt(value);
     }
+
+    public static String contentfilter(String content){
+        String reContent = "";
+        if(isNullOrEmpty(content)){
+            return reContent;
+        }
+        String symbol = "<br>";
+        while(content.indexOf(symbol)>0){
+            content = content.replace(symbol,"");
+        }
+        reContent = content;
+        return reContent;
+    }
 }

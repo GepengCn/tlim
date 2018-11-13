@@ -44,6 +44,8 @@ public class JPushHandler implements Runnable{
             }
             JPushClient jpushClient = new JPushClient("3554ac2d8b507c13dae5e626", "42e2be00b39b8f9f177b119d", null, ClientConfig.getInstance());
 
+            content = StringUtils.contentfilter(content);
+
             // For push, all you need do is to build PushPayload object.
             PushPayload payload = buildPushObject_all_all_alert(user_id,content);
 
