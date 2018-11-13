@@ -6,11 +6,11 @@ import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.utils.DissolvedUtils;
-import com.itonglian.utils.RevokeUtils;
+import com.itonglian.utils.*;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class AsyncRunSaveDb implements Runnable{
 
@@ -23,6 +23,7 @@ public class AsyncRunSaveDb implements Runnable{
     ChatDao chatDao = ChatDaoImpl.getInstance();
 
     String msgTo;
+
 
     public AsyncRunSaveDb(Protocol protocol,String sessionId,String msgTo) {
         this.protocol = protocol;
@@ -49,7 +50,7 @@ public class AsyncRunSaveDb implements Runnable{
 
         ofMessage.setSession_id(sessionId);
 
-        chatDao.add(ofMessage);
+        chatDao.addThenSend(ofMessage);
 
         sessionDao.modify(sessionId);
 
@@ -67,6 +68,7 @@ public class AsyncRunSaveDb implements Runnable{
         if("MTS-107".equals(msg_type)){
             DissolvedUtils.handler(sessionId);
         }
+        CachePushFilter.getInstance().push(ofMessage);
     }
     private static class Revoke{
         private String msg_id;

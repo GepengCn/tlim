@@ -5,8 +5,10 @@ import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfStatus;
+import com.itonglian.utils.CustomThreadPool;
 import com.itonglian.utils.JPushHandler;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -56,14 +58,11 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final Logger Log = LoggerFactory.getLogger(ChatDaoImpl.class);
 
-    ExecutorService executorService = Executors.newFixedThreadPool(200);
-
     public static ChatDao getInstance(){
         return chatDao;
     }
 
-    @Override
-    public void add(OfMessage ofMessage) {
+    public void addThenSend(OfMessage ofMessage){
         int isExist = this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to());
         if(isExist>0||isExist==-1){
             return;
@@ -79,7 +78,12 @@ public class ChatDaoImpl implements ChatDao {
             ofStatus.setStatus(0);
             statusDao.add(ofStatus);
         }
+        this.add(ofMessage);
 
+    }
+
+    @Override
+    public void add(OfMessage ofMessage) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -100,10 +104,6 @@ public class ChatDaoImpl implements ChatDao {
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
         }
-
-
-        executorService.execute(new JPushHandler(ofMessage.getMsg_to(),MessageUtils.messageContext(ofMessage)));
-
     }
 
     @Override

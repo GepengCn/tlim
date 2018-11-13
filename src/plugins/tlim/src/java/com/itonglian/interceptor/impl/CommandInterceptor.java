@@ -83,7 +83,7 @@ public class CommandInterceptor implements Interceptor {
 
             ofMessage.setSession_id(protocol.getMsg_to());
 
-            chatDao.add(ofMessage);
+            chatDao.addThenSend(ofMessage);
 
         }
 
@@ -144,7 +144,7 @@ public class CommandInterceptor implements Interceptor {
 
             ofMessage.setSession_id(sessionId);
 
-            chatDao.add(ofMessage);
+            chatDao.addThenSend(ofMessage);
 
             sessionDao.modify(sessionId);
 

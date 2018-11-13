@@ -99,7 +99,7 @@ public class MessageUtils {
                 content = "收到一条朋友圈转发消息";
                 break;
             default:
-                content = "收到一条新消息";
+                content = "";
                 break;
         }
         return content;
@@ -115,5 +115,10 @@ public class MessageUtils {
         public void setText(String text) {
             this.text = text;
         }
+    }
+
+
+    public static String combineKv(String key,String value){
+        return key+"(tlimkv)"+value;
     }
 }

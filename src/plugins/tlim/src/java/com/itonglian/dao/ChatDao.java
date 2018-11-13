@@ -10,6 +10,8 @@ public interface ChatDao {
 
     public void add(OfMessage ofMessage);
 
+    public void addThenSend(OfMessage ofMessage);
+
     public void delete(String msgId);
 
     public void update(OfMessage ofMessage);

@@ -10,10 +10,7 @@ import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
 import com.itonglian.interceptor.Interceptor;
-import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.RevokeUtils;
-import com.itonglian.utils.StringUtils;
-import com.itonglian.utils.UserCacheManager;
+import com.itonglian.utils.*;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.xmpp.packet.JID;
@@ -22,6 +19,7 @@ import org.xmpp.packet.Message;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p> 概述：聊天类消息拦截器
@@ -38,6 +36,7 @@ public class ChatInterceptor implements Interceptor {
 
     StatusDao statusDao = StatusDaoImpl.getInstance();
 
+    ExecutorService executorService = CustomThreadPool.getExecutorService();
 
 
     @Override
@@ -60,7 +59,7 @@ public class ChatInterceptor implements Interceptor {
         ofMessage.setSession_id(protocol.getMsg_from());
 
         if(!"MTT-100".equals(protocol.getMsg_type())){
-            chatDao.add(ofMessage);
+            chatDao.addThenSend(ofMessage);
         }else{
             List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
             if(revokeList!=null&&revokeList.size()>0){
@@ -100,6 +99,7 @@ public class ChatInterceptor implements Interceptor {
             copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
             packetDeliverer.deliver(copy);
         }
+        CachePushFilter.getInstance().push(ofMessage);
     }
 
     private void addChat(String msg_from,String msg_to){
