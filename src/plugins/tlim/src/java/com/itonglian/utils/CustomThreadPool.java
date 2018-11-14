@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class CustomThreadPool {
 
-    private final static ExecutorService executorService = Executors.newFixedThreadPool(200);
+    private final static ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static ExecutorService getExecutorService(){
         return executorService;

@@ -13,6 +13,7 @@ import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
+import com.itonglian.utils.CustomThreadPool;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
@@ -25,7 +26,6 @@ import org.xmpp.packet.Message;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * <p> 概述：会话类消息拦截器
@@ -46,7 +46,7 @@ public class SessionInterceptor implements Interceptor {
 
     private static final Logger Log = LoggerFactory.getLogger(SessionInterceptor.class);
 
-    ExecutorService executorService = Executors.newCachedThreadPool();
+    ExecutorService executorService = CustomThreadPool.getExecutorService();
 
 
     @Override

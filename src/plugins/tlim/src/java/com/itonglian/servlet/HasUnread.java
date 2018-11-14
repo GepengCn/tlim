@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class HasUnread extends HttpServlet {
-    StatusDao statusDao = StatusDaoImpl.getInstance();    @Override
+    StatusDao statusDao = StatusDaoImpl.getInstance();
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         AuthCheckFilter.addExclude("tlim/hasUnread");

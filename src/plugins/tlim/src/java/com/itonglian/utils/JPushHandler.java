@@ -1,8 +1,6 @@
 package com.itonglian.utils;
 
 import cn.jiguang.common.ClientConfig;
-import cn.jiguang.common.resp.APIConnectionException;
-import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
 import cn.jpush.api.push.model.Platform;
@@ -11,17 +9,18 @@ import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
-import org.jivesoftware.openfire.user.UserNotFoundException;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JPushHandler implements Runnable{
-
-//    private static final Logger Log = LoggerFactory.getLogger(JPushHandler.class);
-
-//    private static UserDao userDao = UserDaoImpl.getInstance();
 
     private String content;
 
     private String appPushCode;
+
+    private static final Logger Log = LoggerFactory.getLogger(JPushHandler.class);
+
 
     public JPushHandler(String appPushCode,String content) {
         this.content = content;
@@ -30,46 +29,19 @@ public class JPushHandler implements Runnable{
 
     @Override
     public void run() {
+        JPushClient jpushClient = new JPushClient("3554ac2d8b507c13dae5e626", "42e2be00b39b8f9f177b119d", null, ClientConfig.getInstance());
         try {
-            //String presence = UserPresenceManager.getPresence(user_id);
-
-            //Log.error("Got Presence - " + presence);
-            /*if(!"offline".equals(presence)){
-                return;
-            }*/
-            JPushClient jpushClient = new JPushClient("3554ac2d8b507c13dae5e626", "42e2be00b39b8f9f177b119d", null, ClientConfig.getInstance());
-
             content = StringUtils.contentfilter(content);
-//            String appPushCode = userDao.findAppPushCodeByUserId(user_id);
-            // For push, all you need do is to build PushPayload object.
             PushPayload payload = buildPushObject_all_all_alert(appPushCode,content);
 
             if(payload == null){
                 return;
             }
+            PushResult result = jpushClient.sendPush(payload);
 
-            try {
-                PushResult result = jpushClient.sendPush(payload);
-               // Log.error("Got result - " + result);
-
-            } catch (APIConnectionException e) {
-                // Connection error, should retry later
-               // Log.error("Connection error, should retry later", e);
-
-            } catch (APIRequestException e) {
-                // Should review the error, and fix the request
-               // Log.error("Should review the error, and fix the request", e);
-               // Log.error("HTTP Status: " + e.getStatus());
-               // Log.error("Error Code: " + e.getErrorCode());
-               // Log.error("Error Message: " + e.getErrorMessage());
-            }
-
-
-        } catch (UserNotFoundException e) {
-           // Log.error("user_id="+user_id);
-           // Log.error(ExceptionUtils.getFullStackTrace(e));
+            jpushClient.close();
         } catch (Exception e) {
-           // Log.error(ExceptionUtils.getFullStackTrace(e));
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
     }
@@ -86,6 +58,7 @@ public class JPushHandler implements Runnable{
                         .addPlatformNotification(IosNotification.newBuilder()
                                 .setAlert(content)
                                 .autoBadge()
+                                .setSound("default")
                                 .build())
                         .addPlatformNotification(AndroidNotification.newBuilder().setAlert(content).build())
                         .build())

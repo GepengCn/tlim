@@ -8,12 +8,9 @@ import org.jivesoftware.util.cache.Cache;
 import org.jivesoftware.util.cache.CacheFactory;
 
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
 
 public class CachePushFilter {
 
-
-    private static CachePushFilter cachePushFilter;
 
     private static class CachePushFilterHolder{
         private static CachePushFilter cachePushFilter=new CachePushFilter();
@@ -25,8 +22,6 @@ public class CachePushFilter {
 
 
     private Cache<String,String> cache ;
-
-    private ExecutorService executorService = CustomThreadPool.getExecutorService();
 
     private UserDao userDao = UserDaoImpl.getInstance();
 
