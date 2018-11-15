@@ -65,25 +65,35 @@ public class MessageUtils {
     }
 
 
-    public static String messageContext(OfMessage ofMessage){
+    public static String messageContext(OfMessage ofMessage,String sessionName){
         String content;
         User user = UserCacheManager.findUserByKey(ofMessage.getMsg_from());
+        sessionName = "";
+        String symbol = "[群聊]";
         switch (ofMessage.getMsg_type()){
             case "MTT-000":
-            case "MTS-000":
                 content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
+            case "MTS-000":
+                content = sessionName+symbol+user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                break;
             case "MTT-001":
+                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                break;
             case "MTS-001":
-                content = "收到一条图片消息";
+                content = sessionName+symbol+user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-002":
+                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                break;
             case "MTS-002":
-                content = "收到一条文件消息";
+                content = sessionName+symbol+user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-003":
+                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                break;
             case "MTS-003":
-                content = "收到一条语音消息";
+                content = sessionName+symbol+user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-101":
             case "MTS-101":

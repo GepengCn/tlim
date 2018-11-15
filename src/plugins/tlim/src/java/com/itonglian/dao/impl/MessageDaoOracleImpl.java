@@ -22,14 +22,14 @@ public class MessageDaoOracleImpl extends MessageDaoImpl implements MessageDao {
 
     private static final MessageDao messageDao = new MessageDaoOracleImpl();
 
-    private static final String FIND_HISTORY = "SELECT * FROM (SELECT ofmessage.*,rownum as rn FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100' AND rownum<=? ORDER BY msg_time desc) WHERE rn>=?";
+    private static final String FIND_HISTORY = "SELECT * FROM (SELECT ofmessage.*,rownum as rn FROM ofmessage WHERE session_id = ?  AND msg_type !='MTS-100' AND rownum<=? ORDER BY msg_time desc) WHERE rn>=?";
 
     public static MessageDao getInstance(){
         return messageDao;
     }
 
     @Override
-    public List<OfMessage> findHistory(String session_id, String user_id, int start, int length) {
+    public List<OfMessage> findHistory(String session_id,int start, int length) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -39,7 +39,6 @@ public class MessageDaoOracleImpl extends MessageDaoImpl implements MessageDao {
             preparedStatement = connection.prepareStatement(FIND_HISTORY);
             int i=1;
             preparedStatement.setString(i++,session_id);
-            preparedStatement.setString(i++,user_id);
             preparedStatement.setInt(i++,start+length);
             preparedStatement.setInt(i++,start);
             resultSet = preparedStatement.executeQuery();

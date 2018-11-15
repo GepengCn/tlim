@@ -3,9 +3,12 @@ package com.itonglian.bean;
 import com.alibaba.fastjson.JSONArray;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.SessionDao;
+import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
+import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.entity.OfSubscriber;
 import com.itonglian.utils.*;
 
 import java.util.Iterator;
@@ -22,13 +25,12 @@ public class AsyncRunSaveDb implements Runnable{
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
 
-    String msgTo;
+    SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
 
-    public AsyncRunSaveDb(Protocol protocol,String sessionId,String msgTo) {
+    public AsyncRunSaveDb(Protocol protocol,String sessionId) {
         this.protocol = protocol;
         this.sessionId = sessionId;
-        this.msgTo = msgTo;
     }
 
 
@@ -42,7 +44,7 @@ public class AsyncRunSaveDb implements Runnable{
 
         ofMessage.setMsg_from(protocol.getMsg_from());
 
-        ofMessage.setMsg_to(msgTo);
+        ofMessage.setMsg_to(sessionId);
 
         ofMessage.setMsg_time(protocol.getMsg_time());
 
@@ -68,7 +70,13 @@ public class AsyncRunSaveDb implements Runnable{
         if("MTS-107".equals(msg_type)){
             DissolvedUtils.handler(sessionId);
         }
-        CachePushFilter.getInstance().push(ofMessage);
+        List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(sessionId);
+        Iterator<OfSubscriber> iterator = subscriberList.iterator();
+        while(iterator.hasNext()){
+            OfSubscriber ofSubscriber = iterator.next();
+            ofMessage.setMsg_to(ofSubscriber.getUser_id());
+            CachePushFilter.getInstance().push(ofMessage);
+        }
     }
     private static class Revoke{
         private String msg_id;

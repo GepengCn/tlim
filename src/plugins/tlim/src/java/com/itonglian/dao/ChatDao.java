@@ -20,7 +20,7 @@ public interface ChatDao {
 
     public List<OfMessage> findList(Map<String,Object> conditions);
 
-    public int isExist(String msgId,String msgTo);
+    public int isExist(String msgId);
 
     public List<OfChat> chatList(String userId);
 

@@ -19,12 +19,15 @@ public class JPushHandler implements Runnable{
 
     private String appPushCode;
 
+    private String sessionName;
+
     private static final Logger Log = LoggerFactory.getLogger(JPushHandler.class);
 
 
-    public JPushHandler(String appPushCode,String content) {
+    public JPushHandler(String appPushCode,String content,String sessionName,String combineKv) {
         this.content = content;
         this.appPushCode = appPushCode;
+        this.sessionName = sessionName;
     }
 
     @Override
@@ -32,23 +35,21 @@ public class JPushHandler implements Runnable{
         JPushClient jpushClient = new JPushClient("3554ac2d8b507c13dae5e626", "42e2be00b39b8f9f177b119d", null, ClientConfig.getInstance());
         try {
             content = StringUtils.contentfilter(content);
-            PushPayload payload = buildPushObject_all_all_alert(appPushCode,content);
+            PushPayload payload = buildPushObject_all_all_alert(appPushCode,content,sessionName);
 
             if(payload == null){
                 return;
             }
             PushResult result = jpushClient.sendPush(payload);
-
             jpushClient.close();
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
     }
-    public static PushPayload buildPushObject_all_all_alert(String appPushCode,String content) throws Exception {
+    public static PushPayload buildPushObject_all_all_alert(String appPushCode,String content,String sessionName) throws Exception {
 
         if(StringUtils.isNullOrEmpty(appPushCode)){
-           // Log.error("appPushCode为空，不推送");
             return null;
         }
         return PushPayload.newBuilder()
@@ -60,9 +61,14 @@ public class JPushHandler implements Runnable{
                                 .autoBadge()
                                 .setSound("default")
                                 .build())
-                        .addPlatformNotification(AndroidNotification.newBuilder().setAlert(content).build())
+                        .addPlatformNotification(AndroidNotification.newBuilder()
+                                .setAlert(content)
+                                .setTitle(sessionName)
+                                .build())
                         .build())
                 // .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
     }
+
+
 }

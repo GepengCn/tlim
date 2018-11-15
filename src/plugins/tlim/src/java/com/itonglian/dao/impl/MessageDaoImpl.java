@@ -21,9 +21,9 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final MessageDao messageDao = new MessageDaoImpl();
 
-    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100' ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_type !='MTS-100' ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_to = ? AND msg_type !='MTS-100'";
+    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_type !='MTS-100'";
 
     private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' ORDER BY msg_time desc limit ?,?";
 
@@ -42,7 +42,7 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public List<OfMessage> findHistory(String session_id,String user_id, int start, int length) {
+    public List<OfMessage> findHistory(String session_id,int start, int length) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -53,7 +53,6 @@ public class MessageDaoImpl implements MessageDao {
             preparedStatement = connection.prepareStatement(FIND_HISTORY);
             int i=1;
             preparedStatement.setString(i++,session_id);
-            preparedStatement.setString(i++,user_id);
             preparedStatement.setInt(i++,start);
             preparedStatement.setInt(i++,length);
             resultSet = preparedStatement.executeQuery();
@@ -80,7 +79,7 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public int findMessageTotal(String session_id, String user_id) {
+    public int findMessageTotal(String session_id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -89,7 +88,6 @@ public class MessageDaoImpl implements MessageDao {
             preparedStatement = connection.prepareStatement(FIND_MESSAGE_TOTAL);
             int i=1;
             preparedStatement.setString(i++,session_id);
-            preparedStatement.setString(i++,user_id);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return resultSet.getInt("total");

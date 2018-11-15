@@ -13,6 +13,8 @@ import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.*;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
@@ -38,6 +40,9 @@ public class ChatInterceptor implements Interceptor {
 
     ExecutorService executorService = CustomThreadPool.getExecutorService();
 
+    private static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
+
+
 
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
@@ -57,6 +62,7 @@ public class ChatInterceptor implements Interceptor {
         ofMessage.setBody(protocol.getBody());
 
         ofMessage.setSession_id(protocol.getMsg_from());
+
 
         if(!"MTT-100".equals(protocol.getMsg_type())){
             chatDao.addThenSend(ofMessage);
@@ -98,8 +104,9 @@ public class ChatInterceptor implements Interceptor {
             Message copy = message.createCopy();
             copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
             packetDeliverer.deliver(copy);
+            CachePushFilter.getInstance().push(ofMessage);
+
         }
-        CachePushFilter.getInstance().push(ofMessage);
     }
 
     private void addChat(String msg_from,String msg_to){

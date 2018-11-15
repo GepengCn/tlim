@@ -4,11 +4,7 @@ import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.entity.OfStatus;
-import com.itonglian.utils.CustomThreadPool;
-import com.itonglian.utils.JPushHandler;
 import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
 import org.jivesoftware.database.SequenceManager;
@@ -21,8 +17,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ChatDaoImpl implements ChatDao {
 
@@ -45,7 +39,7 @@ public class ChatDaoImpl implements ChatDao {
 
     private static final String INSERT_CHAT = "INSERT INTO ofchat(chat_id,chat_name,chat_user,chat_other,chat_create_time,chat_modify_time,chat_pic) VALUES(?,?,?,?,?,?,?)";
 
-    private static final String IS_EXIST = "SELECT count(*) AS total FROM ofmessage WHERE msg_id=? AND msg_to=?";
+    private static final String IS_EXIST = "SELECT count(*) AS total FROM ofmessage WHERE msg_id=?";
 
     private static final String CHAT_LIST = "SELECT * FROM ofchat WHERE chat_other = ?";
 
@@ -63,7 +57,7 @@ public class ChatDaoImpl implements ChatDao {
     }
 
     public void addThenSend(OfMessage ofMessage){
-        int isExist = this.isExist(ofMessage.getMsg_id(),ofMessage.getMsg_to());
+        int isExist = this.isExist(ofMessage.getMsg_id());
         if(isExist>0||isExist==-1){
             return;
         }
@@ -163,7 +157,7 @@ public class ChatDaoImpl implements ChatDao {
     }
 
     @Override
-    public int isExist(String msgId, String msgTo) {
+    public int isExist(String msgId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -173,7 +167,6 @@ public class ChatDaoImpl implements ChatDao {
             preparedStatement = connection.prepareStatement(IS_EXIST);
             int i=1;
             preparedStatement.setString(i++,msgId);
-            preparedStatement.setString(i++,msgTo);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 result = resultSet.getInt("total");
