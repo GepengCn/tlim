@@ -46,7 +46,7 @@ public class StatusDaoImpl implements StatusDao {
 
     private static final String UPDATE_BY_MSG_ID = "UPDATE ofstatus SET status=? WHERE msg_id=? AND msg_to=?";
 
-    private static final String HAS_UNREAD = "SELECT count(1) AS unReadNum FROM ofstatus WHERE msg_to = ? AND msg_type NOT IN ('MTS-100','MTT-100') AND status = 0";
+    private static final String HAS_UNREAD = "SELECT count(1) AS unReadNum FROM ofstatus WHERE msg_to = ?  AND status = 0";
 
     @Override
     public void add(OfStatus ofStatus) {

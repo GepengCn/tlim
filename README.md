@@ -59,6 +59,7 @@
 >>    47. [系统消息:清空历史消息回执](#系统消息清空历史消息回执)
 >>    48. [同步消息](#同步消息)
 >>    49. [当前用户是否有未读消息](#当前用户是否有未读消息)
+>>    50. [AppPushCode](#AppPushCode)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1708,6 +1709,70 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
          "result_detail": "",
          "data":true/false
     }
+
+---
+
+###### AppPushCode
+    1. 接口定义:
+
+    修改AppPushCode;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/registerAppPushCode
+
+    4. 参数
+
+    4.1 user_id:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    4.2 registrationId:'2jh1h2-addawa-213fvvcxza21-saas'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+    }
+
+---
+###### 离线消息
+    1. 接口定义:
+
+    离线消息;http请求
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/getOffline
+
+    4. 参数
+
+    4.1 user_id:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    5. 返回值:json对象
+    {
+         "result": "ok",
+         "result_detail": "",
+         "message_list":[
+            {
+                msg_id:'',
+                xxx:xxx
+                xxx:xxx
+                xxx:xxx,
+                recv:0
+            }
+         ]
+    }
+    注:recv 0:未读,1:web已读
 
 ---
 ## 六、流程

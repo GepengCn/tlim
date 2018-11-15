@@ -6,6 +6,7 @@ import com.itonglian.entity.OfMessage;
 import com.itonglian.utils.MessageUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
+import org.jivesoftware.openfire.PresenceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +22,13 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final MessageDao messageDao = new MessageDaoImpl();
 
-    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ? AND msg_type !='MTS-100' ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ?  ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? AND msg_type !='MTS-100'";
+    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? ";
 
-    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' ORDER BY msg_time desc limit ?,?";
+    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ?  UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ?  ORDER BY msg_time desc limit ?,?";
 
-    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ? AND msg_type !='MTT-100' UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ? AND msg_type !='MTT-100' ) t ";
+    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ?  UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ?  ) t ";
 
     private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
 
@@ -56,6 +57,7 @@ public class MessageDaoImpl implements MessageDao {
             preparedStatement.setInt(i++,start);
             preparedStatement.setInt(i++,length);
             resultSet = preparedStatement.executeQuery();
+
 
             while(resultSet.next()){
                 OfMessage ofMessage = new OfMessage();
