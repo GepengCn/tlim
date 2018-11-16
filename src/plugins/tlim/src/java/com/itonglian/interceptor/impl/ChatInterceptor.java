@@ -105,6 +105,7 @@ public class ChatInterceptor implements Interceptor {
             copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
             packetDeliverer.deliver(copy);
             CachePushFilter.getInstance().push(ofMessage);
+            new OfflineInterceptor().handler(ofMessage);
 
         }
     }

@@ -9,11 +9,13 @@ import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSubscriber;
-import com.itonglian.utils.*;
+import com.itonglian.utils.CachePushFilter;
+import com.itonglian.utils.DissolvedUtils;
+import com.itonglian.utils.OfflineInterceptor;
+import com.itonglian.utils.RevokeUtils;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 public class AsyncRunSaveDb implements Runnable{
 
@@ -76,6 +78,7 @@ public class AsyncRunSaveDb implements Runnable{
             OfSubscriber ofSubscriber = iterator.next();
             ofMessage.setMsg_to(ofSubscriber.getUser_id());
             CachePushFilter.getInstance().push(ofMessage);
+            new OfflineInterceptor().handler(ofMessage);
         }
     }
     private static class Revoke{

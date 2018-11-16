@@ -12,6 +12,9 @@ drop table if exists ofstyle;
 
 drop table if exists ofsubscriber;
 
+DROP TABLE if exists ofcustomoffline;
+
+
 /*==============================================================*/
 /* Table: ofchat                                                */
 /*==============================================================*/
@@ -120,6 +123,23 @@ create table ofsubscriber
    primary key (user_id, session_id)
 )
 DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE ofcustomoffline (
+id_ varchar(64) NOT NULL,
+msg_id varchar(64) NULL,
+msg_type varchar(20) NULL,
+msg_from varchar(64) NULL,
+msg_to varchar(64) NULL,
+msg_time varchar(20) NULL,
+body varchar(3960) NULL,
+session_id varchar(64) NULL,
+msg_status int NULL,
+PRIMARY KEY (id_)
+)
+DEFAULT CHARACTER SET = utf8;
+
+
 
 INSERT INTO ofVersion(name,version) values('tlim',1);
 

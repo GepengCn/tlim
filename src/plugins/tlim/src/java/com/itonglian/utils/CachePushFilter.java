@@ -6,7 +6,6 @@ import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
-import com.itonglian.entity.User;
 import org.jivesoftware.util.cache.Cache;
 import org.jivesoftware.util.cache.CacheFactory;
 import org.slf4j.Logger;

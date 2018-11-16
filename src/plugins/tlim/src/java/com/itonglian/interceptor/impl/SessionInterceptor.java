@@ -10,7 +10,6 @@ import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSession;
-import com.itonglian.entity.OfStatus;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.Interceptor;
