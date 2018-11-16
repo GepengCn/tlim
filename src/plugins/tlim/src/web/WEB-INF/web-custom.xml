@@ -320,4 +320,14 @@
         <servlet-name>hasUnread</servlet-name>
         <url-pattern>/hasUnread</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getOffline</servlet-name>
+        <servlet-class>com.itonglian.servlet.GetOffline</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getOffline</servlet-name>
+        <url-pattern>/getOffline</url-pattern>
+    </servlet-mapping>
 </web-app>

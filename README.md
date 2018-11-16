@@ -60,6 +60,7 @@
 >>    48. [同步消息](#同步消息)
 >>    49. [当前用户是否有未读消息](#当前用户是否有未读消息)
 >>    50. [AppPushCode](#AppPushCode)
+>>    51. [离线消息](#离线消息)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1758,6 +1759,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     4. 参数
 
     4.1 user_id:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    4.2 getThenClear:0
     5. 返回值:json对象
     {
          "result": "ok",
@@ -1772,7 +1774,8 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
             }
          ]
     }
-    注:recv 0:未读,1:web已读
+    注:recv [0:移动端未收,web未收]/[1:移动端未收,web已收]
+    getThenClear [0:获取并清空离线消息]/[1:获取但是不清空离线消息]
 
 ---
 ## 六、流程
