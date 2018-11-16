@@ -75,6 +75,8 @@ public class MessageUtils {
             sessionName = sessionName.substring(0,6)+"...";
         }
         String symbol = "("+sessionName+"):";
+
+        String sysMsg = "收到一条系统消息";
         switch (ofMessage.getMsg_type()){
             case "MTT-000":
                 content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
@@ -97,15 +99,28 @@ public class MessageUtils {
             case "MTT-003":
                 content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
+            case "MTT-200":
+                content = user.getUser_name()+":"+"向您发起清空消息请求";
+                break;
+            case "MTT-201":
+                content = user.getUser_name()+":"+"拒绝清空消息";
+                break;
             case "MTS-003":
                 content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-101":
+                content = user.getUser_name()+"撤回了一条消息";
+                break;
             case "MTS-101":
-                content = user.getUser_name()+"撤回一条消息";
+                content = user.getUser_name()+symbol+"撤回了一条消息";
                 break;
             case "MTS-102":
-                content = user.getUser_name()+"修改了群名称";
+            case "MTS-103":
+            case "MTS-104":
+            case "MTS-105":
+            case "MTS-106":
+            case "MTS-107":
+                content = sysMsg;
                 break;
             case "MTB-000":
                 content = "收到一条审批消息";

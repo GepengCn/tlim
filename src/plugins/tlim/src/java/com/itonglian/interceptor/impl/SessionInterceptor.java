@@ -108,12 +108,7 @@ public class SessionInterceptor implements Interceptor {
         if(!"MTS-100".equals(protocol.getMsg_type())){
             executorService.execute(new AsyncRunSaveDb(protocol,sessionId));
 
-        }/*else{
-            List<Other> otherList = JSONArray.parseArray(protocol.getBody(),Other.class);
-            if(otherList.size()>0){
-                statusDao.updateByMsgId(otherList.get(0).getMsg_id(),protocol.getMsg_from(),1);
-            }
-        }*/
+        }
         while(iterator.hasNext()){
 
             OfSubscriber ofSubscriber = iterator.next();
@@ -125,18 +120,6 @@ public class SessionInterceptor implements Interceptor {
             newMessage.setTo(new JID(MessageUtils.toJid(msgTo)));
 
             packetDeliverer.deliver(newMessage);
-
-            /*String msg_type = protocol.getMsg_type();
-            String isCommand = msg_type.split("-")[1].substring(0,1);
-            if(!protocol.getMsg_from().equals(msgTo)&&"0".equals(isCommand)){
-                OfStatus ofStatus = new OfStatus();
-                ofStatus.setMsg_id(protocol.getMsg_id());
-                ofStatus.setMsg_to(msgTo);
-                ofStatus.setMsg_type(protocol.getMsg_type());
-                ofStatus.setSession_id(sessionId);
-                ofStatus.setStatus(0);
-                statusDao.add(ofStatus);
-            }*/
 
         }
     }
