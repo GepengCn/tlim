@@ -69,6 +69,6 @@ public class MessagePush {
 
         ofMessage.setSession_id(protocol.getMsg_from());
 
-        chatDao.addThenSend(ofMessage);
+        chatDao.addNoRepeat(ofMessage);
     }
 }

@@ -7,6 +7,8 @@ import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,6 +22,9 @@ import java.util.List;
 public class GetOffline extends HttpServlet {
 
     OfflineDao offlineDao = OfflineDaoImpl.getInstance();
+
+    private static final Logger Log = LoggerFactory.getLogger(GetOffline.class);
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -38,14 +43,17 @@ public class GetOffline extends HttpServlet {
 
         String getThenClear = req.getParameter("getThenClear");
 
+        Log.error("getOffline,getThenClear="+getThenClear);
+
         boolean clear = true;
 
-        if(StringUtils.isNullOrEmpty(getThenClear)||!"1".equals(getThenClear)){
+        if(!StringUtils.isNullOrEmpty(getThenClear)&&"1".equals(getThenClear)){
             clear = false;
         }
         doBack(new BackJson("ok","",offlineDao.findByUser(user_id)),printWriter);
 
         if(clear){
+            Log.error("getOffline,deleteByUser");
             offlineDao.deleteByUser(user_id);
         }
 

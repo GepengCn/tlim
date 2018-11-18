@@ -116,57 +116,6 @@
 
 
     <servlet>
-        <servlet-name>findUnread</servlet-name>
-        <servlet-class>com.itonglian.servlet.FindUnread</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>findUnread</servlet-name>
-        <url-pattern>/findUnread</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>updateMsgStatus</servlet-name>
-        <servlet-class>com.itonglian.servlet.UpdateMsgStatus</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>updateMsgStatus</servlet-name>
-        <url-pattern>/updateMsgStatus</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>findReadMsg</servlet-name>
-        <servlet-class>com.itonglian.servlet.FindReadMsg</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>findReadMsg</servlet-name>
-        <url-pattern>/findReadMsg</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>findChatReadMsg</servlet-name>
-        <servlet-class>com.itonglian.servlet.FindChatReadMsg</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>findChatReadMsg</servlet-name>
-        <url-pattern>/findChatReadMsg</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>findMsgStatusList</servlet-name>
-        <servlet-class>com.itonglian.servlet.FindMsgStatusList</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>findMsgStatusList</servlet-name>
-        <url-pattern>/findMsgStatusList</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
         <servlet-name>addPubact</servlet-name>
         <servlet-class>com.itonglian.servlet.AddPubact</servlet-class>
     </servlet>
@@ -258,18 +207,6 @@
 
 
     <servlet>
-        <servlet-name>msgReadOrNot</servlet-name>
-        <servlet-class>com.itonglian.servlet.MsgReadOrNot</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>msgReadOrNot</servlet-name>
-        <url-pattern>/msgReadOrNot</url-pattern>
-    </servlet-mapping>
-
-
-
-    <servlet>
         <servlet-name>approval</servlet-name>
         <servlet-class>com.itonglian.servlet.Approval</servlet-class>
     </servlet>
@@ -311,15 +248,6 @@
         <url-pattern>/syncMessage</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>hasUnread</servlet-name>
-        <servlet-class>com.itonglian.servlet.HasUnread</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>hasUnread</servlet-name>
-        <url-pattern>/hasUnread</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>getOffline</servlet-name>

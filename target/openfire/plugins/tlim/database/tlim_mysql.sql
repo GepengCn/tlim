@@ -88,10 +88,8 @@ create table ofstatus
 (
    id_                  int not null,
    msg_id               varchar(64),
-   msg_to               varchar(64),
-   msg_type             varchar(64),
+   reader                 varchar(64),
    status               int,
-   session_id           varchar(64),
    primary key (id_)
 )
 DEFAULT CHARACTER SET = utf8;

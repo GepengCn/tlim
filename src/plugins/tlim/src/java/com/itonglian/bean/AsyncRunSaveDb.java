@@ -54,13 +54,13 @@ public class AsyncRunSaveDb implements Runnable{
 
         ofMessage.setSession_id(sessionId);
 
-        chatDao.addThenSend(ofMessage);
+        chatDao.addNoRepeat(ofMessage);
 
         sessionDao.modify(sessionId);
 
         String msg_type = protocol.getMsg_type();
 
-        if("MTS-101".equals(msg_type)){
+        /*if("MTS-101".equals(msg_type)){
             List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
             Iterator<Revoke> iterator1 = revokeList.iterator();
             while(iterator1.hasNext()){
@@ -71,7 +71,7 @@ public class AsyncRunSaveDb implements Runnable{
         }
         if("MTS-107".equals(msg_type)){
             DissolvedUtils.handler(sessionId);
-        }
+        }*/
         List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(sessionId);
         Iterator<OfSubscriber> iterator = subscriberList.iterator();
         while(iterator.hasNext()){

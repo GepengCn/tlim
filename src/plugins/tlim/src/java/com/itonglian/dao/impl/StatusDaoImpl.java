@@ -1,8 +1,7 @@
 package com.itonglian.dao.impl;
 
-import com.itonglian.bean.SessionRead;
-import com.itonglian.bean.SessionUnread;
 import com.itonglian.dao.StatusDao;
+import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfStatus;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.database.DbConnectionManager;
@@ -26,13 +25,13 @@ public class StatusDaoImpl implements StatusDao {
         return statusDao;
     }
 
-    private static final String INSERT = "INSERT INTO ofstatus (id_,msg_id,msg_to,msg_type,status,session_id) values(?,?,?,?,?,?)";
+    private static final String INSERT = "INSERT INTO ofstatus (id_,msg_id,reader,status) values(?,?,?,?)";
 
-    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE session_id=? AND status=? AND msg_to=?";
+    private static final String UPDATE = "UPDATE ofstatus SET status=? WHERE msg_id=?";
 
-    private static final String QUERY = "SELECT * FROM ofstatus WHERE session_id=? AND status=? AND msg_to=?";
+    private static final String FIND_BY_READER = "SELECT * FROM ofstatus WHERE reader=?";
 
-    private static final String DELETE = "DELETE FROM ofstatus WHERE session_id=? AND msg_to=?";
+    private static final String DELETE = "DELETE FROM ofstatus WHERE msg_id=?";
 
     private static final String QUERY_UNREAD = "SELECT session_id,count(*) unReadNum FROM ofstatus WHERE msg_to=?  AND status = ? GROUP BY session_id";
 
@@ -58,10 +57,8 @@ public class StatusDaoImpl implements StatusDao {
             int i=1;
             preparedStatement.setLong(i++,SequenceManager.nextID(OfStatus.ID_Contants.STATUS_KEY));
             preparedStatement.setString(i++,ofStatus.getMsg_id());
-            preparedStatement.setString(i++,ofStatus.getMsg_to());
-            preparedStatement.setString(i++,ofStatus.getMsg_type());
+            preparedStatement.setString(i++,ofStatus.getReader());
             preparedStatement.setInt(i++,ofStatus.getStatus());
-            preparedStatement.setString(i++,ofStatus.getSession_id());
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -71,17 +68,15 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public void update(String session_id,String msg_to) {
+    public void update(String msg_id,int msg_status) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(UPDATE);
             int i=1;
-            preparedStatement.setInt(i++,1);
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.setInt(i++,0);
-            preparedStatement.setString(i++,msg_to);
+            preparedStatement.setInt(i++,msg_status);
+            preparedStatement.setString(i++,msg_id);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -91,25 +86,20 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public List<OfStatus> query(String session_id, String msg_to) {
+    public List<OfStatus> findByReader(String reader) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<OfStatus> ofStatuses = new ArrayList<OfStatus>();
         try {
             connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(QUERY);
-            int i=1;
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.setInt(i++,0);
-            preparedStatement.setString(i++,msg_to);
+            preparedStatement = connection.prepareStatement(FIND_BY_READER);
+            preparedStatement.setString(1,reader);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 OfStatus ofStatus = new OfStatus();
                 ofStatus.setMsg_id(resultSet.getString("msg_id"));
-                ofStatus.setMsg_type(resultSet.getString("msg_type"));
-                ofStatus.setMsg_to(resultSet.getString("msg_to"));
-                ofStatus.setSession_id(resultSet.getString("session_id"));
+                ofStatus.setReader(resultSet.getString("reader"));
                 ofStatus.setStatus(resultSet.getInt("status"));
                 ofStatuses.add(ofStatus);
             }
@@ -122,170 +112,14 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public void delete(String session_id,String msg_to) {
+    public void delete(String msg_id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DbConnectionManager.getConnection();
             preparedStatement = connection.prepareStatement(DELETE);
             int i=1;
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.execute();
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(preparedStatement,connection);
-        }
-    }
-
-    @Override
-    public List<SessionUnread> findUnread(String msg_to) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<SessionUnread> sessionUnreads = new ArrayList<SessionUnread>();
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(QUERY_UNREAD);
-            preparedStatement.setString(1,msg_to);
-            preparedStatement.setInt(2,0);
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                SessionUnread sessionUnread = new SessionUnread();
-                sessionUnread.setSession_id(resultSet.getString("session_id"));
-                sessionUnread.setUnReadNum(resultSet.getInt("unReadNum"));
-                sessionUnreads.add(sessionUnread);
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return sessionUnreads;
-    }
-
-    @Override
-    public List<SessionRead> findMsgRead(String session_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<SessionRead> sessionReads = new ArrayList<SessionRead>();
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MSG_READ);
-            preparedStatement.setInt(1,1);
-            preparedStatement.setString(2,session_id);
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                SessionRead sessionRead = new SessionRead();
-                sessionRead.setMsg_id(resultSet.getString("msg_id"));
-                sessionRead.setReadNum(resultSet.getInt("readNum"));
-                sessionReads.add(sessionRead);
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return sessionReads;
-    }
-
-    @Override
-    public List<SessionRead> findChatMsgRead(String session_id, String msg_to) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<SessionRead> sessionReads = new ArrayList<SessionRead>();
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_CHAT_MSG_READ);
-            preparedStatement.setInt(1,1);
-            preparedStatement.setString(2,session_id);
-            preparedStatement.setString(3,msg_to);
-
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                SessionRead sessionRead = new SessionRead();
-                sessionRead.setMsg_id(resultSet.getString("msg_id"));
-                sessionRead.setReadNum(resultSet.getInt("readNum"));
-                sessionReads.add(sessionRead);
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return sessionReads;
-    }
-
-    @Override
-    public List<OfStatus> findMsgStatusList(String msg_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<OfStatus> ofStatuses = new ArrayList<OfStatus>();
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MSG_STATUS_LIST);
-            preparedStatement.setString(1,msg_id);
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                OfStatus ofStatus = new OfStatus();
-                ofStatus.setMsg_id(resultSet.getString("msg_id"));
-                ofStatus.setMsg_type(resultSet.getString("msg_type"));
-                ofStatus.setMsg_to(resultSet.getString("msg_to"));
-                ofStatus.setSession_id(resultSet.getString("session_id"));
-                ofStatus.setStatus(resultSet.getInt("status"));
-                ofStatuses.add(ofStatus);
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return ofStatuses;
-    }
-
-    @Override
-    public int readOrNot(String msg_id,String msg_to) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(READ_OR_NOT);
-            preparedStatement.setString(1,msg_id);
-            preparedStatement.setString(2,msg_to);
-            resultSet = preparedStatement.executeQuery();
-            OfStatus ofStatus = new OfStatus();
-            if(resultSet.next()){
-                ofStatus.setMsg_id(resultSet.getString("msg_id"));
-                ofStatus.setMsg_type(resultSet.getString("msg_type"));
-                ofStatus.setMsg_to(resultSet.getString("msg_to"));
-                ofStatus.setSession_id(resultSet.getString("session_id"));
-                ofStatus.setStatus(resultSet.getInt("status"));
-                return ofStatus.getStatus();
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return -1;
-    }
-
-    @Override
-    public void updateByMsgId(String msg_id, String msg_to,int status) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE_BY_MSG_ID);
-            int i=1;
-            preparedStatement.setInt(i++,status);
             preparedStatement.setString(i++,msg_id);
-            preparedStatement.setString(i++,msg_to);
             preparedStatement.execute();
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -294,29 +128,5 @@ public class StatusDaoImpl implements StatusDao {
         }
     }
 
-    @Override
-    public boolean hasUnread(String user_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        boolean hasUnread = false;
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(HAS_UNREAD);
-            preparedStatement.setString(1,user_id);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-               int count = resultSet.getInt("unReadNum");
-               if(count>0){
-                   hasUnread=true;
-               }
-            }
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
-        }
-        return hasUnread;
-    }
 
 }

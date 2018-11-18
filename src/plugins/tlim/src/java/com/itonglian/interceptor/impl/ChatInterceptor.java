@@ -65,13 +65,7 @@ public class ChatInterceptor implements Interceptor {
 
 
         if(!"MTT-100".equals(protocol.getMsg_type())){
-            chatDao.addThenSend(ofMessage);
-        }else{
-            List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
-            if(revokeList!=null&&revokeList.size()>0){
-                Revoke revoke = revokeList.get(0);
-                statusDao.updateByMsgId(revoke.getMsg_id(),protocol.getMsg_from(),1);
-            }
+            chatDao.addNoRepeat(ofMessage);
         }
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){

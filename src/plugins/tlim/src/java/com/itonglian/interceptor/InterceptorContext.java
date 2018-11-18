@@ -3,8 +3,7 @@ package com.itonglian.interceptor;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.exception.ExceptionReply;
-import com.itonglian.interceptor.impl.ChatInterceptor;
-import com.itonglian.interceptor.impl.SessionInterceptor;
+import com.itonglian.interceptor.impl.*;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.openfire.session.Session;
@@ -54,15 +53,50 @@ public class InterceptorContext {
             throw new ExceptionReply("error-001",packet,session);
         }
 
-        String preMsgType = msgType.split("-")[0];
-
-        switch (preMsgType){
-            case "MTT":
+        switch (msgType){
+            case "MTT-000":
+            case "MTT-001":
+            case "MTT-002":
+            case "MTT-003":
                 interceptor = new ChatInterceptor();
                 break;
-
-            case "MTS":
-                interceptor = new SessionInterceptor();
+            case "MTS-000":
+            case "MTS-001":
+            case "MTS-002":
+            case "MTS-003":
+                interceptor = new SessionNormalInterceptor();
+                break;
+            case "MTT-100":
+            case "MTT-101":
+                interceptor = new ChatReadInterceptor();
+                break;
+            case "MTT-200":
+            case "MTT-201":
+                interceptor = new ChatClearInterceptor();
+                break;
+            case "MTS-100":
+                interceptor = new SessionReadInterceptor();
+                break;
+            case "MTS-101":
+                interceptor = new SessionRevokeInterceptor();
+                break;
+            case "MTS-102":
+                interceptor = new SessionRenameInterceptor();
+                break;
+            case "MTS-103":
+                interceptor = new SessionRmvSubInterceptor();
+                break;
+            case "MTS-104":
+                interceptor = new SessionExitInterceptor();
+                break;
+            case "MTS-105":
+                interceptor = new SessionCreatedInterceptor();
+                break;
+            case "MTS-106":
+                interceptor = new SessionInvitedInterceptor();
+                break;
+            case "MTS-107":
+                interceptor = new SessionDissolvedInterceptor();
                 break;
             default:
                 return;

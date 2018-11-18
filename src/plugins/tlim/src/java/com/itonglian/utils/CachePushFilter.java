@@ -62,7 +62,10 @@ public class CachePushFilter {
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
         Log.error("pushMsgStr"+pushMsgStr);
         if(!StringUtils.isNullOrEmpty(pushMsgStr)){
-            new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv)).start();
+            Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv));
+            pushThread.setPriority(1);
+            pushThread.start();
         }
     }
+
 }

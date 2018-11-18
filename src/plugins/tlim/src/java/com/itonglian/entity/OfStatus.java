@@ -8,13 +8,9 @@ public class OfStatus {
 
     private String msg_id;
 
-    private String msg_to;
-
-    private String msg_type;
+    private String reader;
 
     private int status;
-
-    private String session_id;
 
     public class ID_Contants extends JiveConstants {
         public static final int STATUS_KEY =53;
@@ -36,20 +32,12 @@ public class OfStatus {
         this.msg_id = msg_id;
     }
 
-    public String getMsg_to() {
-        return msg_to;
+    public String getReader() {
+        return reader;
     }
 
-    public void setMsg_to(String msg_to) {
-        this.msg_to = msg_to;
-    }
-
-    public String getMsg_type() {
-        return msg_type;
-    }
-
-    public void setMsg_type(String msg_type) {
-        this.msg_type = msg_type;
+    public void setReader(String reader) {
+        this.reader = reader;
     }
 
     public int getStatus() {
@@ -58,13 +46,5 @@ public class OfStatus {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getSession_id() {
-        return session_id;
-    }
-
-    public void setSession_id(String session_id) {
-        this.session_id = session_id;
     }
 }

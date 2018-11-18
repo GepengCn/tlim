@@ -130,7 +130,6 @@ public class ModifySession extends HttpServlet {
                 case "del":
                     subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
                     messageDao.deleteByUser(sessionId,handlerSubcriber.getUserId());
-                    statusDao.delete(sessionId,handlerSubcriber.getUserId());
                     break;
                 default:
                     break;

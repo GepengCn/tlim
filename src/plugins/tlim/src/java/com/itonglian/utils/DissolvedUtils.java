@@ -103,7 +103,7 @@ public class DissolvedUtils {
 
             ofMessage.setSession_id(sessionId);
 
-            chatDao.addThenSend(ofMessage);
+            chatDao.addNoRepeat(ofMessage);
 
             Message newMessage = new Message();
 

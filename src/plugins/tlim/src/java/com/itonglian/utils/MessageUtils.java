@@ -77,6 +77,9 @@ public class MessageUtils {
         String symbol = "("+sessionName+"):";
 
         String sysMsg = "收到一条系统消息";
+        String sysFileMsg = "发送了一个文件消息";
+        String sysImgMsg = "发送了一个图片消息";
+        String sysVoiceMsg = "发送了一条语音消息";
         switch (ofMessage.getMsg_type()){
             case "MTT-000":
                 content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
@@ -85,19 +88,19 @@ public class MessageUtils {
                 content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
                 break;
             case "MTT-001":
-                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+":"+sysImgMsg;
                 break;
             case "MTS-001":
-                content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+symbol+sysImgMsg;
                 break;
             case "MTT-002":
-                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+":"+sysFileMsg;
                 break;
             case "MTS-002":
-                content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+symbol+sysFileMsg;
                 break;
             case "MTT-003":
-                content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+":"+sysVoiceMsg;
                 break;
             case "MTT-200":
                 content = user.getUser_name()+":"+"向您发起清空消息请求";
@@ -106,7 +109,7 @@ public class MessageUtils {
                 content = user.getUser_name()+":"+"拒绝清空消息";
                 break;
             case "MTS-003":
-                content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
+                content = user.getUser_name()+symbol+sysVoiceMsg;
                 break;
             case "MTT-101":
                 content = user.getUser_name()+"撤回了一条消息";
@@ -123,13 +126,13 @@ public class MessageUtils {
                 content = sysMsg;
                 break;
             case "MTB-000":
-                content = "收到一条审批消息";
+                content = "收到了一条审批消息";
                 break;
             case "MTB-001":
-                content = "收到一条朋友圈转发消息";
+                content = "收到了一条朋友圈转发消息";
                 break;
             default:
-                content = "";
+                content = "收到了一条新消息";
                 break;
         }
         return content;
