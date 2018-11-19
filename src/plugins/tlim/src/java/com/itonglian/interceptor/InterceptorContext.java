@@ -67,8 +67,10 @@ public class InterceptorContext {
                 interceptor = new SessionNormalInterceptor();
                 break;
             case "MTT-100":
-            case "MTT-101":
                 interceptor = new ChatReadInterceptor();
+                break;
+            case "MTT-101":
+                interceptor = new ChatRevokeInterceptor();
                 break;
             case "MTT-200":
             case "MTT-201":
