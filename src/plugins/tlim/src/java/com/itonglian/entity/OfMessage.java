@@ -27,10 +27,6 @@ public class OfMessage {
 
     private String session_id;
 
-    public class ID_Contants extends JiveConstants{
-        public static final int MSG_KEY =52;
-    }
-
     public long getId_() {
         return id_;
     }

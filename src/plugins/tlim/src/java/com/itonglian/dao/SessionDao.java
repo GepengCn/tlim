@@ -13,23 +13,23 @@ import java.util.List;
  */
 public interface SessionDao {
 
-    public void add(OfSession session);
+    void add(OfSession session);
 
-    public void delete(String sessionId);
+    void delete(String sessionId);
 
-    public void update(OfSession session);
+    void update(OfSession session);
 
-    public void updateNameById(String sessionId,String sessionName,String modifyTime);
+    void updateNameById(String sessionId,String sessionName,String modifyTime);
 
-    public OfSession findEntityById(String sessionId);
+    OfSession findEntityById(String sessionId);
 
-    public List<OfSession> findSessionsByUser(String userId,int valid);
+    List<OfSession> findSessionsByUser(String userId,int valid);
 
-    public void updatePic(String sessionId,String sessionPic);
+    void updatePic(String sessionId,String sessionPic);
 
-    public void modify(String sessionId);
+    void modify(String sessionId);
 
-    public void switchSession(String sessionId,int valid);
+    void switchSession(String sessionId,int valid);
 
 
 }

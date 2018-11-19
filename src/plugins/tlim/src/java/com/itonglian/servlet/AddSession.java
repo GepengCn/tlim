@@ -87,8 +87,6 @@ public class AddSession extends HttpServlet {
 
             List<UserOnlyId> userOnlyIds = new ArrayList<UserOnlyId>();
 
-            int i=0;
-
             while(iterator.hasNext()){
                 OfSubscriber ofSubscriber = iterator.next();
                 User user = UserCacheManager.findUserByKey(ofSubscriber.getUser_id());

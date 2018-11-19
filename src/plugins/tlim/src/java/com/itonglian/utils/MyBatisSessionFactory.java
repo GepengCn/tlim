@@ -1,9 +1,6 @@
 package com.itonglian.utils;
 
-import com.itonglian.mapper.ChatMapper;
-import com.itonglian.mapper.MessageMapper;
-import com.itonglian.mapper.SessionMapper;
-import com.itonglian.mapper.SubscriberMapper;
+import com.itonglian.mapper.*;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,6 +27,7 @@ public class MyBatisSessionFactory {
         configuration.addMapper(ChatMapper.class);
         configuration.addMapper(SessionMapper.class);
         configuration.addMapper(SubscriberMapper.class);
+        configuration.addMapper(OfflineMapper.class);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }

@@ -2,6 +2,7 @@ package com.itonglian.utils;
 
 import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.OfflineDaoImpl;
+import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.XMPPServer;
@@ -55,12 +56,14 @@ public class OfflineInterceptor {
         Log.error("webOnline="+webOnline);
         Log.error("offline="+offline);
         if(offline){
+            OfCustomOffline ofCustomOffline = MessageUtils.toOffline(ofMessage);
             if(webOnline){
                 Log.error("offlineDao.updateAfterAdd");
-                offlineDao.updateAfterAdd(ofMessage,1);
+                ofCustomOffline.setMsg_status(1);
+                offlineDao.add(ofCustomOffline);
             }else{
                 Log.error("offlineDao.add");
-                offlineDao.add(ofMessage);
+                offlineDao.add(ofCustomOffline);
             }
         }
     }

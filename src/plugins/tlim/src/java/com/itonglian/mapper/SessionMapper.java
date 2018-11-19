@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface SessionMapper {
 
-    @Insert("INSERT INTO ofsession (session_type,session_name,session_create_time,session_modify_time,session_delete_time,session_valid,session_user) VALUES(#{session_type},#{session_name},#{session_create_time},#{session_modify_time},#{session_delete_time},#{session_valid},#{session_user})")
-    @Options(useGeneratedKeys=true, keyProperty="session_id", keyColumn="session_id")
+    @Insert("INSERT INTO ofsession (session_id,session_type,session_name,session_create_time,session_modify_time,session_delete_time,session_valid,session_user) VALUES(#{session_id},#{session_type},#{session_name},#{session_create_time},#{session_modify_time},#{session_delete_time},#{session_valid},#{session_user})")
+    //@Options(useGeneratedKeys=true, keyProperty="session_id", keyColumn="session_id")
     void insertSession(OfSession ofSession);
 
     @Delete("DELETE FROM ofsession WHERE session_id = #{session_id}")

@@ -20,7 +20,7 @@ DROP TABLE if exists ofcustomoffline;
 /*==============================================================*/
 create table ofchat
 (
-   chat_id              varchar(64) not null AUTO_INCREMENT,
+   chat_id              varchar(64) not null,
    chat_name            varchar(64),
    chat_user            varchar(64),
    chat_other           varchar(64),
@@ -68,7 +68,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofsession
 (
-   session_id           varchar(64) not null AUTO_INCREMENT,
+   session_id           varchar(64) not null,
    session_type         int,
    session_name         varchar(256),
    session_create_time  varchar(20),

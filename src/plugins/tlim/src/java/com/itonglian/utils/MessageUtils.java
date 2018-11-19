@@ -1,6 +1,7 @@
 package com.itonglian.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
 
@@ -154,4 +155,22 @@ public class MessageUtils {
     public static String combineKv(String key,String value){
         return key+"(tlimkv)"+value;
     }
+
+    public static OfCustomOffline toOffline(OfMessage ofMessage){
+        if(ofMessage==null){
+            return null;
+        }
+        OfCustomOffline ofCustomOffline = new OfCustomOffline();
+        ofCustomOffline.setId_(ofMessage.getId_());
+        ofCustomOffline.setMsg_id(ofMessage.getMsg_id());
+        ofCustomOffline.setMsg_status(0);
+        ofCustomOffline.setBody(ofMessage.getBody());
+        ofCustomOffline.setMsg_from(ofMessage.getMsg_from());
+        ofCustomOffline.setMsg_to(ofMessage.getMsg_to());
+        ofCustomOffline.setMsg_type(ofMessage.getMsg_type());
+        ofCustomOffline.setMsg_time(ofMessage.getMsg_time());
+        ofCustomOffline.setSession_id(ofMessage.getSession_id());
+        return ofCustomOffline;
+    }
+
 }

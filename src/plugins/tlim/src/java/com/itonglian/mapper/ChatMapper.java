@@ -19,8 +19,8 @@ public interface ChatMapper {
     int isExistChat(@Param(value="chat_user")String chat_user,
                     @Param(value="chat_other")String chat_other);
 
-    @Insert("INSERT INTO ofchat(chat_name,chat_user,chat_other,chat_create_time,chat_modify_time,chat_pic) VALUES(#{chat_name},#{chat_user},#{chat_other},#{chat_create_time},#{chat_modify_time},#{chat_pic})")
-    @Options(useGeneratedKeys=true, keyProperty="chat_id", keyColumn="chat_id")
+    @Insert("INSERT INTO ofchat(chat_id,chat_name,chat_user,chat_other,chat_create_time,chat_modify_time,chat_pic) VALUES(#{chat_id},#{chat_name},#{chat_user},#{chat_other},#{chat_create_time},#{chat_modify_time},#{chat_pic})")
+//    @Options(useGeneratedKeys=true, keyProperty="chat_id", keyColumn="chat_id")
     void insertChat(OfChat ofChat);
 
     @Update("UPDATE ofchat SET chat_modify_time = #{chat_modify_time} WHERE chat_user = #{chat_user} AND chat_other = #{chat_other}")
