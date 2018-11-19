@@ -1,10 +1,10 @@
 package com.itonglian.interceptor;
 
 import com.itonglian.bean.Protocol;
-import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.SubscriberDao;
-import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
@@ -31,7 +31,7 @@ public abstract class SessionInterceptor implements Interceptor{
 
     private SessionDao sessionDao = SessionDaoImpl.getInstance();
 
-    private ChatDao chatDao = ChatDaoImpl.getInstance();
+    private static MessageDao messageDao = MessageDaoImpl.getInstance();
 
     private SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
@@ -101,7 +101,7 @@ public abstract class SessionInterceptor implements Interceptor{
     public void persistent(OfMessage ofMessage){
 
         if(canPersistent){
-            chatDao.addNoRepeat(ofMessage);
+            messageDao.insert(ofMessage);
             sessionDao.modify(session_id);
         }
         List<OfSubscriber> subscriberList = subscriberDao.findSubscribers(session_id);

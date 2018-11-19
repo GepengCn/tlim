@@ -5,10 +5,16 @@ import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.MessageDaoOracleImpl;
 import com.itonglian.entity.OfMessage;
+import com.itonglian.mapper.MessageMapper;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.MyBatisSessionFactory;
 import com.itonglian.utils.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jivesoftware.admin.AuthCheckFilter;
 import org.jivesoftware.database.DbConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -24,6 +30,8 @@ public class FindChatHistory extends HttpServlet {
     MessageDao messageDao = MessageDaoImpl.getInstance();
 
     MessageDao messageDaoOracle = MessageDaoOracleImpl.getInstance();
+
+    private static final Logger Log = LoggerFactory.getLogger(FindChatHistory.class);
 
 
     @Override

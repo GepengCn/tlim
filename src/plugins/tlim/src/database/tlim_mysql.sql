@@ -20,7 +20,7 @@ DROP TABLE if exists ofcustomoffline;
 /*==============================================================*/
 create table ofchat
 (
-   chat_id              varchar(64) not null,
+   chat_id              varchar(64) not null AUTO_INCREMENT,
    chat_name            varchar(64),
    chat_user            varchar(64),
    chat_other           varchar(64),
@@ -36,7 +36,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofmessage
 (
-   id_                  int not null,
+   id_                  int not null AUTO_INCREMENT,
    msg_id               varchar(64),
    msg_type             varchar(20),
    msg_from             varchar(64),
@@ -68,7 +68,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofsession
 (
-   session_id           varchar(64) not null,
+   session_id           varchar(64) not null AUTO_INCREMENT,
    session_type         int,
    session_name         varchar(256),
    session_create_time  varchar(20),
@@ -142,4 +142,6 @@ DEFAULT CHARACTER SET = utf8;
 INSERT INTO ofVersion(name,version) values('tlim',1);
 
 INSERT INTO ofProperty(name,propValue,encrypted) values('route.all-resources','true',0);
+
+
 

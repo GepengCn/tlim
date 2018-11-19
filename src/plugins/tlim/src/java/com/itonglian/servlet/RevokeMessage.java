@@ -2,7 +2,6 @@ package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.RevokeUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
 
 import javax.servlet.ServletConfig;
@@ -31,8 +30,6 @@ public class RevokeMessage extends HttpServlet {
         String msg_id = req.getParameter("msg_id");
 
         String user_id = req.getParameter("user_id");
-
-        RevokeUtils.handler(user_id,msg_id);
 
         doBack(new BackJson("ok",""),printWriter);
 

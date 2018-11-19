@@ -1,10 +1,11 @@
 package com.itonglian.interceptor.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
@@ -18,8 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 
@@ -34,6 +33,8 @@ public class ChatInterceptor implements Interceptor {
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
 
+    MessageDao messageDao = MessageDaoImpl.getInstance();
+
     PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
     StatusDao statusDao = StatusDaoImpl.getInstance();
@@ -46,6 +47,8 @@ public class ChatInterceptor implements Interceptor {
 
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
+
+        new MyBatisSessionFactory().createSessionFactory();
 
         OfMessage ofMessage = new OfMessage();
 
@@ -65,7 +68,7 @@ public class ChatInterceptor implements Interceptor {
 
 
         if(!"MTT-100".equals(protocol.getMsg_type())){
-            chatDao.addNoRepeat(ofMessage);
+            messageDao.insert(ofMessage);
         }
 
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
@@ -85,15 +88,6 @@ public class ChatInterceptor implements Interceptor {
 
         String msg_type = protocol.getMsg_type();
 
-        if("MTT-101".equals(msg_type)){
-            List<Revoke> revokeList = JSONArray.parseArray(protocol.getBody(),Revoke.class);
-            Iterator<Revoke> iterator = revokeList.iterator();
-            while(iterator.hasNext()){
-                Revoke revoke = iterator.next();
-                RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
-            }
-
-        }
         if(!msg_type.contains("100")){
             Message copy = message.createCopy();
             copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));

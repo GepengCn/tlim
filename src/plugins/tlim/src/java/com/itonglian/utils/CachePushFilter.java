@@ -57,7 +57,9 @@ public class CachePushFilter {
         String sessionName = "";
         if(ofMessage.getMsg_type().contains("MTS")){
             OfSession ofSession = sessionDao.findEntityById(ofMessage.getSession_id());
-            sessionName = ofSession.getSession_name();
+            if(ofSession!=null){
+                sessionName = ofSession.getSession_name();
+            }
         }
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
         Log.error("pushMsgStr"+pushMsgStr);

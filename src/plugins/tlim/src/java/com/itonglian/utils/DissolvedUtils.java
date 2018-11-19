@@ -60,8 +60,6 @@ public class DissolvedUtils {
 
         subscriberDao.deleteBySession(session_id);
 
-        chatDao.deleteOfflineBySession(session_id);
-
         messageDao.deleteBySession(session_id);
 
     }
@@ -103,7 +101,7 @@ public class DissolvedUtils {
 
             ofMessage.setSession_id(sessionId);
 
-            chatDao.addNoRepeat(ofMessage);
+            messageDao.insert(ofMessage);
 
             Message newMessage = new Message();
 

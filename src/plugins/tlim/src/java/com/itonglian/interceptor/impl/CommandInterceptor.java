@@ -2,10 +2,10 @@ package com.itonglian.interceptor.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
-import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.SubscriberDao;
-import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
@@ -38,7 +38,7 @@ public class CommandInterceptor implements Interceptor {
 
     PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
-    ChatDao chatDao = ChatDaoImpl.getInstance();
+    private static MessageDao messageDao = MessageDaoImpl.getInstance();
 
 
     @Override
@@ -83,7 +83,7 @@ public class CommandInterceptor implements Interceptor {
 
             ofMessage.setSession_id(protocol.getMsg_to());
 
-            chatDao.addNoRepeat(ofMessage);
+            messageDao.insert(ofMessage);
 
         }
 
@@ -144,7 +144,7 @@ public class CommandInterceptor implements Interceptor {
 
             ofMessage.setSession_id(sessionId);
 
-            chatDao.addNoRepeat(ofMessage);
+            messageDao.insert(ofMessage);
 
             sessionDao.modify(sessionId);
 

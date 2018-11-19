@@ -3,7 +3,6 @@ package com.itonglian.interceptor.impl;
 import com.itonglian.bean.Protocol;
 import com.itonglian.interceptor.SessionInterceptor;
 import com.itonglian.utils.JsonUtils;
-import com.itonglian.utils.RevokeUtils;
 import org.xmpp.packet.Message;
 
 import java.util.Iterator;
@@ -19,7 +18,6 @@ public class SessionRevokeInterceptor extends SessionInterceptor {
         Iterator<JsonUtils.Revoke> iterator1 = revokeList.iterator();
         while(iterator1.hasNext()){
             JsonUtils.Revoke revoke = iterator1.next();
-            RevokeUtils.handler(protocol.getMsg_to(),revoke.getMsg_id());
         }
     }
 }

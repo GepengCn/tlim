@@ -3,7 +3,9 @@ package com.itonglian.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.entity.OfMessage;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
@@ -21,6 +23,7 @@ public class MessagePush {
 
     private static PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
+    private static MessageDao messageDao = MessageDaoImpl.getInstance();
 
     public static void execute(String params,String msg_to,String msg_type){
         Protocol protocol = new Protocol();
@@ -69,6 +72,6 @@ public class MessagePush {
 
         ofMessage.setSession_id(protocol.getMsg_from());
 
-        chatDao.addNoRepeat(ofMessage);
+        messageDao.insert(ofMessage);
     }
 }

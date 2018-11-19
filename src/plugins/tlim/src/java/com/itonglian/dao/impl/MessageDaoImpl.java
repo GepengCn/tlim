@@ -3,16 +3,14 @@ package com.itonglian.dao.impl;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.entity.Message;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.utils.MessageUtils;
+import com.itonglian.mapper.MessageMapper;
+import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.jivesoftware.database.DbConnectionManager;
-import org.jivesoftware.openfire.PresenceManager;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +20,6 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final MessageDao messageDao = new MessageDaoImpl();
 
-    private static final String FIND_HISTORY = "SELECT * FROM ofmessage WHERE session_id = ?  ORDER BY msg_time desc limit ?,?";
-
-    private static final String FIND_MESSAGE_TOTAL = "SELECT COUNT(*) AS total FROM ofmessage WHERE session_id = ? ";
-
-    private static final String FIND_CHAT_HISTORY = "SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ?  UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ? AND msg_type LIKE ?  ORDER BY msg_time desc limit ?,?";
-
-    private static final String FIND_CHAT_TOTAL = "SELECT COUNT(*) AS total FROM (SELECT * FROM ofmessage WHERE msg_from=? AND msg_to = ? AND msg_type LIKE ?  UNION SELECT * FROM ofmessage WHERE msg_from = ? AND msg_to = ?  AND msg_type LIKE ?  ) t ";
-
-    private static final String DELETE_BY_USER = "DELETE FROM ofmessage WHERE session_id = ? AND msg_from = ? ";
-
-    private static final String DELETE_BY_SESSION = "DELETE FROM ofmessage WHERE session_id = ?";
-
-    private static final String FIND_MESSAGE_TIME = "SELECT msg_time FROM ofmessage WHERE msg_id = ?";
-
-    private static final String FIND_MESSAGE_AFTER = "SELECT * FROM ofmessage WHERE msg_to = ? AND msg_time >=?";
-
     public static MessageDao getInstance(){
         return messageDao;
     }
@@ -45,219 +27,152 @@ public class MessageDaoImpl implements MessageDao {
     @Override
     public List<OfMessage> findHistory(String session_id,int start, int length) {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<OfMessage> messageList = new ArrayList<OfMessage>();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+
+        List<OfMessage> messageList = new ArrayList<>();
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_HISTORY);
-            int i=1;
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.setInt(i++,start);
-            preparedStatement.setInt(i++,length);
-            resultSet = preparedStatement.executeQuery();
-
-
-            while(resultSet.next()){
-                OfMessage ofMessage = new OfMessage();
-                ofMessage.setId_(resultSet.getLong("id_"));
-                ofMessage.setMsg_id(resultSet.getString("msg_id"));
-                ofMessage.setMsg_type(resultSet.getString("msg_type"));
-                ofMessage.setMsg_from(resultSet.getString("msg_from"));
-                ofMessage.setMsg_to(resultSet.getString("msg_to"));
-                ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
-                ofMessage.setSession_id(resultSet.getString("session_id"));
-                messageList.add(ofMessage);
-            }
-            return messageList;
-        }catch (Exception e){
+            messageList = messageMapper.findPageBySession(session_id,start,length);
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return null;
+        return messageList;
+    }
+
+    @Override
+    public void insert(OfMessage ofMessage) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        int isExist = messageMapper.isExist(ofMessage.getMsg_id());
+        if(isExist>0||isExist==-1){
+            return;
+        }
+        try {
+            messageMapper.insertMessage(ofMessage);
+            session.commit();
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            session.rollback();
+        }finally {
+            session.close();
+        }
     }
 
     @Override
     public int findMessageTotal(String session_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        int total = 0;
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MESSAGE_TOTAL);
-            int i=1;
-            preparedStatement.setString(i++,session_id);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                return resultSet.getInt("total");
-            }
-        }catch (Exception e){
+            total = messageMapper.findPageTotalBySession(session_id);
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return 0;
+        return total;
     }
 
     @Override
     public List<OfMessage> findChatHistory(String msg_from, String msg_to, int start, int length) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<OfMessage> messageList = new ArrayList<OfMessage>();
-        try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_CHAT_HISTORY);
-            int i=1;
-            preparedStatement.setString(i++,msg_from);
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.setString(i++,"%MTT%");
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.setString(i++,msg_from);
-            preparedStatement.setString(i++,"%MTT%");
-            preparedStatement.setInt(i++,start);
-            preparedStatement.setInt(i++,length);
-            resultSet = preparedStatement.executeQuery();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
 
-            while(resultSet.next()){
-                OfMessage ofMessage = new OfMessage();
-                ofMessage.setId_(resultSet.getLong("id_"));
-                ofMessage.setMsg_id(resultSet.getString("msg_id"));
-                ofMessage.setMsg_type(resultSet.getString("msg_type"));
-                ofMessage.setMsg_from(resultSet.getString("msg_from"));
-                ofMessage.setMsg_to(resultSet.getString("msg_to"));
-                ofMessage.setMsg_time(resultSet.getString("msg_time"));
-                ofMessage.setBody(MessageUtils.decode(resultSet.getString("body")));
-                ofMessage.setSession_id(resultSet.getString("session_id"));
-                messageList.add(ofMessage);
-            }
-            return messageList;
-        }catch (Exception e){
+        List<OfMessage> messageList = new ArrayList<>();
+        try {
+            messageList = messageMapper.findPageByChat(msg_from,msg_to,"%MTT%",start,length);
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return null;
+        return messageList;
     }
 
     @Override
     public int findChatMessageTotal(String msg_from, String msg_to) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        int total = 0;
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_CHAT_TOTAL);
-            int i=1;
-            preparedStatement.setString(i++,msg_from);
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.setString(i++,"%MTT%");
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.setString(i++,msg_from);
-            preparedStatement.setString(i++,"%MTT%");
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                return resultSet.getInt("total");
-            }
-        }catch (Exception e){
+            total = messageMapper.findPageTotalByChat(msg_from,msg_to,"MTT");
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return 0;
+        return total;
     }
 
     @Override
     public void deleteByUser(String session_id, String msg_from) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_USER);
-            int i=1;
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.setString(i++,msg_from);
-            preparedStatement.execute();
-        }catch (Exception e){
+            messageMapper.deleteByUserAndSession(session_id,msg_from);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(preparedStatement,connection);
+            session.close();
         }
     }
 
     @Override
     public void deleteBySession(String session_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(DELETE_BY_SESSION);
-            int i=1;
-            preparedStatement.setString(i++,session_id);
-            preparedStatement.execute();
-        }catch (Exception e){
+            messageMapper.deleteBySession(session_id);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(preparedStatement,connection);
+            session.close();
         }
     }
 
     @Override
     public String findMessageTime(String msg_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        String msg_time = "";
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MESSAGE_TIME);
-            int i=1;
-            preparedStatement.setString(i++,msg_id);
-            resultSet = preparedStatement.executeQuery();
-
-            if(resultSet.next()){
-                return resultSet.getString("msg_time");
-            }
-            return null;
-        }catch (Exception e){
+            msg_time = messageMapper.findMessageTime(msg_id);
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return null;
+        return msg_time;
     }
 
     @Override
     public List<Message> findMessageAfter(String msg_to, String msg_time) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<Message> messageList = new ArrayList<Message>();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+
+        List<Message> messageList = new ArrayList<>();
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MESSAGE_AFTER);
-            int i=1;
-            preparedStatement.setString(i++,msg_to);
-            preparedStatement.setString(i++,msg_time);
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                Message message = new Message();
-                message.setMsg_id(resultSet.getString("msg_id"));
-                message.setMsg_type(resultSet.getString("msg_type"));
-                message.setMsg_from(resultSet.getString("msg_from"));
-                message.setMsg_to(resultSet.getString("msg_to"));
-                message.setMsg_time(resultSet.getString("msg_time"));
-                message.setBody(MessageUtils.decode(resultSet.getString("body")));
-                messageList.add(message);
-            }
-            return messageList;
-        }catch (Exception e){
+            messageList = messageMapper.findMessageAfter(msg_to,msg_time);
+        } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
-            DbConnectionManager.closeConnection(resultSet,preparedStatement,connection);
+            session.close();
         }
-        return null;
+        return messageList;
     }
 }

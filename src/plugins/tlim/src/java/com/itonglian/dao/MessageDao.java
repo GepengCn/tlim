@@ -1,6 +1,7 @@
 package com.itonglian.dao;
 
 import com.itonglian.entity.Message;
+import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 
 import java.util.List;
@@ -9,10 +10,11 @@ public interface MessageDao {
 
     public List<OfMessage> findHistory(String session_id,int start, int length);
 
+    public void insert(OfMessage ofMessage);
 
     public int findMessageTotal(String session_id);
 
-    public List<OfMessage> findChatHistory(String msg_from,String msg_to,int start, int length);
+    List<OfMessage> findChatHistory(String msg_from,String msg_to,int start, int length);
 
     public int findChatMessageTotal(String msg_from,String msg_to);
 
