@@ -53,7 +53,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofpubact
 (
-   id_                  int not null,
+   id_                  int not null AUTO_INCREMENT,
    title                varchar(256),
    content              varchar(4096),
    user_id              varchar(64),
@@ -86,7 +86,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofstatus
 (
-   id_                  int not null,
+   id_                  int not null AUTO_INCREMENT,
    msg_id               varchar(64),
    reader                 varchar(64),
    status               int,
@@ -99,7 +99,7 @@ DEFAULT CHARACTER SET = utf8;
 /*==============================================================*/
 create table ofstyle
 (
-   style_id             int not null,
+   style_id             int not null AUTO_INCREMENT,
    style_name           varchar(64),
    style_value          int,
    user_id              varchar(64),
@@ -124,7 +124,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 CREATE TABLE ofcustomoffline (
-id_ varchar(64) NOT NULL,
+id_ int NOT NULL AUTO_INCREMENT,
 msg_id varchar(64) NULL,
 msg_type varchar(20) NULL,
 msg_from varchar(64) NULL,

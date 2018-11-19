@@ -28,6 +28,10 @@ public class MyBatisSessionFactory {
         configuration.addMapper(SessionMapper.class);
         configuration.addMapper(SubscriberMapper.class);
         configuration.addMapper(OfflineMapper.class);
+        configuration.addMapper(PubactMapper.class);
+        configuration.addMapper(StatusMapper.class);
+        configuration.addMapper(StyleMapper.class);
+        configuration.addMapper(UserMapper.class);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }
