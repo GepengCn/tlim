@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ChatDao {
 
-     void delete(String msgId);
-
      List<OfChat> chatList(String userId);
 
      boolean isExistChat(String msg_from,String msg_to);

@@ -102,7 +102,6 @@ public class SessionDaoImpl implements SessionDao {
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         List<OfSession> ofSessionList = new ArrayList<>();
         try {
-            Log.error(userId,valid,99);
             ofSessionList = sessionMapper.findByUser(userId,valid,99);
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

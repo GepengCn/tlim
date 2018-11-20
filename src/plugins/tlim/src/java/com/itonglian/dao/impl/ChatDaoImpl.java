@@ -31,24 +31,6 @@ public class ChatDaoImpl implements ChatDao {
 
 
     @Override
-    public void delete(String msgId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
-        SqlSession session = sqlSessionFactory.openSession();
-        ChatMapper chatMapper = session.getMapper(ChatMapper.class);
-        try {
-            chatMapper.deleteById(msgId);
-            session.commit();
-        } catch (Exception e){
-            session.rollback();
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            session.close();
-        }
-    }
-
-
-
-    @Override
     public List<OfChat> chatList(String userId) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();

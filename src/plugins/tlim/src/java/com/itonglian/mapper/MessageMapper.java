@@ -59,4 +59,9 @@ public interface MessageMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     List<Message> findMessageAfter(@Param(value="msg_to") String msg_to,
                                    @Param(value="msg_time") String msg_time);
+
+    @Delete({"DELETE FROM ofmessage where msg_id=#{msg_id}"})
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void deleteById(@Param(value="msg_id") String msg_id);
 }
+

@@ -9,9 +9,7 @@ import java.util.List;
 public interface ChatMapper {
 
 
-    @Delete({"DELETE FROM ofchat where msg_id=#{msg_id}"})
-    @Options(flushCache = Options.FlushCachePolicy.TRUE)
-    void deleteById(@Param(value="msg_id") String msg_id);
+
 
     @Select("SELECT chat_id,chat_name,chat_user,chat_other,chat_create_time,chat_modify_time FROM ofchat WHERE chat_other = #{chat_other}")
     @Options(useCache = true)
@@ -28,7 +26,9 @@ public interface ChatMapper {
 
     @Update("UPDATE ofchat SET chat_modify_time = #{chat_modify_time} WHERE chat_user = #{chat_user} AND chat_other = #{chat_other}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
-    void modify(String chat_modify_time,String chat_user,String chat_other);
+    void modify(@Param(value = "chat_modify_time") String chat_modify_time,
+                @Param(value = "chat_user") String chat_user,
+                @Param(value = "chat_other") String chat_other);
 
 
 }

@@ -1,16 +1,13 @@
-package com.itonglian.interceptor.impl;
+package com.itonglian.interceptor;
 
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.MessageDao;
-import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
-import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
-import com.itonglian.interceptor.Interceptor;
 import com.itonglian.utils.*;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
@@ -20,35 +17,57 @@ import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
 
-/**
- * <p> 概述：聊天类消息拦截器
- * <p> 功能：聊天类消息拦截器
- * <p> 作者：葛鹏
- * <p> 创建时间：2018/8/2 14:23
- * <p> 类调用特殊情况：
- */
-public class ChatInterceptor implements Interceptor {
-
-    ChatDao chatDao = ChatDaoImpl.getInstance();
-
-    MessageDao messageDao = MessageDaoImpl.getInstance();
-
-    PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
-
-    StatusDao statusDao = StatusDaoImpl.getInstance();
-
-    ExecutorService executorService = CustomThreadPool.getInstance().getExecutorService();
+public abstract class ChatInterceptor implements Interceptor{
 
     private static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
 
+    private ChatDao chatDao = ChatDaoImpl.getInstance();
+
+    private PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
+
+    private MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    public abstract void build(Protocol protocol, Message message) throws Exception;
+
+    private boolean canCopyToSelf = false;
+
+    private boolean canOffline = false;
+
+    private boolean canJgPush = false;
+
+    private boolean canPersistent = false;
+
+    private boolean canThreadPool = true;
+
+    private CustomThreadPool customThreadPool = CustomThreadPool.getInstance();
+
+    public ChatInterceptor setThreadPool(boolean set){
+        canThreadPool = set;
+        return this;
+    }
+
+
+    public ChatInterceptor setOffline(boolean set){
+        canOffline = set;
+        return this;
+    }
+
+    public ChatInterceptor setJgPush(boolean set){
+        canJgPush = set;
+        return this;
+    }
+
+    public ChatInterceptor setCanPersistent(boolean set){
+        canPersistent = set;
+        return this;
+    }
 
 
     @Override
-    public void handler(Protocol protocol, Message message) throws Exception {
+    public void handler(final Protocol protocol, Message message) throws Exception {
 
-        MyBatisSessionFactory.getInstance().createSessionFactory();
+        build(protocol,message);
 
         OfMessage ofMessage = new OfMessage();
 
@@ -66,11 +85,34 @@ public class ChatInterceptor implements Interceptor {
 
         ofMessage.setSession_id(protocol.getMsg_from());
 
-
-        if(!"MTT-100".equals(protocol.getMsg_type())){
-            messageDao.insert(ofMessage);
+        if(canPersistent){
+            if(canThreadPool){
+                final OfMessage ofMessage1= ofMessage;
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        persistent(protocol,ofMessage1);
+                    }
+                });
+                customThreadPool.getExecutorService().execute(thread);
+            }else{
+                persistent(protocol,ofMessage);
+            }
         }
+        if(canCopyToSelf){
+            Message copy = message.createCopy();
+            copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
+            packetDeliverer.deliver(copy);
+        }
+        if(canJgPush){
+            CachePushFilter.getInstance().push(ofMessage);
+        }
+        if(canOffline){
+            new OfflineInterceptor().handler(ofMessage);
+        }
+    }
 
+    private void persistent(Protocol protocol,OfMessage ofMessage){
         if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
             if(validate(protocol.getMsg_from(),protocol.getMsg_to())){
                 addChat(protocol.getMsg_from(),protocol.getMsg_to());
@@ -85,17 +127,8 @@ public class ChatInterceptor implements Interceptor {
         }else{
             chatDao.modify(protocol.getMsg_to(),protocol.getMsg_from());
         }
+        messageDao.insert(ofMessage);
 
-        String msg_type = protocol.getMsg_type();
-
-        if(!msg_type.contains("100")){
-            Message copy = message.createCopy();
-            copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
-            packetDeliverer.deliver(copy);
-            CachePushFilter.getInstance().push(ofMessage);
-            new OfflineInterceptor().handler(ofMessage);
-
-        }
     }
 
     private void addChat(String msg_from,String msg_to){
@@ -109,18 +142,6 @@ public class ChatInterceptor implements Interceptor {
         ofChat1.setChat_pic(fromUser.getPic_url());
         ofChat1.setChat_create_time(MessageUtils.getTs());
         chatDao.add(ofChat1);
-    }
-
-    private static class Revoke{
-        private String msg_id;
-
-        public String getMsg_id() {
-            return msg_id;
-        }
-
-        public void setMsg_id(String msg_id) {
-            this.msg_id = msg_id;
-        }
     }
 
     private boolean validate(String msg_from,String msg_to){

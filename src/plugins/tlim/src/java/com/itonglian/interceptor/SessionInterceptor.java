@@ -45,7 +45,7 @@ public abstract class SessionInterceptor implements Interceptor{
     private CustomThreadPool customThreadPool = CustomThreadPool.getInstance();
 
 
-    private SessionInterceptor setThreadPool(boolean set){
+    public SessionInterceptor setThreadPool(boolean set){
         canThreadPool = set;
         return this;
     }

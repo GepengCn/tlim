@@ -175,4 +175,20 @@ public class MessageDaoImpl implements MessageDao {
         }
         return messageList;
     }
+
+    @Override
+    public void deleteById(String msg_id) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        try {
+            messageMapper.deleteById(msg_id);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+    }
 }

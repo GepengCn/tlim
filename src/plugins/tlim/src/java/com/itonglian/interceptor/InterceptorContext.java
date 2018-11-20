@@ -58,7 +58,7 @@ public class InterceptorContext {
             case "MTT-001":
             case "MTT-002":
             case "MTT-003":
-                interceptor = new ChatInterceptor();
+                interceptor = new ChatNormalInterceptor();
                 break;
             case "MTS-000":
             case "MTS-001":
