@@ -25,7 +25,7 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public void add(OfStatus ofStatus) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {
@@ -41,7 +41,7 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public void update(String msg_id,int msg_status) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {
@@ -58,7 +58,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public List<OfStatus> findByReader(String reader) {
         List<OfStatus> ofStatuses = new ArrayList<>();
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {
@@ -73,7 +73,7 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public void delete(String msg_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {

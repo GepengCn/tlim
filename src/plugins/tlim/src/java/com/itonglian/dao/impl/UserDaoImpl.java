@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void syncUser() {
         UserManager userManager =XMPPServer.getInstance().getUserManager();
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper userMapper = session.getMapper(UserMapper.class);
         try {
@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void clear() {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper userMapper = session.getMapper(UserMapper.class);
         try {
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public String findAppPushCodeByUserId(String userId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper userMapper = session.getMapper(UserMapper.class);
         String appPushCode = "";

@@ -15,6 +15,28 @@
                 <property name="url" value="mysql://123.207.154.188:3306/cap-aco-2.0.1?rewriteBatchedStatements=true"/>
                 <property name="username" value="gp"/>
                 <property name="password" value="Gp6685840"/>
+                <!-- 配置初始化大小、最小、最大 -->
+                <property name="initialSize" value="100" />
+                <property name="minIdle" value="1" />
+                <property name="maxActive" value="8000" />
+
+                <!-- 配置获取连接等待超时的时间 -->
+                <property name="maxWait" value="60000" />
+
+                <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+                <property name="timeBetweenEvictionRunsMillis" value="2000" />
+
+                <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+                <property name="minEvictableIdleTimeMillis" value="600000" />
+                <property name="maxEvictableIdleTimeMillis" value="900000" />
+
+                <property name="validationQuery" value="select 1" />
+                <property name="testWhileIdle" value="true" />
+                <property name="testOnBorrow" value="false" />
+                <property name="testOnReturn" value="false" />
+
+                <property name="keepAlive" value="true" />
+                <property name="phyMaxUseCount" value="100000" />
             </dataSource>
         </environment>
     </environments>

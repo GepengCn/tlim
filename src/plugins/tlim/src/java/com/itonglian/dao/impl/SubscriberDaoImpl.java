@@ -25,7 +25,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     @Override
     public void add(OfSubscriber subscriber) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SubscriberMapper subscriberMapper = session.getMapper(SubscriberMapper.class);
         try {
@@ -41,7 +41,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     @Override
     public void delete(String userId,String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SubscriberMapper subscriberMapper = session.getMapper(SubscriberMapper.class);
         try {
@@ -67,7 +67,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     @Override
     public List<OfSubscriber> findSubscribers(String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         List<OfSubscriber> ofSubscriberList = new ArrayList<>();
         SubscriberMapper subscriberMapper = session.getMapper(SubscriberMapper.class);
@@ -83,7 +83,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
 
     @Override
     public void deleteBySession(String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SubscriberMapper subscriberMapper = session.getMapper(SubscriberMapper.class);
         try {

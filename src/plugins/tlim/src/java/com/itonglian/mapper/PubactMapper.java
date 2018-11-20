@@ -8,7 +8,7 @@ import java.util.List;
 public interface PubactMapper {
 
     @Insert("INSERT INTO ofpubact (title,content,user_id,ts,session_id) values(#{title},#{content},#{user_id},#{ts},#{session_id})")
-    @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_")
+    @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)
     void insertPubact(@Param(value = "title") String title,
                       @Param(value = "content") String content,
                       @Param(value = "user_id") String user_id,
@@ -16,13 +16,16 @@ public interface PubactMapper {
                       @Param(value = "session_id") String session_id);
 
     @Select("SELECT * FROM ofpubact WHERE session_id = #{session_id}")
+    @Options(useCache = true)
     List<OfPubact> findBySession(@Param(value = "session_id") String session_id);
 
     @Update("UPDATE ofpubact SET title = #{title},content = #{content} WHERE id_ = #{id_}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void update(@Param(value = "id_") long id_,
                 @Param(value = "title") String title,
                 @Param(value = "content") String content);
 
     @Delete("DELETE FROM ofpubact WHERE id_ = #{id_}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void delete(@Param(value = "id_") long id_);
 }

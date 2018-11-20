@@ -18,7 +18,16 @@ public class MyBatisSessionFactory {
 
     private static SqlSessionFactory sqlSessionFactory;
 
-    public static SqlSessionFactory createSessionFactory(){
+    private static class MyBatisSessionFactoryHolder{
+        private static MyBatisSessionFactory myBatisSessionFactory=new MyBatisSessionFactory();
+    }
+
+    public static MyBatisSessionFactory getInstance(){
+
+        return MyBatisSessionFactoryHolder.myBatisSessionFactory;
+    }
+
+    private MyBatisSessionFactory(){
         DataSource dataSource = new DruidDataSourceFactory().getDataSource();
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
@@ -32,7 +41,12 @@ public class MyBatisSessionFactory {
         configuration.addMapper(StatusMapper.class);
         configuration.addMapper(StyleMapper.class);
         configuration.addMapper(UserMapper.class);
+        configuration.setLazyLoadingEnabled(true);
+        configuration.setCacheEnabled(true);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+    }
+
+    public SqlSessionFactory createSessionFactory(){
         return sqlSessionFactory;
     }
 }

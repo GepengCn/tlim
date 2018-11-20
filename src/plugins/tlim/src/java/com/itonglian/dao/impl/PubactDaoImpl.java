@@ -28,7 +28,7 @@ public class PubactDaoImpl implements PubactDao {
 
     @Override
     public void add(String title, String content, String user_id,String session_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
         try {
@@ -45,7 +45,7 @@ public class PubactDaoImpl implements PubactDao {
     @Override
     public List<OfPubact> findBySession(String session_id) {
         List<OfPubact> ofPubactList = new ArrayList<>();
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
         try {
@@ -60,7 +60,7 @@ public class PubactDaoImpl implements PubactDao {
 
     @Override
     public void update(String id_, String title, String content) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
         try {
@@ -76,7 +76,7 @@ public class PubactDaoImpl implements PubactDao {
 
     @Override
     public void delete(String id_) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
         try {

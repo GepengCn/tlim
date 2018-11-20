@@ -32,7 +32,7 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public void delete(String msgId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {
@@ -50,7 +50,7 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public List<OfChat> chatList(String userId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         List<OfChat> ofChats = new ArrayList<>();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
@@ -67,7 +67,7 @@ public class ChatDaoImpl implements ChatDao {
     @Override
     public boolean isExistChat(String msg_from,String msg_to) {
         boolean isExistChat = false;
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {
@@ -85,7 +85,7 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public void add(OfChat ofChat) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {
@@ -102,7 +102,7 @@ public class ChatDaoImpl implements ChatDao {
 
     @Override
     public void modify(String chat_user,String chat_other) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {

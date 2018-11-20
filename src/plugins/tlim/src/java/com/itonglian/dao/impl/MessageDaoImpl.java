@@ -27,7 +27,7 @@ public class MessageDaoImpl implements MessageDao {
     @Override
     public List<OfMessage> findHistory(String session_id,int start, int length) {
 
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
 
@@ -44,7 +44,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public void insert(OfMessage ofMessage) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         int isExist = messageMapper.isExist(ofMessage.getMsg_id());
@@ -64,7 +64,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public int findMessageTotal(String session_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         int total = 0;
@@ -80,7 +80,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public List<OfMessage> findChatHistory(String msg_from, String msg_to, int start, int length) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
 
@@ -97,7 +97,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public int findChatMessageTotal(String msg_from, String msg_to) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         int total = 0;
@@ -113,7 +113,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public void deleteByUser(String session_id, String msg_from) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         try {
@@ -129,7 +129,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public void deleteBySession(String session_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         try {
@@ -145,7 +145,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public String findMessageTime(String msg_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         String msg_time = "";
@@ -161,7 +161,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public List<Message> findMessageAfter(String msg_to, String msg_time) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
 

@@ -48,7 +48,7 @@ public class ChatInterceptor implements Interceptor {
     @Override
     public void handler(Protocol protocol, Message message) throws Exception {
 
-        new MyBatisSessionFactory().createSessionFactory();
+        MyBatisSessionFactory.getInstance().createSessionFactory();
 
         OfMessage ofMessage = new OfMessage();
 

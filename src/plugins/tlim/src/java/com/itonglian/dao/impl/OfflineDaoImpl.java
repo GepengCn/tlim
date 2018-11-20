@@ -26,7 +26,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public void add(OfCustomOffline ofCustomOffline) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
@@ -43,7 +43,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public void updateStatus(String msg_id, int msg_status) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
@@ -59,7 +59,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public void delete(String msg_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
@@ -75,7 +75,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public void deleteByUser(String user_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
@@ -91,7 +91,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public List<OfCustomOffline> findByUser(String user_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         List<OfCustomOffline> ofCustomOfflines = new ArrayList<>();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
@@ -107,7 +107,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public OfCustomOffline findByMsgId(String msg_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
@@ -125,7 +125,7 @@ public class OfflineDaoImpl implements OfflineDao {
 
     @Override
     public List<OfCustomOffline> findAll() {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         List<OfCustomOffline> ofCustomOfflines = new ArrayList<>();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);

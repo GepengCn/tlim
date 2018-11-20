@@ -124,7 +124,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 CREATE TABLE ofcustomoffline (
-id_ varchar(64) NOT NULL,
+id_ int NOT NULL AUTO_INCREMENT,
 msg_id varchar(64) NULL,
 msg_type varchar(20) NULL,
 msg_from varchar(64) NULL,

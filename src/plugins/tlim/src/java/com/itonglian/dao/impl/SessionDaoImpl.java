@@ -26,7 +26,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void add(OfSession ofSession) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -42,7 +42,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void delete(String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -63,7 +63,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void updateNameById(String sessionId, String sessionName,String modifyTime) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -79,7 +79,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public OfSession findEntityById(String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -97,7 +97,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public List<OfSession> findSessionsByUser(String userId,int valid) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         List<OfSession> ofSessionList = new ArrayList<>();
@@ -115,7 +115,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void updatePic(String sessionId, String sessionPic) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -131,7 +131,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void modify(String sessionId) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {
@@ -147,7 +147,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void switchSession(String sessionId, int valid) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
         try {

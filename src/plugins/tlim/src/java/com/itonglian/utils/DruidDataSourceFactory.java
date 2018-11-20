@@ -24,6 +24,21 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dds.setUrl(JiveGlobals.getXMLProperty("database.defaultProvider.serverURL"));
         dds.setUsername(JiveGlobals.getXMLProperty("database.defaultProvider.username"));
         dds.setPassword(JiveGlobals.getXMLProperty("database.defaultProvider.password"));
+        dds.setMaxActive(5000);
+        dds.setAsyncInit(true);
+        dds.setInitialSize(100);
+        dds.setMinIdle(20);
+        dds.setMaxWait(10000);
+        dds.setTimeBetweenEvictionRunsMillis(10000);
+        dds.setMinEvictableIdleTimeMillis(30000);
+        dds.setMaxEvictableIdleTimeMillis(60000);
+        dds.setRemoveAbandoned(true);
+        dds.setRemoveAbandonedTimeout(80);
+        dds.setTestWhileIdle(true);
+        dds.setTestOnBorrow(false);
+        dds.setTestOnReturn(false);
+        dds.setPoolPreparedStatements(true);
+        dds.setMaxOpenPreparedStatements(50);
         // 其他配置可以根据MyBatis主配置文件进行配置
         try {
             dds.init();

@@ -27,12 +27,6 @@ public class OfflineInterceptor {
 
         Collection<Presence> list = presenceManager.getPresences(ofMessage.getMsg_to());
 
-        Log.error("OfflineInterceptor->handler");
-
-        Log.error("ofMessage.getMsg_to()="+ofMessage.getMsg_to());
-
-        Log.error("Collection<Presence>="+list.size());
-
         Iterator<Presence> iterator = list.iterator();
 
         boolean offline = true;
@@ -41,7 +35,6 @@ public class OfflineInterceptor {
 
         while(iterator.hasNext()){
             Presence presence = iterator.next();
-            Log.error("presence="+presence);
             if(presence!=null&&presence.getShow()==null){
                 String resource = presence.getFrom().getResource();
                 if(StringUtils.isNullOrEmpty(resource)||!resource.contains("[web]")){
@@ -53,16 +46,12 @@ public class OfflineInterceptor {
                 }
             }
         }
-        Log.error("webOnline="+webOnline);
-        Log.error("offline="+offline);
         if(offline){
             OfCustomOffline ofCustomOffline = MessageUtils.toOffline(ofMessage);
             if(webOnline){
-                Log.error("offlineDao.updateAfterAdd");
                 ofCustomOffline.setMsg_status(1);
                 offlineDao.add(ofCustomOffline);
             }else{
-                Log.error("offlineDao.add");
                 offlineDao.add(ofCustomOffline);
             }
         }

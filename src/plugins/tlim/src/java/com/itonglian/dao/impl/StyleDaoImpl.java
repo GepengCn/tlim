@@ -25,7 +25,7 @@ public class StyleDaoImpl implements StyleDao {
 
     @Override
     public void add(OfStyle ofStyle) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StyleMapper styleMapper = session.getMapper(StyleMapper.class);
         try {
@@ -41,7 +41,7 @@ public class StyleDaoImpl implements StyleDao {
 
     @Override
     public  List<OfStyle> query(String user_id) {
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.createSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StyleMapper styleMapper = session.getMapper(StyleMapper.class);
         List<OfStyle> ofStyleList = new ArrayList<>();
