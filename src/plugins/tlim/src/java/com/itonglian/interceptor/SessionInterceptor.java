@@ -10,17 +10,17 @@ import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.local.SessionPacketForward;
-import com.itonglian.utils.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itonglian.utils.CachePushFilter;
+import com.itonglian.utils.JsonUtils;
+import com.itonglian.utils.OfflineInterceptor;
+import com.itonglian.utils.StringUtils;
 import org.xmpp.packet.Message;
 
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class SessionInterceptor implements Interceptor{
+public abstract class SessionInterceptor extends CommonInterceptor implements Interceptor{
 
-    private static final Logger Log = LoggerFactory.getLogger(SessionInterceptor.class);
 
     public abstract void build(Protocol protocol, Message message) throws Exception;
 
@@ -40,10 +40,9 @@ public abstract class SessionInterceptor implements Interceptor{
 
     private boolean canThreadPool = true;
 
+    private boolean canRead = false;
+
     private OfflineInterceptor offlineInterceptor = new OfflineInterceptor();
-
-    private CustomThreadPool customThreadPool = CustomThreadPool.getInstance();
-
 
     public SessionInterceptor setThreadPool(boolean set){
         canThreadPool = set;
@@ -63,6 +62,11 @@ public abstract class SessionInterceptor implements Interceptor{
 
     public SessionInterceptor setCanPersistent(boolean set){
         canPersistent = set;
+        return this;
+    }
+
+    public SessionInterceptor setRead(boolean set){
+        canRead = set;
         return this;
     }
 
@@ -94,6 +98,10 @@ public abstract class SessionInterceptor implements Interceptor{
         }else{
             OfMessage ofMessage = protocolToMessage(protocol,session_id);
             persistent(ofMessage);
+        }
+
+        if(canRead){
+            handlerRead(protocol,message);
         }
 
 
@@ -138,6 +146,8 @@ public abstract class SessionInterceptor implements Interceptor{
             }
 
         }
+
+
     }
 
 }

@@ -40,12 +40,12 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public void update(String msg_id,int msg_status) {
+    public void update(String msg_id,String reader,int msg_status) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {
-            statusMapper.update(msg_status,msg_id);
+            statusMapper.update(msg_status,msg_id,reader);
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -84,6 +84,36 @@ public class StatusDaoImpl implements StatusDao {
             session.rollback();
         }finally {
             session.close();
+        }
+    }
+
+    @Override
+    public boolean isExist(String msg_id, String reader) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+        boolean isExist = false;
+        try {
+            int count = statusMapper.isExist(msg_id,reader);
+            if(count>0){
+                isExist = true;
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return isExist;
+    }
+
+    @Override
+    public void save(OfStatus ofStatus) {
+        String msg_id = ofStatus.getMsg_id();
+        String reader = ofStatus.getReader();
+        if(isExist(ofStatus.getMsg_id(),ofStatus.getReader())){
+            update(msg_id,reader,ofStatus.getStatus());
+        }else{
+            add(ofStatus);
         }
     }
 

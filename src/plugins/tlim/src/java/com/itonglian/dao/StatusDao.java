@@ -1,20 +1,22 @@
 package com.itonglian.dao;
 
-import com.itonglian.bean.SessionRead;
-import com.itonglian.bean.SessionUnread;
 import com.itonglian.entity.OfStatus;
 
 import java.util.List;
 
 public interface StatusDao {
 
-    public void add(OfStatus ofStatus);
+    void add(OfStatus ofStatus);
 
-    public void update(String msg_id,int status);
+    void update(String msg_id,String reader,int status);
 
-    public List<OfStatus> findByReader(String reader);
+    List<OfStatus> findByReader(String reader);
 
-    public void delete(String msg_id);
+    void delete(String msg_id);
+
+    boolean isExist(String msg_id,String reader);
+
+    void save(OfStatus ofStatus);
 
 
 }

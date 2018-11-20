@@ -18,7 +18,7 @@ import org.xmpp.packet.Message;
 
 import java.util.UUID;
 
-public abstract class ChatInterceptor implements Interceptor{
+public abstract class ChatInterceptor extends CommonInterceptor implements Interceptor{
 
     private static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
 
@@ -40,7 +40,9 @@ public abstract class ChatInterceptor implements Interceptor{
 
     private boolean canThreadPool = true;
 
-    private CustomThreadPool customThreadPool = CustomThreadPool.getInstance();
+    private boolean canRead = false;
+
+
 
     public ChatInterceptor setThreadPool(boolean set){
         canThreadPool = set;
@@ -63,6 +65,10 @@ public abstract class ChatInterceptor implements Interceptor{
         return this;
     }
 
+    public ChatInterceptor setRead(boolean set){
+        canRead = set;
+        return this;
+    }
 
     @Override
     public void handler(final Protocol protocol, Message message) throws Exception {
@@ -88,6 +94,7 @@ public abstract class ChatInterceptor implements Interceptor{
         if(canPersistent){
             if(canThreadPool){
                 final OfMessage ofMessage1= ofMessage;
+                final Message message1 = message;
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -109,6 +116,10 @@ public abstract class ChatInterceptor implements Interceptor{
         }
         if(canOffline){
             new OfflineInterceptor().handler(ofMessage);
+        }
+
+        if(canRead){
+            handlerRead(protocol,message);
         }
     }
 
