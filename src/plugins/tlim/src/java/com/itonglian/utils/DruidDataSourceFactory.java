@@ -29,9 +29,9 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dds.setInitialSize(100);
         dds.setMinIdle(20);
         dds.setMaxWait(10000);
-        dds.setTimeBetweenEvictionRunsMillis(10000);
-        dds.setMinEvictableIdleTimeMillis(30000);
-        dds.setMaxEvictableIdleTimeMillis(60000);
+        dds.setTimeBetweenEvictionRunsMillis(30000);
+        dds.setMinEvictableIdleTimeMillis(300000);
+        dds.setMaxEvictableIdleTimeMillis(600000);
         dds.setRemoveAbandoned(true);
         dds.setRemoveAbandonedTimeout(80);
         dds.setTestWhileIdle(true);

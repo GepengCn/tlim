@@ -12,11 +12,7 @@ public class JsonUtils {
 
     public static String getSessionId(String jsonStr){
 
-        Log.error("jsonStr"+jsonStr);
-
         List<SessionEntity> sessionEntities = JSONArray.parseArray(jsonStr,SessionEntity.class);
-
-        Log.error("sessionEntities.size()="+sessionEntities.size());
 
         if(sessionEntities==null||sessionEntities.size()==0){
             return null;
@@ -24,13 +20,10 @@ public class JsonUtils {
 
         SessionEntity sessionEntity = sessionEntities.get(0);
 
-        Log.error("SessionEntity="+sessionEntity);
-
         if(sessionEntity==null){
             return null;
         }
 
-        Log.error("getSession_id="+sessionEntity.getSession_id());
         return sessionEntity.getSession_id();
     }
 

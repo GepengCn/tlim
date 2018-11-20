@@ -44,7 +44,6 @@ public class CachePushFilter {
         long msgTs = StringUtils.stringToLong(ofMessage.getMsg_time());
         long fiveMinutes = 3*60*1000;
         if(msgTs-nowTs>fiveMinutes){
-            Log.error("超过3分钟，不发送");
             return;
         }
         String user_id = ofMessage.getMsg_to();
@@ -62,7 +61,6 @@ public class CachePushFilter {
             }
         }
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
-        Log.error("pushMsgStr"+pushMsgStr);
         if(!StringUtils.isNullOrEmpty(pushMsgStr)){
             Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv));
             pushThread.setPriority(1);
