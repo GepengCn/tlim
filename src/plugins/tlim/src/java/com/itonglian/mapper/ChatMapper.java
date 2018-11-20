@@ -23,7 +23,6 @@ public interface ChatMapper {
                     @Param(value="chat_other")String chat_other);
 
     @Insert("INSERT INTO ofchat(chat_id,chat_name,chat_user,chat_other,chat_create_time,chat_modify_time,chat_pic) VALUES(#{chat_id},#{chat_name},#{chat_user},#{chat_other},#{chat_create_time},#{chat_modify_time},#{chat_pic})")
-//    @Options(useGeneratedKeys=true, keyProperty="chat_id", keyColumn="chat_id")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void insertChat(OfChat ofChat);
 

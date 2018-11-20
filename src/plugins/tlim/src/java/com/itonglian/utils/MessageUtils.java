@@ -84,14 +84,14 @@ public class MessageUtils {
         switch (ofMessage.getMsg_type()){
             case "MTT-000":
                 content = user.getUser_name()+":"+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
-                if(content.length()>=20){
-                    content = content.substring(0,20)+"...";
+                if(content.length()>=30){
+                    content = content.substring(0,30)+"...";
                 }
                 break;
             case "MTS-000":
                 content = user.getUser_name()+symbol+JSON.parseArray(ofMessage.getBody(),Body.class).get(0).getText();
-                if(content.length()>=20){
-                    content = content.substring(0,20)+"...";
+                if(content.length()>=30){
+                    content = content.substring(0,30)+"...";
                 }
                 break;
             case "MTT-001":

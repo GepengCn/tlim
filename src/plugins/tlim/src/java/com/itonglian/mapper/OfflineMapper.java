@@ -2,7 +2,6 @@ package com.itonglian.mapper;
 
 import com.itonglian.entity.OfCustomOffline;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.cache.Cache;
 
 import java.util.List;
 
@@ -36,4 +35,8 @@ public interface OfflineMapper {
     @Select("SELECT * FROM ofcustomoffline")
     @Options(useCache = true)
     List<OfCustomOffline> findAll();
+
+    @Delete("DELETE FROM ofcustomoffline WHERE session_id = #{session_id}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void deleteBySession(@Param(value = "session_id") String session_id);
 }

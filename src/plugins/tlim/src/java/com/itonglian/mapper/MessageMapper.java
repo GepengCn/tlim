@@ -47,7 +47,7 @@ public interface MessageMapper {
     void deleteByUserAndSession(@Param(value="session_id") String session_id,
                                 @Param(value="msg_from") String msg_from);
 
-    @Delete("DELETE FROM ofmessage WHERE session_id = #{msg_from}")
+    @Delete("DELETE FROM ofmessage WHERE session_id = #{session_id}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteBySession(@Param(value="session_id") String session_id);
 

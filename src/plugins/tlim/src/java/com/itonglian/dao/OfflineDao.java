@@ -20,4 +20,6 @@ public interface OfflineDao {
     OfCustomOffline findByMsgId(String msg_id);
 
     List<OfCustomOffline> findAll();
+
+    void deleteBySession(String session_id);
 }

@@ -3,14 +3,8 @@ package com.itonglian.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
-import com.itonglian.dao.ChatDao;
-import com.itonglian.dao.MessageDao;
-import com.itonglian.dao.SessionDao;
-import com.itonglian.dao.SubscriberDao;
-import com.itonglian.dao.impl.ChatDaoImpl;
-import com.itonglian.dao.impl.MessageDaoImpl;
-import com.itonglian.dao.impl.SessionDaoImpl;
-import com.itonglian.dao.impl.SubscriberDaoImpl;
+import com.itonglian.dao.*;
+import com.itonglian.dao.impl.*;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSubscriber;
 import org.jivesoftware.openfire.PacketDeliverer;
@@ -33,7 +27,8 @@ public class DissolvedUtils {
 
     private static PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
-    private static ChatDao chatDao = ChatDaoImpl.getInstance();
+    private static OfflineDao offlineDao = OfflineDaoImpl.getInstance();
+
 
     public static void handler(String session_id){
 
@@ -62,6 +57,7 @@ public class DissolvedUtils {
 
         messageDao.deleteBySession(session_id);
 
+        offlineDao.deleteBySession(session_id);
     }
 
     private static void batchRoute(String sessionId, Protocol protocol) throws Exception {
