@@ -39,8 +39,11 @@ public class AddStyle extends HttpServlet {
 
         String user_id = req.getParameter("user_id");
 
-        styleDao.add(new OfStyle(style_name,style_value,user_id));
-
+        if(styleDao.isExist(style_name,user_id)){
+            styleDao.update(style_value,style_name,user_id);
+        }else{
+            styleDao.add(new OfStyle(style_name,style_value,user_id));
+        }
         doBack(new BackJson("ok",""),printWriter);
 
     }

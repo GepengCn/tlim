@@ -6,7 +6,13 @@ import java.util.List;
 
 public interface StyleDao {
 
-    public void add(OfStyle ofStyle);
+    void add(OfStyle ofStyle);
 
-    public List<OfStyle> query(String user_id);
+    List<OfStyle> query(String user_id);
+
+    boolean isExist(String style_name,String user_id);
+
+    void update(int style_value,String style_name,String user_id);
+
+
 }

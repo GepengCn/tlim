@@ -54,4 +54,39 @@ public class StyleDaoImpl implements StyleDao {
         }
         return ofStyleList;
     }
+
+    @Override
+    public boolean isExist(String style_name, String user_id) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StyleMapper styleMapper = session.getMapper(StyleMapper.class);
+        boolean isExist = false;
+        try {
+            int count = styleMapper.isExist(style_name,user_id);
+            if(count>0){
+                isExist = true;
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return isExist;
+    }
+
+    @Override
+    public void update(int style_value, String style_name, String user_id) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StyleMapper styleMapper = session.getMapper(StyleMapper.class);
+        try {
+            styleMapper.update(style_value,style_name,user_id);
+            session.commit();
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            session.rollback();
+        }finally {
+            session.close();
+        }
+    }
 }
