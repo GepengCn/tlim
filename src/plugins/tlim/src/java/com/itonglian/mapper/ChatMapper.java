@@ -15,7 +15,7 @@ public interface ChatMapper {
     @Options(useCache = true)
     List<OfChat> chatList(@Param(value="chat_other") String chat_other);
 
-    @Select("SELECT * FROM ofchat WHERE chat_user = #{chat_user} AND chat_other = #{chat_other}")
+    @Select("SELECT count(1) FROM ofchat WHERE chat_user = #{chat_user} AND chat_other = #{chat_other}")
     @Options(useCache = true)
     int isExistChat(@Param(value="chat_user")String chat_user,
                     @Param(value="chat_other")String chat_other);

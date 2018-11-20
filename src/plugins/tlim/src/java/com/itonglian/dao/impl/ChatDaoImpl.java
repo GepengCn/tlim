@@ -47,18 +47,18 @@ public class ChatDaoImpl implements ChatDao {
     }
 
     @Override
-    public boolean isExistChat(String msg_from,String msg_to) {
+    public boolean isExistChat(String chat_user,String chat_other) {
         boolean isExistChat = false;
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {
-            int count = chatMapper.isExistChat(msg_from,msg_to);
+            int count = chatMapper.isExistChat(chat_user,chat_other);
             if(count>0){
                 isExistChat = true;
             }
         }catch (Exception e){
-
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
             session.close();
         }
@@ -114,6 +114,17 @@ public class ChatDaoImpl implements ChatDao {
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
             DbConnectionManager.closeConnection(preparedStatement,connection);
+        }
+    }
+
+    @Override
+    public void save(OfChat ofChat) {
+        String chat_user = ofChat.getChat_user();
+        String chat_other = ofChat.getChat_other();
+        if(isExistChat(chat_user,chat_other)){
+            modify(chat_user,chat_other);
+        }else{
+            add(ofChat);
         }
     }
 

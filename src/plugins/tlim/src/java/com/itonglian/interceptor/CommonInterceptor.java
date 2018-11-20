@@ -28,8 +28,6 @@ public abstract class CommonInterceptor {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.error("CommonInterceptor-body="+protocol.getBody());
-
                 List<JsonUtils.Revoke> list = JsonUtils.getRevoke(protocol.getBody());
                 Iterator<JsonUtils.Revoke> iterator = list.iterator();
                 while(iterator.hasNext()){
@@ -44,7 +42,6 @@ public abstract class CommonInterceptor {
                         ofStatus.setStatus(2);
                         ofStatus.setReader(protocol.getMsg_from());
                     }
-                    Log.error("CommonInterceptor-save");
                     statusDao.save(ofStatus);
                 }
             }

@@ -102,7 +102,7 @@ public class MessageDaoImpl implements MessageDao {
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
         int total = 0;
         try {
-            total = messageMapper.findPageTotalByChat(msg_from,msg_to,"MTT");
+            total = messageMapper.findPageTotalByChat(msg_from,msg_to,"%MTT%");
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {

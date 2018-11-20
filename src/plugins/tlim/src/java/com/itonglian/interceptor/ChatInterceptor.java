@@ -124,35 +124,25 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
     }
 
     private void persistent(Protocol protocol,OfMessage ofMessage){
-        if(!chatDao.isExistChat(protocol.getMsg_from(),protocol.getMsg_to())){
-            if(validate(protocol.getMsg_from(),protocol.getMsg_to())){
-                addChat(protocol.getMsg_from(),protocol.getMsg_to());
-            }
-        }else{
-            chatDao.modify(protocol.getMsg_from(),protocol.getMsg_to());
-        }
-        if(!chatDao.isExistChat(protocol.getMsg_to(),protocol.getMsg_from())){
-            if(validate(protocol.getMsg_to(),protocol.getMsg_from())){
-                addChat(protocol.getMsg_to(),protocol.getMsg_from());
-            }
-        }else{
-            chatDao.modify(protocol.getMsg_to(),protocol.getMsg_from());
-        }
+        saveChat(protocol.getMsg_from(),protocol.getMsg_to());
+        saveChat(protocol.getMsg_to(),protocol.getMsg_from());
         messageDao.insert(ofMessage);
 
     }
 
-    private void addChat(String msg_from,String msg_to){
-        User fromUser = UserCacheManager.findUserByKey(msg_from);
-        OfChat ofChat1 = new OfChat();
-        String chatId1 =  UUID.randomUUID().toString();
-        ofChat1.setChat_id(chatId1);
-        ofChat1.setChat_name(fromUser.getUser_name());
-        ofChat1.setChat_user(msg_from);
-        ofChat1.setChat_other(msg_to);
-        ofChat1.setChat_pic(fromUser.getPic_url());
-        ofChat1.setChat_create_time(MessageUtils.getTs());
-        chatDao.add(ofChat1);
+    private void saveChat(String msg_from,String msg_to){
+        if(validate(msg_from,msg_to)){
+            User fromUser = UserCacheManager.findUserByKey(msg_from);
+            OfChat ofChat = new OfChat();
+            String chatId =  UUID.randomUUID().toString();
+            ofChat.setChat_id(chatId);
+            ofChat.setChat_name(fromUser.getUser_name());
+            ofChat.setChat_user(msg_from);
+            ofChat.setChat_other(msg_to);
+            ofChat.setChat_pic(fromUser.getPic_url());
+            ofChat.setChat_create_time(MessageUtils.getTs());
+            chatDao.save(ofChat);
+        }
     }
 
     private boolean validate(String msg_from,String msg_to){
