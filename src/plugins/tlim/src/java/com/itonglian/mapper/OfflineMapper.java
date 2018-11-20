@@ -39,4 +39,9 @@ public interface OfflineMapper {
     @Delete("DELETE FROM ofcustomoffline WHERE session_id = #{session_id}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteBySession(@Param(value = "session_id") String session_id);
+
+    @Delete("DELETE FROM ofcustomoffline WHERE user_id = #{user_id} AND msg_id = #{msg_id}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void deleteByUserAndId(@Param(value = "user_id") String user_id,
+                           @Param(value = "msg_id") String msg_id);
 }

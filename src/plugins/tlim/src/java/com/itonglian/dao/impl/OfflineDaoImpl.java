@@ -154,4 +154,20 @@ public class OfflineDaoImpl implements OfflineDao {
             session.close();
         }
     }
+
+    @Override
+    public void deleteByUserAndId(String user_id, String msg_id) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
+        try {
+            offlineMapper.deleteByUserAndId(user_id,msg_id);
+            session.commit();
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            session.rollback();
+        }finally {
+            session.close();
+        }
+    }
 }

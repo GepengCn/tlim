@@ -1759,6 +1759,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     4. 参数
 
     4.1 user_id:'c66ddc90-5814-4afd-8598-8b37e3cb8f1a'
+    4.2 msg_id:'d8cbcfbd-33fb-4614-b715-ac4f37c24282'
     4.2 getThenClear:0
     5. 返回值:json对象
     {
@@ -1766,12 +1767,21 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
          "result_detail": "",
          "message_list":[
             {
-                msg_id:'',
-                xxx:xxx
-                xxx:xxx
-                xxx:xxx,
-                recv:0
+                "body": "[{\"session_id\":\"85028e68-be82-412e-b147-155840ebed88\",\"text\":\"123\"}]",
+                "msg_from": "e3e9dfddf4e84c02850c434e69942ada",
+                "msg_id": "d8cbcfbd-33fb-4614-b715-ac4f37c24282",
+                "msg_time": "1541488419370",
+                "msg_to": "cbf90f1bcc9f412eb2c8a0c0dc138ed8",
+                "msg_type": "MTS-000",
+                "recv":
+            },
+            {
+                xxx
+            },
+            {
+                xxx
             }
+
          ]
     }
     注:recv [0:移动端未收,web未收]/[1:移动端未收,web已收]

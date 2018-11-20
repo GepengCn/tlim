@@ -22,4 +22,6 @@ public interface OfflineDao {
     List<OfCustomOffline> findAll();
 
     void deleteBySession(String session_id);
+
+    void deleteByUserAndId(String user_id,String msg_id);
 }
