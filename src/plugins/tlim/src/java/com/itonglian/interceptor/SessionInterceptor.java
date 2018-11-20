@@ -10,10 +10,7 @@ import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.local.SessionPacketForward;
-import com.itonglian.utils.CachePushFilter;
-import com.itonglian.utils.JsonUtils;
-import com.itonglian.utils.OfflineInterceptor;
-import com.itonglian.utils.StringUtils;
+import com.itonglian.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmpp.packet.Message;
@@ -41,7 +38,18 @@ public abstract class SessionInterceptor implements Interceptor{
 
     private boolean canPersistent = false;
 
+    private boolean canThreadPool = true;
+
     private OfflineInterceptor offlineInterceptor = new OfflineInterceptor();
+
+    private CustomThreadPool customThreadPool = CustomThreadPool.getInstance();
+
+
+    private SessionInterceptor setThreadPool(boolean set){
+        canThreadPool = set;
+        return this;
+    }
+
 
     public SessionInterceptor setOffline(boolean set){
         canOffline = set;
@@ -73,9 +81,22 @@ public abstract class SessionInterceptor implements Interceptor{
 
         sessionPacketForward.deliver();
 
-        OfMessage ofMessage = protocolToMessage(protocol,session_id);
+        if(canThreadPool){
+            final Protocol fProtocol = protocol;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    OfMessage ofMessage = protocolToMessage(fProtocol,session_id);
+                    persistent(ofMessage);
+                }
+            });
+            customThreadPool.getExecutorService().execute(thread);
+        }else{
+            OfMessage ofMessage = protocolToMessage(protocol,session_id);
+            persistent(ofMessage);
+        }
 
-        persistent(ofMessage);
+
     }
 
     private OfMessage protocolToMessage(Protocol protocol,String session_id){

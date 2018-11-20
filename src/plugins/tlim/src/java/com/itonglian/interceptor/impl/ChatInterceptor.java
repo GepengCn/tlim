@@ -39,7 +39,7 @@ public class ChatInterceptor implements Interceptor {
 
     StatusDao statusDao = StatusDaoImpl.getInstance();
 
-    ExecutorService executorService = CustomThreadPool.getExecutorService();
+    ExecutorService executorService = CustomThreadPool.getInstance().getExecutorService();
 
     private static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
 
