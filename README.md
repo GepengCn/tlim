@@ -1773,7 +1773,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
                 "msg_time": "1541488419370",
                 "msg_to": "cbf90f1bcc9f412eb2c8a0c0dc138ed8",
                 "msg_type": "MTS-000",
-                "recv":
+                "msg_status":0
             },
             {
                 xxx
@@ -1784,7 +1784,7 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
 
          ]
     }
-    注:recv [0:移动端未收,web未收]/[1:移动端未收,web已收]
+    注:msg_status [0:移动端未收,web未收]/[1:移动端未收,web已收]
     getThenClear [0:获取并清空离线消息]/[1:获取但是不清空离线消息]
 
 ---
