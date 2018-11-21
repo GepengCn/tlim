@@ -28,6 +28,11 @@ public interface StatusMapper {
     int isExist(@Param(value = "msg_id") String msg_id,
                 @Param(value = "reader") String reader);
 
+    @Select("SELECT * FROM ofstatus WHERE msg_id=#{msg_id} AND sender = #{sender}")
+    @Options(useCache = true)
+    List<OfStatus> findByMsgId(@Param(value = "msg_id") String msg_id,
+                               @Param(value = "sender") String sender);
+
     @Select("select msg_id,count(1) as readNum FROM ofstatus WHERE msg_id IN (SELECT t.msg_id" +
             " FROM (select * from ofmessage" +
             " WHERE session_id = #{session_id}" +

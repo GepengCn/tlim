@@ -134,5 +134,21 @@ public class StatusDaoImpl implements StatusDao {
         return messageReadList;
     }
 
+    @Override
+    public List<OfStatus> findByMsgId(String msg_id, String sender) {
+        List<OfStatus> ofStatusList = new ArrayList<>();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+        try {
+            ofStatusList = statusMapper.findByMsgId(msg_id,sender);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return ofStatusList;
+    }
+
 
 }

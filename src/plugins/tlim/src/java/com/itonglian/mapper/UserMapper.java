@@ -1,10 +1,7 @@
 package com.itonglian.mapper;
 
 import com.itonglian.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,5 +19,11 @@ public interface UserMapper {
     @Options(useCache = true)
     String findAppPushCode(@Param(value = "user_id") String user_id,
                            @Param(value = "dr") String dr);
+
+
+    @Update("UPDATE isc_user set app_push_code = #{app_push_code} WHERE user_id = #{user_id}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void registerAppPushCode(@Param(value = "app_push_code") String app_push_code,
+                             @Param(value = "user_id") String user_id);
 
 }

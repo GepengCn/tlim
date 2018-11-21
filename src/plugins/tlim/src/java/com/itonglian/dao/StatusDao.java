@@ -21,4 +21,6 @@ public interface StatusDao {
 
     List<MessageRead> findChatRead(String msg_from,String msg_to,int start,int length);
 
+    List<OfStatus> findByMsgId(String msg_id,String sender);
+
 }

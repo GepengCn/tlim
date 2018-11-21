@@ -84,5 +84,21 @@ public class UserDaoImpl implements UserDao {
         return appPushCode;
     }
 
+    @Override
+    public void registerAppPushCode(String userId, String appPushCode) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        try {
+            userMapper.registerAppPushCode(appPushCode,userId);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+    }
+
 
 }

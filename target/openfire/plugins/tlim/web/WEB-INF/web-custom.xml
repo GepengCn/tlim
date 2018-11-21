@@ -278,4 +278,24 @@
         <servlet-name>findChatRead</servlet-name>
         <url-pattern>/findChatRead</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findStatusList</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindStatusList</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findStatusList</servlet-name>
+        <url-pattern>/findStatusList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registerAppPushCode</servlet-name>
+        <servlet-class>com.itonglian.servlet.RegisterAppPushCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registerAppPushCode</servlet-name>
+        <url-pattern>/registerAppPushCode</url-pattern>
+    </servlet-mapping>
 </web-app>
