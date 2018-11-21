@@ -1,5 +1,6 @@
 package com.itonglian.dao.impl;
 
+import com.itonglian.bean.MessageRead;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfStatus;
 import com.itonglian.mapper.StatusMapper;
@@ -56,22 +57,6 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public List<OfStatus> findByReader(String reader) {
-        List<OfStatus> ofStatuses = new ArrayList<>();
-        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
-        SqlSession session = sqlSessionFactory.openSession();
-        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
-        try {
-            ofStatuses = statusMapper.findByReader(reader);
-        } catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-        }finally {
-            session.close();
-        }
-        return ofStatuses;
-    }
-
-    @Override
     public void delete(String msg_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
@@ -115,6 +100,22 @@ public class StatusDaoImpl implements StatusDao {
         }else{
             add(ofStatus);
         }
+    }
+
+    @Override
+    public List<MessageRead> findSessionRead(String session_id,int start,int length,String sender) {
+        List<MessageRead> messageReadList = new ArrayList<>();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+        try {
+            messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return messageReadList;
     }
 
 

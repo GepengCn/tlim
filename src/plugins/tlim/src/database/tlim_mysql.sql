@@ -88,7 +88,8 @@ create table ofstatus
 (
    id_                  int not null AUTO_INCREMENT,
    msg_id               varchar(64),
-   reader                 varchar(64),
+   sender               varchar(64),
+   reader               varchar(64),
    status               int,
    primary key (id_)
 )

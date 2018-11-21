@@ -37,10 +37,12 @@ public abstract class CommonInterceptor {
                         ofStatus.setMsg_id(revoke.getMsg_id());
                         ofStatus.setStatus(1);
                         ofStatus.setReader(protocol.getMsg_from());
+                        ofStatus.setSender(protocol.getMsg_to());
                     }else if(MessageUtils.where.mobile==MessageUtils.fromWeb(message)){
                         ofStatus.setMsg_id(revoke.getMsg_id());
                         ofStatus.setStatus(2);
                         ofStatus.setReader(protocol.getMsg_from());
+                        ofStatus.setSender(protocol.getMsg_to());
                     }
                     statusDao.save(ofStatus);
                 }

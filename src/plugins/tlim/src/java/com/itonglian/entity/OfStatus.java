@@ -1,19 +1,22 @@
 package com.itonglian.entity;
 
-import org.jivesoftware.util.JiveConstants;
-
 public class OfStatus {
 
     private long id_;
 
     private String msg_id;
 
+    private String sender;
+
     private String reader;
 
     private int status;
+    public String getSender() {
+        return sender;
+    }
 
-    public class ID_Contants extends JiveConstants {
-        public static final int STATUS_KEY =53;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public long getId_() {

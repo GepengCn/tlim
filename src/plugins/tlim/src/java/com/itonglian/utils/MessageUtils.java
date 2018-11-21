@@ -1,10 +1,8 @@
 package com.itonglian.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.entity.OfStatus;
 import com.itonglian.entity.User;
 import org.xmpp.packet.Message;
 
@@ -13,8 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 public class MessageUtils {
 
@@ -197,26 +193,6 @@ public class MessageUtils {
             return where.web;
         }
         return where.mobile;
-    }
-
-    public static void saveStatus(StatusDao statusDao,String body,String msg_from,Message message){
-        List<JsonUtils.Revoke> list = JsonUtils.getRevoke(body);
-        Iterator<JsonUtils.Revoke> iterator = list.iterator();
-        while(iterator.hasNext()){
-            JsonUtils.Revoke revoke = iterator.next();
-            OfStatus ofStatus = new OfStatus();
-            if(MessageUtils.where.web==MessageUtils.fromWeb(message)){
-                ofStatus.setMsg_id(revoke.getMsg_id());
-                ofStatus.setStatus(1);
-                ofStatus.setReader(msg_from);
-            }else if(MessageUtils.where.mobile==MessageUtils.fromWeb(message)){
-                ofStatus.setMsg_id(revoke.getMsg_id());
-                ofStatus.setStatus(2);
-                ofStatus.setReader(msg_from);
-            }
-
-            statusDao.save(ofStatus);
-        }
     }
 
     public enum where{
