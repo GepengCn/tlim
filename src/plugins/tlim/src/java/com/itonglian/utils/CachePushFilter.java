@@ -6,12 +6,17 @@ import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
+import org.jivesoftware.openfire.PresenceManager;
+import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.util.cache.Cache;
 import org.jivesoftware.util.cache.CacheFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmpp.packet.Presence;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 public class CachePushFilter {
 
@@ -33,6 +38,9 @@ public class CachePushFilter {
 
     private SessionDao sessionDao = SessionDaoImpl.getInstance();
 
+    PresenceManager presenceManager = XMPPServer.getInstance().getPresenceManager();
+
+
     private CachePushFilter(){
         cache = CacheFactory.createCache("tlimCaches");
         cache.setMaxCacheSize(-1);
@@ -48,6 +56,37 @@ public class CachePushFilter {
         }
         String user_id = ofMessage.getMsg_to();
         String appPushCode = userDao.findAppPushCodeByUserId(user_id);
+
+        Collection<Presence> list = presenceManager.getPresences(ofMessage.getMsg_to());
+
+        Iterator<Presence> iterator = list.iterator();
+
+        boolean offline = true;
+
+        boolean webOnline = false;
+
+        boolean mobileOnline = false;
+
+        while(iterator.hasNext()){
+            Presence presence = iterator.next();
+            if(presence!=null&&presence.getShow()==null){
+                String resource = presence.getFrom().getResource();
+                if(StringUtils.isNullOrEmpty(resource)||!resource.contains("[web]")){
+                    offline = false;
+                }
+
+                if(resource.contains("[web]")){
+                    webOnline = true;
+                }else{
+                    mobileOnline = true;
+                }
+            }
+        }
+        if(!offline){
+            if(mobileOnline){
+                return;
+            }
+        }
         String combineKv = MessageUtils.combineKv(ofMessage.getMsg_id(),appPushCode);
         if(cache.containsKey(combineKv)){
             return;
