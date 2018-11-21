@@ -118,5 +118,21 @@ public class StatusDaoImpl implements StatusDao {
         return messageReadList;
     }
 
+    @Override
+    public List<MessageRead> findChatRead(String msg_from, String msg_to, int start, int length) {
+        List<MessageRead> messageReadList = new ArrayList<>();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+        try {
+            messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return messageReadList;
+    }
+
 
 }

@@ -268,4 +268,14 @@
         <servlet-name>findSessionRead</servlet-name>
         <url-pattern>/findSessionRead</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findChatRead</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindChatRead</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findChatRead</servlet-name>
+        <url-pattern>/findChatRead</url-pattern>
+    </servlet-mapping>
 </web-app>
