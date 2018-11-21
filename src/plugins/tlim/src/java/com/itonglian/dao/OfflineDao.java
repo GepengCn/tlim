@@ -17,6 +17,8 @@ public interface OfflineDao {
 
     List<OfCustomOffline> findByUser(String user_id);
 
+    List<OfCustomOffline> findByUserAfterThatTime(String user_id,String msg_time);
+
     OfCustomOffline findByMsgId(String msg_id);
 
     List<OfCustomOffline> findAll();

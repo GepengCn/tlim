@@ -28,6 +28,11 @@ public interface OfflineMapper {
     @Options(useCache = true)
     List<OfCustomOffline> findByUser(@Param(value = "msg_to") String msg_to);
 
+    @Select("SELECT * FROM ofcustomoffline WHERE msg_to = #{msg_to} AND msg_time >=#{msg_time}")
+    @Options(useCache = true)
+    List<OfCustomOffline> findByUserAfterThatTime(@Param(value = "msg_to") String msg_to,
+                                                  @Param(value = "msg_time") String msg_time);
+
     @Select("SELECT * FROM ofcustomoffline WHERE msg_id = #{msg_id}")
     @Options(useCache = true)
     List<OfCustomOffline> findByMsgId(@Param(value = "msg_id") String msg_id);

@@ -1,7 +1,9 @@
 package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.OfflineDao;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.utils.MessageUtils;
@@ -23,6 +25,8 @@ public class GetOffline extends HttpServlet {
 
     OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
+    MessageDao messageDao = MessageDaoImpl.getInstance();
+
     private static final Logger Log = LoggerFactory.getLogger(GetOffline.class);
 
 
@@ -41,19 +45,28 @@ public class GetOffline extends HttpServlet {
 
         String user_id = req.getParameter("user_id");
 
+        String msg_id = req.getParameter("msg_id");
+
         String getThenClear = req.getParameter("getThenClear");
 
-        Log.error("getOffline,getThenClear="+getThenClear);
-
         boolean clear = true;
+
+        String msg_time = messageDao.findMessageTime(msg_id);
 
         if(!StringUtils.isNullOrEmpty(getThenClear)&&"1".equals(getThenClear)){
             clear = false;
         }
-        doBack(new BackJson("ok","",offlineDao.findByUser(user_id)),printWriter);
+
+        List<OfCustomOffline> customOfflineList;
+
+        if(StringUtils.isNullOrEmpty(msg_time)){
+            customOfflineList = offlineDao.findByUser(user_id);
+        }else{
+            customOfflineList = offlineDao.findByUserAfterThatTime(user_id,msg_time);
+        }
+        doBack(new BackJson("ok","",customOfflineList),printWriter);
 
         if(clear){
-            Log.error("getOffline,deleteByUser");
             offlineDao.deleteByUser(user_id);
         }
 

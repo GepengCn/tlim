@@ -106,6 +106,22 @@ public class OfflineDaoImpl implements OfflineDao {
     }
 
     @Override
+    public List<OfCustomOffline> findByUserAfterThatTime(String user_id, String msg_time) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        List<OfCustomOffline> ofCustomOfflines = new ArrayList<>();
+        OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
+        try {
+            ofCustomOfflines = offlineMapper.findByUserAfterThatTime(user_id,msg_time);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return ofCustomOfflines;
+    }
+
+    @Override
     public OfCustomOffline findByMsgId(String msg_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
