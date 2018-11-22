@@ -177,6 +177,7 @@ public class MessageUtils {
         ofCustomOffline.setMsg_type(ofMessage.getMsg_type());
         ofCustomOffline.setMsg_time(ofMessage.getMsg_time());
         ofCustomOffline.setSession_id(ofMessage.getSession_id());
+        ofCustomOffline.setDelete_user(ofMessage.getMsg_to());
         return ofCustomOffline;
     }
 

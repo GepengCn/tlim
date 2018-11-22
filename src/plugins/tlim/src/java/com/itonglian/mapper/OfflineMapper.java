@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OfflineMapper {
 
-    @Insert("INSERT INTO ofcustomoffline (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id,msg_status) VALUES(#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id},#{msg_status})")
+    @Insert("INSERT INTO ofcustomoffline (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id,msg_status,delete_user) VALUES(#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id},#{msg_status},#{delete_user})")
     @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)
     void insertOffline(OfCustomOffline ofCustomOffline);
 
@@ -20,17 +20,17 @@ public interface OfflineMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteByMsgId(@Param(value = "msg_id") String msg_id);
 
-    @Delete("DELETE FROM ofcustomoffline WHERE msg_to = #{msg_to}")
+    @Delete("DELETE FROM ofcustomoffline WHERE delete_user = #{delete_user}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
-    void deleteByUser(@Param(value = "msg_to") String msg_to);
+    void deleteByUser(@Param(value = "delete_user") String delete_user);
 
-    @Select("SELECT * FROM ofcustomoffline WHERE msg_to = #{msg_to}")
+    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user}")
     @Options(useCache = true)
-    List<OfCustomOffline> findByUser(@Param(value = "msg_to") String msg_to);
+    List<OfCustomOffline> findByUser(@Param(value = "delete_user") String delete_user);
 
-    @Select("SELECT * FROM ofcustomoffline WHERE msg_to = #{msg_to} AND msg_time >=#{msg_time}")
+    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user} AND msg_time >=#{msg_time}")
     @Options(useCache = true)
-    List<OfCustomOffline> findByUserAfterThatTime(@Param(value = "msg_to") String msg_to,
+    List<OfCustomOffline> findByUserAfterThatTime(@Param(value = "delete_user") String delete_user,
                                                   @Param(value = "msg_time") String msg_time);
 
     @Select("SELECT * FROM ofcustomoffline WHERE msg_id = #{msg_id}")
@@ -45,8 +45,8 @@ public interface OfflineMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteBySession(@Param(value = "session_id") String session_id);
 
-    @Delete("DELETE FROM ofcustomoffline WHERE user_id = #{user_id} AND msg_id = #{msg_id}")
+    @Delete("DELETE FROM ofcustomoffline WHERE delete_user = #{delete_user} AND msg_id = #{msg_id}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
-    void deleteByUserAndId(@Param(value = "user_id") String user_id,
+    void deleteByUserAndId(@Param(value = "delete_user") String delete_user,
                            @Param(value = "msg_id") String msg_id);
 }

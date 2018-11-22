@@ -13,7 +13,7 @@ public interface OfflineDao {
 
     void delete(String msg_id);
 
-    void deleteByUser(String user_id);
+    void deleteByUser(String delete_user);
 
     List<OfCustomOffline> findByUser(String user_id);
 
