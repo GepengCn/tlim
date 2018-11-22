@@ -55,6 +55,11 @@ public class CachePushFilter {
             return;
         }
         String user_id = ofMessage.getMsg_to();
+
+        if(ofMessage.getMsg_to().equals(ofMessage.getMsg_from())){
+            return;
+        }
+
         String appPushCode = userDao.findAppPushCodeByUserId(user_id);
 
         Collection<Presence> list = presenceManager.getPresences(ofMessage.getMsg_to());
@@ -71,10 +76,9 @@ public class CachePushFilter {
             Presence presence = iterator.next();
             if(presence!=null&&presence.getShow()==null){
                 String resource = presence.getFrom().getResource();
-                if(StringUtils.isNullOrEmpty(resource)||!resource.contains("[web]")){
+                if(!StringUtils.isNullOrEmpty(resource)){
                     offline = false;
                 }
-
                 if(resource.contains("[web]")){
                     webOnline = true;
                 }else{

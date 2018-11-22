@@ -12,6 +12,6 @@ public class ChatReadInterceptor extends ChatInterceptor {
 
     @Override
     public void build(Protocol protocol, Message message) throws Exception {
-        setCanPersistent(false).setJgPush(false).setOffline(false).setRead(true);
+        setCanPersistent(false).setJgPush(false).setOffline(true).setRead(true);
     }
 }

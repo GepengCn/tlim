@@ -57,4 +57,10 @@ public class OfflineInterceptor {
         }
     }
 
+
+    private OfCustomOffline copyOfCustomOffline(OfCustomOffline ofCustomOffline){
+        ofCustomOffline.setMsg_to(ofCustomOffline.getMsg_from());
+        return ofCustomOffline;
+    }
+
 }

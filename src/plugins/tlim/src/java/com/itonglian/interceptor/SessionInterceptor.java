@@ -42,6 +42,11 @@ public abstract class SessionInterceptor extends CommonInterceptor implements In
 
     private boolean canRead = false;
 
+    private static final String ASYNC = "ASYNC";
+
+
+
+
     private OfflineInterceptor offlineInterceptor = new OfflineInterceptor();
 
     public SessionInterceptor setThreadPool(boolean set){
@@ -72,6 +77,9 @@ public abstract class SessionInterceptor extends CommonInterceptor implements In
 
     public void handler(Protocol protocol, Message message) throws Exception{
 
+        if(ASYNC.equals(message.getSubject())){
+            return;
+        }
         build(protocol,message);
 
         session_id = JsonUtils.getSessionId(protocol.getBody());

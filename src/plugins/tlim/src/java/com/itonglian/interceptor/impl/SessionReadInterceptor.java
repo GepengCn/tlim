@@ -9,7 +9,7 @@ public class SessionReadInterceptor extends SessionInterceptor {
     @Override
     public void build(Protocol protocol, Message message) throws Exception {
 
-        setOffline(false).setJgPush(false).setCanPersistent(false).setRead(true);
+        setOffline(true).setJgPush(false).setCanPersistent(false).setRead(true);
 
     }
 

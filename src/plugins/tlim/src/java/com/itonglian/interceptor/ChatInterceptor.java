@@ -3,9 +3,12 @@ package com.itonglian.interceptor;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.MessageDao;
+import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
+import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfChat;
+import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
 import com.itonglian.utils.*;
@@ -28,9 +31,10 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
 
     private MessageDao messageDao = MessageDaoImpl.getInstance();
 
-    public abstract void build(Protocol protocol, Message message) throws Exception;
+    OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
-    private boolean canCopyToSelf = false;
+
+    public abstract void build(Protocol protocol, Message message) throws Exception;
 
     private boolean canOffline = false;
 
@@ -41,6 +45,8 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
     private boolean canThreadPool = true;
 
     private boolean canRead = false;
+
+    private static final String ASYNC = "ASYNC";
 
 
 
@@ -73,6 +79,10 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
     @Override
     public void handler(final Protocol protocol, Message message) throws Exception {
 
+        if(ASYNC.equals(message.getSubject())){
+            return;
+        }
+
         build(protocol,message);
 
         OfMessage ofMessage = new OfMessage();
@@ -94,7 +104,6 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
         if(canPersistent){
             if(canThreadPool){
                 final OfMessage ofMessage1= ofMessage;
-                final Message message1 = message;
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -106,11 +115,6 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
                 persistent(protocol,ofMessage);
             }
         }
-        if(canCopyToSelf){
-            Message copy = message.createCopy();
-            copy.setTo(new JID(MessageUtils.toJid(protocol.getMsg_from())));
-            packetDeliverer.deliver(copy);
-        }
         if(canJgPush){
             CachePushFilter.getInstance().push(ofMessage);
         }
@@ -121,6 +125,14 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
         if(canRead){
             handlerRead(protocol,message);
         }
+
+        Message copyToMe = message.createCopy();
+
+        copyToMe.setTo(message.getFrom().toBareJID());
+
+        copyToMe.setSubject(ASYNC);
+
+        packetDeliverer.deliver(copyToMe);
     }
 
     private void persistent(Protocol protocol,OfMessage ofMessage){
