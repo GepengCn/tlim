@@ -134,6 +134,7 @@ msg_time varchar(20) NULL,
 body varchar(3960) NULL,
 session_id varchar(64) NULL,
 msg_status int NULL,
+delete_user varchar(64),
 PRIMARY KEY (id_)
 )
 DEFAULT CHARACTER SET = utf8;
