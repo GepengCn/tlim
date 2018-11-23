@@ -12,6 +12,8 @@ drop table ofstyle cascade constraints;
 
 drop table ofsubscriber cascade constraints;
 
+drop table ofcustomoffline cascade constraints;
+
 /*==============================================================*/
 /* Table: ofchat                                              */
 /*==============================================================*/
@@ -81,10 +83,9 @@ create table ofstatus
 (
    id_                INTEGER              not null,
    msg_id             VARCHAR2(64),
-   msg_to             VARCHAR2(64),
-   msg_type           VARCHAR2(64),
+   sender             VARCHAR2(64),
+   reader           VARCHAR2(64),
    status             INTEGER,
-   session_id         VARCHAR2(64),
    constraint PK_OFSTATUS primary key (id_)
 );
 
@@ -112,6 +113,25 @@ create table ofsubscriber
    session_id         VARCHAR2(64)         not null,
    ts                 VARCHAR2(20),
    constraint PK_OFSUBSCRIBER primary key (user_id, session_id)
+);
+
+
+/*==============================================================*/
+/* Table: ofcustomoffline                                        */
+/*==============================================================*/
+create table ofcustomoffline
+(
+   id_                INTEGER              not null,
+   msg_id             VARCHAR2(64),
+   msg_type           VARCHAR2(20),
+   msg_from           VARCHAR2(64),
+   msg_to             VARCHAR2(64),
+   msg_time           VARCHAR2(20),
+   body               VARCHAR2(3960),
+   session_id         VARCHAR2(64),
+   msg_status         INTEGER,
+   delete_user        VARCHAR2(64),
+   constraint PK_OFCUSTOMOFFLINE primary key (id_)
 );
 
 INSERT INTO ofVersion(name,version) values('tlim',1);
