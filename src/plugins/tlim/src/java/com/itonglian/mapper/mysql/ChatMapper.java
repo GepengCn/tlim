@@ -1,4 +1,4 @@
-package com.itonglian.mapper;
+package com.itonglian.mapper.mysql;
 
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfSession;

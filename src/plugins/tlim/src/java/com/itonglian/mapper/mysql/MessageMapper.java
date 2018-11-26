@@ -1,4 +1,4 @@
-package com.itonglian.mapper;
+package com.itonglian.mapper.mysql;
 
 import com.itonglian.entity.Message;
 import com.itonglian.entity.OfMessage;
@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-public interface MessageMapper {
+public interface MessageMapper{
 
     @Insert("INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id})")
     @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)

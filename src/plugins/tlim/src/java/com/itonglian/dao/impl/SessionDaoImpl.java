@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.SessionDao;
 import com.itonglian.entity.OfSession;
-import com.itonglian.mapper.SessionMapper;
+import com.itonglian.mapper.mysql.SessionMapper;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;

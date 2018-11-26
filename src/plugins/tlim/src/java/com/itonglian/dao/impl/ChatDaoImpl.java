@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.ChatDao;
 import com.itonglian.entity.OfChat;
-import com.itonglian.mapper.ChatMapper;
+import com.itonglian.mapper.mysql.ChatMapper;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;

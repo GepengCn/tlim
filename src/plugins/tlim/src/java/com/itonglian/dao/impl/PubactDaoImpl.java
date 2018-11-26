@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.PubactDao;
 import com.itonglian.entity.OfPubact;
-import com.itonglian.mapper.PubactMapper;
+import com.itonglian.mapper.mysql.PubactMapper;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import com.itonglian.utils.StringUtils;

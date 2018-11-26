@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.UserDao;
 import com.itonglian.entity.User;
-import com.itonglian.mapper.UserMapper;
+import com.itonglian.mapper.mysql.UserMapper;
 import com.itonglian.utils.MyBatisSessionFactory;
 import com.itonglian.utils.UserCacheManager;
 import org.apache.commons.lang.exception.ExceptionUtils;

@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.StyleDao;
 import com.itonglian.entity.OfStyle;
-import com.itonglian.mapper.StyleMapper;
+import com.itonglian.mapper.mysql.StyleMapper;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;

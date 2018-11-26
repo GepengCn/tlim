@@ -3,7 +3,9 @@ package com.itonglian.dao.impl;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.entity.Message;
 import com.itonglian.entity.OfMessage;
-import com.itonglian.mapper.MessageMapper;
+import com.itonglian.enums.DBType;
+import com.itonglian.mapper.mysql.MessageMapper;
+import com.itonglian.utils.DBUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -29,11 +31,15 @@ public class MessageDaoImpl implements MessageDao {
 
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
-
         List<OfMessage> messageList = new ArrayList<>();
         try {
-            messageList = messageMapper.findPageBySession(session_id,start,length);
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                messageList = messageMapper.findPageBySession(session_id,start,length);
+            }else{
+                MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+                messageList = messageMapper.findPageBySession(session_id,start,length);
+            }
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
@@ -82,11 +88,17 @@ public class MessageDaoImpl implements MessageDao {
     public List<OfMessage> findChatHistory(String msg_from, String msg_to, int start, int length) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
 
         List<OfMessage> messageList = new ArrayList<>();
         try {
-            messageList = messageMapper.findPageByChat(msg_from,msg_to,"%MTT%",start,length);
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                messageList = messageMapper.findPageByChat(msg_from,msg_to,"%MTT%",start,length);
+            }else {
+                MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+                messageList = messageMapper.findPageByChat(msg_from,msg_to,"%MTT%",start,length);
+            }
+
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {

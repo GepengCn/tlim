@@ -3,7 +3,7 @@ package com.itonglian.dao.impl;
 import com.itonglian.bean.MessageRead;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfStatus;
-import com.itonglian.mapper.StatusMapper;
+import com.itonglian.mapper.mysql.StatusMapper;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;

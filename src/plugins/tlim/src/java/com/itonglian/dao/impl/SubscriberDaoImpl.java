@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.SubscriberDao;
 import com.itonglian.entity.OfSubscriber;
-import com.itonglian.mapper.SubscriberMapper;
+import com.itonglian.mapper.mysql.SubscriberMapper;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;

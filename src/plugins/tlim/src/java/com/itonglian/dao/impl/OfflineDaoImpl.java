@@ -2,7 +2,7 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.OfflineDao;
 import com.itonglian.entity.OfCustomOffline;
-import com.itonglian.mapper.OfflineMapper;
+import com.itonglian.mapper.mysql.OfflineMapper;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;
