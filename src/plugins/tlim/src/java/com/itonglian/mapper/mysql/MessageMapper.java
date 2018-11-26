@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface MessageMapper{
 
-    @Insert("INSERT INTO ofmessage (msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id})")
-    @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)
+    @Insert("INSERT INTO ofmessage (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id) VALUES(#{id_},#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id})")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void insertMessage(OfMessage ofMessage);
 
 

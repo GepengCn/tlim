@@ -4,7 +4,7 @@ import org.jivesoftware.util.JiveConstants;
 
 public class OfStyle {
 
-    private long style_id;
+    private String style_id;
 
     private String style_name;
 
@@ -21,16 +21,11 @@ public class OfStyle {
         this.user_id = user_id;
     }
 
-    public class ID_Contants extends JiveConstants {
-        public static final int STYLE_KEY =58;
-    }
-
-
-    public long getStyle_id() {
+    public String getStyle_id() {
         return style_id;
     }
 
-    public void setStyle_id(long style_id) {
+    public void setStyle_id(String style_id) {
         this.style_id = style_id;
     }
 

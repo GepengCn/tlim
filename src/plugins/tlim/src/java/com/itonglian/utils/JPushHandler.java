@@ -32,7 +32,7 @@ public class JPushHandler implements Runnable{
 
     @Override
     public void run() {
-        JPushClient jpushClient = new JPushClient("3554ac2d8b507c13dae5e626", "42e2be00b39b8f9f177b119d", null, ClientConfig.getInstance());
+        JPushClient jpushClient = new JPushClient("83a8c468321366eb977c61f2", "90fd74bf44097c9bb69c3fd1", null, ClientConfig.getInstance());
         try {
             content = StringUtils.contentfilter(content);
             PushPayload payload = buildPushObject_all_all_alert(appPushCode,content,sessionName);

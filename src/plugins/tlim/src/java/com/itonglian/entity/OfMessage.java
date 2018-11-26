@@ -11,7 +11,7 @@ import org.jivesoftware.util.JiveConstants;
  */
 public class OfMessage {
 
-    private long id_;
+    private String id_;
     /** 消息id;唯一;uuid */
     private String msg_id;
     /** 消息类型,eg.MTT-000 */
@@ -27,11 +27,11 @@ public class OfMessage {
 
     private String session_id;
 
-    public long getId_() {
+    public String getId_() {
         return id_;
     }
 
-    public void setId_(long id_) {
+    public void setId_(String id_) {
         this.id_ = id_;
     }
 

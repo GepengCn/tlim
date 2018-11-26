@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PubactDaoImpl implements PubactDao {
 
@@ -32,7 +33,7 @@ public class PubactDaoImpl implements PubactDao {
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
         try {
-            pubactMapper.insertPubact(title,content,user_id, MessageUtils.getTs(),session_id);
+            pubactMapper.insertPubact(UUID.randomUUID().toString(),title,content,user_id, MessageUtils.getTs(),session_id);
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

@@ -35,7 +35,7 @@ create table ofchat
 /*==============================================================*/
 create table ofcustomoffline
 (
-   id_                  int not null auto_increment comment '主键',
+   id_                  varchar(64) not null comment '主键',
    msg_id               varchar(64) comment '消息id',
    msg_type             varchar(20) comment '消息类型',
    msg_from             varchar(64) comment '发送者',
@@ -53,7 +53,7 @@ create table ofcustomoffline
 /*==============================================================*/
 create table ofmessage
 (
-   id_                  int not null auto_increment comment '主键',
+   id_                  varchar(64) not null comment '主键',
    msg_id               varchar(64) comment '消息id',
    msg_type             varchar(20) comment '消息类型',
    msg_from             varchar(64) comment '发送人',
@@ -70,7 +70,7 @@ create table ofmessage
 /*==============================================================*/
 create table ofpubact
 (
-   id_                  int not null auto_increment comment '主键',
+   id_                  varchar(64) not null comment '主键',
    title                varchar(256) comment '标题',
    content              varchar(3920) comment '内容',
    user_id              varchar(64) comment '创建用户',
@@ -103,7 +103,7 @@ create table ofsession
 /*==============================================================*/
 create table ofstatus
 (
-   id_                  int not null auto_increment comment '主键',
+   id_                  varchar(64) not null comment '主键',
    msg_id               varchar(64) comment '消息id',
    sender               varchar(64) comment '发送者',
    reader               varchar(64) comment '接收者',
@@ -117,7 +117,7 @@ create table ofstatus
 /*==============================================================*/
 create table ofstyle
 (
-   style_id             int not null auto_increment comment '主键',
+   style_id             varchar(64) not null comment '主键',
    style_name           varchar(64) comment '风格名称',
    style_value          int comment '风格值',
    user_id              varchar(64) comment '用户id',
@@ -139,8 +139,6 @@ create table ofsubscriber
    primary key (user_id, session_id)
 )
    DEFAULT CHARACTER SET = utf8;
-
-
 
 
 INSERT INTO ofVersion(name,version) values('tlim',1);

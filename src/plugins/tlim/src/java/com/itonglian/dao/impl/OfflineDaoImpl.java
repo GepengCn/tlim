@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OfflineDaoImpl implements OfflineDao {
 
@@ -30,6 +31,7 @@ public class OfflineDaoImpl implements OfflineDao {
         SqlSession session = sqlSessionFactory.openSession();
         OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
+            ofCustomOffline.setId_(UUID.randomUUID().toString());
             offlineMapper.insertOffline(ofCustomOffline);
             session.commit();
         } catch (Exception e){

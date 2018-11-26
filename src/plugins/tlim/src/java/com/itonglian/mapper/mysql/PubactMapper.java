@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface PubactMapper {
 
-    @Insert("INSERT INTO ofpubact (title,content,user_id,ts,session_id) values(#{title},#{content},#{user_id},#{ts},#{session_id})")
-    @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)
-    void insertPubact(@Param(value = "title") String title,
+    @Insert("INSERT INTO ofpubact (id_,title,content,user_id,ts,session_id) values(#{id_},#{title},#{content},#{user_id},#{ts},#{session_id})")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void insertPubact(@Param(value = "id_") String id_,
+                      @Param(value = "title") String title,
                       @Param(value = "content") String content,
                       @Param(value = "user_id") String user_id,
                       @Param(value = "ts") String ts,

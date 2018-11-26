@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class StatusDaoImpl implements StatusDao {
 
@@ -30,6 +31,7 @@ public class StatusDaoImpl implements StatusDao {
         SqlSession session = sqlSessionFactory.openSession();
         StatusMapper statusMapper = session.getMapper(StatusMapper.class);
         try {
+            ofStatus.setId_(UUID.randomUUID().toString());
             statusMapper.insertStatus(ofStatus);
             session.commit();
         } catch (Exception e){

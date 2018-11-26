@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MessageDaoImpl implements MessageDao {
 
@@ -52,13 +53,23 @@ public class MessageDaoImpl implements MessageDao {
     public void insert(OfMessage ofMessage) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
-        int isExist = messageMapper.isExist(ofMessage.getMsg_id());
-        if(isExist>0||isExist==-1){
-            return;
-        }
+        ofMessage.setId_(UUID.randomUUID().toString());
         try {
-            messageMapper.insertMessage(ofMessage);
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                int isExist = messageMapper.isExist(ofMessage.getMsg_id());
+                if(isExist>0||isExist==-1){
+                    return;
+                }
+                messageMapper.insertMessage(ofMessage);
+            }else{
+                MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+                int isExist = messageMapper.isExist(ofMessage.getMsg_id());
+                if(isExist>0||isExist==-1){
+                    return;
+                }
+                messageMapper.insertMessage(ofMessage);
+            }
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

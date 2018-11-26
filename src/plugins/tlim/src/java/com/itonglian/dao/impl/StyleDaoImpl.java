@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class StyleDaoImpl implements StyleDao {
 
@@ -29,6 +30,7 @@ public class StyleDaoImpl implements StyleDao {
         SqlSession session = sqlSessionFactory.openSession();
         StyleMapper styleMapper = session.getMapper(StyleMapper.class);
         try {
+            ofStyle.setStyle_id(UUID.randomUUID().toString());
             styleMapper.insertStyle(ofStyle);
             session.commit();
         } catch (Exception e){

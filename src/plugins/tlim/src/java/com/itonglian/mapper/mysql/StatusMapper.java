@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface StatusMapper {
 
-    @Insert("INSERT INTO ofstatus (msg_id,sender,reader,status) values(#{msg_id},#{sender},#{reader},#{status})")
-    @Options(useGeneratedKeys=true, keyProperty="id_", keyColumn="id_",flushCache = Options.FlushCachePolicy.TRUE)
+    @Insert("INSERT INTO ofstatus (id_,msg_id,sender,reader,status) values(#{id_},#{msg_id},#{sender},#{reader},#{status})")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void insertStatus(OfStatus ofStatus);
 
     @Update("UPDATE ofstatus SET status=#{status} WHERE msg_id=#{msg_id} AND reader = #{reader}")

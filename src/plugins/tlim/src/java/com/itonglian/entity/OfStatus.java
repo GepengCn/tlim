@@ -2,7 +2,7 @@ package com.itonglian.entity;
 
 public class OfStatus {
 
-    private long id_;
+    private String id_;
 
     private String msg_id;
 
@@ -19,11 +19,11 @@ public class OfStatus {
         this.sender = sender;
     }
 
-    public long getId_() {
+    public String getId_() {
         return id_;
     }
 
-    public void setId_(long id_) {
+    public void setId_(String id_) {
         this.id_ = id_;
     }
 

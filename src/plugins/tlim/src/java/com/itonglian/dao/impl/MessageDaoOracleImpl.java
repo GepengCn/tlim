@@ -45,7 +45,7 @@ public class MessageDaoOracleImpl extends MessageDaoImpl implements MessageDao {
 
             while(resultSet.next()){
                 OfMessage ofMessage = new OfMessage();
-                ofMessage.setId_(resultSet.getLong("id_"));
+                ofMessage.setId_(resultSet.getString("id_"));
                 ofMessage.setMsg_id(resultSet.getString("msg_id"));
                 ofMessage.setMsg_type(resultSet.getString("msg_type"));
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));
@@ -86,7 +86,7 @@ public class MessageDaoOracleImpl extends MessageDaoImpl implements MessageDao {
 
             while(resultSet.next()){
                 OfMessage ofMessage = new OfMessage();
-                ofMessage.setId_(resultSet.getLong("id_"));
+                ofMessage.setId_(resultSet.getString("id_"));
                 ofMessage.setMsg_id(resultSet.getString("msg_id"));
                 ofMessage.setMsg_type(resultSet.getString("msg_type"));
                 ofMessage.setMsg_from(resultSet.getString("msg_from"));

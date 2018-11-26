@@ -4,7 +4,7 @@ import org.jivesoftware.util.JiveConstants;
 
 public class OfPubact {
 
-    private long id_;
+    private String id_;
 
     private String title;
 
@@ -21,12 +21,11 @@ public class OfPubact {
         public static final int PRIMARY_KEY =55;
     }
 
-
-    public long getId_() {
+    public String getId_() {
         return id_;
     }
 
-    public void setId_(long id_) {
+    public void setId_(String id_) {
         this.id_ = id_;
     }
 
