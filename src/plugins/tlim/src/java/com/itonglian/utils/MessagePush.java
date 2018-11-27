@@ -2,9 +2,7 @@ package com.itonglian.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
-import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.MessageDao;
-import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.entity.OfMessage;
 import org.jivesoftware.openfire.PacketDeliverer;
@@ -18,8 +16,6 @@ import java.util.UUID;
 public class MessagePush {
 
     private static final String ADMIN = "admin";
-
-    private static ChatDao chatDao = ChatDaoImpl.getInstance();
 
     private static PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 

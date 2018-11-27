@@ -298,4 +298,14 @@
         <servlet-name>registerAppPushCode</servlet-name>
         <url-pattern>/registerAppPushCode</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>systemMessage</servlet-name>
+        <servlet-class>com.itonglian.servlet.SystemMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>systemMessage</servlet-name>
+        <url-pattern>/systemMessage</url-pattern>
+    </servlet-mapping>
 </web-app>

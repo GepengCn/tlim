@@ -1882,6 +1882,7 @@ message.addExtension(new Extension());
 4. url[自定义跳转]
 5. mark[备注]
 6. random[预留]
+7. type[类型]
 
 ```
 
