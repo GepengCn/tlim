@@ -19,7 +19,7 @@ create table ofchat  (
 /* table: ofcustomoffline                                     */
 /*==============================================================*/
 create table ofcustomoffline  (
-   id_                number(6)                       not null,
+   id_                varchar2(64)                       not null,
    msg_id             varchar2(64),
    msg_type           varchar2(20),
    msg_from           varchar2(64),
@@ -36,7 +36,7 @@ create table ofcustomoffline  (
 /* table: ofmessage                                           */
 /*==============================================================*/
 create table ofmessage  (
-   id_                number(6)                       not null,
+   id_                varchar2(64)                      not null,
    msg_id             varchar2(64),
    msg_type           varchar2(20),
    msg_from           varchar2(64),
@@ -51,7 +51,7 @@ create table ofmessage  (
 /* table: ofpubact                                            */
 /*==============================================================*/
 create table ofpubact  (
-    id_                number(6)                       not null,
+    id_                varchar2(64)                       not null,
     title              varchar2(256),
     content            varchar2(3920),
     user_id            varchar2(64),
@@ -80,7 +80,7 @@ create table ofsession  (
 /* table: ofstatus                                            */
 /*==============================================================*/
 create table ofstatus  (
-  id_                number(6)                       not null,
+  id_                varchar2(64)                       not null,
   msg_id             varchar2(64),
   sender             varchar2(64),
   reader             varchar2(64),
@@ -93,7 +93,7 @@ create table ofstatus  (
 /* table: ofstyle                                             */
 /*==============================================================*/
 create table ofstyle  (
-   style_id           number(6)                       not null,
+   style_id           varchar2(64)                       not null,
    style_name         varchar2(64),
    style_value        integer,
    user_id            varchar2(64),

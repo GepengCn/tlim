@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OfflineMapper {
 
-    @Insert("INSERT INTO ofcustomoffline (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id,msg_status,delete_user) VALUES(#{id_},#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time},#{body},#{session_id},#{msg_status},#{delete_user})")
+    @Insert("INSERT INTO ofcustomoffline (id_,msg_id,msg_type,msg_from,msg_to,msg_time,body,session_id,msg_status,delete_user) VALUES(#{id_},#{msg_id},#{msg_type},#{msg_from},#{msg_to},#{msg_time,jdbcType=VARCHAR},#{body},#{session_id},#{msg_status},#{delete_user})")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void insertOffline(OfCustomOffline ofCustomOffline);
 

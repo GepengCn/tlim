@@ -93,6 +93,7 @@ public class AddSession extends HttpServlet {
                 if(user==null){
                     continue;
                 }
+                ofSubscriber.setUser_id(ofSubscriber.getUser_id());
                 ofSubscriber.setSession_id(sessionId);
                 ofSubscriber.setUser_name(user.getUser_name());
                 ofSubscriber.setPic(user.getPic_url());

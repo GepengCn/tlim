@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.apache.ibatis.type.JdbcType;
 import org.jivesoftware.util.JiveGlobals;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,9 @@ public class MyBatisSessionFactory {
         configuration.addMapper(StyleMapper.class);
         configuration.addMapper(UserMapper.class);
         configuration.addMapper(com.itonglian.mapper.oracle.MessageMapper.class);
-        configuration.setLazyLoadingEnabled(true);
+        configuration.addMapper(com.itonglian.mapper.oracle.StatusMapper.class);
         configuration.setCacheEnabled(true);
+        configuration.setJdbcTypeForNull(JdbcType.NULL);
         String driver = JiveGlobals.getXMLProperty("database.defaultProvider.driver");
         switch (driver){
             case "oracle.jdbc.driver.OracleDriver":

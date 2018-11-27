@@ -3,7 +3,9 @@ package com.itonglian.dao.impl;
 import com.itonglian.bean.MessageRead;
 import com.itonglian.dao.StatusDao;
 import com.itonglian.entity.OfStatus;
+import com.itonglian.enums.DBType;
 import com.itonglian.mapper.mysql.StatusMapper;
+import com.itonglian.utils.DBUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -109,9 +111,16 @@ public class StatusDaoImpl implements StatusDao {
         List<MessageRead> messageReadList = new ArrayList<>();
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+
         try {
-            messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.oracle.StatusMapper.class);
+                messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
+            }else{
+                StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+                messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
+            }
+
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {

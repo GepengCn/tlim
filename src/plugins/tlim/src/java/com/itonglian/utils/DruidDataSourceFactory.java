@@ -39,6 +39,10 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dds.setTestOnReturn(false);
         dds.setPoolPreparedStatements(true);
         dds.setMaxOpenPreparedStatements(50);
+        String driver = JiveGlobals.getXMLProperty("database.defaultProvider.driver");
+        if("oracle.jdbc.driver.OracleDriver".equals(driver)){
+            dds.setOracle(true);
+        }
         // 其他配置可以根据MyBatis主配置文件进行配置
         try {
             dds.init();
