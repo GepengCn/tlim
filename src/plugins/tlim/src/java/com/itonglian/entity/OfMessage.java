@@ -1,7 +1,5 @@
 package com.itonglian.entity;
 
-import org.jivesoftware.util.JiveConstants;
-
 /**
  * <p> 概述：消息实体
  * <p> 功能：消息实体
