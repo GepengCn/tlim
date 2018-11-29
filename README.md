@@ -1870,6 +1870,7 @@ message.addExtension(new Extension());
 1:退回
 2:通知公告
 3:工资条
+4:邮件
 
 ```
 

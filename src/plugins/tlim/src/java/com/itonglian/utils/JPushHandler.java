@@ -37,7 +37,6 @@ public class JPushHandler implements Runnable{
     public void run() {
         JPushClient jpushClient = new JPushClient("83a8c468321366eb977c61f2", "90fd74bf44097c9bb69c3fd1", null, ClientConfig.getInstance());
         try {
-
             PushPayload payload;
 
             content = StringUtils.contentfilter(content);
@@ -56,7 +55,7 @@ public class JPushHandler implements Runnable{
             }
 
             if(payload==null){
-                Log.error("payload is null");
+                return;
             }
             PushResult result = jpushClient.sendPush(payload);
             jpushClient.close();
