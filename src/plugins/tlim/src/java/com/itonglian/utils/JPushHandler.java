@@ -38,7 +38,6 @@ public class JPushHandler implements Runnable{
         JPushClient jpushClient = new JPushClient("83a8c468321366eb977c61f2", "90fd74bf44097c9bb69c3fd1", null, ClientConfig.getInstance());
         try {
 
-            Log.error("pushWhere="+pushWhere.toString());
             PushPayload payload;
 
             content = StringUtils.contentfilter(content);
@@ -56,13 +55,10 @@ public class JPushHandler implements Runnable{
                     return;
             }
 
-            Log.error("payload==null"+(payload==null));
             if(payload==null){
                 Log.error("payload is null");
             }
             PushResult result = jpushClient.sendPush(payload);
-            Log.error("Got result - " + result);
-            Log.error("result:statusCode="+result.statusCode+",error="+result.error);
             jpushClient.close();
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
@@ -70,7 +66,6 @@ public class JPushHandler implements Runnable{
 
     }
     public PushPayload buildPushObject_all_alert(String appPushCode,String content,String sessionName) throws Exception {
-        Log.error("pushAll");
         if(StringUtils.isNullOrEmpty(appPushCode)){
             return null;
         }
@@ -94,7 +89,6 @@ public class JPushHandler implements Runnable{
 
 
     public PushPayload buildPushObject_ios_alert(String appPushCode,String content,String sessionName) throws Exception {
-        Log.error("pushIOS");
         if(StringUtils.isNullOrEmpty(appPushCode)){
             return null;
         }
@@ -117,7 +111,6 @@ public class JPushHandler implements Runnable{
     }
 
     public PushPayload buildPushObject_android_alert(String appPushCode,String content,String sessionName) throws Exception {
-        Log.error("pushAndroid");
         if(StringUtils.isNullOrEmpty(appPushCode)){
             return null;
         }

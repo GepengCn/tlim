@@ -93,7 +93,6 @@ public class CachePushFilter {
             }
         }
         boolean appPushCodeIsNull = StringUtils.isNullOrEmpty(appPushCode);
-        Log.error("webOnline="+webOnline+",iosOnline="+iosOnline+",androidOnline="+androidOnline+",appPushCodeIsNull="+appPushCodeIsNull);
         if(online){
             if(webOnline&&!iosOnline&&appPushCodeIsNull){
                 return;
