@@ -1884,6 +1884,7 @@ message.addExtension(new Extension());
 5. mark[备注]
 6. random[预留]
 7. type[类型]
+8. typeName[类型名]
 
 ```
 
