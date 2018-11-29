@@ -66,31 +66,53 @@ public class CachePushFilter {
 
         Iterator<Presence> iterator = list.iterator();
 
-        boolean offline = true;
+        boolean online = true;
 
         boolean webOnline = false;
 
         boolean mobileOnline = false;
 
+        boolean iosOnline = false;
+
+        boolean androidOnline = false;
+
         while(iterator.hasNext()){
             Presence presence = iterator.next();
             if(presence!=null&&presence.getShow()==null){
                 String resource = presence.getFrom().getResource();
-                if(!StringUtils.isNullOrEmpty(resource)){
-                    offline = false;
+                if(StringUtils.isNullOrEmpty(resource)){
+                    online = false;
                 }
                 if(resource.contains("[web]")){
                     webOnline = true;
-                }else{
-                    mobileOnline = true;
+                }else if(resource.contains("[ios]")){
+                    iosOnline = true;
+                }else if(resource.contains("[android]")){
+                    androidOnline = true;
                 }
             }
         }
-        if(!offline){
-            if(mobileOnline){
+        boolean appPushCodeIsNull = StringUtils.isNullOrEmpty(appPushCode);
+        Log.error("webOnline="+webOnline+",iosOnline="+iosOnline+",androidOnline="+androidOnline+",appPushCodeIsNull="+appPushCodeIsNull);
+        if(online){
+            if(webOnline&&!iosOnline&&appPushCodeIsNull){
                 return;
             }
         }
+
+        JPushHandler.PushWhere pushWhere = JPushHandler.PushWhere.all;
+        if(!iosOnline&&appPushCodeIsNull){
+            pushWhere = JPushHandler.PushWhere.ios;
+        }
+        if(iosOnline&&!appPushCodeIsNull){
+            pushWhere = JPushHandler.PushWhere.android;
+        }
+
+        if(!iosOnline&&!appPushCodeIsNull){
+            pushWhere = JPushHandler.PushWhere.all;
+        }
+
+
         String combineKv = MessageUtils.combineKv(ofMessage.getMsg_id(),appPushCode);
         if(cache.containsKey(combineKv)){
             return;
@@ -105,7 +127,7 @@ public class CachePushFilter {
         }
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
         if(!StringUtils.isNullOrEmpty(pushMsgStr)){
-            Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv));
+            Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv,pushWhere));
             pushThread.setPriority(1);
             pushThread.start();
         }

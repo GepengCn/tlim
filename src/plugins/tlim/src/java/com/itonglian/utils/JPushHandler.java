@@ -21,34 +21,56 @@ public class JPushHandler implements Runnable{
 
     private String sessionName;
 
+    private PushWhere pushWhere;
+
     private static final Logger Log = LoggerFactory.getLogger(JPushHandler.class);
 
 
-    public JPushHandler(String appPushCode,String content,String sessionName,String combineKv) {
+    public JPushHandler(String appPushCode,String content,String sessionName,String combineKv,PushWhere pushWhere) {
         this.content = content;
         this.appPushCode = appPushCode;
         this.sessionName = sessionName;
+        this.pushWhere = pushWhere;
     }
 
     @Override
     public void run() {
         JPushClient jpushClient = new JPushClient("83a8c468321366eb977c61f2", "90fd74bf44097c9bb69c3fd1", null, ClientConfig.getInstance());
         try {
-            content = StringUtils.contentfilter(content);
-            PushPayload payload = buildPushObject_all_all_alert(appPushCode,content,sessionName);
 
-            if(payload == null){
-                return;
+            Log.error("pushWhere="+pushWhere.toString());
+            PushPayload payload;
+
+            content = StringUtils.contentfilter(content);
+            switch (pushWhere){
+                case all:
+                    payload = buildPushObject_all_alert(appPushCode,content,sessionName);
+                    break;
+                case ios:
+                    payload = buildPushObject_ios_alert(appPushCode,content,sessionName);
+                    break;
+                case android:
+                    payload = buildPushObject_android_alert(appPushCode,content,sessionName);
+                    break;
+                default:
+                    return;
+            }
+
+            Log.error("payload==null"+(payload==null));
+            if(payload==null){
+                Log.error("payload is null");
             }
             PushResult result = jpushClient.sendPush(payload);
+            Log.error("Got result - " + result);
+            Log.error("result:statusCode="+result.statusCode+",error="+result.error);
             jpushClient.close();
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
     }
-    public static PushPayload buildPushObject_all_all_alert(String appPushCode,String content,String sessionName) throws Exception {
-
+    public PushPayload buildPushObject_all_alert(String appPushCode,String content,String sessionName) throws Exception {
+        Log.error("pushAll");
         if(StringUtils.isNullOrEmpty(appPushCode)){
             return null;
         }
@@ -68,6 +90,62 @@ public class JPushHandler implements Runnable{
                         .build())
                 // .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
+    }
+
+
+    public PushPayload buildPushObject_ios_alert(String appPushCode,String content,String sessionName) throws Exception {
+        Log.error("pushIOS");
+        if(StringUtils.isNullOrEmpty(appPushCode)){
+            return null;
+        }
+        return PushPayload.newBuilder()
+                .setPlatform(Platform.ios())
+                .setAudience(Audience.registrationId(appPushCode))
+                .setNotification(Notification.newBuilder()
+                        .addPlatformNotification(IosNotification.newBuilder()
+                                .setAlert(content)
+                                .autoBadge()
+                                .setSound("default")
+                                .build())
+                        /*.addPlatformNotification(AndroidNotification.newBuilder()
+                                .setAlert(content)
+                                .setTitle(sessionName)
+                                .build())*/
+                        .build())
+                // .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                .build();
+    }
+
+    public PushPayload buildPushObject_android_alert(String appPushCode,String content,String sessionName) throws Exception {
+        Log.error("pushAndroid");
+        if(StringUtils.isNullOrEmpty(appPushCode)){
+            return null;
+        }
+        return PushPayload.newBuilder()
+                .setPlatform(Platform.android())
+                .setAudience(Audience.registrationId(appPushCode))
+                .setNotification(Notification.newBuilder()
+                        /*.addPlatformNotification(IosNotification.newBuilder()
+                                .setAlert(content)
+                                .autoBadge()
+                                .setSound("default")
+                                .build())*/
+                        .addPlatformNotification(AndroidNotification.newBuilder()
+                                .setAlert(content)
+                                .setTitle(sessionName)
+                                .build())
+                        .build())
+                // .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                .build();
+    }
+
+
+    public enum PushWhere{
+
+        all,
+        ios,
+        android
+
     }
 
 
