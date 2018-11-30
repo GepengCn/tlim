@@ -1,4 +1,4 @@
-## ![Alt text][symbol] tlim
+ <img style="max-width:100px;vertical-align:middle" src="https://github.com/GepengCn/tonglian-openfire/blob/master/images/symbol.png?raw=true" /> <span style="font-weight:bolder;font-size:24px;">tlim</span>
 
 ---
 #### 介绍
