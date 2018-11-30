@@ -2,8 +2,11 @@
 
 ---
 [![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
-[![](https://img.shields.io/badge/releases-v1.1-orange.svg)](https://github.com/GepengCn/tlim/releases)
-[![](https://img.shields.io/badge/Download-1.1-blue.svg)](https://github.com/GepengCn/tlim/releases/download/V1.1/openfire_V_1_1.zip)
+[![](https://img.shields.io/badge/download-v1.1-blue.svg)](https://github.com/GepengCn/tlim/releases/download/V1.1/openfire_V_1_1.zip)
+[![](https://img.shields.io/badge/msg-type-yellowgreen.svg)](https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md)
+[![](https://img.shields.io/badge/doc-old-red.svg)](https://github.com/GepengCn/tlim/blob/master/README.md)
+[![](https://img.shields.io/badge/demo-coolweb-lightgrey.svg)](coolweb.club)
+
 
 
 ## 介绍
