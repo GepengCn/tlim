@@ -1,7 +1,7 @@
 <img src="https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true" style="max-width:400px;" />
 
 -------------------
-#### 介绍
+## 介绍
 
 
 - 这是基于Openfire的即时通讯插件,使用XMPP协议作为消息的载体，内部消息封装成JSON格式。
@@ -12,7 +12,7 @@
 
 
 
-#### 消息协议
+## 消息协议
 
 使用XMPP协议作为消息传输的标准，辅以自定义JSON协议。
 
@@ -130,7 +130,7 @@
 
 
 
-#### HTTP接口
+## HTTP接口
 
 - GET请求
 
@@ -139,7 +139,7 @@
 - 端口
 
 
-#### 插件开发
+## 插件开发
 
 - 环境搭建
 
