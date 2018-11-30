@@ -24,11 +24,11 @@ public interface OfflineMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteByUser(@Param(value = "delete_user") String delete_user);
 
-    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user}")
+    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user} order by msg_time asc")
     @Options(useCache = true)
     List<OfCustomOffline> findByUser(@Param(value = "delete_user") String delete_user);
 
-    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user} AND msg_time >=#{msg_time}")
+    @Select("SELECT * FROM ofcustomoffline WHERE delete_user = #{delete_user} AND msg_time >=#{msg_time} order by msg_time asc")
     @Options(useCache = true)
     List<OfCustomOffline> findByUserAfterThatTime(@Param(value = "delete_user") String delete_user,
                                                   @Param(value = "msg_time") String msg_time);

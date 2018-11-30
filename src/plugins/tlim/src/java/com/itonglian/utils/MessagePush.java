@@ -69,5 +69,9 @@ public class MessagePush {
         ofMessage.setSession_id(protocol.getMsg_from());
 
         messageDao.insert(ofMessage);
+
+        new OfflineInterceptor().handler(ofMessage);
+
+        CachePushFilter.getInstance().push(ofMessage);
     }
 }
