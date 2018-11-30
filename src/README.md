@@ -1,4 +1,4 @@
-<img src="https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true" style="max-width:400px;" />
+<img src="https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true" style="max-width:400px;" />
 
 ---
 [![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
