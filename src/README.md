@@ -60,7 +60,7 @@
     - msg_time:发送时间戳
     - body:消息内容体;Array
 
-- [消息类型][oldDoc]
+- [消息类型][messageType]
 
     使用字母、-和数字的组合拼接成的字符串作为消息类型
 
