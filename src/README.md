@@ -67,7 +67,7 @@
 
 
 
-[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
+[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true
 
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
