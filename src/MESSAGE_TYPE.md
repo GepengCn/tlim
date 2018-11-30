@@ -31,34 +31,35 @@
 
 ##### 系统消息
 
-    ```
-    {
-        title:#{title},
-        content:#{content},
-        ts:#{ts},
-        url:#{url},
-        mark:#{mark},
-        random:#{random},
-        type:#{type},
-        typeName:#{typeName}
-    }
-    ```
-
-    字段名 | 含义 | 类型 |长度|备注
-    |:---|---|---|---|---
-    title|标题|string|100|
-    content|内容|string|2000|
-    ts|时间|string|20|[yyyy-MM-dd:hh:mm:ss]
-    url|自定义跳转地址|string|300|/testController/detail?id=1
-    mark|备注|string|200|
-    random|预留字段|string|100|
-    type|类型|int|∞|
-    typeName|类型名|string|200|
+```
+{
+    title:#{title},
+    content:#{content},
+    ts:#{ts},
+    url:#{url},
+    mark:#{mark},
+    random:#{random},
+    type:#{type},
+    typeName:#{typeName}
+}
+```
 
 
-    type:typeName(类型:类型名)
-    - 审批类型:0
-    - 退回:1
-    - 通知公告:2
-    - 工资条:3
-    - 邮件:4
+字段名 | 含义 | 类型 |长度|备注
+|:---|---|---|---|---
+title|标题|string|100|
+content|内容|string|2000|
+ts|时间|string|20|[yyyy-MM-dd:hh:mm:ss]
+url|自定义跳转地址|string|300|/testController/detail?id=1
+mark|备注|string|200|
+random|预留字段|string|100|
+type|类型|int|∞|
+typeName|类型名|string|200|
+
+
+type:typeName(类型:类型名)
+- 审批类型:0
+- 退回:1
+- 通知公告:2
+- 工资条:3
+- 邮件:4
