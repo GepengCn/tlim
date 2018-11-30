@@ -1,5 +1,4 @@
-<img src="https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true" style="max-width:400px;" />
-
+![Alt text][symbol]
 ---
 [![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
 [![](https://img.shields.io/badge/download-v1.1-blue.svg)](https://github.com/GepengCn/tlim/releases/download/V1.1/openfire_V_1_1.zip)
@@ -16,6 +15,9 @@
 - 重写了群聊、离线消息、消息回执等功能，并且使用自封装的JSON协议同时在Web、IOS和安卓端进行即时消息交互。
 - 弃用了Openfire自带的数据库连接池与JDBC组件，使用MyBatis搭配Druid连接池并且使用二级缓存大幅度优化了性能，除此之外同时支持MySQL、Oracle和SQLServer等数据库。
 
+## 跨平台
+
+![Alt text][symbol]
 
 
 ## 消息协议
@@ -114,6 +116,8 @@
 
 
 [symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
+
+[crossPlatform]:https://github.com/GepengCn/tlim/blob/dev/images/cross-platform.png?raw=true
 
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
