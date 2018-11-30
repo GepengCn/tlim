@@ -10,19 +10,19 @@
 
 </div>
 
-## 介绍
+## :ballot_box_with_check:介绍
 
 
 - 这是基于Openfire的即时通讯插件,使用XMPP协议作为消息的载体，内部消息封装成JSON格式。
 - 重写了群聊、离线消息、消息回执等功能，并且使用自封装的JSON协议同时在Web、IOS和安卓端进行即时消息交互。
 - 弃用了Openfire自带的数据库连接池与JDBC组件，使用MyBatis搭配Druid连接池并且使用二级缓存大幅度优化了性能，除此之外同时支持MySQL、Oracle和SQLServer等数据库。
 
-## 跨平台
+## :arrows_clockwise:跨平台
 
 ![Alt text][crossPlatform]
 
 
-## 消息协议
+## :abcd:消息协议
 
 使用`XMPP`协议作为消息传输的标准，辅以自定义`JSON`协议。
 
@@ -83,7 +83,7 @@
     - `MTC`:命令消息
 
 
-## HTTP接口
+## :mag:HTTP接口
 
 - GET请求
 
@@ -92,7 +92,7 @@
 - 端口
 
 
-## 插件开发
+## :electric_plug:插件开发
 
 - 环境搭建
 
