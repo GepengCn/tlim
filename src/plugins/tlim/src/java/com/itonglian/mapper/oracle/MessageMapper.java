@@ -14,7 +14,7 @@ public interface MessageMapper{
     //@SelectKey(statement="select S_ofmessage.NEXTVAL as ID_ from dual", keyProperty="ID_", before=true, resultType=int.class)
     void insertMessage(OfMessage ofMessage);
 
-    @Select("SELECT * FROM (SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE SESSION_ID = #{session_id}  AND ROWNUM<=#{length} ORDER BY MSG_TIME DESC) WHERE rn>=#{start}")
+    @Select("SELECT * FROM (SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE SESSION_ID = #{session_id}  AND ROWNUM<=#{length} ) WHERE rn>=#{start} ORDER BY MSG_TIME DESC")
     @Options(useCache = true)
     List<OfMessage> findPageBySession(@Param(value="session_id") String session_id,
                                       @Param(value="start") int start,
