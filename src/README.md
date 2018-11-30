@@ -1,4 +1,4 @@
-![Alt text][symbol]
+![Alt text][symbol] <span style="vertical-align:middle;">Openfire插件</span>
 
 -------------------
 #### 介绍
@@ -67,7 +67,7 @@
 
 
 
-[symbol]:https://github.com/GepengCn/tonglian-openfire/blob/master/images/symbol.png?raw=true
+[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
 
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
