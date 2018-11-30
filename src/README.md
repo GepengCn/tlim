@@ -41,8 +41,9 @@
     - `domain`:@im.itonglian.com
     - `json`:自定义JSON协议
 
-- JSON协议
+- `JSON`协议
 
+    自定义协议
 
     ```
     {
