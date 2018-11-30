@@ -1,4 +1,4 @@
-## ![Alt text][flowPic] tlim
+## ![Alt text][symbol] tlim
 
 ---
 #### 介绍
@@ -54,7 +54,7 @@
 
 
 
-[旧版本文档][depoyopenfire]
+[旧版本文档][oldDoc]
 
 
 
