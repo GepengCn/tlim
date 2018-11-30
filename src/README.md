@@ -102,7 +102,7 @@
 
 
 
-[messageType]:https://github.com/GepengCn/tlim/blob/master/src/MESSAGE_TYPE.md
+[messageType]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md
 
 
 [symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true
