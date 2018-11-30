@@ -134,9 +134,16 @@ public class StatusDaoImpl implements StatusDao {
         List<MessageRead> messageReadList = new ArrayList<>();
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+
         try {
-            messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.oracle.StatusMapper.class);
+                messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
+            }else{
+                StatusMapper statusMapper = session.getMapper(StatusMapper.class);
+                messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
+            }
+
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {

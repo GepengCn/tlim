@@ -55,15 +55,7 @@ public class FindChatHistory extends HttpServlet {
             doBack(new BackJson("error-008","user_id为空",session_id),printWriter);
             return;
         }
-        DbConnectionManager.DatabaseType databaseType = DbConnectionManager.getDatabaseType();
-
-        List<OfMessage> messageList;
-
-        if(databaseType==DbConnectionManager.DatabaseType.oracle){
-            messageList = messageDaoOracle.findChatHistory(session_id,user_id,start,length);
-        }else{
-            messageList = messageDao.findChatHistory(session_id,user_id,start,length);
-        }
+        List<OfMessage>  messageList = messageDao.findChatHistory(session_id,user_id,start,length);
 
         int total = messageDao.findChatMessageTotal(session_id,user_id);
 

@@ -17,4 +17,14 @@ public interface StatusMapper {
                                       @Param(value="length") int length,
                                       @Param(value = "sender") String sender);
 
+    @Select("SELECT msg_id,count(1) AS readNum FROM ofstatus WHERE msg_id IN (" +
+            "SELECT msg_id FROM (" +
+            "SELECT*FROM (" +
+            "SELECT ofmessage.*,ROWNUM AS rn FROM ofmessage WHERE msg_from=#{msg_from} AND msg_to=#{msg_to} AND ROWNUM<=#{length}) t WHERE rn>=#{start} ORDER BY msg_time DESC) WHERE sender=#{msg_from}) GROUP BY msg_id")
+    @Options(useCache = true)
+    List<MessageRead> findChatRead(@Param(value="msg_from") String msg_from,
+                                   @Param(value="msg_to") String msg_to,
+                                   @Param(value="start") int start,
+                                   @Param(value="length") int length);
+
 }

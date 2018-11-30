@@ -25,7 +25,7 @@ public interface MessageMapper{
     int isExist(@Param(value="msg_id") String msg_id);
 
 
-    @Select("SELECT * FROM (SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE MSG_FROM=#{msg_from} AND MSG_TO = #{msg_to} AND MSG_TYPE LIKE #{msg_type}  UNION SELECT * FROM OFMESSAGE WHERE MSG_FROM = #{msg_to} AND MSG_TO = #{msg_from} AND MSG_TYPE LIKE #{msg_type}  AND ROWNUM<=#{length} ORDER BY MSG_TIME DESC) WHERE rn>=#{start}")
+    @Select("SELECT * FROM (SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE MSG_FROM=#{msg_from} AND MSG_TO = #{msg_to} AND MSG_TYPE LIKE #{msg_type}  UNION SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE MSG_FROM = #{msg_to} AND MSG_TO = #{msg_from} AND MSG_TYPE LIKE #{msg_type}  AND ROWNUM<=#{length} ) WHERE rn>=#{start} ORDER BY MSG_TIME DESC")
     @Options(useCache = true)
     List<OfMessage> findPageByChat(@Param(value="msg_from") String msg_from,
                                    @Param(value="msg_to") String msg_to,

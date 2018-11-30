@@ -52,13 +52,7 @@ public class FindSessionHistory extends HttpServlet {
             return;
         }
 
-        DbConnectionManager.DatabaseType databaseType = DbConnectionManager.getDatabaseType();
-        List<OfMessage> messageList;
-        if(databaseType==DbConnectionManager.DatabaseType.oracle){
-            messageList = messageDaoOracle.findHistory(session_id,start,length);
-        }else{
-            messageList = messageDao.findHistory(session_id,start,length);
-        }
+        List<OfMessage> messageList = messageDao.findHistory(session_id,start,length);
 
 
         int total = messageDao.findMessageTotal(session_id);
