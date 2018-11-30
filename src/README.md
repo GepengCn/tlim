@@ -5,7 +5,7 @@
 [![](https://img.shields.io/badge/download-v1.1-blue.svg)](https://github.com/GepengCn/tlim/releases/download/V1.1/openfire_V_1_1.zip)
 [![](https://img.shields.io/badge/msg-type-yellowgreen.svg)](https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md)
 [![](https://img.shields.io/badge/doc-old-red.svg)](https://github.com/GepengCn/tlim/blob/master/README.md)
-[![](https://img.shields.io/badge/demo-coolweb-lightgrey.svg)](coolweb.club)
+[![](https://img.shields.io/badge/demo-coolweb-lightgrey.svg)](http://coolweb.club)
 
 
 
