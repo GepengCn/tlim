@@ -17,7 +17,7 @@
 
 ## 跨平台
 
-![Alt text][symbol]
+![Alt text][crossPlatform]
 
 
 ## 消息协议
