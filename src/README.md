@@ -1,6 +1,9 @@
 <img src="https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true" style="max-width:400px;" />
 
 ---
+[![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
+[![](https://img.shields.io/badge/releases-v1.1-orange.svg)](https://github.com/GepengCn/tlim/releases)
+
 ## 介绍
 
 
@@ -12,11 +15,11 @@
 
 ## 消息协议
 
-使用XMPP协议作为消息传输的标准，辅以自定义JSON协议。
+使用`XMPP`协议作为消息传输的标准，辅以自定义`JSON`协议。
 
-- XMPP协议
+- `XMPP`协议
 
-    默认使用type='chat'作为消息载体,分别实现Plugin、PacketInterceptor接口以插件的形式拦截消息,然后自定义处理。
+    默认使用`type='chat`'作为消息载体,分别实现`Plugin`、`PacketInterceptor`接口以插件的形式拦截消息,然后自定义处理。
 
     ```
     <message type="#{type}" from="zhangsan#{domain}" to="lisi#{domain}">
@@ -27,9 +30,9 @@
 
     ```
 
-    - type:chat
-    - domain:@im.itonglian.com
-    - json:自定义JSON协议
+    - `type`:chat
+    - `domain`:@im.itonglian.com
+    - `json`:自定义JSON协议
 
 - JSON协议
 
@@ -49,25 +52,25 @@
     }
     ```
 
-    - compress:压缩方式;0:未压缩 1:压缩;默认:0
-    - encode:编码格式;0:UTF-8 1:GBK 默认:0
-    - encrypt:加密;0:未加密 1:加密 默认:0
-    - version:版本号;默认:2.0.0 当前:2.1.0
-    - msg_from:发送者
-    - msg_to:接收者
-    - msg_id:消息id，唯一标识;UUID
-    - msg_type:消息类型
-    - msg_time:发送时间戳
-    - body:消息内容体;Array
+    - `compress`:压缩方式;0:未压缩 1:压缩;默认:0
+    - `encode`:编码格式;0:UTF-8 1:GBK 默认:0
+    - `encrypt`:加密;0:未加密 1:加密 默认:0
+    - `version`:版本号;默认:2.0.0 当前:2.1.0
+    - `msg_from`:发送者
+    - `msg_to`:接收者
+    - `msg_id`:消息id，唯一标识;UUID
+    - `msg_type`:消息类型
+    - `msg_time`:发送时间戳
+    - `body`:消息内容体;Array
 
 - [消息类型][messageType]
 
     使用字母、-和数字的组合拼接成的字符串作为消息类型
 
-    - MTT:1对1消息
-    - MTS:会话内消息，也称为群消息
-    - MTB:业务消息，有审批与系统两种类型
-    - MTC:命令消息
+    - `MTT`:1对1消息
+    - `MTS`:会话内消息，也称为群消息
+    - `MTB`:业务消息，有审批与系统两种类型
+    - `MTC`:命令消息
 
 
 ## HTTP接口

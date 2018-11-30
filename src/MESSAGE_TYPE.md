@@ -59,7 +59,7 @@ typeName|类型名|string|200|
 
 ### 系统消息类型
 
-type:typeName(类型:类型名)
+`type`:`typeName`(类型:类型名)
 - 审批类型:0
 - 退回:1
 - 通知公告:2
