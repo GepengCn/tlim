@@ -3,6 +3,8 @@
 ---
 [![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
 [![](https://img.shields.io/badge/releases-v1.1-orange.svg)](https://github.com/GepengCn/tlim/releases)
+[![](https://img.shields.io/badge/Download-1.1-blue.svg)](https://github.com/GepengCn/tlim/releases/download/V1.1/openfire_V_1_1.zip)
+
 
 ## 介绍
 
@@ -108,7 +110,7 @@
 [messageType]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md
 
 
-[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.jpg?raw=true
+[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
 
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
