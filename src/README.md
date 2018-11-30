@@ -1,4 +1,4 @@
-![Alt text][symbol] <span style="vertical-align:middle;">Openfire插件</span>
+![Alt text][symbol]
 
 -------------------
 #### 介绍
