@@ -1,7 +1,7 @@
 ## 消息体
 
 - [文本消息][MTT-000]
-- 图片消息
+- [图片消息][MTT-001]
 - 文件消息
 - 语音消息
 - 群文本消息
@@ -21,3 +21,4 @@
 
 
 [MTT-000]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/TEXT.md
+[MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/PICTURE.md

@@ -1,23 +1,22 @@
 ### 简介
 
-文本消息
+图片消息
 
 ### 消息类型
-`MTT-000`
+
+`MTT-001`
 
 ### 简略结构
 ```
 [
     {
-        text:#{text}
+        fileId:#{fileId}
     }
 ]
 ```
 ### 限制
 
 - 类型:string
-- 长度限制:3000
-- 不支持`emoji`
 
 ### 完整结构
 ```
@@ -29,10 +28,10 @@
     msg_from:#{msg_from},
     msg_to:#{msg_to},
     msg_id:#{msg_id},
-    msg_type:'MTT-000',
+    msg_type:'MTT-001',
     msg_time:#{msg_time},
     body:[{
-             text:#{text}
+             fileId:#{fileId}
           }
     ]
 }
@@ -42,4 +41,4 @@
 
 ![Alt text][demo]
 
-[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_000.png?raw=true
+[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_001.png?raw=true
