@@ -28,7 +28,7 @@
 
 使用`XMPP`协议作为消息传输的标准，辅以自定义`JSON`协议。
 
-- `XMPP`协议
+### `XMPP`协议
 
     默认使用`type='chat`'作为消息载体,分别实现`Plugin`、`PacketInterceptor`接口以插件的形式拦截消息,然后自定义处理。
 
@@ -45,9 +45,9 @@
     - `domain`:@im.itonglian.com
     - `json`:自定义JSON协议
 
-- `JSON`协议
+### `JSON`协议
 
-    自定义协议
+- 协议体
 
     ```
     {
@@ -75,7 +75,7 @@
     - `msg_time`:发送时间戳
     - `body`:消息内容体;Array
 
-- [消息类型][messageType]
+- [消息类型`msg_type`][messageType]
 
     使用字母、-和数字的组合拼接成的字符串作为消息类型
 
@@ -84,8 +84,15 @@
     - `MTB`:业务消息，有审批与系统两种类型
     - `MTC`:命令消息
 
+ - [消息体`body`][messageBody]
 
-## HTTP接口
+    - 使用`XMPP`协议向Openfire发送消息
+    - `<body></body>`里嵌入自定义JSON协议
+    - `Openfire`通过`msg_type`区分消息类型分别予以不同的处理
+    - 'msg_from'、'msg_to'告知`Openfire`消息的推送对象与回执对象
+    - 'msg_time'
+
+## HTTP
 
 - GET请求
 
@@ -116,6 +123,8 @@
 
 
 
+[messageBody]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_BODY.md
+
 
 [messageType]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md
 
@@ -124,7 +133,6 @@
 [symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
 
 [crossPlatform]:https://github.com/GepengCn/tlim/blob/dev/images/cross-platform.png?raw=true
-
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
 
