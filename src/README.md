@@ -88,7 +88,7 @@
     - [文本消息][MTT-000]
     - [图片消息][MTT-001]
     - [文件消息][MTT-002]
-    - 语音消息
+    - [语音消息][MTT-003]
     - 群文本消息
     - 群图片消息
     - 群文件消息
@@ -144,6 +144,7 @@
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
 
-[MTT-000]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/TEXT.md
-[MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/PICTURE.md
-[MTT-002]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/FILE.md
+[MTT-000]:https://github.com/GepengCn/tlim/blob/dev/src/body/TEXT.md
+[MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/PICTURE.md
+[MTT-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/FILE.md
+[MTT-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/VOICE.md
