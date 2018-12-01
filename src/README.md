@@ -41,9 +41,9 @@
 
     ```
 
-    - `type`:chat
-    - `domain`:@im.itonglian.com
-    - `json`:自定义JSON协议
+- `type`:chat
+- `domain`:@im.itonglian.com
+- `json`:自定义JSON协议
 
 ### `JSON`协议
 
@@ -77,7 +77,7 @@
 
 - [消息类型`msg_type`][messageType]
 
-    使用字母、-和数字的组合拼接成的字符串作为消息类型
+    使用`字母`、`-`和`数字`的组合拼接成的字符串作为消息类型
 
     - `MTT`:1对1消息
     - `MTS`:会话内消息，也称为群消息
@@ -89,8 +89,8 @@
     - 使用`XMPP`协议向Openfire发送消息
     - `<body></body>`里嵌入自定义JSON协议
     - `Openfire`通过`msg_type`区分消息类型分别予以不同的处理
-    - 'msg_from'、'msg_to'告知`Openfire`消息的推送对象与回执对象
-    - 'msg_time'
+    - `msg_from`、`msg_to`告知`Openfire`消息的推送对象与回执对象
+    - `msg_time`
 
 ## HTTP
 
