@@ -10,7 +10,7 @@
 
 </div>
 
-## 介绍
+## 简介
 
 
 - 这是基于`Openfire`的即时通讯插件,使用`XMPP`协议作为消息的载体，内部消息封装成`JSON`格式。
@@ -19,7 +19,7 @@
 - 弃用了`Openfire`自带的数据库连接池与`JDBC`组件，使用`MyBatis`搭配`Druid`连接池并且使用二级缓存大幅度优化了性能。
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
-## 职责
+## 功能概览
 
 ![Alt text][openfire]
 
@@ -94,7 +94,7 @@
 - 端口
 
 
-## :electric_plug:插件开发
+## 插件开发
 
 - 环境搭建
 
