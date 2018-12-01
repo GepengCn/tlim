@@ -84,13 +84,25 @@
     - `MTB`:业务消息，有审批与系统两种类型
     - `MTC`:命令消息
 
- - [消息体`body`][messageBody]
-
-    - 使用`XMPP`协议向Openfire发送消息
-    - `<body></body>`里嵌入自定义JSON协议
-    - `Openfire`通过`msg_type`区分消息类型分别予以不同的处理
-    - `msg_from`、`msg_to`告知`Openfire`消息的推送对象与回执对象
-    - `msg_time`
+ - 消息体`body`
+    - [文本消息][MTT-000]
+    - [图片消息][MTT-001]
+    - [文件消息][MTT-002]
+    - 语音消息
+    - 群文本消息
+    - 群图片消息
+    - 群文件消息
+    - 群语音消息
+    - 已收回执
+    - 已读回执
+    - 群已读回执
+    - 消息撤回
+    - 群消息撤回
+    - 系统消息之创建会话
+    - 系统消息之修改会话名称
+    - 系统消息之邀请订阅者
+    - 系统消息之退出会话
+    - 系统消息之解散群组
 
 ## HTTP
 
@@ -123,8 +135,6 @@
 
 
 
-[messageBody]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_BODY.md
-
 
 [messageType]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md
 
@@ -132,7 +142,8 @@
 
 [symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
 
-[crossPlatform]:https://github.com/GepengCn/tlim/blob/dev/images/cross-platform.png?raw=true
-
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
 
+[MTT-000]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/TEXT.md
+[MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/PICTURE.md
+[MTT-002]:https://github.com/GepengCn/tlim/blob/dev/src/message_body/FILE.md
