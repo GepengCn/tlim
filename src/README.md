@@ -89,10 +89,10 @@
     - [图片消息][MTT-001]
     - [文件消息][MTT-002]
     - [语音消息][MTT-003]
-    - 群文本消息
-    - 群图片消息
-    - 群文件消息
-    - 群语音消息
+    - [群文本消息][MTS-000]
+    - [群图片消息][MTS-001]
+    - [群文件消息][MTS-002]
+    - [群语音消息][MTS-003]
     - 已收回执
     - 已读回执
     - 群已读回执
@@ -148,3 +148,8 @@
 [MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/PICTURE.md
 [MTT-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/FILE.md
 [MTT-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/VOICE.md
+
+[MTS-000]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_TEXT.md
+[MTS-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_PICTURE.md
+[MTS-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_FILE.md
+[MTS-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_VOICE.md
