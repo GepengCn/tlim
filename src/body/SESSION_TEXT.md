@@ -21,6 +21,7 @@
 - 类型:string
 - 长度限制:`3000`
 - 不支持`emoji`
+
 `session_id`
 - 非空
 - 类型:`string`
