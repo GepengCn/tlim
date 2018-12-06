@@ -49,20 +49,20 @@
 
 - 协议体
 
-    ```markdown
-    {
-        compress:#{compress},
-        encode:#{encode},
-        encrypt:#{encrypt},
-        version:#{version},
-        msg_from:#{msg_from},
-        msg_to:#{msg_to},
-        msg_id:#{msg_id},
-        msg_type:#{msg_type},
-        msg_time:#{msg_time},
-        body:#{body}
-    }
-    ```
+```json
+{
+    compress:#{compress},
+    encode:#{encode},
+    encrypt:#{encrypt},
+    version:#{version},
+    msg_from:#{msg_from},
+    msg_to:#{msg_to},
+    msg_id:#{msg_id},
+    msg_type:#{msg_type},
+    msg_time:#{msg_time},
+    body:#{body}
+}
+```
 
     - `compress`:压缩方式;0:未压缩 1:压缩;默认:0
     - `encode`:编码格式;0:UTF-8 1:GBK 默认:0
