@@ -24,12 +24,3 @@
   - `user_id`
   - `string(64)`
 
-```java
-
-int a= 1;
-
-public static void main(){
-    String a = "3";
-}
-
-```
