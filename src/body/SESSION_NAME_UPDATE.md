@@ -22,13 +22,11 @@
 
 `session_id`
 - 非空
-- 类型:`string`
-- 长度限制:`64`
+- 类型:`string(64)`
 
 `session_name`
 - 非空
-- 类型:`string`
-- 长度限制:`256`
+- 类型:`string(256)`
 
 ### 完整结构
 ```

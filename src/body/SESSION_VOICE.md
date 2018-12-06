@@ -18,12 +18,11 @@
 ### 限制
 
 `fileId`
-- 类型:string
+- 类型:`string(64)`
 
 `session_id`
 - 非空
-- 类型:`string`
-- 长度限制:`64`
+- 类型:`string(64)`
 
 ### 完整结构
 ```
