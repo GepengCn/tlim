@@ -123,7 +123,7 @@
 
 - 所有接口列表
 
-    - 新增会话
+    - [新增会话][SESSION_CREATE]
     - 更新会话
     - 删除会话
     - 文件上传与下载
@@ -192,3 +192,4 @@
 [MTS-106]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_INVITE.md
 [MTS-104]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_EXIT.md
 [MTS-107]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_DISSOLVED.md
+[SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_CREATE.md

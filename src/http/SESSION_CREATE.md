@@ -1,9 +1,10 @@
 ### 简介
+
 新增会话
 
 ### 请求地址
 
-`http://ip:port/plugins/tlim/addSession`
+`http://#{ip}:#{port}/plugins/tlim/addSession`
 
 ### 请求参数
 
@@ -18,7 +19,7 @@
 
 `subscribers`
 - 成员列表
-- array
+- 数组`Array`
   - 用户`id`
   - `user_id`
   - `string(64)`
