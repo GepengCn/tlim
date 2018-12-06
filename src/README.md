@@ -49,7 +49,7 @@
 
 - 协议体
 
-    ```javascript
+    ```markdown
     {
         compress:#{compress},
         encode:#{encode},
