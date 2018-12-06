@@ -96,8 +96,8 @@
     - <del>已收回执</del>
     - [已读回执][MTT-100]
     - [群已读回执][MTS-100]
-    - 消息撤回
-    - 群消息撤回
+    - [消息撤回][MTT-101]
+    - [群消息撤回][MTS-101]
     - 系统消息之创建会话
     - 系统消息之修改会话名称
     - 系统消息之邀请订阅者
@@ -183,3 +183,6 @@
 
 [MTT-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/READ_BACK.md
 [MTS-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_READ_BACK.md
+
+[MTT-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/REVOKE.md
+[MTS-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_REVOKE.md
