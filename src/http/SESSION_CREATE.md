@@ -71,3 +71,11 @@ subscribers:[
     - 群成员
 - `user_id`
     - 成员`id`
+
+### 图例
+
+![Alt text][demo1]
+![Alt text][demo2]
+
+[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/SESSION_CREATE_1.png?raw=true
+[demo2]:https://github.com/GepengCn/tlim/blob/dev/images/SESSION_CREATE_2.png?raw=true
