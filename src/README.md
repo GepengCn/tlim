@@ -186,3 +186,9 @@
 
 [MTT-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/REVOKE.md
 [MTS-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_REVOKE.md
+
+[MTS-105]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_CREATE.md
+[MTS-102]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_NAME_UPDATE.md
+[MTS-106]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_INVITE.md
+[MTS-104]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_EXIT.md
+[MTS-107]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_DISSOLVED.md
