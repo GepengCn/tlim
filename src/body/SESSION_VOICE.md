@@ -1,6 +1,6 @@
 ### 简介
 
-多人会话文件消息
+多人会话语音消息
 
 ### 消息类型
 
@@ -49,4 +49,4 @@
 
 ![Alt text][demo]
 
-[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_002.png?raw=true
+[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_003.png?raw=true

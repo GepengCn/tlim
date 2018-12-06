@@ -93,9 +93,9 @@
     - [群图片消息][MTS-001]
     - [群文件消息][MTS-002]
     - [群语音消息][MTS-003]
-    - 已收回执
-    - 已读回执
-    - 群已读回执
+    - <del>已收回执</del>
+    - [已读回执][MTT-100]
+    - [群已读回执][MTS-100]
     - 消息撤回
     - 群消息撤回
     - 系统消息之创建会话
@@ -180,3 +180,6 @@
 [MTS-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_PICTURE.md
 [MTS-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_FILE.md
 [MTS-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_VOICE.md
+
+[MTT-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/READ_BACK.md
+[MTS-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_READ_BACK.md

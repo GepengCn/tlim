@@ -1,6 +1,6 @@
 ### 简介
 
-文件消息
+语音消息
 
 ### 消息类型
 
@@ -41,4 +41,4 @@
 
 ![Alt text][demo]
 
-[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_002.png?raw=true
+[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_003.png?raw=true
