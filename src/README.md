@@ -32,7 +32,7 @@
 
     默认使用`type='chat`'作为消息载体,分别实现`Plugin`、`PacketInterceptor`接口以插件的形式拦截消息,然后自定义处理。
 
-    ```parser3
+    ```
     <message type="#{type}" from="zhangsan#{domain}" to="lisi#{domain}">
     <body>
        #{json}
@@ -49,7 +49,7 @@
 
 - 协议体
 
-    ```parser3
+    ```javascript
     {
         compress:#{compress},
         encode:#{encode},
