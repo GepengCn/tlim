@@ -49,31 +49,32 @@
 
 - 协议体
 
-```
-{
-    compress:#{compress},
-    encode:#{encode},
-    encrypt:#{encrypt},
-    version:#{version},
-    msg_from:#{msg_from},
-    msg_to:#{msg_to},
-    msg_id:#{msg_id},
-    msg_type:#{msg_type},
-    msg_time:#{msg_time},
-    body:#{body}
-}
-```
+    ```
+    {
+        compress:#{compress},
+        encode:#{encode},
+        encrypt:#{encrypt},
+        version:#{version},
+        msg_from:#{msg_from},
+        msg_to:#{msg_to},
+        msg_id:#{msg_id},
+        msg_type:#{msg_type},
+        msg_time:#{msg_time},
+        body:#{body}
+    }
+    ```
 
-- `compress`:压缩方式;0:未压缩 1:压缩;默认:0
-- `encode`:编码格式;0:UTF-8 1:GBK 默认:0
-- `encrypt`:加密;0:未加密 1:加密 默认:0
-- `version`:版本号;默认:2.0.0 当前:2.1.0
-- `msg_from`:发送者
-- `msg_to`:接收者
-- `msg_id`:消息id，唯一标识;UUID
-- `msg_type`:消息类型
-- `msg_time`:发送时间戳
-- `body`:消息内容体;Array
+
+    - `compress`:压缩方式;0:未压缩 1:压缩;默认:0
+    - `encode`:编码格式;0:UTF-8 1:GBK 默认:0
+    - `encrypt`:加密;0:未加密 1:加密 默认:0
+    - `version`:版本号;默认:2.0.0 当前:2.1.0
+    - `msg_from`:发送者
+    - `msg_to`:接收者
+    - `msg_id`:消息id，唯一标识;UUID
+    - `msg_type`:消息类型
+    - `msg_time`:发送时间戳
+    - `body`:消息内容体;Array
 
 - [消息类型`msg_type`][messageType]
 
