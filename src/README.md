@@ -32,14 +32,14 @@
 
 默认使用`type='chat`'作为消息载体,分别实现`Plugin`、`PacketInterceptor`接口以插件的形式拦截消息,然后自定义处理。
 
-    ```xml
-    <message type="#{type}" from="zhangsan#{domain}" to="lisi#{domain}">
-    <body>
-       #{json}
-    </body>
-    </message>
+```xml
+<message type="#{type}" from="zhangsan#{domain}" to="lisi#{domain}">
+<body>
+   #{json}
+</body>
+</message>
 
-    ```
+```
 
 - `type`:chat
 - `domain`:@im.itonglian.com
