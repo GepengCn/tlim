@@ -69,8 +69,9 @@ subscribers:[
 - `subscribers`
     - `Array`
     - 群成员
-- `user_id`
-    - 成员`id`
+    - `user_id`
+        - 成员`id`
+        - `string(64)`
 
 ### 图例
 

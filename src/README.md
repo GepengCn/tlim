@@ -125,7 +125,7 @@
 - 所有接口列表
 
     - [新增会话][SESSION_CREATE]
-    - 更新会话
+    - [更新会话][SESSION_MODIFY]
     - 删除会话
     - 文件上传与下载
     - 查询会话列表
@@ -194,3 +194,4 @@
 [MTS-104]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_EXIT.md
 [MTS-107]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_DISSOLVED.md
 [SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_CREATE.md
+[SESSION_MODIFY]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_MODIFY.md
