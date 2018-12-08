@@ -3,6 +3,7 @@ package com.itonglian.utils;
 import cn.jiguang.common.ClientConfig;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Options;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
@@ -82,7 +83,7 @@ public class JPushHandler implements Runnable{
                                 .setTitle(sessionName)
                                 .build())
                         .build())
-                // .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                 .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
     }
 
@@ -105,7 +106,7 @@ public class JPushHandler implements Runnable{
                                 .setTitle(sessionName)
                                 .build())*/
                         .build())
-                // .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                 .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
     }
 
@@ -127,7 +128,7 @@ public class JPushHandler implements Runnable{
                                 .setTitle(sessionName)
                                 .build())
                         .build())
-                // .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                .setOptions(Options.newBuilder().setApnsProduction(true).build())
                 .build();
     }
 
