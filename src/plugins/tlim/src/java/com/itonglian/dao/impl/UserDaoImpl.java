@@ -52,6 +52,8 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+
+
     @Override
     public void clear() {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
@@ -82,6 +84,32 @@ public class UserDaoImpl implements UserDao {
             session.close();
         }
         return appPushCode;
+    }
+
+    @Override
+    public void updateUser() {
+        UserManager userManager =XMPPServer.getInstance().getUserManager();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        try {
+            List<User> userList = userMapper.findAll("N");
+            Iterator<User> iterator = userList.iterator();
+            while(iterator.hasNext()){
+                User user = iterator.next();
+                if(UserCacheManager.contain(user.getUser_id())){
+                    continue;
+                }
+                if(!userManager.isRegisteredUser(user.getUser_id())){
+                    userManager.createUser(user.getUser_id(),"123",user.getUser_name(),user.getUser_email());
+                }
+                UserCacheManager.add(user);
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
     }
 
     @Override

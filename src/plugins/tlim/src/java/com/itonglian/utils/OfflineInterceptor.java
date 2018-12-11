@@ -46,7 +46,7 @@ public class OfflineInterceptor {
     }
     private Online queryOnline(String user_id){
 
-        Log.error("queryOnline="+user_id);
+        //Log.error("queryOnline="+user_id);
         Collection<Presence> list = presenceManager.getPresences(user_id);
 
         Iterator<Presence> iterator = list.iterator();
@@ -61,7 +61,7 @@ public class OfflineInterceptor {
             Presence presence = iterator.next();
             if(presence!=null&&presence.getShow()==null){
                 String resource = presence.getFrom().getResource();
-                Log.error("resource="+resource);
+                //Log.error("resource="+resource);
                 if(!StringUtils.isNullOrEmpty(resource)){
                     online = true;
                 }
@@ -73,7 +73,7 @@ public class OfflineInterceptor {
                 }
             }
         }
-        Log.error("user_id="+user_id+",webOnline="+webOnline+",mobileOnline="+mobileOnline+",online="+online);
+        //Log.error("user_id="+user_id+",webOnline="+webOnline+",mobileOnline="+mobileOnline+",online="+online);
         return new Online(webOnline,mobileOnline,online);
     }
 

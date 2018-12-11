@@ -9,6 +9,8 @@ public interface UserDao {
     public String findAppPushCodeByUserId(String userId);
 
 
+    public void updateUser();
+
     void registerAppPushCode(String userId,String appPushCode);
 
 }

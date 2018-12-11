@@ -41,6 +41,8 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
         interceptorManager.addInterceptor(this);
         userDao.clear();
         userDao.syncUser();
+        /*QuartzUtils quartzUtils = new QuartzUtils();
+        quartzUtils.run();*/
     }
 
     @Override

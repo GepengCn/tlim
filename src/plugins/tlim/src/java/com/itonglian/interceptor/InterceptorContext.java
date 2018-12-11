@@ -100,6 +100,9 @@ public class InterceptorContext {
             case "MTS-107":
                 interceptor = new SessionDissolvedInterceptor();
                 break;
+            case "MTB-100":
+                interceptor = new ChatSystemInterceptor();
+                break;
             default:
                 return;
         }

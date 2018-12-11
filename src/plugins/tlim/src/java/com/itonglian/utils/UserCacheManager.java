@@ -32,4 +32,8 @@ public class UserCacheManager {
     public static User findUserByKey(String key){
         return users.get(key);
     }
+
+    public static boolean contain(String key){
+        return users.contains(key);
+    }
 }
