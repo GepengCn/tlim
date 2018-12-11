@@ -2,12 +2,15 @@ package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.ChatDao;
+import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.entity.OfChat;
+import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
@@ -29,6 +32,8 @@ import java.util.List;
 public class FindWebSessions extends HttpServlet {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
+
+    MessageDao messageDao = MessageDaoImpl.getInstance();
 
     private static final Logger Log = LoggerFactory.getLogger(FindWebSessions.class);
 
@@ -61,10 +66,25 @@ public class FindWebSessions extends HttpServlet {
         if(valid==0){
             ofSessions.addAll(parse(chatDao.chatList(userId)));
         }
+
+        List<OfMessage> system = messageDao.findSystemHistory(userId,0,1);
+        if(system.size()>0){
+            ofSessions.add(parseSystem(system.get(0)));
+        }
         doBack(new BackJson("ok","",ofSessions),printWriter);
 
     }
 
+    public OfSession parseSystem(OfMessage ofMessage){
+        OfSession ofSession = new OfSession();
+        ofSession.setSession_id("systemMessage");
+        ofSession.setSession_name("系统消息");
+        ofSession.setSession_valid(0);
+        ofSession.setSession_type(100);
+        ofSession.setSession_user("admin");
+        ofSession.setSession_modify_time(ofMessage.getMsg_time());
+        return ofSession;
+    }
     public List<OfSession> parse(List<OfChat> ofChats){
         Iterator<OfChat> iterator = ofChats.iterator();
         List<OfSession> ofSessions = new ArrayList<OfSession>();

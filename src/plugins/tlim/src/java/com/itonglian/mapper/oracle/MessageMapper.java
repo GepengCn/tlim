@@ -34,4 +34,13 @@ public interface MessageMapper{
                                    @Param(value="length") int length);
 
 
+
+    @Select("SELECT * FROM (SELECT OFMESSAGE.*,ROWNUM as rn FROM OFMESSAGE WHERE MSG_TO = #{msg_to} AND MSG_TYPE = #{msg_type}  AND ROWNUM<=#{length} ) WHERE rn>=#{start} ORDER BY MSG_TIME DESC")
+    @Options(useCache = true)
+    List<OfMessage> findPageBySystem(@Param(value="msg_to") String msg_to,
+                                     @Param(value="msg_type") String msg_type,
+                                      @Param(value="start") int start,
+                                      @Param(value="length") int length);
+
+
 }

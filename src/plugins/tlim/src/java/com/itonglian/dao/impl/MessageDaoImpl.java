@@ -214,4 +214,41 @@ public class MessageDaoImpl implements MessageDao {
             session.close();
         }
     }
+
+    @Override
+    public List<OfMessage> findSystemHistory(String msg_to, int start, int length) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        List<OfMessage> messageList = new ArrayList<>();
+        try {
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                messageList = messageMapper.findPageBySystem("MTB-100",msg_to,start,length);
+            }else{
+                MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+                messageList = messageMapper.findPageBySystem("MTB-100",msg_to,start,length);
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return messageList;
+    }
+
+    @Override
+    public int findSystemMessageTotal(String msg_to) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        int total = 0;
+        try {
+            total = messageMapper.findPageTotalBySystem("MTB-100",msg_to);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return total;
+    }
 }
