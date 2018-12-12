@@ -173,7 +173,7 @@ public class MessageUtils {
         ofCustomOffline.setMsg_status(0);
         ofCustomOffline.setBody(ofMessage.getBody());
         ofCustomOffline.setMsg_from(ofMessage.getMsg_from());
-        ofCustomOffline.setMsg_to(ofMessage.getMsg_to());
+        ofCustomOffline.setMsg_to(ofMessage.getSession_id());
         ofCustomOffline.setMsg_type(ofMessage.getMsg_type());
         ofCustomOffline.setMsg_time(ofMessage.getMsg_time());
         ofCustomOffline.setSession_id(ofMessage.getSession_id());
