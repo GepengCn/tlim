@@ -19,9 +19,19 @@ public class DruidDataSourceFactory implements DataSourceFactory {
 
     @Override
     public DataSource getDataSource() {
+        String driver = JiveGlobals.getXMLProperty("database.defaultProvider.driver");
+        String url = JiveGlobals.getXMLProperty("database.defaultProvider.serverURL");
+        if("net.sourceforge.jtds.jdbc.Driver".equals(driver)){
+            driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+            String srcUrl = url;
+            String host = srcUrl.substring(srcUrl.indexOf("//")+2,srcUrl.lastIndexOf("/"));
+            String databaseName = srcUrl.substring(srcUrl.lastIndexOf("/")+1,srcUrl.lastIndexOf(";"));
+            url = "jdbc:sqlserver://"+host+":1433;DatabaseName="+databaseName;
+        }
+
         DruidDataSource dds = new DruidDataSource();
-        dds.setDriverClassName(JiveGlobals.getXMLProperty("database.defaultProvider.driver"));
-        dds.setUrl(JiveGlobals.getXMLProperty("database.defaultProvider.serverURL"));
+        dds.setDriverClassName(driver);
+        dds.setUrl(url);
         dds.setUsername(JiveGlobals.getXMLProperty("database.defaultProvider.username"));
         dds.setPassword(JiveGlobals.getXMLProperty("database.defaultProvider.password"));
         dds.setMaxActive(5000);
@@ -39,7 +49,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dds.setTestOnReturn(false);
         dds.setPoolPreparedStatements(true);
         dds.setMaxOpenPreparedStatements(50);
-        String driver = JiveGlobals.getXMLProperty("database.defaultProvider.driver");
+
         if("oracle.jdbc.driver.OracleDriver".equals(driver)){
             dds.setOracle(true);
         }

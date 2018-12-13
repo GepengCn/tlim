@@ -5,6 +5,7 @@ import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.utils.MessageUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
 import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.XMPPServer;
@@ -77,7 +78,7 @@ public class FindPresence extends HttpServlet {
                 }
                 userPresList.add(userPres);
             } catch (UserNotFoundException e) {
-                e.printStackTrace();
+                Log.error(e.getMessage());
             }
         }
         if(userPresList==null||userPresList.size()==0){

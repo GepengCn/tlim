@@ -2,7 +2,9 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.OfflineDao;
 import com.itonglian.entity.OfCustomOffline;
+import com.itonglian.enums.DBType;
 import com.itonglian.mapper.mysql.OfflineMapper;
+import com.itonglian.utils.DBUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -29,10 +31,16 @@ public class OfflineDaoImpl implements OfflineDao {
     public void add(OfCustomOffline ofCustomOffline) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
         try {
-            ofCustomOffline.setId_(UUID.randomUUID().toString());
-            offlineMapper.insertOffline(ofCustomOffline);
+            if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.OfflineMapper offlineMapper = session.getMapper(com.itonglian.mapper.sqlserver.OfflineMapper.class);
+                ofCustomOffline.setId_(UUID.randomUUID().toString());
+                offlineMapper.insertOffline(ofCustomOffline);
+            }else{
+                OfflineMapper offlineMapper = session.getMapper(OfflineMapper.class);
+                ofCustomOffline.setId_(UUID.randomUUID().toString());
+                offlineMapper.insertOffline(ofCustomOffline);
+            }
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
