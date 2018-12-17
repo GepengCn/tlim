@@ -132,10 +132,8 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
             handlerRead(protocol,message);
         }
 
-        Log.error("canCopyToMe="+canCopyToMe);
         if(canCopyToMe){
 
-            Log.error("execute canCopyToMe=");
             Message copyToMe = message.createCopy();
 
             copyToMe.setTo(message.getFrom().toBareJID());
