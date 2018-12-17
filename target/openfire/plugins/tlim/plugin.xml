@@ -5,8 +5,8 @@
     <name>Instant Message Plugin for tonglian</name>
     <description>即时通讯插件</description>
     <author>Gepeng</author>
-    <version>1.2.2</version>
-    <date>18/09/2018</date>
+    <version>1.3.0</version>
+    <date>17/12/2018</date>
     <minServerVersion>4.2.3</minServerVersion>
     <databaseKey>tlim</databaseKey>
     <databaseVersion>1</databaseVersion>

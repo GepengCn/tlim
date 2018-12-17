@@ -61,4 +61,13 @@ public class User {
     public void setApp_push_code(String app_push_code) {
         this.app_push_code = app_push_code;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User user= (User) obj;
+            return user_id.equals(user.getUser_id());
+        }
+        return false;
+    }
 }

@@ -30,4 +30,8 @@ public interface UserMapper {
     @Options(useCache = false)
     int count(@Param(value = "dr") String dr);
 
+    @Delete("DELETE FROM ofUser WHERE username = #{userId}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void remove(@Param(value = "userId") String userId);
+
 }
