@@ -3,6 +3,7 @@ package com.itonglian;
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.interceptor.InterceptorContext;
+import com.itonglian.utils.QuartzUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
@@ -41,8 +42,8 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
         interceptorManager.addInterceptor(this);
         userDao.clear();
         userDao.syncUser();
-        /*QuartzUtils quartzUtils = new QuartzUtils();
-        quartzUtils.run();*/
+        QuartzUtils quartzUtils = new QuartzUtils();
+        quartzUtils.run();
     }
 
     @Override

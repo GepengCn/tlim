@@ -19,14 +19,14 @@ public class QuartzUtils {
             sched.start();
 
 
-            JobDetail job = newJob(HelloJob.class)
-                    .withIdentity("myJob", "group1")
+            JobDetail job = newJob(UserSchedule.class)
+                    .withIdentity("UserSchedule", "tlim")
                     .build();
             Trigger trigger = newTrigger()
-                    .withIdentity("myTrigger", "group1")
+                    .withIdentity("UserScheduleTrigger", "tlim")
                     .startNow()
                     .withSchedule(simpleSchedule()
-                            .withIntervalInMinutes(5)
+                            .withIntervalInMinutes(1)
                             .repeatForever())
 
                     .build();

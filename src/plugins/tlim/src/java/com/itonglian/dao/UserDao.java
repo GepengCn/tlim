@@ -1,16 +1,24 @@
 package com.itonglian.dao;
 
+import com.itonglian.entity.User;
+
+import java.util.List;
+
 public interface UserDao {
 
-    public void syncUser();
+    void syncUser();
 
-    public void clear();
+    void clear();
 
-    public String findAppPushCodeByUserId(String userId);
+    String findAppPushCodeByUserId(String userId);
 
 
-    public void updateUser();
+    void updateUser();
 
     void registerAppPushCode(String userId,String appPushCode);
+
+    int count();
+
+    List<User> findAll();
 
 }

@@ -26,7 +26,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
             String srcUrl = url;
             String host = srcUrl.substring(srcUrl.indexOf("//")+2,srcUrl.lastIndexOf("/"));
             String databaseName = srcUrl.substring(srcUrl.lastIndexOf("/")+1,srcUrl.lastIndexOf(";"));
-            url = "jdbc:sqlserver://"+host+":1433;DatabaseName="+databaseName;
+            url = "jdbc:sqlserver://"+host+";DatabaseName="+databaseName;
         }
 
         DruidDataSource dds = new DruidDataSource();

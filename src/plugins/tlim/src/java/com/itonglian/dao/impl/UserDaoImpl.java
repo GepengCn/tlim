@@ -13,6 +13,7 @@ import org.jivesoftware.openfire.user.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -126,6 +127,39 @@ public class UserDaoImpl implements UserDao {
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public int count() {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        int count = 0;
+        try {
+            count = userMapper.count("N");
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    @Override
+    public List<User> findAll() {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = userMapper.findAll("N");
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return userList;
+
     }
 
 
