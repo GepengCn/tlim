@@ -105,6 +105,7 @@ public class UserManager implements IQResultListener {
     private UserManager() {
         // Initialize caches.
         userCache = CacheFactory.createCache("User");
+        userCache.setMaxCacheSize(-1);
         remoteUsersCache = CacheFactory.createCache("Remote Users Existence");
 
         // Load a user & property provider.
