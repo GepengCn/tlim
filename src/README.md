@@ -127,9 +127,9 @@
     - [新增会话][SESSION_CREATE]
     - [更新会话][SESSION_MODIFY]
     - [删除会话][SESSION_DELETE]
-    - 文件上传
-    - 文件下载
-    - 查询会话列表
+    - [文件上传][FILE_UPLOAD]
+    - [文件下载][FILE_DOWNLOAD]
+    - [查询会话列表][FIND_SESSIONS]
     - 查询订阅者列表
     - 查询会话历史消息
     - 更新会话图标
@@ -197,3 +197,6 @@
 [SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_CREATE.md
 [SESSION_MODIFY]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_MODIFY.md
 [SESSION_DELETE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_DELETE.md
+[FILE_UPLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_UPLOAD.md
+[FILE_DOWNLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_DOWNLOAD.md
+[FIND_SESSIONS]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSIONS.md
