@@ -126,8 +126,9 @@
 
     - [新增会话][SESSION_CREATE]
     - [更新会话][SESSION_MODIFY]
-    - 删除会话
-    - 文件上传与下载
+    - [删除会话][SESSION_DELETE]
+    - 文件上传
+    - 文件下载
     - 查询会话列表
     - 查询订阅者列表
     - 查询会话历史消息
@@ -195,3 +196,4 @@
 [MTS-107]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_DISSOLVED.md
 [SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_CREATE.md
 [SESSION_MODIFY]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_MODIFY.md
+[SESSION_DELETE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_DELETE.md
