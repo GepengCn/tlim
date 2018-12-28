@@ -23,6 +23,13 @@ public class StringUtils {
         return Long.parseLong(value);
     }
 
+    public static boolean stringToBoolean(String value){
+        if(!isNullOrEmpty(value)&&"true".equals(value)){
+            return true;
+        }
+        return false;
+    }
+
     public static int StringToMaxInt(String value){
         if(isNullOrEmpty(value)){
             return 0;
