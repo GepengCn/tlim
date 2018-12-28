@@ -61,6 +61,8 @@
 >>    49. [当前用户是否有未读消息](#当前用户是否有未读消息)
 >>    50. [AppPushCode](#AppPushCode)
 >>    51. [离线消息](#离线消息)
+>>    52. [外部新增用户接口](#外部新增用户接口)
+>>    53. [外部移除用户接口](#外部移除用户接口)
 >>
 > 六、[流程](#六流程)<br>
 > 七、[Smack API相关](#七smack-api相关)<br>
@@ -1789,6 +1791,64 @@ session_user    |   创建会话用户userid  |   2 |   1.0.0   |  String  |   6
     }
     注:msg_status [0:移动端未收,web未收]/[1:移动端未收,web已收]
     getThenClear [0:获取并清空离线消息]/[1:获取但是不清空离线消息]
+
+---
+###### 外部新增用户接口
+    1. 接口定义:
+
+    外部新增用户接口;http请求;
+    注意:如果不用Openfire自定义同步接口，如下操作
+    Openfire/conf/openfire.xml的<jive>标签下新增<tlim><userAsync>false</userAsync></tlim>
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/addUser
+
+    4. 参数
+
+    4.1 userList:[{"user_id":"apple","user_name":"test3"}]
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": ""
+    }
+
+---
+###### 外部移除用户接口
+    1. 接口定义:
+
+    外部移除用户接口;http请求;
+    注意:如果不用Openfire自定义同步接口，如下操作
+    Openfire/conf/openfire.xml的<jive>标签下新增<tlim><userAsync>false</userAsync></tlim>
+
+    2. 接口流程:
+
+    clientA->openfire->clientB
+
+    a. clientA发送消息体到openfire服务器
+    b. openfire服务器解析、校验、存储
+    c. 消息推送给clientB
+
+    3.请求地址
+    http://coolweb.club:9595/plugins/tlim/removeUser
+
+    4. 参数
+
+    4.1 userList:[{"user_id":"apple","user_id":"banana"}]
+
+    5. 返回值:json对象
+    {
+        "result": "ok",
+        "result_detail": ""
+    }
 
 ---
 ## 六、流程
