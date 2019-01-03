@@ -53,4 +53,4 @@ http://#{ip}:#{port}/plugins/tlim/findSessions
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/FIND_SESSIONS.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/FIND_SESSIONS.png?raw=true

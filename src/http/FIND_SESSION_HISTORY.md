@@ -61,4 +61,4 @@ http://#{ip}:#{port}/plugins/tlim/findSessionHistory
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/FIND_SESSION_HISTORY.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/FIND_SESSION_HISTORY.png?raw=true

@@ -56,4 +56,4 @@ http://#{ip}:#{port}/plugins/tlim/getOffline
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/GET_OFFLINE.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/GET_OFFLINE.png?raw=true

@@ -47,4 +47,4 @@ d.
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/FILE_UPLOAD.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/FILE_UPLOAD.png?raw=true

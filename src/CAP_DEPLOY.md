@@ -63,10 +63,10 @@ INSERT INTO `ofuser` (`username`, `storedKey`, `serverKey`, `salt`, `iterations`
 
 
 
-[openfire_step_01]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_01.png?raw=true
-[openfire_step_02]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_02.png?raw=true
-[openfire_step_03]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_03.png?raw=true
-[openfire_step_04]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_04.png?raw=true
-[openfire_step_05]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_05.png?raw=true
-[openfire_step_06]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_06.png?raw=true
-[openfire_step_07]:https://github.com/GepengCn/tlim/blob/dev/images/openfire_step_07.png?raw=true
+[openfire_step_01]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_01.png?raw=true
+[openfire_step_02]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_02.png?raw=true
+[openfire_step_03]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_03.png?raw=true
+[openfire_step_04]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_04.png?raw=true
+[openfire_step_05]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_05.png?raw=true
+[openfire_step_06]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_06.png?raw=true
+[openfire_step_07]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_07.png?raw=true

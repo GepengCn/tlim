@@ -48,5 +48,5 @@ http://#{ip}:#{port}/plugins/tlim/systemMessage
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/SYSTEM_MESSAGE.png?raw=true
-[enum]:https://github.com/GepengCn/tlim/blob/dev/images/SYSTEM_MESSAGE_ENUM.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/SYSTEM_MESSAGE.png?raw=true
+[enum]:https://github.com/GepengCn/tlim/blob/master/images/SYSTEM_MESSAGE_ENUM.png?raw=true

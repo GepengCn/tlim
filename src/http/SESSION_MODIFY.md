@@ -62,4 +62,4 @@ subscribers:[
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/SESSION_MODIFY.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/SESSION_MODIFY.png?raw=true

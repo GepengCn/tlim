@@ -41,4 +41,4 @@
 
 ![Alt text][demo]
 
-[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_002.png?raw=true
+[demo]:https://github.com/GepengCn/tlim/blob/master/images/MTT_002.png?raw=true

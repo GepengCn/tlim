@@ -34,4 +34,4 @@ http://#{ip}:#{port}/plugins/tlim/registerAppPushCode
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/APP_PUSH_CODE.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/APP_PUSH_CODE.png?raw=true

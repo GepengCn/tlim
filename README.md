@@ -2,10 +2,10 @@
 -------------------
 <div align="center">
 
-[![](https://img.shields.io/badge/%E6%9C%80%E6%96%B0%E6%96%87%E6%A1%A3-v2.2.0-brightgreen.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
+[![](https://img.shields.io/badge/%E6%9C%80%E6%96%B0%E6%96%87%E6%A1%A3-v2.2.0-brightgreen.svg)](https://github.com/GepengCn/tlim/blob/master/src/README.md)
 [![](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-Openfire-yellowgreen.svg)](https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip)
-[![](https://img.shields.io/badge/%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B-msg__type-orange.svg)](https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md)
-[![](https://img.shields.io/badge/%E6%97%A7%E7%89%88%E6%96%87%E6%A1%A3-v1.3.0-lightgrey.svg)](https://github.com/GepengCn/tlim/blob/dev/src//old/README.md)
+[![](https://img.shields.io/badge/%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B-msg__type-orange.svg)](https://github.com/GepengCn/tlim/blob/master/src/MESSAGE_TYPE.md)
+[![](https://img.shields.io/badge/%E6%97%A7%E7%89%88%E6%96%87%E6%A1%A3-v1.3.0-lightgrey.svg)](https://github.com/GepengCn/tlim/blob/master/src//old/README.md)
 [![](https://img.shields.io/badge/demo-coolweb.club-blue.svg)](http://coolweb.club)
 
 </div>
@@ -177,51 +177,51 @@
 
 
 
-[messageType]:https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md
+[messageType]:https://github.com/GepengCn/tlim/blob/master/src/MESSAGE_TYPE.md
 
-[openfire]:https://github.com/GepengCn/tlim/blob/dev/images/openfire.png?raw=true
+[openfire]:https://github.com/GepengCn/tlim/blob/master/images/openfire.png?raw=true
 
-[symbol]:https://github.com/GepengCn/tlim/blob/dev/images/tlim.png?raw=true
+[symbol]:https://github.com/GepengCn/tlim/blob/master/images/tlim.png?raw=true
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
 
-[MTT-000]:https://github.com/GepengCn/tlim/blob/dev/src/body/TEXT.md
-[MTT-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/PICTURE.md
-[MTT-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/FILE.md
-[MTT-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/VOICE.md
+[MTT-000]:https://github.com/GepengCn/tlim/blob/master/src/body/TEXT.md
+[MTT-001]:https://github.com/GepengCn/tlim/blob/master/src/body/PICTURE.md
+[MTT-002]:https://github.com/GepengCn/tlim/blob/master/src/body/FILE.md
+[MTT-003]:https://github.com/GepengCn/tlim/blob/master/src/body/VOICE.md
 
-[MTS-000]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_TEXT.md
-[MTS-001]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_PICTURE.md
-[MTS-002]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_FILE.md
-[MTS-003]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_VOICE.md
+[MTS-000]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_TEXT.md
+[MTS-001]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_PICTURE.md
+[MTS-002]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_FILE.md
+[MTS-003]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_VOICE.md
 
-[MTT-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/READ_BACK.md
-[MTS-100]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_READ_BACK.md
+[MTT-100]:https://github.com/GepengCn/tlim/blob/master/src/body/READ_BACK.md
+[MTS-100]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_READ_BACK.md
 
-[MTT-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/REVOKE.md
-[MTS-101]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_REVOKE.md
+[MTT-101]:https://github.com/GepengCn/tlim/blob/master/src/body/REVOKE.md
+[MTS-101]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_REVOKE.md
 
-[MTS-105]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_CREATE.md
-[MTS-102]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_NAME_UPDATE.md
-[MTS-106]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_INVITE.md
-[MTS-104]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_EXIT.md
-[MTS-107]:https://github.com/GepengCn/tlim/blob/dev/src/body/SESSION_DISSOLVED.md
-[SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_CREATE.md
-[SESSION_MODIFY]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_MODIFY.md
-[SESSION_DELETE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SESSION_DELETE.md
-[FILE_UPLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_UPLOAD.md
-[FILE_DOWNLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_DOWNLOAD.md
-[FIND_SESSIONS]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSIONS.md
-[FIND_SUBSCRIBERS_LIST]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SUBSCRIBERS_LIST.md
-[FIND_SESSION_HISTORY]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSION_HISTORY.md
-[UPDATE_SESSION_PIC]:https://github.com/GepengCn/tlim/blob/dev/src/http/UPDATE_SESSION_PIC.md
-[APPROVAL]:https://github.com/GepengCn/tlim/blob/dev/src/http/APPROVAL.md
-[SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SYSTEM_MESSAGE.md
-[GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/dev/src/http/GET_OFFLINE.md
-[APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/dev/src/http/APP_PUSH_CODE.md
-[DEPLOY]:https://github.com/GepengCn/tlim/blob/dev/src/CAP_DEPLOY.md
-[ADD_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/ADD_USER.md
-[REMOVE_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/REMOVE_USER.md
+[MTS-105]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_CREATE.md
+[MTS-102]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_NAME_UPDATE.md
+[MTS-106]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_INVITE.md
+[MTS-104]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_EXIT.md
+[MTS-107]:https://github.com/GepengCn/tlim/blob/master/src/body/SESSION_DISSOLVED.md
+[SESSION_CREATE]:https://github.com/GepengCn/tlim/blob/master/src/http/SESSION_CREATE.md
+[SESSION_MODIFY]:https://github.com/GepengCn/tlim/blob/master/src/http/SESSION_MODIFY.md
+[SESSION_DELETE]:https://github.com/GepengCn/tlim/blob/master/src/http/SESSION_DELETE.md
+[FILE_UPLOAD]:https://github.com/GepengCn/tlim/blob/master/src/http/FILE_UPLOAD.md
+[FILE_DOWNLOAD]:https://github.com/GepengCn/tlim/blob/master/src/http/FILE_DOWNLOAD.md
+[FIND_SESSIONS]:https://github.com/GepengCn/tlim/blob/master/src/http/FIND_SESSIONS.md
+[FIND_SUBSCRIBERS_LIST]:https://github.com/GepengCn/tlim/blob/master/src/http/FIND_SUBSCRIBERS_LIST.md
+[FIND_SESSION_HISTORY]:https://github.com/GepengCn/tlim/blob/master/src/http/FIND_SESSION_HISTORY.md
+[UPDATE_SESSION_PIC]:https://github.com/GepengCn/tlim/blob/master/src/http/UPDATE_SESSION_PIC.md
+[APPROVAL]:https://github.com/GepengCn/tlim/blob/master/src/http/APPROVAL.md
+[SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/master/src/http/SYSTEM_MESSAGE.md
+[GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/master/src/http/GET_OFFLINE.md
+[APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/master/src/http/APP_PUSH_CODE.md
+[DEPLOY]:https://github.com/GepengCn/tlim/blob/master/src/CAP_DEPLOY.md
+[ADD_USER]:https://github.com/GepengCn/tlim/blob/master/src/http/ADD_USER.md
+[REMOVE_USER]:https://github.com/GepengCn/tlim/blob/master/src/http/REMOVE_USER.md
 
 
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip

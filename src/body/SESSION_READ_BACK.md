@@ -48,4 +48,4 @@
 
 ![Alt text][demo]
 
-[demo]:https://github.com/GepengCn/tlim/blob/dev/images/MTT_100.png?raw=true
+[demo]:https://github.com/GepengCn/tlim/blob/master/images/MTT_100.png?raw=true

@@ -41,4 +41,4 @@ http://#{ip}:#{port}/plugins/tlim/updateSessionPic
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/UPDATE_SESSION_PIC.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/UPDATE_SESSION_PIC.png?raw=true

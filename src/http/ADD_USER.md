@@ -41,4 +41,4 @@ http://#{ip}:#{port}/plugins/tlim/addUser
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/ADD_USER.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/ADD_USER.png?raw=true

@@ -72,4 +72,4 @@ http://#{ip}:#{port}/plugins/tlim/findSubscribers
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/FIND_SUBSCRIBERS_LIST.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/FIND_SUBSCRIBERS_LIST.png?raw=true

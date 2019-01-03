@@ -44,4 +44,4 @@ http://#{ip}:#{port}/plugins/tlim/approval
 
 ![Alt text][demo1]
 
-[demo1]:https://github.com/GepengCn/tlim/blob/dev/images/APPROVAL.png?raw=true
+[demo1]:https://github.com/GepengCn/tlim/blob/master/images/APPROVAL.png?raw=true
