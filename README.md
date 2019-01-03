@@ -132,7 +132,7 @@
     - [查询会话列表][FIND_SESSIONS]
     - [查询订阅者列表][FIND_SUBSCRIBERS_LIST]
     - [查询会话历史消息][FIND_SESSION_HISTORY]
-    - 更新会话图标
+    - [更新会话图标][UPDATE_SESSION_PIC]
     - 审批
     - 退回
     - 通知公告
@@ -202,3 +202,4 @@
 [FIND_SESSIONS]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSIONS.md
 [FIND_SUBSCRIBERS_LIST]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SUBSCRIBERS_LIST.md
 [FIND_SESSION_HISTORY]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSION_HISTORY.md
+[UPDATE_SESSION_PIC]:https://github.com/GepengCn/tlim/blob/dev/src/http/UPDATE_SESSION_PIC.md
