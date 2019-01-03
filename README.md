@@ -140,10 +140,10 @@
     - [邮件消息][SYSTEM_MESSAGE]
     - [查询离线消息][GET_OFFLINE]
     - [更新AppPushCode][APP_PUSH_CODE]
+    - [新增用户接口][ADD_USER]
+    - [移除用户接口][REMOVE_USER]
    
 ## [部署][DEPLOY]
-
-
 
 ## 插件开发
 
@@ -211,3 +211,6 @@
 [GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/dev/src/http/GET_OFFLINE.md
 [APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/dev/src/http/APP_PUSH_CODE.md
 [DEPLOY]:https://github.com/GepengCn/tlim/blob/dev/src/CAP_DEPLOY.md
+[ADD_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/ADD_USER.md
+[REMOVE_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/REMOVE_USER.md
+
