@@ -139,7 +139,7 @@
     - [工资条][SYSTEM_MESSAGE]
     - [邮件消息][SYSTEM_MESSAGE]
     - [查询离线消息][GET_OFFLINE]
-    - 更新AppPushCode
+    - [更新AppPushCode][APP_PUSH_CODE]
    
 
 
@@ -207,3 +207,4 @@
 [APPROVAL]:https://github.com/GepengCn/tlim/blob/dev/src/http/APPROVAL.md
 [SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SYSTEM_MESSAGE.md
 [GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/dev/src/http/GET_OFFLINE.md
+[APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/dev/src/http/APP_PUSH_CODE.md
