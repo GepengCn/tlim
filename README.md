@@ -141,6 +141,8 @@
     - [查询离线消息][GET_OFFLINE]
     - [更新AppPushCode][APP_PUSH_CODE]
    
+## [部署][DEPLOY]
+
 
 
 ## 插件开发
@@ -208,3 +210,4 @@
 [SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SYSTEM_MESSAGE.md
 [GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/dev/src/http/GET_OFFLINE.md
 [APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/dev/src/http/APP_PUSH_CODE.md
+[DEPLOY]:https://github.com/GepengCn/tlim/blob/dev/src/CAP_DEPLOY.md
