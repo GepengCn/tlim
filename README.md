@@ -25,9 +25,7 @@
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
-## 功能概览
 
-![Alt text][openfire]
 
 
 ## 消息协议
@@ -161,6 +159,9 @@
 
 - 初始化
 
+## 功能概览
+
+![Alt text][openfire]
 
 
 [旧版本文档][oldDoc]
