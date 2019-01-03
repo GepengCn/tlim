@@ -19,6 +19,11 @@
 - 弃用了`Openfire`自带的数据库连接池与`JDBC`组件，使用`MyBatis`搭配`Druid`连接池并且使用二级缓存大幅度优化了性能。
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
+## 下载
+
+- [openfire下载][https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip]
+- [最新插件下载][https://github.com/GepengCn/tlim/blob/dev/download/tlim.zip]
+- [数据库脚本下载][https://github.com/GepengCn/tlim/blob/dev/download/database.zip]
 ## 功能概览
 
 ![Alt text][openfire]
