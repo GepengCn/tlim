@@ -2,10 +2,10 @@
 -------------------
 <div align="center">
 
-[![](https://img.shields.io/badge/doc-2.1.0-green.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
-[![](https://img.shields.io/badge/download-v1.2-blue.svg)](https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip)
-[![](https://img.shields.io/badge/msg-type-yellowgreen.svg)](https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md)
-[![](https://img.shields.io/badge/doc-old-red.svg)](https://github.com/GepengCn/tlim/blob/master/README.md)
+[![](https://img.shields.io/badge/%E6%9C%80%E6%96%B0%E6%96%87%E6%A1%A3-v2.2.0-brightgreen.svg)](https://github.com/GepengCn/tlim/blob/dev/src/README.md)
+[![](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-Openfire-yellowgreen.svg)](https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip)
+[![](https://img.shields.io/badge/%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B-msg__type-orange.svg)](https://github.com/GepengCn/tlim/blob/dev/src/MESSAGE_TYPE.md)
+[![](https://img.shields.io/badge/%E6%97%A7%E7%89%88%E6%96%87%E6%A1%A3-v1.3.0-lightgrey.svg)](https://github.com/GepengCn/tlim/blob/dev/src//old/README.md)
 [![](https://img.shields.io/badge/demo-coolweb-lightgrey.svg)](http://coolweb.club)
 
 </div>
