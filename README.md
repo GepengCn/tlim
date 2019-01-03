@@ -134,10 +134,10 @@
     - [查询会话历史消息][FIND_SESSION_HISTORY]
     - [更新会话图标][UPDATE_SESSION_PIC]
     - [审批][APPROVAL]
-    - 退回
-    - 通知公告
-    - 工资条
-    - 邮件消息
+    - [退回][SYSTEM_MESSAGE]
+    - [通知公告][SYSTEM_MESSAGE]
+    - [工资条][SYSTEM_MESSAGE]
+    - [邮件消息][SYSTEM_MESSAGE]
     - 查询离线消息
     - 更新AppPushCode
    
@@ -205,3 +205,4 @@
 [FIND_SESSION_HISTORY]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSION_HISTORY.md
 [UPDATE_SESSION_PIC]:https://github.com/GepengCn/tlim/blob/dev/src/http/UPDATE_SESSION_PIC.md
 [APPROVAL]:https://github.com/GepengCn/tlim/blob/dev/src/http/APPROVAL.md
+[SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/dev/src/http/SYSTEM_MESSAGE.md
