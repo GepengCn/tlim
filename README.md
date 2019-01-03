@@ -183,7 +183,7 @@
 
 [symbol]:https://github.com/GepengCn/tlim/blob/master/images/tlim.png?raw=true
 
-[oldDoc]:https://github.com/GepengCn/tlim/blob/master/README.md
+[oldDoc]:https://github.com/GepengCn/tlim/blob/master/src/old/README.md
 
 [MTT-000]:https://github.com/GepengCn/tlim/blob/master/src/body/TEXT.md
 [MTT-001]:https://github.com/GepengCn/tlim/blob/master/src/body/PICTURE.md
