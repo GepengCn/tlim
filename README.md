@@ -27,6 +27,7 @@
 
 ## [旧版本文档][oldDoc]
 
+## [Openfire部署及配置][DEPLOY]
 
 ## 消息协议
 
@@ -147,7 +148,7 @@
     - [新增用户接口][ADD_USER]
     - [移除用户接口][REMOVE_USER]
    
-## [部署][DEPLOY]
+
 
 ## 插件开发
 
