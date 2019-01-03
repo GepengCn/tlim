@@ -25,7 +25,7 @@
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
-
+## [旧版本文档][oldDoc]
 
 
 ## 消息协议
@@ -164,7 +164,7 @@
 ![Alt text][openfire]
 
 
-[旧版本文档][oldDoc]
+
 
 
 
