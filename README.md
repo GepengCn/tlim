@@ -130,8 +130,8 @@
     - [文件上传][FILE_UPLOAD]
     - [文件下载][FILE_DOWNLOAD]
     - [查询会话列表][FIND_SESSIONS]
-    - 查询订阅者列表
-    - 查询会话历史消息
+    - [查询订阅者列表][FIND_SUBSCRIBERS_LIST]
+    - [查询会话历史消息][FIND_SESSION_HISTORY]
     - 更新会话图标
     - 审批
     - 退回
@@ -200,3 +200,5 @@
 [FILE_UPLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_UPLOAD.md
 [FILE_DOWNLOAD]:https://github.com/GepengCn/tlim/blob/dev/src/http/FILE_DOWNLOAD.md
 [FIND_SESSIONS]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSIONS.md
+[FIND_SUBSCRIBERS_LIST]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SUBSCRIBERS_LIST.md
+[FIND_SESSION_HISTORY]:https://github.com/GepengCn/tlim/blob/dev/src/http/FIND_SESSION_HISTORY.md

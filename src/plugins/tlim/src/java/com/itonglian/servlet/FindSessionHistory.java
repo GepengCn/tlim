@@ -8,7 +8,6 @@ import com.itonglian.entity.OfMessage;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import org.jivesoftware.admin.AuthCheckFilter;
-import org.jivesoftware.database.DbConnectionManager;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -40,20 +39,11 @@ public class FindSessionHistory extends HttpServlet {
 
         String session_id = req.getParameter("session_id");
 
-        String user_id = req.getParameter("user_id");
-
         int start = StringUtils.stringToInt(req.getParameter("start"));
 
         int length =StringUtils.StringToMaxInt(req.getParameter("length"));
 
-
-        if(StringUtils.isNullOrEmpty(user_id)){
-            doBack(new BackJson("error-008","user_id为空",session_id),printWriter);
-            return;
-        }
-
         List<OfMessage> messageList = messageDao.findHistory(session_id,start,length);
-
 
         int total = messageDao.findMessageTotal(session_id);
 
