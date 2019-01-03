@@ -21,9 +21,9 @@
 
 ## 下载
 
-- [openfire下载][https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip]
-- [最新插件下载][https://github.com/GepengCn/tlim/blob/dev/download/tlim.zip]
-- [数据库脚本下载][https://github.com/GepengCn/tlim/blob/dev/download/database.zip]
+- openfire下载[https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip][DOWNLOAD_OPENFIRE]
+- 最新插件下载[https://github.com/GepengCn/tlim/blob/dev/download/tlim.zip][DOWNLOAD_TLIM]
+- 数据库脚本下载[https://github.com/GepengCn/tlim/blob/dev/download/database.zip][DOWNLOAD_SQL]
 ## 功能概览
 
 ![Alt text][openfire]
@@ -219,3 +219,7 @@
 [ADD_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/ADD_USER.md
 [REMOVE_USER]:https://github.com/GepengCn/tlim/blob/dev/src/http/REMOVE_USER.md
 
+
+[DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip
+[DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/blob/dev/download/tlim.zip
+[DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/blob/dev/download/database.zip
