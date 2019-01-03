@@ -2,7 +2,9 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.SessionDao;
 import com.itonglian.entity.OfSession;
+import com.itonglian.enums.DBType;
 import com.itonglian.mapper.mysql.SessionMapper;
+import com.itonglian.utils.DBUtils;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -28,9 +30,16 @@ public class SessionDaoImpl implements SessionDao {
     public void add(OfSession ofSession) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
+
         try {
-            sessionMapper.insertSession(ofSession);
+            if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.SessionMapper sessionMapper = session.getMapper(com.itonglian.mapper.sqlserver.SessionMapper.class);
+                sessionMapper.insertSession(ofSession);
+            }else{
+                SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
+                sessionMapper.insertSession(ofSession);
+            }
+
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

@@ -116,6 +116,9 @@ public class StatusDaoImpl implements StatusDao {
             if(DBUtils.getDBType()== DBType.Oracle){
                 com.itonglian.mapper.oracle.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.oracle.StatusMapper.class);
                 messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
+            }else if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.sqlserver.StatusMapper.class);
+                messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
             }else{
                 StatusMapper statusMapper = session.getMapper(StatusMapper.class);
                 messageReadList = statusMapper.findSessionRead(session_id,start,length,sender);
@@ -138,6 +141,9 @@ public class StatusDaoImpl implements StatusDao {
         try {
             if(DBUtils.getDBType()== DBType.Oracle){
                 com.itonglian.mapper.oracle.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.oracle.StatusMapper.class);
+                messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
+            }else if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.StatusMapper statusMapper = session.getMapper(com.itonglian.mapper.sqlserver.StatusMapper.class);
                 messageReadList = statusMapper.findChatRead(msg_from,msg_to,start,length);
             }else{
                 StatusMapper statusMapper = session.getMapper(StatusMapper.class);

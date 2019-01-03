@@ -308,4 +308,34 @@
         <servlet-name>systemMessage</servlet-name>
         <url-pattern>/systemMessage</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>findSystemHistory</servlet-name>
+        <servlet-class>com.itonglian.servlet.FindSystemHistory</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>findSystemHistory</servlet-name>
+        <url-pattern>/findSystemHistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addUser</servlet-name>
+        <servlet-class>com.itonglian.servlet.AddUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addUser</servlet-name>
+        <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>removeUser</servlet-name>
+        <servlet-class>com.itonglian.servlet.RemoveUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>removeUser</servlet-name>
+        <url-pattern>/removeUser</url-pattern>
+    </servlet-mapping>
 </web-app>

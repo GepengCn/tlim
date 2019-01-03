@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
+import org.jivesoftware.util.JiveGlobals;
 import org.xmpp.packet.Message;
 
 import javax.servlet.http.HttpServletResponse;
@@ -173,7 +174,7 @@ public class MessageUtils {
         ofCustomOffline.setMsg_status(0);
         ofCustomOffline.setBody(ofMessage.getBody());
         ofCustomOffline.setMsg_from(ofMessage.getMsg_from());
-        ofCustomOffline.setMsg_to(ofMessage.getMsg_to());
+        ofCustomOffline.setMsg_to(ofMessage.getSession_id());
         ofCustomOffline.setMsg_type(ofMessage.getMsg_type());
         ofCustomOffline.setMsg_time(ofMessage.getMsg_time());
         ofCustomOffline.setSession_id(ofMessage.getSession_id());
@@ -194,6 +195,14 @@ public class MessageUtils {
             return where.web;
         }
         return where.mobile;
+    }
+
+    public static boolean canUserAsync(){
+        String strUserAsync = JiveGlobals.getXMLProperty("tlim.userAsync");
+        if(StringUtils.isNullOrEmpty(strUserAsync)){
+            return true;
+        }
+        return StringUtils.stringToBoolean(strUserAsync);
     }
 
     public enum where{

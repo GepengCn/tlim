@@ -13,6 +13,7 @@ import org.jivesoftware.openfire.user.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+
+
     @Override
     public void clear() {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
@@ -85,12 +88,87 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updateUser() {
+        UserManager userManager =XMPPServer.getInstance().getUserManager();
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        try {
+            List<User> userList = userMapper.findAll("N");
+            Iterator<User> iterator = userList.iterator();
+            while(iterator.hasNext()){
+                User user = iterator.next();
+                if(UserCacheManager.contain(user.getUser_id())){
+                    continue;
+                }
+                if(!userManager.isRegisteredUser(user.getUser_id())){
+                    userManager.createUser(user.getUser_id(),"123",user.getUser_name(),user.getUser_email());
+                }
+                UserCacheManager.add(user);
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
     public void registerAppPushCode(String userId, String appPushCode) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper userMapper = session.getMapper(UserMapper.class);
         try {
             userMapper.registerAppPushCode(appPushCode,userId);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public int count() {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        int count = 0;
+        try {
+            count = userMapper.count("N");
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    @Override
+    public List<User> findAll() {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = userMapper.findAll("N");
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return userList;
+
+    }
+
+    @Override
+    public void remove(String userId) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        try {
+            userMapper.remove(userId);
             session.commit();
         } catch (Exception e){
             session.rollback();

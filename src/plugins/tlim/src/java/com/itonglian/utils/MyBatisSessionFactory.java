@@ -37,12 +37,17 @@ public class MyBatisSessionFactory {
         configuration.addMapper(MessageMapper.class);
         configuration.addMapper(ChatMapper.class);
         configuration.addMapper(SessionMapper.class);
+        configuration.addMapper(com.itonglian.mapper.sqlserver.SessionMapper.class);
+        configuration.addMapper(com.itonglian.mapper.sqlserver.OfflineMapper.class);
         configuration.addMapper(SubscriberMapper.class);
         configuration.addMapper(OfflineMapper.class);
         configuration.addMapper(PubactMapper.class);
+        configuration.addMapper(com.itonglian.mapper.sqlserver.PubactMapper.class);
         configuration.addMapper(StatusMapper.class);
+        configuration.addMapper(com.itonglian.mapper.sqlserver.StatusMapper.class);
         configuration.addMapper(StyleMapper.class);
         configuration.addMapper(UserMapper.class);
+        configuration.addMapper(com.itonglian.mapper.sqlserver.MessageMapper.class);
         configuration.addMapper(com.itonglian.mapper.oracle.MessageMapper.class);
         configuration.addMapper(com.itonglian.mapper.oracle.StatusMapper.class);
         configuration.setCacheEnabled(true);
@@ -52,7 +57,7 @@ public class MyBatisSessionFactory {
             case "oracle.jdbc.driver.OracleDriver":
                 configuration.setDatabaseId("Oracle");
                 break;
-            case "com.microsoft.sqlserver.jdbc.SQLServerDriver":
+            case "net.sourceforge.jtds.jdbc.Driver":
                 configuration.setDatabaseId("SQLServer");
                 break;
             default:

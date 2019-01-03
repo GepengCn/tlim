@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public abstract class ChatInterceptor extends CommonInterceptor implements Interceptor{
 
-    private static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
+    protected static final Logger Log = LoggerFactory.getLogger(ChatInterceptor.class);
 
     private ChatDao chatDao = ChatDaoImpl.getInstance();
 
@@ -46,9 +46,15 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
 
     private boolean canRead = false;
 
+    private boolean canCopyToMe = true;
+
     private static final String ASYNC = "ASYNC";
 
 
+    public ChatInterceptor setCopyToMe(boolean set){
+        canCopyToMe = set;
+        return this;
+    }
 
     public ChatInterceptor setThreadPool(boolean set){
         canThreadPool = set;
@@ -126,13 +132,16 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
             handlerRead(protocol,message);
         }
 
-        Message copyToMe = message.createCopy();
+        if(canCopyToMe){
 
-        copyToMe.setTo(message.getFrom().toBareJID());
+            Message copyToMe = message.createCopy();
 
-        copyToMe.setSubject(ASYNC);
+            copyToMe.setTo(message.getFrom().toBareJID());
 
-        packetDeliverer.deliver(copyToMe);
+            copyToMe.setSubject(ASYNC);
+
+            packetDeliverer.deliver(copyToMe);
+        }
     }
 
     private void persistent(Protocol protocol,OfMessage ofMessage){

@@ -26,4 +26,12 @@ public interface UserMapper {
     void registerAppPushCode(@Param(value = "app_push_code") String app_push_code,
                              @Param(value = "user_id") String user_id);
 
+    @Select("SELECT count(1) FROM isc_user a,isc_user_info b  WHERE a.user_id = b.user_id AND a.dr=#{dr} AND b.dr=#{dr}")
+    @Options(useCache = false)
+    int count(@Param(value = "dr") String dr);
+
+    @Delete("DELETE FROM ofUser WHERE username = #{userId}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void remove(@Param(value = "userId") String userId);
+
 }

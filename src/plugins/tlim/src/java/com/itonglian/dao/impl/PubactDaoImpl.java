@@ -2,7 +2,9 @@ package com.itonglian.dao.impl;
 
 import com.itonglian.dao.PubactDao;
 import com.itonglian.entity.OfPubact;
+import com.itonglian.enums.DBType;
 import com.itonglian.mapper.mysql.PubactMapper;
+import com.itonglian.utils.DBUtils;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.MyBatisSessionFactory;
 import com.itonglian.utils.StringUtils;
@@ -31,9 +33,15 @@ public class PubactDaoImpl implements PubactDao {
     public void add(String title, String content, String user_id,String session_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
-        PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
+
         try {
-            pubactMapper.insertPubact(UUID.randomUUID().toString(),title,content,user_id, MessageUtils.getTs(),session_id);
+            if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.PubactMapper pubactMapper = session.getMapper(com.itonglian.mapper.sqlserver.PubactMapper.class);
+                pubactMapper.insertPubact(UUID.randomUUID().toString(),title,content,user_id, MessageUtils.getTs(),session_id);
+            }else{
+                PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
+                pubactMapper.insertPubact(UUID.randomUUID().toString(),title,content,user_id, MessageUtils.getTs(),session_id);
+            }
             session.commit();
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

@@ -37,6 +37,9 @@ public class MessageDaoImpl implements MessageDao {
             if(DBUtils.getDBType()== DBType.Oracle){
                 com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
                 messageList = messageMapper.findPageBySession(session_id,start,length);
+            }else if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.sqlserver.MessageMapper.class);
+                messageList = messageMapper.findPageBySession(session_id,start,start+length);
             }else{
                 MessageMapper messageMapper = session.getMapper(MessageMapper.class);
                 messageList = messageMapper.findPageBySession(session_id,start,length);
@@ -57,6 +60,13 @@ public class MessageDaoImpl implements MessageDao {
         try {
             if(DBUtils.getDBType()== DBType.Oracle){
                 com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                int isExist = messageMapper.isExist(ofMessage.getMsg_id());
+                if(isExist>0||isExist==-1){
+                    return;
+                }
+                messageMapper.insertMessage(ofMessage);
+            }else if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.sqlserver.MessageMapper.class);
                 int isExist = messageMapper.isExist(ofMessage.getMsg_id());
                 if(isExist>0||isExist==-1){
                     return;
@@ -213,5 +223,45 @@ public class MessageDaoImpl implements MessageDao {
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<OfMessage> findSystemHistory(String msg_to, int start, int length) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        List<OfMessage> messageList = new ArrayList<>();
+        try {
+            if(DBUtils.getDBType()== DBType.Oracle){
+                com.itonglian.mapper.oracle.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.oracle.MessageMapper.class);
+                messageList = messageMapper.findPageBySystem("MTB-100",msg_to,start,length);
+            }else if(DBUtils.getDBType()== DBType.SQLServer){
+                com.itonglian.mapper.sqlserver.MessageMapper messageMapper = session.getMapper(com.itonglian.mapper.sqlserver.MessageMapper.class);
+                messageList = messageMapper.findPageBySystem("MTB-100",msg_to,start,start+length);
+            }else{
+                MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+                messageList = messageMapper.findPageBySystem("MTB-100",msg_to,start,length);
+            }
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return messageList;
+    }
+
+    @Override
+    public int findSystemMessageTotal(String msg_to) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+        int total = 0;
+        try {
+            total = messageMapper.findPageTotalBySystem("MTB-100",msg_to);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return total;
     }
 }

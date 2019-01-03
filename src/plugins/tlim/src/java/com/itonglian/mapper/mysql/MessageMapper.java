@@ -63,5 +63,19 @@ public interface MessageMapper{
     @Delete({"DELETE FROM ofmessage where msg_id=#{msg_id}"})
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteById(@Param(value="msg_id") String msg_id);
+
+    @Select("SELECT * FROM ofmessage WHERE msg_type = #{msg_type} AND msg_to = #{msg_to} ORDER BY msg_time desc limit #{start},#{length}")
+    @Options(useCache = true)
+    List<OfMessage> findPageBySystem(@Param(value="msg_type") String msg_type,
+                                      @Param(value="msg_to") String msg_to,
+                                      @Param(value="start") int start,
+                                      @Param(value="length") int length);
+
+    @Select("SELECT COUNT(*) AS total FROM ofmessage WHERE msg_type = #{msg_type} AND msg_to = #{msg_to}")
+    @Options(useCache = true)
+    int findPageTotalBySystem(@Param(value="msg_type") String msg_type,
+                              @Param(value="msg_to") String msg_to);
+
+
 }
 

@@ -28,5 +28,9 @@ public interface MessageDao {
 
     void deleteById(String msg_id);
 
+    List<OfMessage> findSystemHistory(String msg_to,int start, int length);
+
+    int findSystemMessageTotal(String msg_to);
+
 
 }
