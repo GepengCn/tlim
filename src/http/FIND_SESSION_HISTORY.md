@@ -2,8 +2,6 @@
 
 查询会话历史消息
 
-- 会话类型
-
 ### 请求地址
 ```
 http://#{ip}:#{port}/plugins/tlim/findSessionHistory
@@ -13,12 +11,13 @@ http://#{ip}:#{port}/plugins/tlim/findSessionHistory
 
 - `session_id{string(64)}`
     - 会话`id`
-- `user_id{string(64)}`
-    - 订阅者`id`
+
 - `start{int}`
     - 起始序号
+
 - `length{int}`
     - 长度
+
 > 注:`length`如果为`max`则相当于`Integer.MAX_VALUE`
 ### 返回值
 ```

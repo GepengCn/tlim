@@ -2,8 +2,6 @@
 
 查询订阅者列表
 
-- 会话类型
-
 ### 请求地址
 ```
 http://#{ip}:#{port}/plugins/tlim/findSubscribers
