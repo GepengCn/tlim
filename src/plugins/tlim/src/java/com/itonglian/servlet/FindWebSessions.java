@@ -1,26 +1,19 @@
 package com.itonglian.servlet;
 
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
-import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
-import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSession;
-import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import org.jivesoftware.admin.AuthCheckFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,32 +22,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FindWebSessions extends HttpServlet {
+public class FindWebSessions extends BaseServlet {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
 
-    private static final Logger Log = LoggerFactory.getLogger(FindWebSessions.class);
-
 
     ChatDao chatDao = ChatDaoImpl.getInstance();
 
-    UserDao userDao = UserDaoImpl.getInstance();
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        AuthCheckFilter.addExclude("tlim/findWebSessions");
+    protected String mapper() {
+        return "tlim/findWebSessions";
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         String userId = req.getParameter("user_id");
 
         int valid = StringUtils.stringToInt(req.getParameter("valid"));
-
-        MessageUtils.setResponse(resp);
 
         PrintWriter printWriter = resp.getWriter();
         if(StringUtils.isNullOrEmpty(userId)){
@@ -72,10 +59,9 @@ public class FindWebSessions extends HttpServlet {
             ofSessions.add(parseSystem(system.get(0)));
         }
         doBack(new BackJson("ok","",ofSessions),printWriter);
-
     }
 
-    public OfSession parseSystem(OfMessage ofMessage){
+    private OfSession parseSystem(OfMessage ofMessage){
         OfSession ofSession = new OfSession();
         ofSession.setSession_id("systemMessage");
         ofSession.setSession_name("系统消息");
@@ -85,7 +71,7 @@ public class FindWebSessions extends HttpServlet {
         ofSession.setSession_modify_time(ofMessage.getMsg_time());
         return ofSession;
     }
-    public List<OfSession> parse(List<OfChat> ofChats){
+    private List<OfSession> parse(List<OfChat> ofChats){
         Iterator<OfChat> iterator = ofChats.iterator();
         List<OfSession> ofSessions = new ArrayList<OfSession>();
         while(iterator.hasNext()){
@@ -104,19 +90,10 @@ public class FindWebSessions extends HttpServlet {
         return ofSessions;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
-
-
-    private void doBack(BackJson backJson, PrintWriter printWriter){
-        printWriter.append(JSONObject.toJSONString(backJson));
-        printWriter.flush();
-        printWriter.close();
-    }
-
-    private class BackJson{
+    @Data
+    @AllArgsConstructor
+    @EqualsAndHashCode(callSuper = false)
+    private class BackJson extends BaseServlet.BackJson {
 
         private String result;
 
@@ -124,36 +101,6 @@ public class FindWebSessions extends HttpServlet {
 
         private List<OfSession> sessions;
 
-
-        public BackJson(String result, String result_detail, List<OfSession> sessions) {
-            this.result = result;
-            this.result_detail = result_detail;
-            this.sessions = sessions;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getResult_detail() {
-            return result_detail;
-        }
-
-        public void setResult_detail(String result_detail) {
-            this.result_detail = result_detail;
-        }
-
-        public List<OfSession> getSessions() {
-            return sessions;
-        }
-
-        public void setSessions(List<OfSession> sessions) {
-            this.sessions = sessions;
-        }
     }
 
 }

@@ -5,20 +5,15 @@ import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.utils.MessageUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.jivesoftware.admin.AuthCheckFilter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.user.User;
 import org.jivesoftware.openfire.user.UserNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Presence;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,25 +22,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FindPresence extends HttpServlet {
+public class FindPresence extends BaseServlet {
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
-
     XMPPServer server = XMPPServer.getInstance();
 
-    private static final Logger Log = LoggerFactory.getLogger(FindSessions.class);
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        AuthCheckFilter.addExclude("tlim/findPresence");
+    protected String mapper() {
+        return "tlim/findPresence";
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        MessageUtils.setResponse(resp);
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PrintWriter printWriter = resp.getWriter();
 
@@ -87,41 +76,16 @@ public class FindPresence extends HttpServlet {
         printWriter.append(JSONArray.toJSONString(userPresList));
         printWriter.flush();
         printWriter.close();
-
-
     }
 
 
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
-
+    @Data
+    @AllArgsConstructor
     private class UserPres{
+
         private String user_id;
 
         private String status;
-
-        public UserPres(String user_id, String status) {
-            this.user_id = user_id;
-            this.status = status;
-        }
-
-        public String getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
     }
 }

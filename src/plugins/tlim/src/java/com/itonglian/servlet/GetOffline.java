@@ -1,45 +1,34 @@
 package com.itonglian.servlet;
 
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfCustomOffline;
-import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import org.jivesoftware.admin.AuthCheckFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class GetOffline extends HttpServlet {
+public class GetOffline extends BaseServlet {
 
     OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
 
-    private static final Logger Log = LoggerFactory.getLogger(GetOffline.class);
-
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        AuthCheckFilter.addExclude("tlim/getOffline");
+    protected String mapper() {
+        return "tlim/getOffline";
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        MessageUtils.setResponse(resp);
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PrintWriter printWriter = resp.getWriter();
 
@@ -64,66 +53,23 @@ public class GetOffline extends HttpServlet {
         }else{
             customOfflineList = offlineDao.findByUserAfterThatTime(user_id,msg_time);
         }
-        doBack(new BackJson("ok","",customOfflineList),printWriter);
-
         if(clear){
             offlineDao.deleteByUser(user_id);
         }
 
+        doBack(new BackJson("ok","",customOfflineList),printWriter);
+
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
-
-    private void doBack(BackJson backJson, PrintWriter printWriter){
-        printWriter.append(JSONObject.toJSONString(backJson));
-        printWriter.flush();
-        printWriter.close();
-    }
-
-    private class BackJson{
+    @Data
+    @AllArgsConstructor
+    @EqualsAndHashCode(callSuper = false)
+    private class BackJson extends BaseServlet.BackJson {
         private String result;
 
         private String result_detail;
 
         List<OfCustomOffline> message_list;
 
-
-        public BackJson(String result, String result_detail) {
-            this.result = result;
-            this.result_detail = result_detail;
-        }
-
-        public BackJson(String result, String result_detail, List<OfCustomOffline> message_list) {
-            this.result = result;
-            this.result_detail = result_detail;
-            this.message_list = message_list;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getResult_detail() {
-            return result_detail;
-        }
-
-        public void setResult_detail(String result_detail) {
-            this.result_detail = result_detail;
-        }
-
-        public List<OfCustomOffline> getMessage_list() {
-            return message_list;
-        }
-
-        public void setMessage_list(List<OfCustomOffline> message_list) {
-            this.message_list = message_list;
-        }
     }
 }

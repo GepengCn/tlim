@@ -1,19 +1,20 @@
 package com.itonglian.servlet;
 
-import com.alibaba.fastjson.JSONObject;
-import com.itonglian.utils.MessageUtils;
+import com.itonglian.dao.MessageDao;
+import com.itonglian.dao.impl.MessageDaoImpl;
 import org.jivesoftware.admin.AuthCheckFilter;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-public class RevokeMessage extends HttpServlet {
+@Deprecated
+public class RevokeMessage extends BaseServlet {
 
+
+    MessageDao messageDao = MessageDaoImpl.getInstance();
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -21,57 +22,16 @@ public class RevokeMessage extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        MessageUtils.setResponse(resp);
-
-        PrintWriter printWriter = resp.getWriter();
-
-        String msg_id = req.getParameter("msg_id");
-
-        String user_id = req.getParameter("user_id");
-
-        doBack(new BackJson("ok",""),printWriter);
-
+    protected String mapper() {
+        return "tlim/revokeMessage";
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        String msg_id = req.getParameter("msg_id");
+
+        messageDao.deleteById(msg_id);
     }
 
-    private void doBack(BackJson backJson, PrintWriter printWriter){
-        printWriter.append(JSONObject.toJSONString(backJson));
-        printWriter.flush();
-        printWriter.close();
-    }
-
-    private class BackJson{
-        private String result;
-
-        private String result_detail;
-
-
-        public BackJson(String result, String result_detail) {
-            this.result = result;
-            this.result_detail = result_detail;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getResult_detail() {
-            return result_detail;
-        }
-
-        public void setResult_detail(String result_detail) {
-            this.result_detail = result_detail;
-        }
-
-    }
 }

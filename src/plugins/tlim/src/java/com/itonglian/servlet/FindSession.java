@@ -1,46 +1,35 @@
 package com.itonglian.servlet;
 
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.SessionDao;
 import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
-import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
-import org.jivesoftware.admin.AuthCheckFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class FindSession extends HttpServlet {
-
-    private static final Logger Log = LoggerFactory.getLogger(FindSession.class);
+public class FindSession extends BaseServlet {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        AuthCheckFilter.addExclude("tlim/findSession");
+    protected String mapper() {
+        return "tlim/findSession";
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        MessageUtils.setResponse(resp);
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PrintWriter printWriter = resp.getWriter();
 
@@ -61,22 +50,12 @@ public class FindSession extends HttpServlet {
         List<OfSubscriber> subscribers = subscriberDao.findSubscribers(sessionId);
 
         doBack(new BackJson("ok","",sessionId,ofSession.getSession_name(),ofSession.getSession_type(),ofSession.getSession_user(),ofSession.getSession_create_time(),ofSession.getSession_valid(),subscribers),printWriter);
-
-
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
-
-    private void doBack(BackJson backJson, PrintWriter printWriter){
-        printWriter.append(JSONObject.toJSONString(backJson));
-        printWriter.flush();
-        printWriter.close();
-    }
-
-    private class BackJson{
+    @Data
+    @AllArgsConstructor
+    @EqualsAndHashCode(callSuper = false)
+    private class BackJson extends BaseServlet.BackJson {
 
         private String result;
 
@@ -102,89 +81,6 @@ public class FindSession extends HttpServlet {
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, String session_name, int session_type, String session_user, String session_create_time,int session_valid, List<OfSubscriber> subscribers) {
-            this.result = result;
-            this.result_detail = result_detail;
-            this.session_id = session_id;
-            this.session_name = session_name;
-            this.session_type = session_type;
-            this.session_user = session_user;
-            this.session_create_time = session_create_time;
-            this.subscribers = subscribers;
-            this.session_valid = session_valid;
-        }
-
-        public String getSession_id() {
-            return session_id;
-        }
-
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
-
-        public String getSession_name() {
-            return session_name;
-        }
-
-        public void setSession_name(String session_name) {
-            this.session_name = session_name;
-        }
-
-        public int getSession_type() {
-            return session_type;
-        }
-
-        public void setSession_type(int session_type) {
-            this.session_type = session_type;
-        }
-
-        public String getSession_user() {
-            return session_user;
-        }
-
-        public void setSession_user(String session_user) {
-            this.session_user = session_user;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getResult_detail() {
-            return result_detail;
-        }
-
-        public void setResult_detail(String result_detail) {
-            this.result_detail = result_detail;
-        }
-
-        public String getSession_create_time() {
-            return session_create_time;
-        }
-
-        public void setSession_create_time(String session_create_time) {
-            this.session_create_time = session_create_time;
-        }
-
-        public List<OfSubscriber> getSubscribers() {
-            return subscribers;
-        }
-
-        public void setSubscribers(List<OfSubscriber> subscribers) {
-            this.subscribers = subscribers;
-        }
-
-        public int getSession_valid() {
-            return session_valid;
-        }
-
-        public void setSession_valid(int session_valid) {
-            this.session_valid = session_valid;
-        }
     }
 
 

@@ -1,27 +1,21 @@
 package com.itonglian.servlet;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
-import com.itonglian.dao.StatusDao;
 import com.itonglian.dao.SubscriberDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.SessionDaoImpl;
-import com.itonglian.dao.impl.StatusDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.entity.User;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
 import com.itonglian.utils.UserCacheManager;
-import org.jivesoftware.admin.AuthCheckFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,7 +23,7 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
-public class ModifySession extends HttpServlet {
+public class ModifySession extends BaseServlet {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();
 
@@ -37,19 +31,13 @@ public class ModifySession extends HttpServlet {
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
 
-    StatusDao statusDao = StatusDaoImpl.getInstance();
-
-    private static final Logger Log = LoggerFactory.getLogger(ModifySession.class);
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        AuthCheckFilter.addExclude("tlim/modifySession");
+    protected String mapper() {
+        return "tlim/modifySession";
     }
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        MessageUtils.setResponse(resp);
+    @Override
+    protected void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PrintWriter printWriter = resp.getWriter();
 
@@ -75,20 +63,8 @@ public class ModifySession extends HttpServlet {
         handlerSubscribers(subscribers,sessionId);
 
         doBack(new BackJson("ok","",sessionId,modifyTime),printWriter);
-
     }
 
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
-    }
-
-    private void doBack(BackJson backJson, PrintWriter printWriter){
-        printWriter.append(JSONObject.toJSONString(backJson));
-        printWriter.flush();
-        printWriter.close();
-    }
 
 
     private void handlerSubscribers(String subscribers,String sessionId){
@@ -142,7 +118,10 @@ public class ModifySession extends HttpServlet {
 
     }
 
-    private class BackJson{
+    @Data
+    @AllArgsConstructor
+    @EqualsAndHashCode(callSuper = false)
+    private class BackJson extends BaseServlet.BackJson {
 
         private String result;
 
@@ -158,66 +137,14 @@ public class ModifySession extends HttpServlet {
             this.session_id = session_id;
         }
 
-        public BackJson(String result, String result_detail, String session_id, String session_modify_time) {
-            this.result = result;
-            this.result_detail = result_detail;
-            this.session_id = session_id;
-            this.session_modify_time = session_modify_time;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getResult_detail() {
-            return result_detail;
-        }
-
-        public void setResult_detail(String result_detail) {
-            this.result_detail = result_detail;
-        }
-
-        public String getSession_id() {
-            return session_id;
-        }
-
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
-
-        public String getSession_modify_time() {
-            return session_modify_time;
-        }
-
-        public void setSession_modify_time(String session_modify_time) {
-            this.session_modify_time = session_modify_time;
-        }
     }
 
+    @Data
     private static class HandlerSubcriber{
 
         private String userId;
 
         private String type;
 
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
     }
 }
