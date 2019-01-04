@@ -234,4 +234,4 @@
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.2_tlim/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
-[SIMPLE_DEMO]:https://github.com/GepengCn/tlim/blob/master/src/demo/webclient.html
+[SIMPLE_DEMO]:https://github.com/GepengCn/tlim/blob/dev/src/demo/webclient.html
