@@ -26,11 +26,7 @@
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
-### [旧版本文档][oldDoc]
 
-### [Openfire部署及配置][DEPLOY]
-
-### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
 
 ## 消息协议
 
@@ -150,8 +146,14 @@
     - [更新AppPushCode][APP_PUSH_CODE]
     - [新增用户接口][ADD_USER]
     - [移除用户接口][REMOVE_USER]
-   
 
+## 资料
+
+#### [旧版本文档][oldDoc]
+
+#### [Openfire部署及配置][DEPLOY]
+
+#### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
 
 ## 插件开发
 
