@@ -26,9 +26,11 @@
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
-## [旧版本文档][oldDoc]
+### [旧版本文档][oldDoc]
 
-## [Openfire部署及配置][DEPLOY]
+### [Openfire部署及配置][DEPLOY]
+
+### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
 
 ## 消息协议
 
@@ -227,3 +229,4 @@
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.2_tlim/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
+[UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
