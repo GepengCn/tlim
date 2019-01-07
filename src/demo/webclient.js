@@ -329,3 +329,4 @@ function init(user_id){
         webclient.log(message.body[0].text);
     }
 }
+
