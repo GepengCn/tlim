@@ -20,7 +20,7 @@
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
 
-### <a href="https://github.com/GepengCn/tlim/blob/dev/src/demo/webclient.html" target="_blank">demo</a>
+### [demo](href="https://github.com/GepengCn/tlim/blob/dev/src/demo/webclient.html)
 
 ## 下载
 
