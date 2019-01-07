@@ -20,7 +20,7 @@
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
 
-## [Demo][SIMPLE_DEMO]
+## [Demo](https://github.com/GepengCn/tlim/blob/dev/src/demo/webclient.html){:target="_blank"}
 
 ## 下载
 
@@ -234,4 +234,3 @@
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.2_tlim/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
-[SIMPLE_DEMO]:https://github.com/GepengCn/tlim/blob/dev/src/demo/webclient.html
