@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class AddSession extends BaseServlet {
 
@@ -71,8 +70,6 @@ public class AddSession extends BaseServlet {
 
 
             String sessionId = UUID.randomUUID().toString();
-
-            ConcurrentHashMap<String,User> users = UserCacheManager.findAll();
 
             Iterator<OfSubscriber> iterator = list.iterator();
 
