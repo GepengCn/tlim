@@ -1,4 +1,4 @@
-## Openfire配置
+## Openfire用户同步及数据库属性配置
 
 <tlim>
     <xxx>

@@ -19,6 +19,7 @@
 - 弃用了`Openfire`自带的数据库连接池与`JDBC`组件，使用`MyBatis`搭配`Druid`数据库连接池并且启用二级缓存提高查询效率与稳定性。
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
+##[Openfire用户同步及数据库属性配置][XMLPROPERTY]
 
 ## [Demo][SIMPLE_DEMO]
 
@@ -235,3 +236,4 @@
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [SIMPLE_DEMO]:http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html
+[XMLPROPERTY]:https://github.com/GepengCn/tlim/blob/master/XMLPROPERTY.md
