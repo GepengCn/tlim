@@ -30,6 +30,7 @@ import java.util.List;
  * <p> 创建时间：2018/8/2 14:23
  * <p> 类调用特殊情况：
  */
+@Deprecated
 public class CommandInterceptor implements Interceptor {
 
     SessionDao sessionDao = SessionDaoImpl.getInstance();

@@ -8,7 +8,6 @@ import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfChat;
-import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
 import com.itonglian.utils.*;
@@ -16,7 +15,6 @@ import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
 import java.util.UUID;
