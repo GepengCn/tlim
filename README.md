@@ -40,7 +40,21 @@
     - [tlim插件][DOWNLOAD_TLIM]
     - [数据库脚本][DOWNLOAD_SQL]
 
+- [linux下部署Openfire][UBUNTU_DEPLOY]
 
+## 功能概览
+
+![Alt text][openfire]
+
+## 插件开发
+
+- 环境搭建
+
+- 插件式开发
+
+- Ant项目管理
+
+- 初始化
 
 [openfire]:https://github.com/GepengCn/tlim/blob/master/images/openfire.png?raw=true
 
@@ -53,7 +67,7 @@
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.3_plugin/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
-[UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [SIMPLE_DEMO]:http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html
 [XMLPROPERTY]:https://github.com/GepengCn/tlim/blob/master/XMLPROPERTY.md
 [DETAIL]:https://github.com/GepengCn/tlim/blob/master/DETAIL.md
+[UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md

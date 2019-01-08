@@ -1,5 +1,17 @@
 ## Openfire用户同步及数据库属性配置
 
+> 配置在文件`./conf/openfire.xml`的`<jive>`标签内
+
+## 例如
+
+```xml
+<tlim>
+    <druid>
+        <maxActive>200</maxActive>
+    </druid>
+</tlim>
+```
+
 ### Druid数据库连接池
 
 - tlim.druid.maxActive:最大连接池数量
@@ -30,11 +42,3 @@
 - tlim.userAsync:是否开启用户同步
 - tlim.userAsyncInterval:用户同步调度周期,单位:分钟
 
-eg:
-```xml
-<tlim>
-    <druid>
-        <maxActive>200</maxActive>
-    </druid>
-</tlim>
-```

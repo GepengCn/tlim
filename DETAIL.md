@@ -117,31 +117,8 @@
     - [新增用户接口][ADD_USER]
     - [移除用户接口][REMOVE_USER]
 
-## 资料
-
-#### [旧版本文档][oldDoc]
-
-#### [Openfire部署][DEPLOY]
-
-#### [Openfire配置][XMLPROPERTY]
-
-#### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
 
 
-
-## 插件开发
-
-- 环境搭建
-
-- 插件式开发
-
-- Ant项目管理
-
-- 初始化
-
-## 功能概览
-
-![Alt text][openfire]
 
 [messageType]:https://github.com/GepengCn/tlim/blob/master/src/MESSAGE_TYPE.md
 
@@ -192,6 +169,5 @@
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.3_plugin/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
-[UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [SIMPLE_DEMO]:http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html
 [XMLPROPERTY]:https://github.com/GepengCn/tlim/blob/master/XMLPROPERTY.md
