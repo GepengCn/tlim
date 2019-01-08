@@ -150,11 +150,12 @@
 
 #### [旧版本文档][oldDoc]
 
-#### [Openfire部署及配置][DEPLOY]
+#### [Openfire部署][DEPLOY]
+
+#### [Openfire配置][XMLPROPERTY]
 
 #### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
 
-#### [Openfire用户同步及数据库属性配置][XMLPROPERTY]
 
 
 ## 插件开发
