@@ -6,7 +6,7 @@
 [![](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-Openfire-yellowgreen.svg)](https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip)
 [![](https://img.shields.io/badge/%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B-msg__type-orange.svg)](https://github.com/GepengCn/tlim/blob/master/src/MESSAGE_TYPE.md)
 [![](https://img.shields.io/badge/%E6%97%A7%E7%89%88%E6%96%87%E6%A1%A3-v1.3.0-lightgrey.svg)](https://github.com/GepengCn/tlim/blob/master/src//old/README.md)
-[![](https://img.shields.io/badge/demo-coolweb.club-blue.svg)](http://coolweb.club)
+[![](https://img.shields.io/badge/demo-coolweb.club-blue.svg)](http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html)
 
 </div>
 
@@ -26,8 +26,6 @@
 - [Openfire4.2.3][DOWNLOAD_OPENFIRE]
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
-
-#### [Demo][SIMPLE_DEMO]
 
 ## 消息协议
 
