@@ -14,8 +14,13 @@
 
 ### Druid数据库连接池
 
-- tlim.druid.maxActive:最大连接池数量
-- tlim.druid.asyncInit:异步初始化
+##### `tlim.druid.maxActive`
+- 最大连接池数量 
+    > 默认:500
+##### `tlim.druid.asyncInit`
+- 异步初始化 
+    > 默认:true
+    
 - tlim.druid.initialSize:初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
 - tlim.druid.minIdle:最小连接池数量
 - tlim.druid.maxWait:获取连接时最大等待时间，单位毫秒
