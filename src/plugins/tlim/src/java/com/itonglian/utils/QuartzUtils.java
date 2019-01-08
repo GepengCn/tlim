@@ -26,7 +26,7 @@ public class QuartzUtils {
                     .withIdentity("UserScheduleTrigger", "tlim")
                     .startNow()
                     .withSchedule(simpleSchedule()
-                            .withIntervalInMinutes(1)
+                            .withIntervalInMinutes(XMLProperties.getUserSyncInterval())
                             .repeatForever())
 
                     .build();

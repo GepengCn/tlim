@@ -13,7 +13,6 @@ import cn.jpush.api.push.model.notification.Notification;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 public class JPushHandler implements Runnable{
 
     private String content;
@@ -36,7 +35,7 @@ public class JPushHandler implements Runnable{
 
     @Override
     public void run() {
-        JPushClient jpushClient = new JPushClient("83a8c468321366eb977c61f2", "90fd74bf44097c9bb69c3fd1", null, ClientConfig.getInstance());
+        JPushClient jpushClient = new JPushClient(XMLProperties.getMasterSecret(), XMLProperties.getAppKey(), null, ClientConfig.getInstance());
         try {
             PushPayload payload;
 

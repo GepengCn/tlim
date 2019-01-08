@@ -1,14 +1,20 @@
 package com.itonglian.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ibatis.datasource.DataSourceFactory;
 import org.jivesoftware.util.JiveGlobals;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class DruidDataSourceFactory implements DataSourceFactory {
+
+    private static final Logger Log = LoggerFactory.getLogger(DruidDataSourceFactory.class);
+
 
     private Properties props;
 
@@ -34,21 +40,21 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dds.setUrl(url);
         dds.setUsername(JiveGlobals.getXMLProperty("database.defaultProvider.username"));
         dds.setPassword(JiveGlobals.getXMLProperty("database.defaultProvider.password"));
-        dds.setMaxActive(5000);
-        dds.setAsyncInit(true);
-        dds.setInitialSize(100);
-        dds.setMinIdle(80);
-        dds.setMaxWait(10000);
-        dds.setTimeBetweenEvictionRunsMillis(30000);
-        dds.setMinEvictableIdleTimeMillis(300000);
-        dds.setMaxEvictableIdleTimeMillis(600000);
-        dds.setRemoveAbandoned(true);
-        dds.setRemoveAbandonedTimeout(80);
-        dds.setTestWhileIdle(true);
-        dds.setTestOnBorrow(false);
-        dds.setTestOnReturn(false);
-        dds.setPoolPreparedStatements(true);
-        dds.setMaxOpenPreparedStatements(50);
+        dds.setMaxActive(XMLProperties.getMaxActive());
+        dds.setAsyncInit(XMLProperties.getAsyncInit());
+        dds.setInitialSize(XMLProperties.getInitialSize());
+        dds.setMinIdle(XMLProperties.getMinIdle());
+        dds.setMaxWait(XMLProperties.getMaxWait());
+        dds.setTimeBetweenEvictionRunsMillis(XMLProperties.getTimeBetweenEvictionRunsMillis());
+        dds.setMinEvictableIdleTimeMillis(XMLProperties.getMinEvictableIdleTimeMillis());
+        dds.setMaxEvictableIdleTimeMillis(XMLProperties.getMaxEvictableIdleTimeMillis());
+        dds.setRemoveAbandoned(XMLProperties.getRemoveAbandoned());
+        dds.setRemoveAbandonedTimeout(XMLProperties.getRemoveAbandonedTimeout());
+        dds.setTestWhileIdle(XMLProperties.getTestWhileIdle());
+        dds.setTestOnBorrow(XMLProperties.getTestOnBorrow());
+        dds.setTestOnReturn(XMLProperties.getTestOnReturn());
+        dds.setPoolPreparedStatements(XMLProperties.getPoolPreparedStatements());
+        dds.setMaxOpenPreparedStatements(XMLProperties.getMaxOpenPreparedStatements());
 
         if("oracle.jdbc.driver.OracleDriver".equals(driver)){
             dds.setOracle(true);
@@ -57,7 +63,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         try {
             dds.init();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }
         return dds;
     }
