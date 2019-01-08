@@ -86,6 +86,7 @@ webclient.instance = function (params) {
         onReConnecting:onReConnecting,
         onMessageHandler:onMessageHandler
     };
+    that.DEFAULT_USER = params.user;
     params_=$.extend({}, params_, params);//合并参数
     that.DEBUG = params_.debug;
     /*组装bosh连接**/
