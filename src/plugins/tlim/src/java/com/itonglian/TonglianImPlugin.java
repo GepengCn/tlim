@@ -3,9 +3,8 @@ package com.itonglian;
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.interceptor.InterceptorContext;
-import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.QuartzUtils;
-import com.itonglian.utils.StringUtils;
+import com.itonglian.utils.XMLProperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
@@ -13,7 +12,6 @@ import org.jivesoftware.openfire.interceptor.InterceptorManager;
 import org.jivesoftware.openfire.interceptor.PacketInterceptor;
 import org.jivesoftware.openfire.interceptor.PacketRejectedException;
 import org.jivesoftware.openfire.session.Session;
-import org.jivesoftware.util.JiveGlobals;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmpp.packet.Packet;
@@ -43,8 +41,7 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
     public void initializePlugin(PluginManager manager, File pluginDirectory) {
         this.pluginManager = manager;
         interceptorManager.addInterceptor(this);
-        boolean userAsync = MessageUtils.canUserAsync();
-        if(userAsync){
+        if(XMLProperties.getUserAsync()){
             userDao.clear();
             userDao.syncUser();
             QuartzUtils quartzUtils = new QuartzUtils();

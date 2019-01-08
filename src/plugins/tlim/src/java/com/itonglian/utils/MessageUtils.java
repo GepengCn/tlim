@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
-import org.jivesoftware.util.JiveGlobals;
 import org.xmpp.packet.Message;
 
 import javax.servlet.http.HttpServletResponse;
@@ -195,14 +194,6 @@ public class MessageUtils {
             return where.web;
         }
         return where.mobile;
-    }
-
-    public static boolean canUserAsync(){
-        String strUserAsync = JiveGlobals.getXMLProperty("tlim.userAsync");
-        if(StringUtils.isNullOrEmpty(strUserAsync)){
-            return true;
-        }
-        return StringUtils.stringToBoolean(strUserAsync);
     }
 
     public enum where{

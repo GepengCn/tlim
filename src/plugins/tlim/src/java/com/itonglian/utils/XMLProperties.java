@@ -4,6 +4,8 @@ import org.jivesoftware.util.JiveGlobals;
 
 public class XMLProperties {
 
+    private static final boolean USER_ASYNC = true;
+
     private static final int USER_ASYNC_INTERVAL = 1;
 
     private static final String MASTER_SECRET = "83a8c468321366eb977c61f2";
@@ -40,7 +42,11 @@ public class XMLProperties {
 
     private static final boolean DRUID_ASYNC_INIT = true;
 
-    public static int getUserSyncInterval(){
+    public static boolean getUserAsync(){
+        return getBooleanValue("tlim.userAsync",USER_ASYNC);
+    }
+
+    public static int getUserASyncInterval(){
         return getIntegerValue("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
     }
 
