@@ -1,12 +1,10 @@
 ### Openfire部署
 
-- 下载
-```
-https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip
-```
-- 数据库
+- 下载最新[Openfire][DOWNLOAD_OPENFIRE]
 
+- 数据库
 与应用服务数据库一致
+
 - 清理旧数据
 
 删除`of`开头的表,如:`ofsmessage`
@@ -70,3 +68,4 @@ INSERT INTO `ofuser` (`username`, `storedKey`, `serverKey`, `salt`, `iterations`
 [openfire_step_05]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_05.png?raw=true
 [openfire_step_06]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_06.png?raw=true
 [openfire_step_07]:https://github.com/GepengCn/tlim/blob/master/images/openfire_step_07.png?raw=true
+[DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
