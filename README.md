@@ -231,8 +231,8 @@
 [REMOVE_USER]:https://github.com/GepengCn/tlim/blob/master/src/http/REMOVE_USER.md
 
 
-[DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.2/openfire_V_1_2.zip
-[DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.2_tlim/tlim.zip
+[DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
+[DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.3_plugin/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [SIMPLE_DEMO]:http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html
