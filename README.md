@@ -1,4 +1,4 @@
-# tlim 即时通讯
+# tlim
 <div align="left">
 
 [![](https://img.shields.io/badge/%E6%9C%80%E6%96%B0%E6%96%87%E6%A1%A3-v2.2.0-brightgreen.svg)](https://github.com/GepengCn/tlim/blob/master/README.md)
