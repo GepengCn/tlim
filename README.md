@@ -19,17 +19,15 @@
 - 弃用了`Openfire`自带的数据库连接池与`JDBC`组件，使用`MyBatis`搭配`Druid`数据库连接池并且启用二级缓存提高查询效率与稳定性。
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
-## [Openfire用户同步及数据库属性配置][XMLPROPERTY]
 
-## [Demo][SIMPLE_DEMO]
 
-## 下载
+## Openfire及插件下载
 
 - [Openfire4.2.3][DOWNLOAD_OPENFIRE]
 - [最新插件tlim][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
-
+#### [Demo][SIMPLE_DEMO]
 
 ## 消息协议
 
@@ -157,6 +155,9 @@
 #### [Openfire部署及配置][DEPLOY]
 
 #### [ubuntu 16.04 64位部署openfire][UBUNTU_DEPLOY]
+
+#### [Openfire用户同步及数据库属性配置][XMLPROPERTY]
+
 
 ## 插件开发
 
