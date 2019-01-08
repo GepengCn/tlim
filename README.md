@@ -42,9 +42,6 @@
 
 - [linux下部署Openfire][UBUNTU_DEPLOY]
 
-## 功能概览
-
-![Alt text][openfire]
 
 ## 插件开发
 

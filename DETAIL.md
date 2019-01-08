@@ -1,3 +1,7 @@
+## 功能概览
+
+![Alt text][openfire]
+
 ## 消息协议
 
 使用`XMPP`协议作为消息传输的标准，辅以自定义`JSON`协议。
@@ -116,6 +120,7 @@
     - [更新AppPushCode][APP_PUSH_CODE]
     - [新增用户接口][ADD_USER]
     - [移除用户接口][REMOVE_USER]
+
 
 
 
