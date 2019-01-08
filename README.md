@@ -21,19 +21,19 @@
 
 ## 入门
 
-#### 需要
+### 需要
 - JDK7及以上
 - MySQL5.5及以上
 - Oracle 10g及11g
 - 支持websocket
 
-#### 安装
+### 安装
 
 - 从[Openfire][DOWNLOAD_OPENFIRE]下载并解压
 
-- [部署][DEPLOY]与[配置][Openfire配置]
+- [部署][DEPLOY]与[配置][XMLPROPERTY]
 
-- 接口[文档][DETAIL]
+- [接口文档][DETAIL]
 
 - 下载
     - [Openfire][DOWNLOAD_OPENFIRE]
@@ -42,14 +42,13 @@
 
 
 
-## [旧版文档][oldDoc]
-
 [openfire]:https://github.com/GepengCn/tlim/blob/master/images/openfire.png?raw=true
 
 [symbol]:https://github.com/GepengCn/tlim/blob/master/images/tlim.png?raw=true
 
 [oldDoc]:https://github.com/GepengCn/tlim/blob/master/src/old/README.md
 
+[DEPLOY]:https://github.com/GepengCn/tlim/blob/master/src/CAP_DEPLOY.md
 
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
 [DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.3_plugin/tlim.zip

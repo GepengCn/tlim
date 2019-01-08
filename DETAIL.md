@@ -185,7 +185,6 @@
 [SYSTEM_MESSAGE]:https://github.com/GepengCn/tlim/blob/master/src/http/SYSTEM_MESSAGE.md
 [GET_OFFLINE]:https://github.com/GepengCn/tlim/blob/master/src/http/GET_OFFLINE.md
 [APP_PUSH_CODE]:https://github.com/GepengCn/tlim/blob/master/src/http/APP_PUSH_CODE.md
-[DEPLOY]:https://github.com/GepengCn/tlim/blob/master/src/CAP_DEPLOY.md
 [ADD_USER]:https://github.com/GepengCn/tlim/blob/master/src/http/ADD_USER.md
 [REMOVE_USER]:https://github.com/GepengCn/tlim/blob/master/src/http/REMOVE_USER.md
 
