@@ -19,7 +19,7 @@
 - 弃用了`Openfire`自带的数据库连接池与`JDBC`组件，使用`MyBatis`搭配`Druid`数据库连接池并且启用二级缓存提高查询效率与稳定性。
 - 同时支持`MySQL`、`Oracle`和`SQLServer`。
 
-##[Openfire用户同步及数据库属性配置][XMLPROPERTY]
+## [Openfire用户同步及数据库属性配置][XMLPROPERTY]
 
 ## [Demo][SIMPLE_DEMO]
 
