@@ -21,7 +21,7 @@
 
 
 
-## Openfire及插件下载
+## 下载
 
 - [Openfire][DOWNLOAD_OPENFIRE]
 - [tlim插件][DOWNLOAD_TLIM]
