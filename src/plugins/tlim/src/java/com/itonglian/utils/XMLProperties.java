@@ -1,6 +1,16 @@
 package com.itonglian.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jivesoftware.util.JiveGlobals;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
 
 public class XMLProperties {
 
@@ -41,6 +51,15 @@ public class XMLProperties {
     private static final int DRUID_MAX_OPEN_PREPARED_STATEMENTS = 50;
 
     private static final boolean DRUID_ASYNC_INIT = true;
+
+    private static Set<Property> properties = new HashSet<>();
+
+    private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
+
+
+    public static Set<Property> getProperties(){
+        return properties;
+    }
 
     public static boolean getUserAsync(){
         return getBooleanValue("tlim.userAsync",USER_ASYNC);
@@ -120,26 +139,65 @@ public class XMLProperties {
     }
 
     private static String getStringValue(String xmlProperty,String defaults){
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            return temp;
+        String realValue = defaults;
+        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(tempValue)){
+            realValue = tempValue;
         }
-        return defaults;
+        addProperty(xmlProperty,realValue);
+        return realValue;
     }
     private static int getIntegerValue(String xmlProperty,int defaults){
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            return Integer.parseInt(temp);
+        int realValue = defaults;
+        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(tempValue)){
+            realValue = Integer.parseInt(tempValue);
         }
-        return defaults;
+        addProperty(xmlProperty,realValue);
+        return realValue;
     }
 
     private static boolean getBooleanValue(String xmlProperty,boolean defaults){
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            return Boolean.parseBoolean(temp);
+        boolean realValue = defaults;
+        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(tempValue)){
+            realValue = Boolean.parseBoolean(tempValue);
         }
-        return defaults;
+        addProperty(xmlProperty,realValue);
+        return realValue;
     }
 
+    private static void addProperty(String xmlProperty,Object value){
+        properties.add(new Property(xmlProperty,value));
+    }
+
+    public static void print(){
+        Iterator<Property> iterator = properties.iterator();
+        while(iterator.hasNext()){
+            Property property = iterator.next();
+            logger.info(property.getName()+" - "+property.getValue());
+        }
+    }
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Property{
+
+        private String name;
+
+        private Object value;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Property property = (Property) o;
+            return name.equals(property.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+    }
 }

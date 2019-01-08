@@ -47,7 +47,9 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
             QuartzUtils quartzUtils = new QuartzUtils();
             quartzUtils.run();
         }
+       XMLProperties.print();
     }
+
 
     @Override
     public void destroyPlugin() {
