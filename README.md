@@ -22,10 +22,10 @@
 ## 入门
 
 ### 需要
-- JDK7及以上
-- MySQL5.5及以上
-- Oracle 10g及11g
-- 支持websocket
+- `JDK7`及以上
+- `MySQL5.5`及以上
+- `Oracle`10g及以上
+- 需支持`websocket`
 
 ### 安装
 
