@@ -1,6 +1,6 @@
 ![Alt text][symbol]
 -------------------
-<div align="center">
+<div align="left">
 
 [![](https://img.shields.io/badge/%E6%9C%80%E6%96%B0%E6%96%87%E6%A1%A3-v2.2.0-brightgreen.svg)](https://github.com/GepengCn/tlim/blob/master/README.md)
 [![](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-Openfire-yellowgreen.svg)](https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip)
@@ -27,7 +27,7 @@
 - `Oracle`10g及以上
 - 需支持`websocket`
 
-### 安装
+### 安装与使用
 
 - 下载[Openfire][DOWNLOAD_OPENFIRE]并解压
 
@@ -40,7 +40,7 @@
 - [linux下部署Openfire][UBUNTU_DEPLOY]
 
 
-## 插件开发
+### 插件开发
 
 - 环境搭建
 
