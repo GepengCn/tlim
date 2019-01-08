@@ -23,8 +23,8 @@
 
 ## Openfire及插件下载
 
-- [Openfire4.2.3][DOWNLOAD_OPENFIRE]
-- [最新插件tlim][DOWNLOAD_TLIM]
+- [Openfire v1.3][DOWNLOAD_OPENFIRE]
+- [tlim插件][DOWNLOAD_TLIM]
 - [数据库脚本][DOWNLOAD_SQL]
 
 ## 消息协议
