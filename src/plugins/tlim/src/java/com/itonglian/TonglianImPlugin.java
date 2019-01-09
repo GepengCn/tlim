@@ -3,6 +3,7 @@ package com.itonglian;
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.interceptor.InterceptorContext;
+import com.itonglian.netty.NettyServer;
 import com.itonglian.utils.QuartzUtils;
 import com.itonglian.utils.XMLProperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -47,7 +48,10 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
             QuartzUtils quartzUtils = new QuartzUtils();
             quartzUtils.run();
         }
-       XMLProperties.print();
+        XMLProperties.print();
+        if(XMLProperties.getNettyServer()){
+            new Thread(new NettyServer()).start();
+        }
     }
 
 

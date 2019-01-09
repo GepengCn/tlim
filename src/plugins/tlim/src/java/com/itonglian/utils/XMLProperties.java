@@ -52,15 +52,31 @@ public class XMLProperties {
 
     private static final boolean DRUID_ASYNC_INIT = true;
 
+    private static final boolean NETTY_SERVER = false;
+
+    private static final int NETTY_SERVER_PORT = 9599;
+
+    private static final int HTTP_OBJECT_AGGREGATOR_VALUE = 10*1024*1024;
+
     private static Set<Property> properties = new HashSet<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
-
 
     public static Set<Property> getProperties(){
         return properties;
     }
 
+    public static boolean getNettyServer(){
+        return getBooleanValue("tlim.nettyServer",NETTY_SERVER);
+    }
+    public static int getNettyServerPort(){
+        return getIntegerValue("tlim.nettyServerPort",NETTY_SERVER_PORT);
+    }
+
+    public static int getHttpObjectAggregatorValue(){
+        return getIntegerValue("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
+
+    }
     public static boolean getUserAsync(){
         return getBooleanValue("tlim.userAsync",USER_ASYNC);
     }
