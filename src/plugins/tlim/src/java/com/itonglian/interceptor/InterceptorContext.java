@@ -6,6 +6,8 @@ import com.itonglian.exception.ExceptionReply;
 import com.itonglian.interceptor.impl.*;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
+import org.jivesoftware.openfire.PacketDeliverer;
+import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.session.Session;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
@@ -22,35 +24,27 @@ public class InterceptorContext {
 
     private Interceptor interceptor;
 
-    public void handler(Packet packet, Session session) throws Exception {
+    private static PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
-        if(!(packet instanceof Message)){
-            return;
-        }
 
-        if(!isValidPacket(packet)){
-            return;
-        }
-        Message message = (Message)packet;
+    public void handler(Message message) throws Exception {
 
         String jsonStr = message.getBody();
 
-
-
         if(!isValidJson(jsonStr)){
-            throw new ExceptionReply("error-000",packet,session);
+            throw new ExceptionReply("error-000",message,packetDeliverer);
         }
 
         Protocol protocol = JSONObject.parseObject(jsonStr,Protocol.class);
 
         if(protocol==null){
-            throw new ExceptionReply("error-005",packet,session);
+            throw new ExceptionReply("error-005",message,packetDeliverer);
         }
 
         String msgType = protocol.getMsg_type();
 
         if(!MessageUtils.isValidMsgType(msgType)){
-            throw new ExceptionReply("error-001",packet,session);
+            throw new ExceptionReply("error-001",message,packetDeliverer);
         }
 
         switch (msgType){
@@ -110,16 +104,7 @@ public class InterceptorContext {
         interceptor.handler(protocol,message);
     }
 
-    private boolean isValidPacket(Packet packet){
-        if(packet.getFrom() ==null || packet.getTo() ==null){
-            return false;
-        }
-        /*PacketExtension packetExtension = packet.getExtension("tlim","im.itonglian.com");
-        if(packetExtension==null){
-            return false;
-        }*/
-        return true;
-    }
+
 
     private boolean isValidJson(String jsonStr){
         if(StringUtils.isNullOrEmpty(jsonStr)){

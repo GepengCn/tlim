@@ -13,6 +13,6 @@ import org.xmpp.packet.Message;
 public interface Interceptor {
 
 
-    public abstract void handler(Protocol protocol, Message message) throws Exception;
+    void handler(Protocol protocol, Message message) throws Exception;
 
 }

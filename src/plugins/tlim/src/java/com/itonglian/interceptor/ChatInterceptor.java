@@ -3,10 +3,8 @@ package com.itonglian.interceptor;
 import com.itonglian.bean.Protocol;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.MessageDao;
-import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
 import com.itonglian.dao.impl.MessageDaoImpl;
-import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfChat;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.User;
@@ -28,8 +26,6 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
     private PacketDeliverer packetDeliverer = XMPPServer.getInstance().getPacketDeliverer();
 
     private MessageDao messageDao = MessageDaoImpl.getInstance();
-
-    OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
 
     public abstract void build(Protocol protocol, Message message) throws Exception;
@@ -139,6 +135,10 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
             copyToMe.setSubject(ASYNC);
 
             packetDeliverer.deliver(copyToMe);
+        }
+
+        if("Remote".equals(message.getSubject())){
+            packetDeliverer.deliver(message);
         }
     }
 

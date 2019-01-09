@@ -3,7 +3,9 @@ package com.itonglian;
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
 import com.itonglian.interceptor.InterceptorContext;
+import com.itonglian.netty.NettyClient;
 import com.itonglian.netty.NettyServer;
+import com.itonglian.utils.CustomThreadPool;
 import com.itonglian.utils.QuartzUtils;
 import com.itonglian.utils.XMLProperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -15,6 +17,7 @@ import org.jivesoftware.openfire.interceptor.PacketRejectedException;
 import org.jivesoftware.openfire.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmpp.packet.Message;
 import org.xmpp.packet.Packet;
 
 import java.io.File;
@@ -71,12 +74,31 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
 
         try {
 
-            interceptorContext.handler(packet,session);
+            if(!(packet instanceof Message)){
+                return;
+            }
+
+            if(!isValidPacket(packet)){
+                return;
+            }
+            Message message = (Message)packet;
+
+            interceptorContext.handler(message);
+
+            if(XMLProperties.getNettyClient()){
+                CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient("message", message.getBody()));
+            }
 
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
+    }
+    private boolean isValidPacket(Packet packet){
+        if(packet.getFrom() ==null || packet.getTo() ==null){
+            return false;
+        }
+        return true;
     }
 
 }

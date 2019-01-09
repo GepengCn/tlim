@@ -1,5 +1,6 @@
 package com.itonglian.netty;
 
+import com.itonglian.netty.impl.MessageActor;
 import com.itonglian.netty.impl.SystemMessageActor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,12 @@ public class NettyHttpMapper {
         switch (this.path){
             case "systemMessage":
                 nettyHttpActor = new SystemMessageActor();
+                break;
+            case "approval":
+                nettyHttpActor = new SystemMessageActor();
+                break;
+            case "message":
+                nettyHttpActor = new MessageActor();
                 break;
             default:
                 break;

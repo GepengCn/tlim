@@ -12,6 +12,29 @@
 </tlim>
 ```
 
+### Openfire双端同步
+
+##### `tlim.nettyServer`
+是否开启netty服务端
+> 默认:false
+
+##### `tlim.nettyServerPort`
+netty服务端端口
+> 默认:9599
+
+
+##### `tlim.nettyClient`
+是否开启netty客户端
+> 默认:false
+
+##### `tlim.nettyClientIp`
+netty客户端ip
+> 默认:127.0.0.1
+
+##### `tlim.nettyClientPort`
+netty客户端端口
+> 默认:9599
+
 ### Druid数据库连接池
 
 ##### `tlim.druid.maxActive`
