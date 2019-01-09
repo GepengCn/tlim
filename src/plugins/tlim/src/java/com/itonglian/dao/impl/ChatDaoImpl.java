@@ -100,21 +100,21 @@ public class ChatDaoImpl implements ChatDao {
 
 
     @Override
-    public void clearChatHistory(String user_id, String other_id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    public boolean clearChatHistory(String user_id, String other_id) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        ChatMapper chatMapper = session.getMapper(ChatMapper.class);
         try {
-            connection = DbConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(CLEAR_CHAT_HISTORY);
-            int i=1;
-            preparedStatement.setString(i++,user_id);
-            preparedStatement.setString(i++,other_id);
-            preparedStatement.execute();
-        }catch (Exception e){
+            chatMapper.clear(user_id,other_id);
+            session.commit();
+        } catch (Exception e){
+            session.rollback();
             Log.error(ExceptionUtils.getFullStackTrace(e));
+            return false;
         }finally {
-            DbConnectionManager.closeConnection(preparedStatement,connection);
+            session.close();
         }
+        return true;
     }
 
     @Override

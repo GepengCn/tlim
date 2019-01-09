@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface SubscriberDao {
 
-    public void add(OfSubscriber subscriber);
+    public boolean add(OfSubscriber subscriber);
 
     public void delete(String userId,String sessionId);
 

@@ -5,9 +5,12 @@ import com.itonglian.bean.Protocol;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.entity.OfMessage;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.auth.UnauthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
@@ -21,7 +24,10 @@ public class MessagePush {
 
     private static MessageDao messageDao = MessageDaoImpl.getInstance();
 
-    public static void execute(String params,String msg_to,String msg_type){
+    public static final Logger Log = LoggerFactory.getLogger(MessagePush.class);
+
+
+    public static void execute(String params,String msg_to,String msg_type) throws UnauthorizedException {
         Protocol protocol = new Protocol();
 
         protocol.setCompress("0");
@@ -46,12 +52,8 @@ public class MessagePush {
 
         newMessage.setBody(JSONObject.toJSONString(protocol));
 
-        try {
-            packetDeliverer.deliver(newMessage);
+        packetDeliverer.deliver(newMessage);
 
-        } catch (UnauthorizedException e) {
-            e.printStackTrace();
-        }
         OfMessage ofMessage = new OfMessage();
 
         ofMessage.setMsg_id(protocol.getMsg_id());

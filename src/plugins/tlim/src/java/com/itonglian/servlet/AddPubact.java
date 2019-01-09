@@ -2,6 +2,7 @@ package com.itonglian.servlet;
 
 import com.itonglian.dao.PubactDao;
 import com.itonglian.dao.impl.PubactDaoImpl;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import java.io.IOException;
 public class AddPubact extends BaseServlet {
 
     PubactDao pubactDao = PubactDaoImpl.getInstance();
+
 
     @Override
     protected String mapper() {
@@ -27,8 +29,17 @@ public class AddPubact extends BaseServlet {
 
         String session_id = req.getParameter("session_id");
 
-        pubactDao.add(title,content,user_id,session_id);
+        submit(title,content,user_id,session_id);
 
+    }
+
+    public boolean submit(String title,String content,String user_id,String session_id){
+        try {
+            return pubactDao.add(title,content,user_id,session_id);
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            return false;
+        }
     }
 
 }

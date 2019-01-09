@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface SessionDao {
 
-    void add(OfSession session);
+    boolean add(OfSession session);
 
     void delete(String sessionId);
 

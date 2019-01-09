@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PubactDao {
 
-    void add(String title,String content,String user_id,String session_id);
+    boolean add(String title,String content,String user_id,String session_id);
 
     List<OfPubact> findBySession(String session_id);
 

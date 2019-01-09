@@ -54,7 +54,13 @@ public class XMLProperties {
 
     private static final boolean NETTY_SERVER = false;
 
+    private static final boolean NETTY_CLIENT = false;
+
     private static final int NETTY_SERVER_PORT = 9599;
+
+    private static final String NETTY_CLIENT_IP = "127.0.0.1";
+
+    private static final int NETTY_CLIENT_PORT = 9599;
 
     private static final int HTTP_OBJECT_AGGREGATOR_VALUE = 10*1024*1024;
 
@@ -69,8 +75,19 @@ public class XMLProperties {
     public static boolean getNettyServer(){
         return getBooleanValue("tlim.nettyServer",NETTY_SERVER);
     }
+    public static boolean getNettyClient(){
+        return getBooleanValue("tlim.nettyClient",NETTY_CLIENT);
+    }
     public static int getNettyServerPort(){
         return getIntegerValue("tlim.nettyServerPort",NETTY_SERVER_PORT);
+    }
+
+    public static String getNettyClientIp(){
+        return getStringValue("tlim.nettyClientIp",NETTY_CLIENT_IP);
+    }
+
+    public static int getNettyClientPort(){
+        return getIntegerValue("tlim.nettyClientPort",NETTY_CLIENT_PORT);
     }
 
     public static int getHttpObjectAggregatorValue(){

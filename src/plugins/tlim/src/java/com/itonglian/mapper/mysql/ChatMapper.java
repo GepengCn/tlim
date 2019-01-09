@@ -29,6 +29,10 @@ public interface ChatMapper {
     void modify(@Param(value = "chat_modify_time") String chat_modify_time,
                 @Param(value = "chat_user") String chat_user,
                 @Param(value = "chat_other") String chat_other);
+    @Delete("DELETE FROM ofmessage  WHERE msg_from = #{msg_from} AND msg_to = #{msg_to}")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    void clear(@Param(value = "msg_from") String msg_from,
+               @Param(value = "msg_to") String msg_to);
 
 
 }

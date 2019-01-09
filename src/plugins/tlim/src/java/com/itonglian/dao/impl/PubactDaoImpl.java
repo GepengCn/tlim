@@ -30,7 +30,7 @@ public class PubactDaoImpl implements PubactDao {
     private static final Logger Log = LoggerFactory.getLogger(PubactDaoImpl.class);
 
     @Override
-    public void add(String title, String content, String user_id,String session_id) {
+    public boolean add(String title, String content, String user_id,String session_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
 
@@ -46,9 +46,11 @@ public class PubactDaoImpl implements PubactDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override

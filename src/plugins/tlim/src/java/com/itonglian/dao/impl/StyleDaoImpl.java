@@ -25,7 +25,7 @@ public class StyleDaoImpl implements StyleDao {
     }
 
     @Override
-    public void add(OfStyle ofStyle) {
+    public boolean add(OfStyle ofStyle) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StyleMapper styleMapper = session.getMapper(StyleMapper.class);
@@ -36,9 +36,11 @@ public class StyleDaoImpl implements StyleDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
@@ -77,7 +79,7 @@ public class StyleDaoImpl implements StyleDao {
     }
 
     @Override
-    public void update(int style_value, String style_name, String user_id) {
+    public boolean update(int style_value, String style_name, String user_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         StyleMapper styleMapper = session.getMapper(StyleMapper.class);
@@ -87,8 +89,10 @@ public class StyleDaoImpl implements StyleDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 }

@@ -1,12 +1,14 @@
 package com.itonglian.servlet;
 
-import com.itonglian.utils.MessagePush;
+import com.itonglian.servlet.common.MessagePushExecutor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ApprovalBack extends BaseServlet {
+
+    private MessagePushExecutor messagePushExecutor = new MessagePushExecutor();
 
     @Override
     protected String mapper() {
@@ -22,7 +24,11 @@ public class ApprovalBack extends BaseServlet {
 
         String msg_type = "MTB-001";
 
-        MessagePush.execute(params,msg_to,msg_type);
+        submit(params,msg_to,msg_type);
+    }
+
+    public boolean submit(String params, String msg_to, String msg_type) {
+        return messagePushExecutor.submit(params,msg_to,msg_type);
     }
 
 }

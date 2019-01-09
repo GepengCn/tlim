@@ -27,7 +27,7 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public void add(OfSession ofSession) {
+    public boolean add(OfSession ofSession) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
 
@@ -44,9 +44,11 @@ public class SessionDaoImpl implements SessionDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override

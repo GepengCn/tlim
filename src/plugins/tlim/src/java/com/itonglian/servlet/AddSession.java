@@ -34,6 +34,16 @@ public class AddSession extends BaseServlet {
 
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
+    private String sessionName;
+
+    private String sessionCreateTime;
+
+    private List<UserOnlyId> userOnlyIds;
+
+    private String sessionId;
+
+    private int intSessionType;
+
     @Override
     protected String mapper() {
         return "tlim/addSession";
@@ -48,35 +58,45 @@ public class AddSession extends BaseServlet {
 
         String subscribers = req.getParameter("subscribers");
 
-        int intSessionType =com.itonglian.utils.StringUtils.stringToInt(sessionType);
+
 
         PrintWriter printWriter = resp.getWriter();
 
+        if(submit(sessionType,requestUser,subscribers)){
+            BackJson backJson = new BackJson(
+                    "ok",
+                    "",
+                    sessionId,
+                    sessionName,
+                    intSessionType,
+                    requestUser,
+                    sessionCreateTime,
+                    userOnlyIds
+            );
+            doBack(backJson,printWriter);
+        }else{
+            doBack(new BackJson("error","新增会话出错",intSessionType),printWriter);
+        }
+    }
+    public boolean submit(String sessionType,String requestUser,String subscribers){
         try {
-
             if(com.itonglian.utils.StringUtils.isNullOrEmpty(sessionType)){
-                doBack(new BackJson("error-002","session_type为空或无效",intSessionType),printWriter);
-                return;
+                return false;
             }
 
             if(com.itonglian.utils.StringUtils.isNullOrEmpty(requestUser)){
-                doBack(new BackJson("error-004","session_user为空或不存在",intSessionType),printWriter);
-                return;
+                return false;
             }
-
-
-
             List<OfSubscriber> list = JSONArray.parseArray(subscribers,OfSubscriber.class);
 
-
-            String sessionId = UUID.randomUUID().toString();
 
             Iterator<OfSubscriber> iterator = list.iterator();
 
             List<String> sessionNameList = new ArrayList<String>();
 
-            List<UserOnlyId> userOnlyIds = new ArrayList<UserOnlyId>();
+            userOnlyIds = new ArrayList<>();
 
+            boolean iteratorResult = true;
             while(iterator.hasNext()){
                 OfSubscriber ofSubscriber = iterator.next();
                 User user = UserCacheManager.findUserByKey(ofSubscriber.getUser_id());
@@ -89,47 +109,50 @@ public class AddSession extends BaseServlet {
                 ofSubscriber.setPic(user.getPic_url());
                 ofSubscriber.setAcct_login(user.getAcct_login());
                 ofSubscriber.setTs(MessageUtils.getTs());
-                subscriberDao.add(ofSubscriber);
+                if(!subscriberDao.add(ofSubscriber)){
+                    iteratorResult = false;
+                    break;
+                }
                 sessionNameList.add(user.getUser_name());
                 userOnlyIds.add(new UserOnlyId(user.getUser_id()));
             }
 
+            if(!iteratorResult){
+                return false;
+            }
             // 保存会话
 
             OfSession ofSession = new OfSession();
 
+            sessionId = UUID.randomUUID().toString();
+
             ofSession.setSession_id(sessionId);
 
-            String sessionName = StringUtils.join(sessionNameList,",");
+            sessionName = StringUtils.join(sessionNameList,",");
 
             if(sessionName.length()>=200){
                 sessionName = sessionName.substring(0,200);
             }
 
-            String sessionCreateTime = MessageUtils.getTs();
+            sessionCreateTime = MessageUtils.getTs();
+
+            intSessionType =com.itonglian.utils.StringUtils.stringToInt(sessionType);
 
             ofSession.setSession_name(sessionName);
             ofSession.setSession_type(intSessionType);
             ofSession.setSession_create_time(sessionCreateTime);
             ofSession.setSession_valid(0);
             ofSession.setSession_user(requestUser);
-            sessionDao.add(ofSession);
+            if(!sessionDao.add(ofSession)){
+                return false;
+            }
 
-            BackJson backJson = new BackJson(
-                    "ok",
-                    "",
-                    sessionId,
-                    sessionName,
-                    intSessionType,
-                    requestUser,
-                    sessionCreateTime,
-                    userOnlyIds
-            );
-            doBack(backJson,printWriter);
         }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-            doBack(new BackJson("error-010",e.getMessage(),intSessionType),printWriter);
+            ExceptionUtils.getFullStackTrace(e);
+            return false;
         }
+
+        return true;
     }
 
     @Override

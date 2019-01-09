@@ -2,10 +2,7 @@ package com.itonglian.netty;
 
 import com.itonglian.utils.XMLProperties;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -44,8 +41,13 @@ public class NettyServer implements Runnable{
                             channelPipeline.addLast("HttpObjectAggregator", new HttpObjectAggregator(XMLProperties.getHttpObjectAggregatorValue()));
                             channelPipeline.addLast("ServerHandler",new NettyServerHandler());
                         }
-                    });
+                    }).option(ChannelOption.SO_BACKLOG, 128)
+            .childOption(ChannelOption.SO_KEEPALIVE, true);
             channelFuture = serverBootstrap.bind(XMLProperties.getNettyServerPort()).sync();
+            if(channelFuture.isSuccess()){
+                logger.info("NettyServer 已启动");
+                logger.info("Netty 监听端口:"+XMLProperties.getNettyServerPort());
+            }
             channelFuture.channel().closeFuture().sync();
         }catch (Exception e){
             logger.error(ExceptionUtils.getFullStackTrace(e));

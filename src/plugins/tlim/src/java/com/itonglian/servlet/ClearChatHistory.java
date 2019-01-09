@@ -2,6 +2,7 @@ package com.itonglian.servlet;
 
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +24,19 @@ public class ClearChatHistory extends BaseServlet {
 
         String other_id = req.getParameter("other_id");
 
-        chatDao.clearChatHistory(user_id,other_id);
+        submit(user_id,other_id);
+    }
 
-        chatDao.clearChatHistory(other_id,user_id);
+    public boolean submit(String user_id,String other_id){
+        boolean success;
+        try {
+            success = chatDao.clearChatHistory(user_id,other_id);
+            success = chatDao.clearChatHistory(other_id,user_id);
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            return false;
+        }
+        return success;
     }
 
 }

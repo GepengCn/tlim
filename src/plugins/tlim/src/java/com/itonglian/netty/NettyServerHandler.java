@@ -11,6 +11,7 @@ import io.netty.util.CharsetUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             String body = getBody(httpRequest);     //获取参数
             HttpMethod method=httpRequest.method();//获取请求方法
             //如果不是这个路径，就直接返回错误
-            if(path==null||!path.contains("/test")){
+            if(path==null||!path.contains("/netty")){
                 send(ctx,parseResult(new Result("error","非法请求")),HttpResponseStatus.BAD_REQUEST);
                 return;
             }
@@ -53,6 +54,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 //接受到的消息，做业务逻辑处理...
                 logger.info("body:"+body);
                 send(ctx,parseResult(new Result("ok","POST请求")),HttpResponseStatus.OK);
+                new NettyHttpMapper(path,body).execute();
                 return;
             }
 
@@ -113,6 +115,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public static String parseResult(Result result){
         return JSON.toJSONString(result);
     }
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor

@@ -27,10 +27,16 @@ public class AddStyle extends BaseServlet {
 
         String user_id = req.getParameter("user_id");
 
+        submit(style_name,style_value,user_id);
+    }
+
+    public boolean submit(String style_name,int style_value,String user_id) {
+        boolean success;
         if(styleDao.isExist(style_name,user_id)){
-            styleDao.update(style_value,style_name,user_id);
+            success = styleDao.update(style_value,style_name,user_id);
         }else{
-            styleDao.add(new OfStyle(style_name,style_value,user_id));
+            success = styleDao.add(new OfStyle(style_name,style_value,user_id));
         }
+        return success;
     }
 }

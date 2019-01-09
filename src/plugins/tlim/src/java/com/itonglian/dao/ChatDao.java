@@ -14,9 +14,10 @@ public interface ChatDao {
 
      void modify(String chat_user,String chat_other);
 
-     void clearChatHistory(String user_id,String other_id);
+     boolean clearChatHistory(String user_id,String other_id);
 
      void save(OfChat ofChat);
+
 
 
 }
