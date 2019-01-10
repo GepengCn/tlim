@@ -85,9 +85,9 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
 
             interceptorContext.handler(message);
 
-            if(XMLProperties.getNettyClient()){
+            /*if(XMLProperties.getNettyClient()){
                 CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient("message", message.getBody()));
-            }
+            }*/
 
         } catch (Exception e) {
             Log.error(ExceptionUtils.getFullStackTrace(e));
