@@ -41,7 +41,7 @@ public class NettyServer implements Runnable{
                             channelPipeline.addLast("HttpObjectAggregator", new HttpObjectAggregator(XMLProperties.getHttpObjectAggregatorValue()));
                             channelPipeline.addLast("ServerHandler",new NettyServerHandler());
                         }
-                    }).option(ChannelOption.SO_BACKLOG, 128)
+                    }).option(ChannelOption.SO_BACKLOG, XMLProperties.getOptionSoBacklog())
             .childOption(ChannelOption.SO_KEEPALIVE, true);
             channelFuture = serverBootstrap.bind(XMLProperties.getNettyServerPort()).sync();
             if(channelFuture.isSuccess()){

@@ -64,6 +64,8 @@ public class XMLProperties {
 
     private static final int HTTP_OBJECT_AGGREGATOR_VALUE = 10*1024*1024;
 
+    private static final int OPTION_SO_BACKLOG = 128;
+
     private static Set<Property> properties = new HashSet<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
@@ -92,8 +94,12 @@ public class XMLProperties {
 
     public static int getHttpObjectAggregatorValue(){
         return getIntegerValue("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
-
     }
+
+    public static int getOptionSoBacklog(){
+        return getIntegerValue("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
+    }
+
     public static boolean getUserAsync(){
         return getBooleanValue("tlim.userAsync",USER_ASYNC);
     }

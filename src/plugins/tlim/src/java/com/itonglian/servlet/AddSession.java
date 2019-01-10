@@ -58,8 +58,6 @@ public class AddSession extends BaseServlet {
 
         String subscribers = req.getParameter("subscribers");
 
-
-
         PrintWriter printWriter = resp.getWriter();
 
         if(submit(sessionType,requestUser,subscribers)){
@@ -96,10 +94,16 @@ public class AddSession extends BaseServlet {
 
             userOnlyIds = new ArrayList<>();
 
+            sessionId = UUID.randomUUID().toString();
+
             boolean iteratorResult = true;
+
             while(iterator.hasNext()){
+
                 OfSubscriber ofSubscriber = iterator.next();
+
                 User user = UserCacheManager.findUserByKey(ofSubscriber.getUser_id());
+
                 if(user==null){
                     continue;
                 }
@@ -124,7 +128,7 @@ public class AddSession extends BaseServlet {
 
             OfSession ofSession = new OfSession();
 
-            sessionId = UUID.randomUUID().toString();
+
 
             ofSession.setSession_id(sessionId);
 
