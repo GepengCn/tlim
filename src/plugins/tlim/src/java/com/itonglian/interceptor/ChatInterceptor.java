@@ -42,8 +42,6 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
 
     private boolean canCopyToMe = true;
 
-    private static final String ASYNC = "ASYNC";
-
 
     public ChatInterceptor setCopyToMe(boolean set){
         canCopyToMe = set;
@@ -79,7 +77,7 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
     @Override
     public void handler(final Protocol protocol, Message message) throws Exception {
 
-        if(ASYNC.equals(message.getSubject())){
+        if(StringConstants.ASYNC.equals(message.getSubject())){
             return;
         }
 
@@ -132,12 +130,12 @@ public abstract class ChatInterceptor extends CommonInterceptor implements Inter
 
             copyToMe.setTo(message.getFrom().toBareJID());
 
-            copyToMe.setSubject(ASYNC);
+            copyToMe.setSubject(StringConstants.ASYNC);
 
             packetDeliverer.deliver(copyToMe);
         }
 
-        if("Remote".equals(message.getSubject())){
+        if(StringConstants.REMOTE.equals(message.getSubject())){
             packetDeliverer.deliver(message);
         }
     }

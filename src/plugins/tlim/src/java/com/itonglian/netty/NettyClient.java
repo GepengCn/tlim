@@ -1,5 +1,6 @@
 package com.itonglian.netty;
 
+import com.itonglian.utils.StringConstants;
 import com.itonglian.utils.XMLProperties;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
@@ -54,12 +55,15 @@ public class NettyClient implements Runnable{
             int port = XMLProperties.getNettyClientPort();
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
             if(channelFuture.isSuccess()){
-                logger.info("NettyClient 已发起连接");
-                logger.info("Netty 连接ip:"+host+",port:"+port);
+                logger.info("NettyClient 已连接至NettyServer");
+                logger.info("NettyServer ip:"+host+",port:"+port);
             }else {
                 return;
             }
-            URI uri = new URI("http://"+host+":"+port+"/netty/"+method);
+            String url = "http://"+host+":"+port+ StringConstants.NETTY+method;
+            URI uri = new URI(url);
+            logger.info("NettyClient 正在连接HTTP请求:"+url);
+            logger.info("NettyClient HTTP请求参数:"+jsonValue);
             DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                                          uri.toASCIIString(), Unpooled.wrappedBuffer(jsonValue.getBytes("UTF-8")));
 

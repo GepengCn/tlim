@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.itonglian.interceptor.InterceptorContext;
 import com.itonglian.netty.NettyHttpActor;
 import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.StringConstants;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class MessageActor implements NettyHttpActor {
         message.setFrom(new JID(MessageUtils.toJid(msg.getMsg_from())));
         message.setTo(new JID(MessageUtils.toJid(msg.getMsg_to())));
         message.setBody(jsonValue);
-        message.setSubject("Remote");
+        message.setSubject(StringConstants.REMOTE);
         try {
             interceptorContext.handler(message);
         } catch (Exception e) {

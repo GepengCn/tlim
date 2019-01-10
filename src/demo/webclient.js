@@ -49,7 +49,7 @@ var utils = {
 
 };
 var webclient={
-    DEFAULT_IP:'coolweb.club',//默认IP
+    DEFAULT_IP:'127.0.0.1',//默认IP
     DEFAULT_LOCAL_IP:'123.207.154.188',
     DEFAULT_DOMAIN:'im.itonglian.com',//默认域名
     DEFAULT_USER:'673b15e889df4e4aaa33b46d1b433189',//默认用户

@@ -1,6 +1,7 @@
 package com.itonglian.netty;
 
 import com.alibaba.fastjson.JSON;
+import com.itonglian.utils.StringConstants;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -15,8 +16,6 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.InetAddress;
-
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
 
@@ -25,7 +24,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-
         if(! (msg instanceof FullHttpRequest)){
             send(ctx,parseResult(new Result("error","未知请求")), HttpResponseStatus.BAD_REQUEST);
             return;
@@ -33,41 +31,40 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         FullHttpRequest httpRequest = (FullHttpRequest)msg;
         try{
             String path=httpRequest.uri();          //获取路径
-            String body = getBody(httpRequest);     //获取参数
+            String params = getParams(httpRequest);     //获取参数
             HttpMethod method=httpRequest.method();//获取请求方法
             //如果不是这个路径，就直接返回错误
-            if(path==null||!path.contains("/netty")){
+            if(path==null||!path.contains(StringConstants.NETTY)){
                 send(ctx,parseResult(new Result("error","非法请求")),HttpResponseStatus.BAD_REQUEST);
                 return;
             }
-            logger.info("接收到:"+method+" 请求");
+            logger.info("已接受HTTP请求:"+path);
+            logger.info("HTTP请求类型:"+method);
+            logger.info("请求参数params:"+params);
             //如果是GET请求
             if(HttpMethod.GET.equals(method)){
                 //接受到的消息，做业务逻辑处理...
-                logger.info("body:"+body);
                 send(ctx,parseResult(new Result("ok","GET请求")),HttpResponseStatus.OK);
                 return;
             }
             //如果是POST请求
             if(HttpMethod.POST.equals(method)){
                 //接受到的消息，做业务逻辑处理...
-                logger.info("body:"+body);
                 send(ctx,parseResult(new Result("ok","POST请求")),HttpResponseStatus.OK);
-                new NettyHttpMapper(path,body).execute();
+                boolean success = new NettyHttpMapper(path,params).execute();
+                logger.info("处理结果["+success+"]...");
                 return;
             }
 
             //如果是PUT请求
             if(HttpMethod.PUT.equals(method)){
                 //接受到的消息，做业务逻辑处理...
-                logger.info("body:"+body);
                 send(ctx,parseResult(new Result("ok","PUT请求")),HttpResponseStatus.OK);
                 return;
             }
             //如果是DELETE请求
             if(HttpMethod.DELETE.equals(method)){
                 //接受到的消息，做业务逻辑处理...
-                logger.info("body:"+body);
                 send(ctx,parseResult(new Result("ok","DELETE请求")),HttpResponseStatus.OK);
                 return;
             }
@@ -84,7 +81,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
      * @param request
      * @return
      */
-    private String getBody(FullHttpRequest request){
+    private String getParams(FullHttpRequest request){
         ByteBuf buf = request.content();
         return buf.toString(CharsetUtil.UTF_8);
     }
@@ -107,7 +104,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info("连接的客户端地址:" + ctx.channel().remoteAddress());
-        ctx.writeAndFlush("客户端"+ InetAddress.getLocalHost().getHostName() + "成功与服务端建立连接！ ");
         super.channelActive(ctx);
     }
 
