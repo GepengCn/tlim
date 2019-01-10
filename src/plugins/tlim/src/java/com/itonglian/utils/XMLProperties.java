@@ -66,6 +66,8 @@ public class XMLProperties {
 
     private static final int OPTION_SO_BACKLOG = 128;
 
+    private static final String CHANNEL_CODE = "";
+
     private static Set<Property> properties = new HashSet<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
@@ -90,6 +92,14 @@ public class XMLProperties {
 
     public static int getNettyClientPort(){
         return getIntegerValue("tlim.nettyClientPort",NETTY_CLIENT_PORT);
+    }
+
+    public static String getChannelCode(){
+        String channelCode = getStringValue("tlim.channelCode",CHANNEL_CODE);
+        if(StringUtils.isNullOrEmpty(channelCode)){
+            return "";
+        }
+        return "/"+channelCode;
     }
 
     public static int getHttpObjectAggregatorValue(){

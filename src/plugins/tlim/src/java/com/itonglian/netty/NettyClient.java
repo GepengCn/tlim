@@ -60,7 +60,7 @@ public class NettyClient implements Runnable{
             }else {
                 return;
             }
-            String url = "http://"+host+":"+port+ StringConstants.NETTY+method;
+            String url = "http://"+host+":"+port+XMLProperties.getChannelCode()+StringConstants.NETTY+method;
             URI uri = new URI(url);
             logger.info("NettyClient 正在连接HTTP请求:"+url);
             logger.info("NettyClient HTTP请求参数:"+jsonValue);
