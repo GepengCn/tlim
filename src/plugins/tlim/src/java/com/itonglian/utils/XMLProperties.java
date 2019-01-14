@@ -76,37 +76,45 @@ public class XMLProperties {
 
 
     static{
-        concurrentHashMap.put("tlim.nettyServer",NETTY_SERVER);
-        concurrentHashMap.put("tlim.nettyClient",NETTY_CLIENT);
-        concurrentHashMap.put("tlim.nettyServerPort",NETTY_SERVER_PORT);
-        concurrentHashMap.put("tlim.nettyClientIp",NETTY_CLIENT_IP);
-        concurrentHashMap.put("tlim.nettyClientPort",NETTY_CLIENT_PORT);
-        concurrentHashMap.put("tlim.channelCode",CHANNEL_CODE);
-        concurrentHashMap.put("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
-        concurrentHashMap.put("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
-        concurrentHashMap.put("tlim.userAsync",USER_ASYNC);
-        concurrentHashMap.put("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
-        concurrentHashMap.put("tlim.threadPoolSize",THREAD_POOL_SIZE);
-        concurrentHashMap.put("tlim.jpush",JPUSH);
-        concurrentHashMap.put("tlim.masterSecret",MASTER_SECRET);
-        concurrentHashMap.put("tlim.appKey",APP_KEY);
-        concurrentHashMap.put("tlim.druid.maxActive",DRUID_MAX_ACTIVE);
-        concurrentHashMap.put("tlim.druid.asyncInit",DRUID_ASYNC_INIT);
-        concurrentHashMap.put("tlim.druid.initialSize",DRUID_INITIAL_SIZE);
-        concurrentHashMap.put("tlim.druid.minIdle",DRUID_MIN_IDLE);
-        concurrentHashMap.put("tlim.druid.maxWait",DRUID_MAX_WAIT);
-        concurrentHashMap.put("tlim.druid.timeBetweenEvictionRunsMillis",DRUID_TIME_BETWEEN_EVICTION_RUNS_MILLIS);
-        concurrentHashMap.put("tlim.druid.minEvictableIdleTimeMillis",DRUID_MIN_EVICTABLE_IDLE_TIME_MILLIS);
-        concurrentHashMap.put("tlim.druid.maxEvictableIdleTimeMillis",DRUID_MAX_EVICTABLE_IDLE_TIME_MILLIS);
-        concurrentHashMap.put("tlim.druid.removeAbandoned",DRUID_REMOVE_ABANDONED);
-        concurrentHashMap.put("tlim.druid.removeAbandonedTimeout",DRUID_REMOVE_ABANDONED_TIMEOUT);
-        concurrentHashMap.put("tlim.druid.testWhileIdle",DRUID_TEST_WHILE_IDLE);
-        concurrentHashMap.put("tlim.druid.testOnBorrow",DRUID_TEST_ON_BORROW);
-        concurrentHashMap.put("tlim.druid.testOnReturn",DRUID_TEST_ON_RETURN);
-        concurrentHashMap.put("tlim.druid.poolPreparedStatements",DRUID_POOL_PREPARED_STATEMENTS);
-        concurrentHashMap.put("tlim.druid.maxOpenPreparedStatements",DRUID_MAX_OPEN_PREPARED_STATEMENTS);
+        setOrDefault("tlim.nettyServer",NETTY_SERVER);
+        setOrDefault("tlim.nettyClient",NETTY_CLIENT);
+        setOrDefault("tlim.nettyServerPort",NETTY_SERVER_PORT);
+        setOrDefault("tlim.nettyClientIp",NETTY_CLIENT_IP);
+        setOrDefault("tlim.nettyClientPort",NETTY_CLIENT_PORT);
+        setOrDefault("tlim.channelCode",CHANNEL_CODE);
+        setOrDefault("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
+        setOrDefault("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
+        setOrDefault("tlim.userAsync",USER_ASYNC);
+        setOrDefault("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
+        setOrDefault("tlim.threadPoolSize",THREAD_POOL_SIZE);
+        setOrDefault("tlim.jpush",JPUSH);
+        setOrDefault("tlim.masterSecret",MASTER_SECRET);
+        setOrDefault("tlim.appKey",APP_KEY);
+        setOrDefault("tlim.druid.maxActive",DRUID_MAX_ACTIVE);
+        setOrDefault("tlim.druid.asyncInit",DRUID_ASYNC_INIT);
+        setOrDefault("tlim.druid.initialSize",DRUID_INITIAL_SIZE);
+        setOrDefault("tlim.druid.minIdle",DRUID_MIN_IDLE);
+        setOrDefault("tlim.druid.maxWait",DRUID_MAX_WAIT);
+        setOrDefault("tlim.druid.timeBetweenEvictionRunsMillis",DRUID_TIME_BETWEEN_EVICTION_RUNS_MILLIS);
+        setOrDefault("tlim.druid.minEvictableIdleTimeMillis",DRUID_MIN_EVICTABLE_IDLE_TIME_MILLIS);
+        setOrDefault("tlim.druid.maxEvictableIdleTimeMillis",DRUID_MAX_EVICTABLE_IDLE_TIME_MILLIS);
+        setOrDefault("tlim.druid.removeAbandoned",DRUID_REMOVE_ABANDONED);
+        setOrDefault("tlim.druid.removeAbandonedTimeout",DRUID_REMOVE_ABANDONED_TIMEOUT);
+        setOrDefault("tlim.druid.testWhileIdle",DRUID_TEST_WHILE_IDLE);
+        setOrDefault("tlim.druid.testOnBorrow",DRUID_TEST_ON_BORROW);
+        setOrDefault("tlim.druid.testOnReturn",DRUID_TEST_ON_RETURN);
+        setOrDefault("tlim.druid.poolPreparedStatements",DRUID_POOL_PREPARED_STATEMENTS);
+        setOrDefault("tlim.druid.maxOpenPreparedStatements",DRUID_MAX_OPEN_PREPARED_STATEMENTS);
     }
 
+    public static void setOrDefault(String xmlProperty,Object defaults){
+        String xmlValue = JiveGlobals.getXMLProperty(xmlProperty);
+        if(StringUtils.isNullOrEmpty(xmlValue)){
+            concurrentHashMap.put(xmlProperty,defaults);
+            return;
+        }
+        concurrentHashMap.put(xmlProperty,xmlValue);
+    }
     public static ConcurrentHashMap<String,Object> getConcurrentHashMap(){
         return concurrentHashMap;
     }
@@ -231,29 +239,20 @@ public class XMLProperties {
     }
 
     private static String getStringValue(String xmlProperty){
-        String value = (String)concurrentHashMap.get(xmlProperty);
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            value = temp;
-        }
-        return value;
+        return (String)concurrentHashMap.get(xmlProperty);
     }
     private static int getIntegerValue(String xmlProperty){
-        int value = (int)concurrentHashMap.get(xmlProperty);
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            value = Integer.valueOf(temp);
+        if(concurrentHashMap.get(xmlProperty) instanceof String){
+            return Integer.valueOf((String)concurrentHashMap.get(xmlProperty));
         }
-        return value;
+        return (int)concurrentHashMap.get(xmlProperty);
     }
 
     private static boolean getBooleanValue(String xmlProperty){
-        boolean value = (boolean)concurrentHashMap.get(xmlProperty);
-        String temp = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(temp)){
-            value = Boolean.parseBoolean(temp);
+        if(concurrentHashMap.get(xmlProperty) instanceof String){
+            return Boolean.valueOf((String)concurrentHashMap.get(xmlProperty));
         }
-        return value;
+        return (boolean)concurrentHashMap.get(xmlProperty);
     }
 
 
