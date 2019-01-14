@@ -15,7 +15,14 @@ public class CustomThreadPool {
 
     private final static ExecutorService executorService = Executors.newCachedThreadPool();
 
+    private final static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(XMLProperties.getThreadPoolSize());
+
     public ExecutorService getExecutorService(){
         return executorService;
     }
+
+    public ExecutorService getFixedExecutorService(){
+        return fixedThreadPool;
+    }
+
 }

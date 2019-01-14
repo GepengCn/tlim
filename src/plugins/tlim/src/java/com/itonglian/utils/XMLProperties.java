@@ -68,6 +68,8 @@ public class XMLProperties {
 
     private static final String CHANNEL_CODE = "";
 
+    private static final int THREAD_POOL_SIZE = 500;
+
     private static volatile ConcurrentHashMap<String,Object> concurrentHashMap = new ConcurrentHashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
@@ -84,6 +86,7 @@ public class XMLProperties {
         concurrentHashMap.put("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
         concurrentHashMap.put("tlim.userAsync",USER_ASYNC);
         concurrentHashMap.put("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
+        concurrentHashMap.put("tlim.threadPoolSize",THREAD_POOL_SIZE);
         concurrentHashMap.put("tlim.jpush",JPUSH);
         concurrentHashMap.put("tlim.masterSecret",MASTER_SECRET);
         concurrentHashMap.put("tlim.appKey",APP_KEY);
@@ -106,6 +109,10 @@ public class XMLProperties {
 
     public static ConcurrentHashMap<String,Object> getConcurrentHashMap(){
         return concurrentHashMap;
+    }
+
+    public static int getThreadPoolSize(){
+        return getIntegerValue("tlim.threadPoolSize");
     }
 
     public static boolean getNettyServer(){
