@@ -73,8 +73,8 @@ public class XMLProperties {
 
     static{
         concurrentHashMap.put("tlim.nettyServer",NETTY_SERVER);
-        concurrentHashMap.put("nettyClient",NETTY_CLIENT);
-        concurrentHashMap.put("nettyServerPort",NETTY_SERVER_PORT);
+        concurrentHashMap.put("tlim.nettyClient",NETTY_CLIENT);
+        concurrentHashMap.put("tlim.nettyServerPort",NETTY_SERVER_PORT);
         concurrentHashMap.put("tlim.nettyClientIp",NETTY_CLIENT_IP);
         concurrentHashMap.put("tlim.nettyClientPort",NETTY_CLIENT_PORT);
         concurrentHashMap.put("tlim.channelCode",CHANNEL_CODE);
