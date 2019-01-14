@@ -125,10 +125,10 @@ public class CachePushFilter {
             }
         }
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
-        if(!StringUtils.isNullOrEmpty(pushMsgStr)){
+        if(!StringUtils.isNullOrEmpty(pushMsgStr)&&XMLProperties.getJpush()){
             Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv,pushWhere));
             pushThread.setPriority(1);
-            pushThread.start();
+            CustomThreadPool.getInstance().getExecutorService().execute(pushThread);
         }
     }
 

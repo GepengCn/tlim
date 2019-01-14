@@ -16,6 +16,8 @@ public class XMLProperties {
 
     private static final int USER_ASYNC_INTERVAL = 1;
 
+    private static final boolean JPUSH = true;
+
     private static final String MASTER_SECRET = "83a8c468321366eb977c61f2";
 
     private static final String APP_KEY = "90fd74bf44097c9bb69c3fd1";
@@ -82,6 +84,7 @@ public class XMLProperties {
         concurrentHashMap.put("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
         concurrentHashMap.put("tlim.userAsync",USER_ASYNC);
         concurrentHashMap.put("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
+        concurrentHashMap.put("tlim.jpush",JPUSH);
         concurrentHashMap.put("tlim.masterSecret",MASTER_SECRET);
         concurrentHashMap.put("tlim.appKey",APP_KEY);
         concurrentHashMap.put("tlim.druid.maxActive",DRUID_MAX_ACTIVE);
@@ -147,6 +150,10 @@ public class XMLProperties {
         return getIntegerValue("tlim.userAsyncInterval");
     }
 
+    public static boolean getJpush(){
+        return getBooleanValue("tlim.jpush");
+
+    }
 
     public static String getMasterSecret(){
         return getStringValue("tlim.masterSecret");
