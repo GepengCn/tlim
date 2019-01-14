@@ -8,7 +8,7 @@ import org.xmpp.packet.Message;
 
 public class ExceptionReply extends Exception{
 
-
+/*
     public ExceptionReply(String error,Message message,Session session) throws PacketRejectedException {
         message.setTo(message.getFrom());
         message.setBody(error);
@@ -18,7 +18,7 @@ public class ExceptionReply extends Exception{
         rejectedException.setRejectionMessage(error);
 
         throw rejectedException;
-    }
+    }*/
 
     public ExceptionReply(String error,Message message,PacketDeliverer packetDeliverer) throws UnauthorizedException, PacketRejectedException {
         message.setTo(message.getFrom());

@@ -1,5 +1,6 @@
 <%@ page import="com.itonglian.utils.XMLProperties" pageEncoding="utf-8"%>
-<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.concurrent.ConcurrentHashMap" %>
 <%@ page contentType="text/html; charset=utf-8"%>
 <html>
     <head>
@@ -10,15 +11,14 @@
 <body>
     <h1>Openfire用户同步及数据库属性配置</h1>
 <%
-    Iterator<XMLProperties.Property> iterator = XMLProperties.getProperties().iterator();
+    ConcurrentHashMap<String,Object> concurrentHashMap = XMLProperties.getConcurrentHashMap();
 
-    while(iterator.hasNext()){
-        XMLProperties.Property property = iterator.next();
+    for(Map.Entry<String, Object> entry:concurrentHashMap.entrySet()){
         %>
         <div>
-            <span class="propName"><%=property.getName() %></span>
+            <span class="propName"><%=entry.getKey() %></span>
             &nbsp;- &nbsp;
-            <span class="propValue"><%=property.getValue() %></span>
+            <span class="propValue"><%=entry.getValue() %></span>
         </div>
 <%
     }

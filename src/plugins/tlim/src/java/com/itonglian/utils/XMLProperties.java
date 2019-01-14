@@ -7,10 +7,8 @@ import org.jivesoftware.util.JiveGlobals;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class XMLProperties {
 
@@ -68,34 +66,65 @@ public class XMLProperties {
 
     private static final String CHANNEL_CODE = "";
 
-    private static Set<Property> properties = new HashSet<>();
+    private static volatile ConcurrentHashMap<String,Object> concurrentHashMap = new ConcurrentHashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
 
-    public static Set<Property> getProperties(){
-        return properties;
+
+    static{
+        concurrentHashMap.put("tlim.nettyServer",NETTY_SERVER);
+        concurrentHashMap.put("nettyClient",NETTY_CLIENT);
+        concurrentHashMap.put("nettyServerPort",NETTY_SERVER_PORT);
+        concurrentHashMap.put("tlim.nettyClientIp",NETTY_CLIENT_IP);
+        concurrentHashMap.put("tlim.nettyClientPort",NETTY_CLIENT_PORT);
+        concurrentHashMap.put("tlim.channelCode",CHANNEL_CODE);
+        concurrentHashMap.put("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
+        concurrentHashMap.put("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
+        concurrentHashMap.put("tlim.userAsync",USER_ASYNC);
+        concurrentHashMap.put("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
+        concurrentHashMap.put("tlim.masterSecret",MASTER_SECRET);
+        concurrentHashMap.put("tlim.appKey",APP_KEY);
+        concurrentHashMap.put("tlim.druid.maxActive",DRUID_MAX_ACTIVE);
+        concurrentHashMap.put("tlim.druid.asyncInit",DRUID_ASYNC_INIT);
+        concurrentHashMap.put("tlim.druid.initialSize",DRUID_INITIAL_SIZE);
+        concurrentHashMap.put("tlim.druid.minIdle",DRUID_MIN_IDLE);
+        concurrentHashMap.put("tlim.druid.maxWait",DRUID_MAX_WAIT);
+        concurrentHashMap.put("tlim.druid.timeBetweenEvictionRunsMillis",DRUID_TIME_BETWEEN_EVICTION_RUNS_MILLIS);
+        concurrentHashMap.put("tlim.druid.minEvictableIdleTimeMillis",DRUID_MIN_EVICTABLE_IDLE_TIME_MILLIS);
+        concurrentHashMap.put("tlim.druid.maxEvictableIdleTimeMillis",DRUID_MAX_EVICTABLE_IDLE_TIME_MILLIS);
+        concurrentHashMap.put("tlim.druid.removeAbandoned",DRUID_REMOVE_ABANDONED);
+        concurrentHashMap.put("tlim.druid.removeAbandonedTimeout",DRUID_REMOVE_ABANDONED_TIMEOUT);
+        concurrentHashMap.put("tlim.druid.testWhileIdle",DRUID_TEST_WHILE_IDLE);
+        concurrentHashMap.put("tlim.druid.testOnBorrow",DRUID_TEST_ON_BORROW);
+        concurrentHashMap.put("tlim.druid.testOnReturn",DRUID_TEST_ON_RETURN);
+        concurrentHashMap.put("tlim.druid.poolPreparedStatements",DRUID_POOL_PREPARED_STATEMENTS);
+        concurrentHashMap.put("tlim.druid.maxOpenPreparedStatements",DRUID_MAX_OPEN_PREPARED_STATEMENTS);
+    }
+
+    public static ConcurrentHashMap<String,Object> getConcurrentHashMap(){
+        return concurrentHashMap;
     }
 
     public static boolean getNettyServer(){
-        return getBooleanValue("tlim.nettyServer",NETTY_SERVER);
+        return getBooleanValue("tlim.nettyServer");
     }
     public static boolean getNettyClient(){
-        return getBooleanValue("tlim.nettyClient",NETTY_CLIENT);
+        return getBooleanValue("tlim.nettyClient");
     }
     public static int getNettyServerPort(){
-        return getIntegerValue("tlim.nettyServerPort",NETTY_SERVER_PORT);
+        return getIntegerValue("tlim.nettyServerPort");
     }
 
     public static String getNettyClientIp(){
-        return getStringValue("tlim.nettyClientIp",NETTY_CLIENT_IP);
+        return getStringValue("tlim.nettyClientIp");
     }
 
     public static int getNettyClientPort(){
-        return getIntegerValue("tlim.nettyClientPort",NETTY_CLIENT_PORT);
+        return getIntegerValue("tlim.nettyClientPort");
     }
 
     public static String getChannelCode(){
-        String channelCode = getStringValue("tlim.channelCode",CHANNEL_CODE);
+        String channelCode = getStringValue("tlim.channelCode");
         if(StringUtils.isNullOrEmpty(channelCode)){
             return "";
         }
@@ -103,128 +132,120 @@ public class XMLProperties {
     }
 
     public static int getHttpObjectAggregatorValue(){
-        return getIntegerValue("tlim.httpObjectAggregatorValue",HTTP_OBJECT_AGGREGATOR_VALUE);
+        return getIntegerValue("tlim.httpObjectAggregatorValue");
     }
 
     public static int getOptionSoBacklog(){
-        return getIntegerValue("tlim.optionSoBacklog",OPTION_SO_BACKLOG);
+        return getIntegerValue("tlim.optionSoBacklog");
     }
 
     public static boolean getUserAsync(){
-        return getBooleanValue("tlim.userAsync",USER_ASYNC);
+        return getBooleanValue("tlim.userAsync");
     }
 
     public static int getUserASyncInterval(){
-        return getIntegerValue("tlim.userAsyncInterval",USER_ASYNC_INTERVAL);
+        return getIntegerValue("tlim.userAsyncInterval");
     }
 
 
     public static String getMasterSecret(){
-        return getStringValue("tlim.masterSecret",MASTER_SECRET);
+        return getStringValue("tlim.masterSecret");
 
     }
 
     public static String getAppKey(){
-        return getStringValue("tlim.appKey",APP_KEY);
+        return getStringValue("tlim.appKey");
     }
 
     public static int getMaxActive(){
-        return getIntegerValue("tlim.druid.maxActive",DRUID_MAX_ACTIVE);
+        return getIntegerValue("tlim.druid.maxActive");
     }
 
     public static boolean getAsyncInit(){
-        return getBooleanValue("tlim.druid.asyncInit",DRUID_ASYNC_INIT);
+        return getBooleanValue("tlim.druid.asyncInit");
     }
     public static int getInitialSize(){
-        return getIntegerValue("tlim.druid.initialSize",DRUID_INITIAL_SIZE);
+        return getIntegerValue("tlim.druid.initialSize");
     }
 
     public static int getMinIdle(){
-        return getIntegerValue("tlim.druid.minIdle",DRUID_MIN_IDLE);
+        return getIntegerValue("tlim.druid.minIdle");
     }
 
     public static int getMaxWait(){
-        return getIntegerValue("tlim.druid.maxWait",DRUID_MAX_WAIT);
+        return getIntegerValue("tlim.druid.maxWait");
     }
 
     public static int getTimeBetweenEvictionRunsMillis(){
-        return getIntegerValue("tlim.druid.timeBetweenEvictionRunsMillis",DRUID_TIME_BETWEEN_EVICTION_RUNS_MILLIS);
+        return getIntegerValue("tlim.druid.timeBetweenEvictionRunsMillis");
     }
 
     public static int getMinEvictableIdleTimeMillis(){
-        return getIntegerValue("tlim.druid.minEvictableIdleTimeMillis",DRUID_MIN_EVICTABLE_IDLE_TIME_MILLIS);
+        return getIntegerValue("tlim.druid.minEvictableIdleTimeMillis");
     }
 
     public static int getMaxEvictableIdleTimeMillis(){
-        return getIntegerValue("tlim.druid.maxEvictableIdleTimeMillis",DRUID_MAX_EVICTABLE_IDLE_TIME_MILLIS);
+        return getIntegerValue("tlim.druid.maxEvictableIdleTimeMillis");
     }
 
     public static boolean getRemoveAbandoned(){
-        return getBooleanValue("tlim.druid.removeAbandoned",DRUID_REMOVE_ABANDONED);
+        return getBooleanValue("tlim.druid.removeAbandoned");
     }
 
     public static int getRemoveAbandonedTimeout(){
-        return getIntegerValue("tlim.druid.removeAbandonedTimeout",DRUID_REMOVE_ABANDONED_TIMEOUT);
+        return getIntegerValue("tlim.druid.removeAbandonedTimeout");
     }
 
     public static boolean getTestWhileIdle(){
-        return getBooleanValue("tlim.druid.testWhileIdle",DRUID_TEST_WHILE_IDLE);
+        return getBooleanValue("tlim.druid.testWhileIdle");
     }
 
     public static boolean getTestOnBorrow(){
-        return getBooleanValue("tlim.druid.testOnBorrow",DRUID_TEST_ON_BORROW);
+        return getBooleanValue("tlim.druid.testOnBorrow");
     }
 
     public static boolean getTestOnReturn(){
-        return getBooleanValue("tlim.druid.testOnReturn",DRUID_TEST_ON_RETURN);
+        return getBooleanValue("tlim.druid.testOnReturn");
     }
 
     public static boolean getPoolPreparedStatements(){
-        return getBooleanValue("tlim.druid.poolPreparedStatements",DRUID_POOL_PREPARED_STATEMENTS);
+        return getBooleanValue("tlim.druid.poolPreparedStatements");
     }
 
     public static int getMaxOpenPreparedStatements(){
-        return getIntegerValue("tlim.druid.maxOpenPreparedStatements",DRUID_MAX_OPEN_PREPARED_STATEMENTS);
+        return getIntegerValue("tlim.druid.maxOpenPreparedStatements");
     }
 
-    private static String getStringValue(String xmlProperty,String defaults){
-        String realValue = defaults;
-        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(tempValue)){
-            realValue = tempValue;
+    private static String getStringValue(String xmlProperty){
+        String value = (String)concurrentHashMap.get(xmlProperty);
+        String temp = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(temp)){
+            value = temp;
         }
-        addProperty(xmlProperty,realValue);
-        return realValue;
+        return value;
     }
-    private static int getIntegerValue(String xmlProperty,int defaults){
-        int realValue = defaults;
-        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(tempValue)){
-            realValue = Integer.parseInt(tempValue);
+    private static int getIntegerValue(String xmlProperty){
+        int value = (int)concurrentHashMap.get(xmlProperty);
+        String temp = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(temp)){
+            value = Integer.valueOf(temp);
         }
-        addProperty(xmlProperty,realValue);
-        return realValue;
+        return value;
     }
 
-    private static boolean getBooleanValue(String xmlProperty,boolean defaults){
-        boolean realValue = defaults;
-        String tempValue = JiveGlobals.getXMLProperty(xmlProperty);
-        if(!StringUtils.isNullOrEmpty(tempValue)){
-            realValue = Boolean.parseBoolean(tempValue);
+    private static boolean getBooleanValue(String xmlProperty){
+        boolean value = (boolean)concurrentHashMap.get(xmlProperty);
+        String temp = JiveGlobals.getXMLProperty(xmlProperty);
+        if(!StringUtils.isNullOrEmpty(temp)){
+            value = Boolean.parseBoolean(temp);
         }
-        addProperty(xmlProperty,realValue);
-        return realValue;
+        return value;
     }
 
-    private static void addProperty(String xmlProperty,Object value){
-        properties.add(new Property(xmlProperty,value));
-    }
 
     public static void print(){
-        Iterator<Property> iterator = properties.iterator();
-        while(iterator.hasNext()){
-            Property property = iterator.next();
-            logger.info(property.getName()+" - "+property.getValue());
+        for(Map.Entry<String, Object> entry:concurrentHashMap.entrySet()){
+            logger.info(entry.getKey()+" - "+entry.getValue());
         }
     }
     @Data
@@ -236,17 +257,5 @@ public class XMLProperties {
 
         private Object value;
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Property property = (Property) o;
-            return name.equals(property.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name);
-        }
     }
 }
