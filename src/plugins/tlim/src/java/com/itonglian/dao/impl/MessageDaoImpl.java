@@ -210,7 +210,7 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public void deleteById(String msg_id) {
+    public boolean deleteById(String msg_id) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         MessageMapper messageMapper = session.getMapper(MessageMapper.class);
@@ -220,9 +220,11 @@ public class MessageDaoImpl implements MessageDao {
         } catch (Exception e){
             session.rollback();
             Log.error(ExceptionUtils.getFullStackTrace(e));
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override

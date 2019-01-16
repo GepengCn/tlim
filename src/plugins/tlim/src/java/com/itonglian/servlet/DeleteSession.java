@@ -40,11 +40,22 @@ public class DeleteSession extends BaseServlet {
             return;
         }
 
-        sessionDao.delete(sessionId);
 
-        subscriberDao.deleteBySession(sessionId);
 
         doBack(new BackJson("ok","",sessionId,MessageUtils.getTs()),printWriter);
+    }
+
+    public boolean submit(String session_id){
+
+        boolean success;
+
+        success = sessionDao.delete(session_id);
+        if(!success){
+            return false;
+        }
+        success = subscriberDao.deleteBySession(session_id);
+
+        return success;
     }
 
     @Data

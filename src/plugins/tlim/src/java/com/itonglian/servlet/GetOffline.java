@@ -9,6 +9,7 @@ import com.itonglian.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,8 @@ public class GetOffline extends BaseServlet {
     OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    private List<OfCustomOffline> customOfflineList;
 
     @Override
     protected String mapper() {
@@ -38,27 +41,36 @@ public class GetOffline extends BaseServlet {
 
         String getThenClear = req.getParameter("getThenClear");
 
-        boolean clear = true;
-
-        String msg_time = messageDao.findMessageTime(msg_id);
-
-        if(!StringUtils.isNullOrEmpty(getThenClear)&&"1".equals(getThenClear)){
-            clear = false;
-        }
-
-        List<OfCustomOffline> customOfflineList;
-
-        if(StringUtils.isNullOrEmpty(msg_time)){
-            customOfflineList = offlineDao.findByUser(user_id);
-        }else{
-            customOfflineList = offlineDao.findByUserAfterThatTime(user_id,msg_time);
-        }
-        if(clear){
-            offlineDao.deleteByUser(user_id);
-        }
+        submit(msg_id,getThenClear,user_id);
 
         doBack(new BackJson("ok","",customOfflineList),printWriter);
 
+    }
+
+    public boolean submit(String msg_id,String getThenClear,String user_id){
+
+        try {
+            boolean clear = true;
+
+            String msg_time = messageDao.findMessageTime(msg_id);
+
+            if(!StringUtils.isNullOrEmpty(getThenClear)&&"1".equals(getThenClear)){
+                clear = false;
+            }
+
+            if(StringUtils.isNullOrEmpty(msg_time)){
+                customOfflineList = offlineDao.findByUser(user_id);
+            }else{
+                customOfflineList = offlineDao.findByUserAfterThatTime(user_id,msg_time);
+            }
+            if(clear){
+                offlineDao.deleteByUser(user_id);
+            }
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+            return false;
+        }
+        return true;
     }
 
     @Data

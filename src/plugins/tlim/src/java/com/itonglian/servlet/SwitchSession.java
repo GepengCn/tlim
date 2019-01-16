@@ -24,7 +24,10 @@ public class SwitchSession extends BaseServlet {
 
         int valid = StringUtils.stringToInt(req.getParameter("session_valid"));
 
-        sessionDao.switchSession(session_id,valid);
+        submit(session_id,valid);
     }
 
+    public boolean submit(String session_id,int valid){
+        return sessionDao.switchSession(session_id,valid);
+    }
 }

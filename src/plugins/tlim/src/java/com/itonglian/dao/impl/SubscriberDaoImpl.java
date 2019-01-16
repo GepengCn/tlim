@@ -84,7 +84,7 @@ public class SubscriberDaoImpl implements SubscriberDao {
     }
 
     @Override
-    public void deleteBySession(String sessionId) {
+    public boolean deleteBySession(String sessionId) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SubscriberMapper subscriberMapper = session.getMapper(SubscriberMapper.class);
@@ -94,9 +94,11 @@ public class SubscriberDaoImpl implements SubscriberDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
 

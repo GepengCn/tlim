@@ -15,6 +15,7 @@ import com.itonglian.utils.UserCacheManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ public class ModifySession extends BaseServlet {
     SubscriberDao subscriberDao = SubscriberDaoImpl.getInstance();
 
     MessageDao messageDao = MessageDaoImpl.getInstance();
+
+    private String modifyTime;
 
     @Override
     protected String mapper() {
@@ -52,36 +55,44 @@ public class ModifySession extends BaseServlet {
             return;
         }
 
-        String modifyTime = "";
-        //更新session
-        if(!StringUtils.isNullOrEmpty(sessionName)){
-            modifyTime = MessageUtils.getTs();
-            sessionDao.updateNameById(sessionId,sessionName,modifyTime);
-        }
-
-        //更新订阅者
-        handlerSubscribers(subscribers,sessionId);
+        submit(sessionId,sessionName,subscribers);
 
         doBack(new BackJson("ok","",sessionId,modifyTime),printWriter);
     }
 
 
+    public boolean submit(String sessionId,String sessionName,String subscribers){
+        try {
+            //更新session
+            if(!StringUtils.isNullOrEmpty(sessionName)){
+                modifyTime = MessageUtils.getTs();
+                sessionDao.updateNameById(sessionId,sessionName,modifyTime);
+            }
 
-    private void handlerSubscribers(String subscribers,String sessionId){
+            //更新订阅者
+            saveSubs(subscribers,sessionId);
+        }catch (Exception e){
+            ExceptionUtils.getFullStackTrace(e);
+            return false;
+        }
+        return true;
+    }
 
-        List<HandlerSubcriber> subcriberList = JSONArray.parseArray(subscribers,HandlerSubcriber.class);
+    private void saveSubs(String subscribers,String sessionId){
 
-        if(subcriberList==null){
+        List<Subscriber> subscriberList = JSONArray.parseArray(subscribers,Subscriber.class);
+
+        if(subscriberList==null){
             return;
         }
 
-        Iterator<HandlerSubcriber> iterator = subcriberList.iterator();
+        Iterator<Subscriber> iterator = subscriberList.iterator();
 
         while(iterator.hasNext()){
 
-            HandlerSubcriber handlerSubcriber = iterator.next();
+            Subscriber subscriber = iterator.next();
 
-            String type = handlerSubcriber.getType();
+            String type = subscriber.getType();
 
             if(StringUtils.isNullOrEmpty(type)){
                 continue;
@@ -89,11 +100,11 @@ public class ModifySession extends BaseServlet {
 
             switch (type){
                 case "add":
-                    User user = UserCacheManager.findUserByKey(handlerSubcriber.getUserId());
+                    User user = UserCacheManager.findUserByKey(subscriber.getUserId());
                     if(user == null){
                         break;
                     }
-                    subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
+                    subscriberDao.delete(subscriber.getUserId(),sessionId);
                     OfSubscriber ofSubscriber = new OfSubscriber();
                     ofSubscriber.setUser_id(user.getUser_id());
                     ofSubscriber.setUser_name(user.getUser_name());
@@ -104,8 +115,8 @@ public class ModifySession extends BaseServlet {
                     subscriberDao.add(ofSubscriber);
                     break;
                 case "del":
-                    subscriberDao.delete(handlerSubcriber.getUserId(),sessionId);
-                    messageDao.deleteByUser(sessionId,handlerSubcriber.getUserId());
+                    subscriberDao.delete(subscriber.getUserId(),sessionId);
+                    messageDao.deleteByUser(sessionId,subscriber.getUserId());
                     break;
                 default:
                     break;
@@ -140,7 +151,7 @@ public class ModifySession extends BaseServlet {
     }
 
     @Data
-    private static class HandlerSubcriber{
+    private static class Subscriber{
 
         private String userId;
 

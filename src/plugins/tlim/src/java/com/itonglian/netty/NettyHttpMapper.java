@@ -1,5 +1,7 @@
 package com.itonglian.netty;
 
+import com.itonglian.netty.impl.AddSessionActor;
+import com.itonglian.netty.impl.ApprovalBackActor;
 import com.itonglian.netty.impl.MessageActor;
 import com.itonglian.netty.impl.SystemMessageActor;
 import com.itonglian.utils.StringConstants;
@@ -30,6 +32,12 @@ public class NettyHttpMapper {
                 break;
             case "message":
                 nettyHttpActor = new MessageActor();
+                break;
+            case "addSession":
+                nettyHttpActor = new AddSessionActor();
+                break;
+            case "approvalBack":
+                nettyHttpActor = new ApprovalBackActor();
                 break;
             default:
                 break;

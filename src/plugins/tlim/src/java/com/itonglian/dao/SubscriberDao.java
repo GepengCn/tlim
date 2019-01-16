@@ -13,15 +13,15 @@ import java.util.List;
  */
 public interface SubscriberDao {
 
-    public boolean add(OfSubscriber subscriber);
+    boolean add(OfSubscriber subscriber);
 
-    public void delete(String userId,String sessionId);
+    void delete(String userId,String sessionId);
 
-    public void update(OfSubscriber subscriber);
+    void update(OfSubscriber subscriber);
 
-    public OfSubscriber findEntityById(String userId);
+    OfSubscriber findEntityById(String userId);
 
-    public List<OfSubscriber> findSubscribers(String sessionId);
+    List<OfSubscriber> findSubscribers(String sessionId);
 
-    public void deleteBySession(String sessionId);
+    boolean deleteBySession(String sessionId);
 }

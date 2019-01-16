@@ -15,7 +15,7 @@ public interface SessionDao {
 
     boolean add(OfSession session);
 
-    void delete(String sessionId);
+    boolean delete(String sessionId);
 
     void update(OfSession session);
 
@@ -29,7 +29,7 @@ public interface SessionDao {
 
     void modify(String sessionId);
 
-    void switchSession(String sessionId,int valid);
+    boolean switchSession(String sessionId,int valid);
 
 
 }

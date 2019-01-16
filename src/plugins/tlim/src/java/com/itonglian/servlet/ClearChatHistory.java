@@ -31,6 +31,9 @@ public class ClearChatHistory extends BaseServlet {
         boolean success;
         try {
             success = chatDao.clearChatHistory(user_id,other_id);
+            if(!success){
+                return false;
+            }
             success = chatDao.clearChatHistory(other_id,user_id);
         }catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));

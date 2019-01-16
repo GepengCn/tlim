@@ -30,7 +30,7 @@ public class DissolvedUtils {
     private static OfflineDao offlineDao = OfflineDaoImpl.getInstance();
 
 
-    public static void handler(String session_id){
+    public static void handler(String session_id) throws Exception {
 
         Protocol protocol = new Protocol();
 
@@ -45,11 +45,7 @@ public class DissolvedUtils {
         bodies.add(new Body(session_id));
         protocol.setBody(JSONArray.toJSONString(bodies));
 
-        try {
-            batchRoute(session_id,protocol);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        batchRoute(session_id,protocol);
 
         sessionDao.delete(session_id);
 

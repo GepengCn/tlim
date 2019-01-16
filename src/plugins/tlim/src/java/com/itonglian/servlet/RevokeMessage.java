@@ -31,7 +31,11 @@ public class RevokeMessage extends BaseServlet {
 
         String msg_id = req.getParameter("msg_id");
 
-        messageDao.deleteById(msg_id);
+        submit(msg_id);
+    }
+
+    public boolean submit(String msg_id){
+        return messageDao.deleteById(msg_id);
     }
 
 }

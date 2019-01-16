@@ -10,13 +10,13 @@ Automatically created by Apache Tomcat JspC.
 
 
     <servlet>
-        <servlet-name>org.jivesoftware.openfire.plugin.tlim.message_002dfilter_jsp</servlet-name>
-        <servlet-class>org.jivesoftware.openfire.plugin.tlim.message_002dfilter_jsp</servlet-class>
+        <servlet-name>org.jivesoftware.openfire.plugin.tlim.index_jsp</servlet-name>
+        <servlet-class>org.jivesoftware.openfire.plugin.tlim.index_jsp</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>org.jivesoftware.openfire.plugin.tlim.message_002dfilter_jsp</servlet-name>
-        <url-pattern>/message-filter.jsp</url-pattern>
+        <servlet-name>org.jivesoftware.openfire.plugin.tlim.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
 
 </web-app>

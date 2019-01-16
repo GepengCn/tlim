@@ -1,5 +1,6 @@
 package com.itonglian.servlet;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.UserOnlyId;
@@ -10,12 +11,12 @@ import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSession;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.entity.User;
+import com.itonglian.netty.NettyClient;
+import com.itonglian.utils.CustomThreadPool;
 import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.UserCacheManager;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import com.itonglian.utils.XMLProperties;
+import lombok.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -61,6 +62,9 @@ public class AddSession extends BaseServlet {
         PrintWriter printWriter = resp.getWriter();
 
         if(submit(sessionType,requestUser,subscribers)){
+            if(XMLProperties.getNettyClient()){
+                CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(sessionType,requestUser,subscribers))));
+            }
             BackJson backJson = new BackJson(
                     "ok",
                     "",
@@ -165,7 +169,15 @@ public class AddSession extends BaseServlet {
         printWriter.flush();
         printWriter.close();
     }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Param{
+        private String sessionType;
+        private String requestUser;
+        private String subscribers;
 
+    }
 
     @Data
     @AllArgsConstructor

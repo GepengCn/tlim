@@ -34,12 +34,8 @@ public class AddPubact extends BaseServlet {
     }
 
     public boolean submit(String title,String content,String user_id,String session_id){
-        try {
-            return pubactDao.add(title,content,user_id,session_id);
-        }catch (Exception e){
-            Log.error(ExceptionUtils.getFullStackTrace(e));
-            return false;
-        }
+        return pubactDao.add(title,content,user_id,session_id);
+
     }
 
 }

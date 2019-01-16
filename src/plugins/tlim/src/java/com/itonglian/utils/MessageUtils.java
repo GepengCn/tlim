@@ -215,4 +215,15 @@ public class MessageUtils {
 
     }
 
+    public static String getMapper(String url){
+        if(StringUtils.isNullOrEmpty(url)){
+            return url;
+        }
+        if(url.indexOf("tlim/")==-1){
+            return url;
+        }
+
+        return url.substring(5);
+
+    }
 }

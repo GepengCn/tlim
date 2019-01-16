@@ -2,6 +2,7 @@ package com.itonglian.servlet;
 
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,16 @@ public class RegisterAppPushCode extends BaseServlet {
 
         String registrationId = req.getParameter("registrationId");
 
-        userDao.registerAppPushCode(user_id,registrationId);
+        submit(user_id,registrationId);
+    }
+
+    public boolean submit(String user_id,String registrationId){
+        try {
+            userDao.registerAppPushCode(user_id,registrationId);
+        }catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }
+        return true;
     }
 
 }

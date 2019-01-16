@@ -21,6 +21,10 @@ public class DeletePubact extends BaseServlet {
 
         String id_ = req.getParameter("id_");
 
-        pubactDao.delete(id_);
+        submit(id_);
+    }
+
+    public boolean submit(String id_){
+        return pubactDao.delete(id_);
     }
 }

@@ -70,7 +70,7 @@ public class PubactDaoImpl implements PubactDao {
     }
 
     @Override
-    public void update(String id_, String title, String content) {
+    public boolean update(String id_, String title, String content) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
@@ -80,13 +80,15 @@ public class PubactDaoImpl implements PubactDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void delete(String id_) {
+    public boolean delete(String id_) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         PubactMapper pubactMapper = session.getMapper(PubactMapper.class);
@@ -96,8 +98,10 @@ public class PubactDaoImpl implements PubactDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 }

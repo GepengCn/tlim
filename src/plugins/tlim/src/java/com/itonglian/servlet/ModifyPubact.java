@@ -24,7 +24,10 @@ public class ModifyPubact extends BaseServlet {
 
         String content = req.getParameter("content");
 
-        pubactDao.update(id_,title,content);
+        submit(id_,title,content);
     }
 
+    public boolean submit(String id_,String title,String content){
+        return pubactDao.update(id_,title,content);
+    }
 }

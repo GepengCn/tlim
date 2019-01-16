@@ -10,7 +10,7 @@ public interface PubactDao {
 
     List<OfPubact> findBySession(String session_id);
 
-    void update(String id_,String title,String content);
+    boolean update(String id_,String title,String content);
 
-    void delete(String id_);
+    boolean delete(String id_);
 }

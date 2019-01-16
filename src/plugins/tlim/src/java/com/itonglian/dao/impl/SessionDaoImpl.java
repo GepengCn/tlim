@@ -52,7 +52,7 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public void delete(String sessionId) {
+    public boolean delete(String sessionId) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
@@ -62,9 +62,11 @@ public class SessionDaoImpl implements SessionDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
@@ -156,7 +158,7 @@ public class SessionDaoImpl implements SessionDao {
     }
 
     @Override
-    public void switchSession(String sessionId, int valid) {
+    public boolean switchSession(String sessionId, int valid) {
         SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
         SqlSession session = sqlSessionFactory.openSession();
         SessionMapper sessionMapper = session.getMapper(SessionMapper.class);
@@ -166,9 +168,11 @@ public class SessionDaoImpl implements SessionDao {
         } catch (Exception e){
             Log.error(ExceptionUtils.getFullStackTrace(e));
             session.rollback();
+            return false;
         }finally {
             session.close();
         }
+        return true;
     }
 
 

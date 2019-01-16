@@ -26,7 +26,7 @@ public interface MessageDao {
 
     List<Message> findMessageAfter(String msg_to, String msg_time);
 
-    void deleteById(String msg_id);
+    boolean deleteById(String msg_id);
 
     List<OfMessage> findSystemHistory(String msg_to,int start, int length);
 
