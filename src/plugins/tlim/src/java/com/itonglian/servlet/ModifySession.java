@@ -1,5 +1,6 @@
 package com.itonglian.servlet;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.SessionDao;
@@ -9,12 +10,12 @@ import com.itonglian.dao.impl.SessionDaoImpl;
 import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfSubscriber;
 import com.itonglian.entity.User;
-import com.itonglian.utils.MessageUtils;
-import com.itonglian.utils.StringUtils;
-import com.itonglian.utils.UserCacheManager;
+import com.itonglian.netty.NettyClient;
+import com.itonglian.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,11 +56,24 @@ public class ModifySession extends BaseServlet {
             return;
         }
 
-        submit(sessionId,sessionName,subscribers);
+        boolean success = submit(sessionId,sessionName,subscribers);
+
+        if(XMLProperties.getNettyClient()&&success){
+            CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(sessionId,sessionName,subscribers))));
+        }
 
         doBack(new BackJson("ok","",sessionId,modifyTime),printWriter);
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Param{
+        private String sessionId;
+        private String sessionName;
+        private String subscribers;
+
+    }
 
     public boolean submit(String sessionId,String sessionName,String subscribers){
         try {

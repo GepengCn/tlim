@@ -1,14 +1,20 @@
 package com.itonglian.servlet;
 
+import com.alibaba.fastjson.JSON;
 import com.itonglian.dao.MessageDao;
 import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.MessageDaoImpl;
 import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfCustomOffline;
+import com.itonglian.netty.NettyClient;
+import com.itonglian.utils.CustomThreadPool;
+import com.itonglian.utils.MessageUtils;
 import com.itonglian.utils.StringUtils;
+import com.itonglian.utils.XMLProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,12 +47,25 @@ public class GetOffline extends BaseServlet {
 
         String getThenClear = req.getParameter("getThenClear");
 
-        submit(msg_id,getThenClear,user_id);
+        boolean success = submit(msg_id,getThenClear,user_id);
+
+        if(XMLProperties.getNettyClient()&&success){
+            CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(msg_id,getThenClear,user_id))));
+        }
 
         doBack(new BackJson("ok","",customOfflineList),printWriter);
 
     }
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Param{
+        private String msg_id;
+        private String getThenClear;
+        private String user_id;
 
+
+    }
     public boolean submit(String msg_id,String getThenClear,String user_id){
 
         try {

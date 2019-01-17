@@ -1,9 +1,6 @@
 package com.itonglian.netty;
 
-import com.itonglian.netty.impl.AddSessionActor;
-import com.itonglian.netty.impl.ApprovalBackActor;
-import com.itonglian.netty.impl.MessageActor;
-import com.itonglian.netty.impl.SystemMessageActor;
+import com.itonglian.netty.impl.*;
 import com.itonglian.utils.StringConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +35,24 @@ public class NettyHttpMapper {
                 break;
             case "approvalBack":
                 nettyHttpActor = new ApprovalBackActor();
+                break;
+            case "clearChatHistory":
+                nettyHttpActor = new ClearChatHistoryActor();
+                break;
+            case "deleteSession":
+                nettyHttpActor = new DeleteSessionActor();
+                break;
+            case "dissolved":
+                nettyHttpActor = new DissolvedActor();
+                break;
+            case "getOffline":
+                nettyHttpActor = new GetOfflineActor();
+                break;
+            case "modifySession":
+                nettyHttpActor = new ModifySessionActor();
+                break;
+            case "registerAppPushCode":
+                nettyHttpActor = new RegisterAppPushCodeActor();
                 break;
             default:
                 break;

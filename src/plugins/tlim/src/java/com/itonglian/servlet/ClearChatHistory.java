@@ -1,7 +1,15 @@
 package com.itonglian.servlet;
 
+import com.alibaba.fastjson.JSON;
 import com.itonglian.dao.ChatDao;
 import com.itonglian.dao.impl.ChatDaoImpl;
+import com.itonglian.netty.NettyClient;
+import com.itonglian.utils.CustomThreadPool;
+import com.itonglian.utils.MessageUtils;
+import com.itonglian.utils.XMLProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +32,11 @@ public class ClearChatHistory extends BaseServlet {
 
         String other_id = req.getParameter("other_id");
 
-        submit(user_id,other_id);
+        boolean success = submit(user_id,other_id);
+
+        if(XMLProperties.getNettyClient()&&success){
+            CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(user_id,other_id))));
+        }
     }
 
     public boolean submit(String user_id,String other_id){
@@ -40,6 +52,15 @@ public class ClearChatHistory extends BaseServlet {
             return false;
         }
         return success;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Param{
+        private String user_id;
+        private String other_id;
+
     }
 
 }
