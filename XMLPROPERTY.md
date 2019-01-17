@@ -99,12 +99,17 @@ netty客户端端口
 
 ### 极光推送
 
+##### `tlim.jpush`
+是否开启极光推送
+
 ##### `tlim.masterSecret`
 密钥
 
 ##### `tlim.appKey`
 key
 
+##### `tlim.threadPoolSize`
+线程池数量
 
 ### 用户同步
 
