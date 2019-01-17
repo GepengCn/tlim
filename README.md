@@ -38,6 +38,7 @@
 
 - [linux下部署Openfire][UBUNTU_DEPLOY]
 
+- [Openfire双向同步][OPENFIRE_SYNC]
 
 ### 插件开发
 
@@ -63,3 +64,4 @@
 [XMLPROPERTY]:https://github.com/GepengCn/tlim/blob/master/XMLPROPERTY.md
 [DETAIL]:https://github.com/GepengCn/tlim/blob/master/DETAIL.md
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
+[OPENFIRE_SYNC]:https://github.com/GepengCn/tlim/blob/master/NETTY_HTTP.md

@@ -33,9 +33,6 @@ public class NettyHttpMapper {
             case "addSession":
                 nettyHttpActor = new AddSessionActor();
                 break;
-            case "approvalBack":
-                nettyHttpActor = new ApprovalBackActor();
-                break;
             case "clearChatHistory":
                 nettyHttpActor = new ClearChatHistoryActor();
                 break;
