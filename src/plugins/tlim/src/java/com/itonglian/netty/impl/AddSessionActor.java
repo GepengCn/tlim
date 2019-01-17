@@ -8,6 +8,6 @@ public class AddSessionActor implements NettyHttpActor {
     @Override
     public boolean execute(String jsonValue) {
         AddSession.Param param = JSONObject.parseObject(jsonValue,AddSession.Param.class);
-        return new AddSession().submit(param.getSessionType(),param.getRequestUser(),param.getSubscribers());
+        return new AddSession().submit(param.getSessionId(),param.getSessionType(),param.getRequestUser(),param.getSubscribers());
     }
 }

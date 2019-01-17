@@ -61,9 +61,11 @@ public class AddSession extends BaseServlet {
 
         PrintWriter printWriter = resp.getWriter();
 
-        if(submit(sessionType,requestUser,subscribers)){
+        sessionId = UUID.randomUUID().toString();
+
+        if(submit(sessionId,sessionType,requestUser,subscribers)){
             if(XMLProperties.getNettyClient()){
-                CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(sessionType,requestUser,subscribers))));
+                CustomThreadPool.getInstance().getExecutorService().execute(new NettyClient(MessageUtils.getMapper(mapper()), JSON.toJSONString(new Param(sessionId,sessionType,requestUser,subscribers))));
             }
             BackJson backJson = new BackJson(
                     "ok",
@@ -80,7 +82,7 @@ public class AddSession extends BaseServlet {
             doBack(new BackJson("error","新增会话出错",intSessionType),printWriter);
         }
     }
-    public boolean submit(String sessionType,String requestUser,String subscribers){
+    public boolean submit(String sessionId,String sessionType,String requestUser,String subscribers){
         try {
             if(com.itonglian.utils.StringUtils.isNullOrEmpty(sessionType)){
                 return false;
@@ -97,8 +99,6 @@ public class AddSession extends BaseServlet {
             List<String> sessionNameList = new ArrayList<String>();
 
             userOnlyIds = new ArrayList<>();
-
-            sessionId = UUID.randomUUID().toString();
 
             boolean iteratorResult = true;
 
@@ -173,6 +173,7 @@ public class AddSession extends BaseServlet {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Param{
+        private String sessionId;
         private String sessionType;
         private String requestUser;
         private String subscribers;

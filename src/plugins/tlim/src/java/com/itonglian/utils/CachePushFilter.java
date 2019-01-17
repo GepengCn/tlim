@@ -48,6 +48,10 @@ public class CachePushFilter {
     }
 
     public void push(OfMessage ofMessage){
+
+        if(!XMLProperties.getJpush()){
+            return;
+        }
         long nowTs = new Date().getTime();
         long msgTs = StringUtils.stringToLong(ofMessage.getMsg_time());
         long fiveMinutes = 3*60*1000;
@@ -125,7 +129,7 @@ public class CachePushFilter {
             }
         }
         String pushMsgStr = MessageUtils.messageContext(ofMessage,sessionName);
-        if(!StringUtils.isNullOrEmpty(pushMsgStr)&&XMLProperties.getJpush()){
+        if(!StringUtils.isNullOrEmpty(pushMsgStr)){
             Thread pushThread = new Thread(new JPushHandler(appPushCode,pushMsgStr,sessionName,combineKv,pushWhere));
             pushThread.setPriority(1);
             CustomThreadPool.getInstance().getExecutorService().execute(pushThread);
