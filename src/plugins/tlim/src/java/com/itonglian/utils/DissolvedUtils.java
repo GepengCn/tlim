@@ -3,10 +3,19 @@ package com.itonglian.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.itonglian.bean.Protocol;
-import com.itonglian.dao.*;
-import com.itonglian.dao.impl.*;
+import com.itonglian.dao.MessageDao;
+import com.itonglian.dao.OfflineDao;
+import com.itonglian.dao.SessionDao;
+import com.itonglian.dao.SubscriberDao;
+import com.itonglian.dao.impl.MessageDaoImpl;
+import com.itonglian.dao.impl.OfflineDaoImpl;
+import com.itonglian.dao.impl.SessionDaoImpl;
+import com.itonglian.dao.impl.SubscriberDaoImpl;
 import com.itonglian.entity.OfMessage;
 import com.itonglian.entity.OfSubscriber;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jivesoftware.openfire.PacketDeliverer;
 import org.jivesoftware.openfire.XMPPServer;
 import org.xmpp.packet.JID;
@@ -116,20 +125,12 @@ public class DissolvedUtils {
         }
     }
 
-    private static class Body{
-
-        public Body(String session_id) {
-            this.session_id = session_id;
-        }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Body{
 
         private String session_id;
 
-        public String getSession_id() {
-            return session_id;
-        }
-
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
     }
 }

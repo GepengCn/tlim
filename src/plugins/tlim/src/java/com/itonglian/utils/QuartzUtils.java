@@ -1,13 +1,19 @@
 package com.itonglian.utils;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 public class QuartzUtils {
+
+    private final Logger Log = LoggerFactory.getLogger(this.getClass());
+
 
     public void run(){
 
@@ -32,7 +38,7 @@ public class QuartzUtils {
                     .build();
             sched.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
-            e.printStackTrace();
+            Log.error(ExceptionUtils.getFullStackTrace(e));
         }
 
     }

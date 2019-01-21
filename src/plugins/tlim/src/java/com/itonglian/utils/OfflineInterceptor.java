@@ -4,6 +4,9 @@ import com.itonglian.dao.OfflineDao;
 import com.itonglian.dao.impl.OfflineDaoImpl;
 import com.itonglian.entity.OfCustomOffline;
 import com.itonglian.entity.OfMessage;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jivesoftware.openfire.PresenceManager;
 import org.jivesoftware.openfire.XMPPServer;
 import org.slf4j.Logger;
@@ -73,10 +76,12 @@ public class OfflineInterceptor {
                 }
             }
         }
-        //Log.error("user_id="+user_id+",webOnline="+webOnline+",mobileOnline="+mobileOnline+",online="+online);
         return new Online(webOnline,mobileOnline,online);
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     private class Online{
         private boolean webOnline;
 
@@ -84,35 +89,6 @@ public class OfflineInterceptor {
 
         private boolean online;
 
-        public Online(boolean webOnline, boolean mobileOnline, boolean online) {
-            this.webOnline = webOnline;
-            this.mobileOnline = mobileOnline;
-            this.online = online;
-        }
-
-        public boolean isWebOnline() {
-            return webOnline;
-        }
-
-        public void setWebOnline(boolean webOnline) {
-            this.webOnline = webOnline;
-        }
-
-        public boolean isMobileOnline() {
-            return mobileOnline;
-        }
-
-        public void setMobileOnline(boolean mobileOnline) {
-            this.mobileOnline = mobileOnline;
-        }
-
-        public boolean isOnline() {
-            return online;
-        }
-
-        public void setOnline(boolean online) {
-            this.online = online;
-        }
     }
 
 }

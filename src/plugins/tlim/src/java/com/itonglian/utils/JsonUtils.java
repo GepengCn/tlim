@@ -1,6 +1,9 @@
 package com.itonglian.utils;
 
 import com.alibaba.fastjson.JSONArray;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,38 +36,21 @@ public class JsonUtils {
     }
 
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class SessionEntity{
         private String session_id;
-
-        public String getSession_id() {
-            return session_id;
-        }
-
-        public void setSession_id(String session_id) {
-            this.session_id = session_id;
-        }
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Revoke{
 
         private String msg_id;
 
         private String msg_to;
 
-        public String getMsg_id() {
-            return msg_id;
-        }
-
-        public void setMsg_id(String msg_id) {
-            this.msg_id = msg_id;
-        }
-
-        public String getMsg_to() {
-            return msg_to;
-        }
-
-        public void setMsg_to(String msg_to) {
-            this.msg_to = msg_to;
-        }
     }
 }
