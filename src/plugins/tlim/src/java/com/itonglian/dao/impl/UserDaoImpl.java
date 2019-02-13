@@ -53,6 +53,15 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    @Override
+    public void syncLocalUser() {
+        List<User> userList = userDao.findLocalAll();
+        Iterator<User> iterator = userList.iterator();
+        while(iterator.hasNext()){
+            User user = iterator.next();
+            UserCacheManager.add(user);
+        }
+    }
 
 
     @Override
@@ -176,6 +185,22 @@ public class UserDaoImpl implements UserDao {
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<User> findLocalAll() {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = userMapper.findLocalAll();
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return userList;
     }
 
 

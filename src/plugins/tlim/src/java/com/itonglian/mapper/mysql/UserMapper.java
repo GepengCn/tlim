@@ -11,6 +11,10 @@ public interface UserMapper {
     @Options(useCache = true)
     List<User> findAll(@Param(value = "dr") String dr);
 
+    @Select("SELECT username as user_id,name as user_name,user_id as acct_login FROM ofuser")
+    @Options(useCache = true)
+    List<User> findLocalAll();
+
     @Delete("DELETE FROM ofUser WHERE username <> #{username}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void removeAll(@Param(value = "username") String username);

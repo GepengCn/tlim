@@ -9,12 +9,14 @@ import com.itonglian.utils.CustomThreadPool;
 import com.itonglian.utils.QuartzUtils;
 import com.itonglian.utils.XMLProperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
 import org.jivesoftware.openfire.interceptor.InterceptorManager;
 import org.jivesoftware.openfire.interceptor.PacketInterceptor;
 import org.jivesoftware.openfire.interceptor.PacketRejectedException;
 import org.jivesoftware.openfire.session.Session;
+import org.jivesoftware.openfire.user.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmpp.packet.Message;
@@ -50,6 +52,8 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
             userDao.syncUser();
             QuartzUtils quartzUtils = new QuartzUtils();
             quartzUtils.run();
+        }else{
+            userDao.syncLocalUser();
         }
         XMLProperties.print();
         if(XMLProperties.getNettyServer()){

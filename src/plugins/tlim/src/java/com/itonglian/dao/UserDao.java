@@ -8,6 +8,8 @@ public interface UserDao {
 
     void syncUser();
 
+    void syncLocalUser();
+
     void clear();
 
     String findAppPushCodeByUserId(String userId);
@@ -22,5 +24,7 @@ public interface UserDao {
     List<User> findAll();
 
     void remove(String userId);
+
+    List<User> findLocalAll();
 
 }
