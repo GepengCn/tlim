@@ -1,6 +1,8 @@
 <%@ page import="com.itonglian.utils.XMLProperties" pageEncoding="utf-8"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.concurrent.ConcurrentHashMap" %>
+<%@ page import="com.itonglian.utils.UserCacheManager" %>
+<%@ page import="com.itonglian.entity.User" %>
 <%@ page contentType="text/html; charset=utf-8"%>
 <html>
     <head>
@@ -36,6 +38,9 @@
     }
 %>
     </table>
+
+    <h4><a href="user.jsp">缓存用户</a></h4>
+
 </body>
 </html>
 </body>

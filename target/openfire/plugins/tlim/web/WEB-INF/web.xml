@@ -14,9 +14,19 @@ Automatically created by Apache Tomcat JspC.
         <servlet-class>org.jivesoftware.openfire.plugin.tlim.index_jsp</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>org.jivesoftware.openfire.plugin.tlim.user_jsp</servlet-name>
+        <servlet-class>org.jivesoftware.openfire.plugin.tlim.user_jsp</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>org.jivesoftware.openfire.plugin.tlim.index_jsp</servlet-name>
         <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.jivesoftware.openfire.plugin.tlim.user_jsp</servlet-name>
+        <url-pattern>/user.jsp</url-pattern>
     </servlet-mapping>
 
 </web-app>
