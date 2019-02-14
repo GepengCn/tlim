@@ -2,6 +2,7 @@ package com.itonglian;
 
 import com.itonglian.dao.UserDao;
 import com.itonglian.dao.impl.UserDaoImpl;
+import com.itonglian.history.MessageCleanUp;
 import com.itonglian.interceptor.InterceptorContext;
 import com.itonglian.netty.NettyClient;
 import com.itonglian.netty.NettyServer;
@@ -58,6 +59,9 @@ public class TonglianImPlugin implements Plugin,PacketInterceptor{
         XMLProperties.print();
         if(XMLProperties.getNettyServer()){
             new Thread(new NettyServer()).start();
+        }
+        if(XMLProperties.getClearUp()){
+            new MessageCleanUp().run();
         }
     }
 

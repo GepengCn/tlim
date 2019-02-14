@@ -78,6 +78,8 @@
     <nettyClient>true</nettyClient>  
     <nettyClientIp>123.207.154.188</nettyClientIp>  
     <nettyClientPort>9599</nettyClientPort>  
-    <jpush>false</jpush> 
+    <jpush>false</jpush>  
+    <cleanUp>true</cleanUp>  
+    <cleanUpHowmanydays>1</cleanUpHowmanydays> 
   </tlim> 
 </jive>

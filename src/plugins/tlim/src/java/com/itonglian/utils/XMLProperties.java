@@ -70,6 +70,12 @@ public class XMLProperties {
 
     private static final int THREAD_POOL_SIZE = 500;
 
+    private static final boolean CLEAN_UP = false;
+
+    private static final int CLEAN_UP_INTERVAL = 24;
+
+    private static final int CLEAN_UP_HOWMANYDAYS = 30;
+
     private static volatile ConcurrentHashMap<String,Object> concurrentHashMap = new ConcurrentHashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(XMLProperties.class);
@@ -105,6 +111,9 @@ public class XMLProperties {
         setOrDefault("tlim.druid.testOnReturn",DRUID_TEST_ON_RETURN);
         setOrDefault("tlim.druid.poolPreparedStatements",DRUID_POOL_PREPARED_STATEMENTS);
         setOrDefault("tlim.druid.maxOpenPreparedStatements",DRUID_MAX_OPEN_PREPARED_STATEMENTS);
+        setOrDefault("tlim.cleanUp",CLEAN_UP);
+        setOrDefault("tlim.cleanUpInterval",CLEAN_UP_INTERVAL);
+        setOrDefault("tlim.cleanUpHowmanydays",CLEAN_UP_HOWMANYDAYS);
     }
 
     public static void setOrDefault(String xmlProperty,Object defaults){
@@ -119,6 +128,15 @@ public class XMLProperties {
         return concurrentHashMap;
     }
 
+    public static boolean getClearUp(){
+        return getBooleanValue("tlim.cleanUp");
+    }
+    public static int getCleanUpInterval(){
+        return getIntegerValue("tlim.cleanUpInterval");
+    }
+    public static int getCleanUpHowmanydays(){
+        return getIntegerValue("tlim.cleanUpHowmanydays");
+    }
     public static int getThreadPoolSize(){
         return getIntegerValue("tlim.threadPoolSize");
     }

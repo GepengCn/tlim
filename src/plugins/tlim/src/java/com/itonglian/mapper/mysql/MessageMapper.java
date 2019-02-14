@@ -51,12 +51,16 @@ public interface MessageMapper{
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     void deleteBySession(@Param(value="session_id") String session_id);
 
+    @Select("SELECT msg_id,msg_type,msg_from,msg_to,msg_time,body FROM ofmessage WHERE msg_time <= #{msg_time}")
+    @Options(useCache = true)
+    List<Message> findByTime(@Param(value = "msg_time") long msg_time);
+
     @Select("SELECT msg_time FROM ofmessage WHERE msg_id = #{msg_id}")
-    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    @Options(useCache = true)
     String findMessageTime(@Param(value="msg_id") String msg_id);
 
     @Select("SELECT msg_id,msg_type,msg_from,msg_to,msg_time,body FROM ofmessage WHERE msg_to = #{msg_to} AND msg_time >=#{msg_time}")
-    @Options(flushCache = Options.FlushCachePolicy.TRUE)
+    @Options(useCache = true)
     List<Message> findMessageAfter(@Param(value="msg_to") String msg_to,
                                    @Param(value="msg_time") String msg_time);
 

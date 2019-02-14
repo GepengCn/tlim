@@ -32,5 +32,7 @@ public interface MessageDao {
 
     int findSystemMessageTotal(String msg_to);
 
+    List<Message> findByTime(long msg_time);
+
 
 }

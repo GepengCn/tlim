@@ -266,4 +266,21 @@ public class MessageDaoImpl implements MessageDao {
         }
         return total;
     }
+
+    @Override
+    public List<Message> findByTime(long msg_time) {
+        SqlSessionFactory sqlSessionFactory = MyBatisSessionFactory.getInstance().createSessionFactory();
+        SqlSession session = sqlSessionFactory.openSession();
+        MessageMapper messageMapper = session.getMapper(MessageMapper.class);
+
+        List<Message> messageList = new ArrayList<>();
+        try {
+            messageList = messageMapper.findByTime(msg_time);
+        } catch (Exception e){
+            Log.error(ExceptionUtils.getFullStackTrace(e));
+        }finally {
+            session.close();
+        }
+        return messageList;
+    }
 }

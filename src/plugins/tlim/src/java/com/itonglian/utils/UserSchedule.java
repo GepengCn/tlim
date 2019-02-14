@@ -24,22 +24,22 @@ public class UserSchedule implements Job {
 
     UserManager userManager = XMPPServer.getInstance().getUserManager();
 
-    private static final Logger Log = LoggerFactory.getLogger(UserSchedule.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
-        Log.debug("执行用户同步...");
+        logger.info("执行用户同步...");
 
         int dbCount = userDao.count();
         int nowCount = UserCacheManager.count();
         if(dbCount==nowCount){
-            Log.debug("用户一致，撤销本次同步...");
+            logger.info("用户一致，撤销本次同步...");
             return;
         }
 
-        Log.debug("用户不一致[当前用户数:"+nowCount+",数据库用户数:"+dbCount+"]开始查询所有用户...");
+        logger.info("用户不一致[当前用户数:"+nowCount+",数据库用户数:"+dbCount+"]开始查询所有用户...");
         List<User> userList = userDao.findAll();
 
         if(dbCount>nowCount){
@@ -49,14 +49,14 @@ public class UserSchedule implements Job {
             decrement(userList);
         }
 
-        Log.debug("同步完成,总计同步"+(dbCount-nowCount)+"人...");
+        logger.info("同步完成,总计同步"+(dbCount-nowCount)+"人...");
 
 
     }
 
     private void increment(List<User> userList){
 
-        Log.debug("增量同步...");
+        logger.info("增量同步...");
         Iterator<User> iterator = userList.iterator();
 
         while(iterator.hasNext()){
@@ -71,7 +71,7 @@ public class UserSchedule implements Job {
                 try {
                     userManager.createUser(user.getUser_id(),"123",user.getUser_name(),user.getUser_email());
                 } catch (UserAlreadyExistsException e) {
-                    Log.error(ExceptionUtils.getFullStackTrace(e));
+                    logger.error(ExceptionUtils.getFullStackTrace(e));
                 }
             }
             UserCacheManager.add(user);
@@ -81,7 +81,7 @@ public class UserSchedule implements Job {
 
     private void decrement(List<User> userList){
 
-        Log.debug("减量同步...");
+        logger.info("减量同步...");
 
 
         ConcurrentHashMap<String,User> userConcurrentHashMap =  UserCacheManager.findAll();
