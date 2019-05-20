@@ -69,4 +69,4 @@ plugin=tlim
 ```
 1.6 执行`plugin` ant指令即可将插件编译并加入到openfire中了
 
-[oStep1]:https://github.com/GepengCn/tlim/blob/master/images/plugin1.png?raw=true
+[plugin1]:https://github.com/GepengCn/tlim/blob/master/images/plugin1.png?raw=true
