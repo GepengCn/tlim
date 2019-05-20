@@ -42,7 +42,7 @@
 
 ### 插件开发
 
-- 环境搭建
+- [环境搭建][ENV]
 
 - 插件式开发
 
@@ -65,3 +65,5 @@
 [DETAIL]:https://github.com/GepengCn/tlim/blob/master/DETAIL.md
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [OPENFIRE_SYNC]:https://github.com/GepengCn/tlim/blob/master/NETTY_HTTP.md
+
+[ENV]:https://github.com/GepengCn/tlim/blob/master/Openfire环境搭建.md

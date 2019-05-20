@@ -100,13 +100,14 @@ public class InterceptorContext {
             default:
                 if(msgType.contains("MTT")){
                     interceptor = new ChatNormalInterceptor();
+                    interceptor.handler(protocol,message);
                 }
                 if(msgType.contains("MTS")){
                     interceptor = new SessionNormalInterceptor();
+                    interceptor.handler(protocol,message);
                 }
                 return;
         }
-
         interceptor.handler(protocol,message);
     }
 
