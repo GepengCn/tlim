@@ -66,4 +66,4 @@
 [UBUNTU_DEPLOY]:https://github.com/GepengCn/tlim/blob/master/DEPLOY.md
 [OPENFIRE_SYNC]:https://github.com/GepengCn/tlim/blob/master/NETTY_HTTP.md
 
-[ENV]:https://github.com/GepengCn/tlim/blob/master/Openfire环境搭建.md
+[ENV]:https://github.com/GepengCn/tlim/blob/master/src/Openfire环境搭建.md
