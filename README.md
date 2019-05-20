@@ -44,9 +44,7 @@
 
 - [环境搭建][ENV]
 
-- 插件式开发
-
-- Ant项目管理
+- [插件式开发][PLUGIN]
 
 
 [openfire]:https://github.com/GepengCn/tlim/blob/master/images/openfire.png?raw=true
@@ -67,3 +65,5 @@
 [OPENFIRE_SYNC]:https://github.com/GepengCn/tlim/blob/master/NETTY_HTTP.md
 
 [ENV]:https://github.com/GepengCn/tlim/blob/master/src/Openfire环境搭建.md
+
+[PLUGIN]:https://github.com/GepengCn/tlim/blob/master/src/Openfire插件式开发
