@@ -22,8 +22,6 @@ public class NettyHttpMapper {
         logger.info("请求已达NettyHttpMapper...,请求方法["+this.path+"]");
         switch (this.path){
             case "systemMessage":
-                nettyHttpActor = new SystemMessageActor();
-                break;
             case "approval":
                 nettyHttpActor = new SystemMessageActor();
                 break;
