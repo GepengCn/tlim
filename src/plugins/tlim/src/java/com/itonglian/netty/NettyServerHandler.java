@@ -101,7 +101,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        logger.info("连接的客户端地址:" + ctx.channel().remoteAddress());
+        log.debug("连接的客户端地址:" + ctx.channel().remoteAddress());
         super.channelActive(ctx);
     }
 
