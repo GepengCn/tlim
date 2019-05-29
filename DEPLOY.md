@@ -50,67 +50,6 @@ collation-server=utf8_general_ci
 skip-character-set-client-handshake
 ```
 
-##### openfire数据库及表创建
-1. 创建数据库
-```
-create database ofdb;
-```
-2. 创建自定义表
-```
-drop table if exists ofmessage;
-
-drop table if exists ofsession;
-
-drop table if exists ofsubscriber;
-
-/*==============================================================*/
-/* Table: ofmessage                                             */
-/*==============================================================*/
-create table ofmessage
-(
-   msg_id               varchar(64) not null,
-   msg_type             varchar(20),
-   msg_from             varchar(64),
-   msg_to               varchar(64) not null,
-   msg_time             varchar(20),
-   body                 varchar(4096),
-   primary key (msg_id, msg_to)
-)
-DEFAULT CHARACTER SET = utf8;
-
-/*==============================================================*/
-/* Table: ofsession                                             */
-/*==============================================================*/
-create table ofsession
-(
-   session_id           varchar(64) not null,
-   session_type         int,
-   session_name         varchar(256),
-   session_create_time  varchar(20),
-   session_modify_time  varchar(20),
-   session_delete_time  varchar(20),
-   session_valid        int,
-   session_user         varchar(64),
-   primary key (session_id)
-)
-DEFAULT CHARACTER SET = utf8;
-
-/*==============================================================*/
-/* Table: ofsubscriber                                          */
-/*==============================================================*/
-create table ofsubscriber
-(
-   user_id              varchar(64) not null,
-   user_name            varchar(256),
-   acct_login           varchar(64),
-   pic                  varchar(128),
-   session_id           varchar(64) not null,
-   ts                   varchar(20),
-   primary key (user_id, session_id)
-)
-DEFAULT CHARACTER SET = utf8;
-
-```
 
 ##### 安装jdk
 1. 添加ppa

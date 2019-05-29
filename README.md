@@ -56,7 +56,7 @@
 [DEPLOY]:https://github.com/GepengCn/tlim/blob/master/src/CAP_DEPLOY.md
 
 [DOWNLOAD_OPENFIRE]:https://github.com/GepengCn/tlim/releases/download/v1.3/openfire.zip
-[DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.3_plugin/tlim.zip
+[DOWNLOAD_TLIM]:https://github.com/GepengCn/tlim/releases/download/v1.5/tlim.zip
 [DOWNLOAD_SQL]:https://github.com/GepengCn/tlim/releases/download/v1.2_sql/database.zip
 [SIMPLE_DEMO]:http://coolweb.club/cap-aco/views/aco/webim/demo/webclient.html
 [XMLPROPERTY]:https://github.com/GepengCn/tlim/blob/master/XMLPROPERTY.md
