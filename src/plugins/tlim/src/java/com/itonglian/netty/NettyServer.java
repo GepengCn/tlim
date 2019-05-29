@@ -9,17 +9,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
+
+@Slf4j
 public class NettyServer implements Runnable{
 
     private ChannelFuture channelFuture;
-
-    private static final Logger logger = LoggerFactory.getLogger(NettyServer.class);
-
 
     @Override
     public void run() {
@@ -45,12 +43,12 @@ public class NettyServer implements Runnable{
             .childOption(ChannelOption.SO_KEEPALIVE, true);
             channelFuture = serverBootstrap.bind(XMLProperties.getNettyServerPort()).sync();
             if(channelFuture.isSuccess()){
-                logger.info("NettyServer 已启动");
-                logger.info("Netty 监听端口:"+XMLProperties.getNettyServerPort());
+                log.debug("NettyServer 已启动");
+                log.debug("Netty 监听端口:"+XMLProperties.getNettyServerPort());
             }
             channelFuture.channel().closeFuture().sync();
         }catch (Exception e){
-            logger.error(ExceptionUtils.getFullStackTrace(e));
+            log.error(ExceptionUtils.getFullStackTrace(e));
         }finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

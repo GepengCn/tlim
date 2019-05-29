@@ -1,7 +1,5 @@
 package com.itonglian.entity;
 
-import org.jivesoftware.util.JiveConstants;
-
 public class OfStyle {
 
     private String style_id;

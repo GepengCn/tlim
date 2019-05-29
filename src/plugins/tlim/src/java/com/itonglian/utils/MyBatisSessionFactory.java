@@ -9,14 +9,10 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.jivesoftware.util.JiveGlobals;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 
 public class MyBatisSessionFactory {
-
-    private static final Logger Log = LoggerFactory.getLogger(MyBatisSessionFactory.class);
 
     private static SqlSessionFactory sqlSessionFactory;
 

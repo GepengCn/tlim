@@ -2,9 +2,9 @@ package com.itonglian.netty;
 
 import com.itonglian.netty.impl.*;
 import com.itonglian.utils.StringConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class NettyHttpMapper {
 
     private NettyHttpActor nettyHttpActor;
@@ -13,13 +13,11 @@ public class NettyHttpMapper {
 
     private String jsonValue;
 
-    private static final Logger logger = LoggerFactory.getLogger(NettyHttpMapper.class);
-
 
     public NettyHttpMapper(String path,String jsonValue) {
         this.path = parsePath(path);
         this.jsonValue = jsonValue;
-        logger.info("请求已达NettyHttpMapper...,请求方法["+this.path+"]");
+        log.debug("请求已达NettyHttpMapper...,请求方法["+this.path+"]");
         switch (this.path){
             case "systemMessage":
             case "approval":

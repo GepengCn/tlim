@@ -12,14 +12,12 @@ import io.netty.util.CharsetUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -38,9 +36,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 send(ctx,parseResult(new Result("error","非法请求")),HttpResponseStatus.BAD_REQUEST);
                 return;
             }
-            logger.info("已接受HTTP请求:"+path);
-            logger.info("HTTP请求类型:"+method);
-            logger.info("请求参数params:"+params);
+            log.debug("已接受HTTP请求:"+path);
+            log.debug("HTTP请求类型:"+method);
+            log.debug("请求参数params:"+params);
             //如果是GET请求
             if(HttpMethod.GET.equals(method)){
                 //接受到的消息，做业务逻辑处理...
@@ -52,7 +50,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 //接受到的消息，做业务逻辑处理...
                 send(ctx,parseResult(new Result("ok","POST请求")),HttpResponseStatus.OK);
                 boolean success = new NettyHttpMapper(path,params).execute();
-                logger.info("处理结果["+success+"]...");
+                log.debug("处理结果["+success+"]...");
                 return;
             }
 
@@ -69,8 +67,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 return;
             }
         }catch(Exception e){
-            logger.error("处理请求失败!");
-            logger.error(ExceptionUtils.getFullStackTrace(e));
+            log.debug("处理请求失败!");
+            log.debug(ExceptionUtils.getFullStackTrace(e));
         }finally{
             //释放请求
             httpRequest.release();

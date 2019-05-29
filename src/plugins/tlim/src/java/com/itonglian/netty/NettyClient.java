@@ -12,15 +12,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
+@Slf4j
 public class NettyClient implements Runnable{
-
-    private static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
 
     private String jsonValue;
 
@@ -55,15 +53,15 @@ public class NettyClient implements Runnable{
             int port = XMLProperties.getNettyClientPort();
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
             if(channelFuture.isSuccess()){
-                logger.info("NettyClient 已连接至NettyServer");
-                logger.info("NettyServer ip:"+host+",port:"+port);
+                log.debug("NettyClient 已连接至NettyServer");
+                log.debug("NettyServer ip:"+host+",port:"+port);
             }else {
                 return;
             }
             String url = "http://"+host+":"+port+XMLProperties.getChannelCode()+StringConstants.NETTY+method;
             URI uri = new URI(url);
-            logger.info("NettyClient 正在连接HTTP请求:"+url);
-            logger.info("NettyClient HTTP请求参数:"+jsonValue);
+            log.debug("NettyClient 正在连接HTTP请求:"+url);
+            log.debug("NettyClient HTTP请求参数:"+jsonValue);
             DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                                          uri.toASCIIString(), Unpooled.wrappedBuffer(jsonValue.getBytes("UTF-8")));
 
@@ -77,7 +75,7 @@ public class NettyClient implements Runnable{
             channelFuture.channel().closeFuture().sync();
 
         }catch (Exception e){
-            logger.error(ExceptionUtils.getFullStackTrace(e));
+            log.error("error",e);
         }finally {
             workerGroup.shutdownGracefully();
         }
